@@ -104,3 +104,6 @@ docs/
 ## Status
 
 Early development. The mentor persona, pedagogy, and profile system are working. Cohort-specific lesson scaffolds are next.
+
+<!-- Test auto-fix -->
+
