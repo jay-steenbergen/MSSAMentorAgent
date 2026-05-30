@@ -95,14 +95,14 @@ Write-Info "Detected changes: $($uniqueTypes -join ', ')"
 
 # Paths
 $graphDir = Join-Path $repoRoot '.github' 'knowledge-graph'
-$autoDiscoverScript = Join-Path $graphDir 'data' 'system' 'auto-discover-features.ps1'
-$extractScript = Join-Path $graphDir 'data' 'code' 'extract.ps1'
+$autoDiscoverScript = Join-Path $graphDir 'build' 'auto-discover-features.ps1'
+$extractScript = Join-Path $graphDir 'build' 'extract-code-graph.ps1'
 $mergeScript = Join-Path $graphDir 'build' 'merge.ps1'
 $fixDanglingScript = Join-Path $graphDir 'build' 'fix-dangling-edges.ps1'
 
-$systemGraph = Join-Path $graphDir 'data' 'system' 'mentor-graph.json'
-$codeGraph = Join-Path $graphDir 'data' 'code' 'code-graph.json'
-$mergedGraph = Join-Path $graphDir 'merged-graph.json'
+$systemGraph = Join-Path $graphDir 'data' 'MentorAgent' 'system' 'mentor-graph.json'
+$codeGraph = Join-Path $graphDir 'data' 'MentorAgent' 'code' 'code-graph.json'
+$mergedGraph = Join-Path $graphDir 'output' 'merged-graph.json'
 
 # Track if we made changes
 $graphChanged = $false
@@ -189,19 +189,20 @@ if ($graphChanged) {
         exit 1
     }
 
-    # Step 5: Verify graph health
+    # Step 5: Verify graph health and auto-remediate
     Write-Header "✅ Verifying graph health..."
     try {
         $healthScript = Join-Path $graphDir 'build' 'health.ps1'
-        $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged -Quiet 2>&1 | Out-String
+        $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged 2>&1 | Out-String
         
-        # Parse health checks for CRITICAL failures only
-        # FAIL dangling-edges = BLOCK commit
-        # FAIL stub-nodes = ALLOW (expected for build scripts)
-        # WARN anything = ALLOW
-        $hasDanglingEdges = $healthOutput -match '\[FAIL\]\s+dangling-edges'
-        $hasDuplicateIds = $healthOutput -match '\[FAIL\]\s+duplicate-node-ids'
+        # Parse health checks
+        $hasDanglingEdges = $healthOutput -match '\[FAIL\]\s+dangling-edges\s+\((\d+)\)'
+        $hasDuplicateIds = $healthOutput -match '\[FAIL\]\s+duplicate-node-ids\s+\((\d+)\)'
+        $hasStubNodes = $healthOutput -match '\[FAIL\]\s+stub-nodes\s+\((\d+)\)'
+        $hasOrphans = $healthOutput -match '\[WARN\]\s+orphan-nodes\s+\((\d+)\)'
+        $hasIslands = $healthOutput -match '\[WARN\]\s+islands\s+\((\d+)\)'
         
+        # CRITICAL: Block commit on connectivity issues
         if ($hasDanglingEdges -or $hasDuplicateIds) {
             Write-Error "Graph has CRITICAL failures (connectivity issues)"
             Write-Host ""
@@ -214,12 +215,60 @@ if ($graphChanged) {
             exit 1
         }
         
-        # Parse summary line if present
+        # AUTO-FIX: Stub nodes (files exist but not in graph)
+        if ($hasStubNodes) {
+            $stubCount = [int]$matches[1]
+            Write-Warning "Found $stubCount stub nodes (files not yet extracted)"
+            Write-Header "🔧 Auto-fixing: Re-running extract..."
+            
+            try {
+                & pwsh -NoProfile -File $extractScript | Out-Null
+                & pwsh -NoProfile -File $mergeScript | Out-Null
+                & pwsh -NoProfile -File $fixDanglingScript | Out-Null
+                
+                # Re-check health
+                $healthOutput2 = & pwsh -NoProfile -File $healthScript -Layer merged 2>&1 | Out-String
+                $stillHasStubs = $healthOutput2 -match '\[FAIL\]\s+stub-nodes\s+\((\d+)\)'
+                
+                if (-not $stillHasStubs) {
+                    Write-Success "Stub nodes resolved"
+                    $graphChanged = $true
+                } else {
+                    Write-Warning "Some stub nodes remain (might be intentional)"
+                }
+            } catch {
+                Write-Warning "Auto-fix failed: $_"
+            }
+        }
+        
+        # REPORT: Orphan nodes (no edges)
+        if ($hasOrphans) {
+            $orphanCount = [int]$matches[1]
+            Write-Warning "Found $orphanCount orphan nodes (no edges)"
+            Write-Info "These may need manual wiring. Run:"
+            Write-Info "  pwsh .github/knowledge-graph/build/health.ps1 -Layer merged | Select-String orphan -Context 5"
+        }
+        
+        # REPORT: Islands (disconnected components)
+        if ($hasIslands) {
+            $islandCount = [int]$matches[1]
+            Write-Warning "Found $islandCount island nodes (disconnected components)"
+            Write-Info "Normal for growing graphs. Will connect over time."
+        }
+        
+        # Parse summary line
         if ($healthOutput -match 'Summary:\s*PASS\s*(\d+)\s*\|\s*WARN\s*(\d+)\s*\|\s*FAIL\s*(\d+)') {
             $pass = [int]$matches[1]
             $warn = [int]$matches[2]
             $fail = [int]$matches[3]
-            Write-Success "Graph health: PASS $pass | WARN $warn | FAIL $fail (non-critical)"
+            
+            if ($fail -eq 0 -and $warn -eq 0) {
+                Write-Success "Graph health: All checks passed"
+            } elseif ($fail -eq 0) {
+                Write-Success "Graph health: PASS $pass | WARN $warn (non-critical)"
+            } else {
+                Write-Success "Graph health: PASS $pass | WARN $warn | FAIL $fail (auto-fixed or non-critical)"
+            }
         } else {
             Write-Success "Graph connectivity verified"
         }
