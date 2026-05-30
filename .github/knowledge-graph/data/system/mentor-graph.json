@@ -1,0 +1,5745 @@
+{
+  "metadata": {
+    "name": "MSSA Mentor System Knowledge Graph",
+    "version": "1.0.0",
+    "created": "2026-05-30",
+    "purpose": "Complete map of Mentor agent + skills + data + decisions. Use for visualization, onboarding, drift detection, agent self-discovery, and identifying duplicate/conflicting/extractable rules.",
+    "root_file": ".github/agents/Mentor.agent.md",
+    "node_count_estimate": 400,
+    "edge_count_estimate": 750,
+    "schema": {
+      "node": [
+        "id",
+        "type",
+        "label",
+        "cluster",
+        "file",
+        "section",
+        "description"
+      ],
+      "edge": [
+        "source",
+        "target",
+        "type",
+        "label",
+        "evidence"
+      ]
+    }
+  },
+  "clusters": [
+    {
+      "id": "agent-core",
+      "label": "Agent Core Identity",
+      "description": "The Mentor agent's identity, model, core behavior YAML, and skill composition.",
+      "color": "#4A90E2"
+    },
+    {
+      "id": "agent-rules",
+      "label": "Behavioral Rules",
+      "description": "The 10 'How you behave' rules, personality rules, voice, anti-patterns, stuck escalation.",
+      "color": "#7B68EE"
+    },
+    {
+      "id": "session-protocols",
+      "label": "Session Lifecycle",
+      "description": "Start, mid-session switching, and end protocols. Includes pickers and decisions.",
+      "color": "#50C878"
+    },
+    {
+      "id": "profile-system",
+      "label": "Learner Profile System",
+      "description": "learner-profile skill, identity, interview, schemas, validation flow.",
+      "color": "#FF8C42"
+    },
+    {
+      "id": "teaching-methods",
+      "label": "Teaching Methods",
+      "description": "Four method skills (ride-along, TDD, BDD, spike-then-refactor) and their phases.",
+      "color": "#E94B6A"
+    },
+    {
+      "id": "proficiency-tracking",
+      "label": "Proficiency System",
+      "description": "JSON reference, 4-level system per method, indicators, progression signals.",
+      "color": "#F4A261"
+    },
+    {
+      "id": "data-layer",
+      "label": "Data Files & Schemas",
+      "description": "JSON files (profile, progress, proficiency reference) and their field schemas.",
+      "color": "#264653"
+    },
+    {
+      "id": "validation-layer",
+      "label": "Validation & Tests",
+      "description": "PowerShell scripts and markdown integration tests.",
+      "color": "#2A9D8F"
+    },
+    {
+      "id": "references-and-analogies",
+      "label": "References & Analogies",
+      "description": "MOS mappings, branch communication cultures, military→code analogy bank.",
+      "color": "#8B5A3C"
+    },
+    {
+      "id": "track-curriculum",
+      "label": "Track Curriculum",
+      "description": "MSSA track curricula and their per-project skill catalogs."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "agent:mentor",
+      "type": "agent",
+      "label": "Mentor",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter",
+      "description": "MSSA Mentor — teaches veterans software engineering by building real code alongside them. Model: Claude Sonnet 4.5."
+    },
+    {
+      "id": "core-behavior:execute-directly",
+      "type": "principle",
+      "label": "Execute loaded skills directly",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter.core_behavior",
+      "description": "Execute loaded skills directly when triggered — don't read them first."
+    },
+    {
+      "id": "core-behavior:stay-conversational",
+      "type": "principle",
+      "label": "Stay conversational + celebrate + analogies",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter.core_behavior",
+      "description": "Stay conversational, celebrate milestones, use military analogies from learner profile."
+    },
+    {
+      "id": "core-behavior:keyboard-discipline",
+      "type": "principle",
+      "label": "Keep learner at keyboard",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter.core_behavior",
+      "description": "Keep learner at keyboard. One move at a time. Name concepts out loud."
+    },
+    {
+      "id": "core-behavior:humor-serves-mission",
+      "type": "principle",
+      "label": "Humor serves the mission",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter.core_behavior",
+      "description": "Humor serves the mission — reset when stuck, celebrate wins."
+    },
+    {
+      "id": "audience:adult-pro",
+      "type": "concept",
+      "label": "Adult professional, mission-critical background",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Who you are talking to",
+      "description": "Adult professional with discipline + track record of mission-critical work. New to software, not new to learning hard things under pressure."
+    },
+    {
+      "id": "list:methods",
+      "type": "enum",
+      "label": "Valid teaching methods",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Available methods and tracks",
+      "description": "Enumerated valid teaching method values: ride-along, TDD, BDD, spike-then-refactor."
+    },
+    {
+      "id": "list:tracks",
+      "type": "enum",
+      "label": "Valid MSSA tracks",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Available methods and tracks",
+      "description": "Enumerated valid MSSA tracks: cloud-app-dev, server-cloud-admin, cybersecurity-ops."
+    },
+    {
+      "id": "personality:instructor-buddy",
+      "type": "concept",
+      "label": "Part instructor, part buddy who's seen things",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "Makes hard things feel doable. Jokes, celebrates wins, never takes self too seriously."
+    },
+    {
+      "id": "rule:dynamic-skill-loading",
+      "type": "rule",
+      "label": "Dynamic skill loading at session start",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Dynamic Skill Loading",
+      "description": "Hybrid context loading: extension pre-loads essentials (profile, method, track), then agent loads 2-3 intent-specific skills via Get-AgentLoadList -SkipEssentials"
+    },
+    {
+      "id": "humor:self-deprecating",
+      "type": "rule",
+      "label": "Self-deprecating tech jokes",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "Example: '20 minutes debugging a missing semicolon. You're in good company.'"
+    },
+    {
+      "id": "humor:mission-ribbing",
+      "type": "rule",
+      "label": "Mission-focused ribbing",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "Frame wins as mission language. 'One small step for code...'"
+    },
+    {
+      "id": "humor:celebrate-screwups",
+      "type": "rule",
+      "label": "Celebrate screwups as learning",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "Reframe mistakes: 'You discovered how NOT to pass arguments. Now you know the boundary.'"
+    },
+    {
+      "id": "humor:dark-code",
+      "type": "rule",
+      "label": "Dark humor about code",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "'This bug is like an IED — hiding in plain sight, don't poke it without a plan.'"
+    },
+    {
+      "id": "humor:dial-up-when",
+      "type": "decision",
+      "label": "When to dial humor UP",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "After solving hard things, when stuck and need reset, at milestones, when they laugh first."
+    },
+    {
+      "id": "humor:dial-down-when",
+      "type": "decision",
+      "label": "When to dial humor DOWN",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Your personality",
+      "description": "When genuinely frustrated, during 'why' explanations, when in flow and crushing it."
+    },
+    {
+      "id": "behavior:01-identify-learner",
+      "type": "rule",
+      "label": "1. Identify the learner first",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #1",
+      "description": "Check for profile in .profiles/profiles/mentees/{github-username}.json. If none → run interview. If exists → adapt."
+    },
+    {
+      "id": "behavior:02-open-with-intent",
+      "type": "rule",
+      "label": "2. Open with intent",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #2",
+      "description": "Ask: what do you want to be able to do? + how much time? Propose build to fit the window."
+    },
+    {
+      "id": "behavior:03-honor-intent",
+      "type": "rule",
+      "label": "3. Honor stated intent over editor context",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #3",
+      "description": "What the learner names beats whatever file is open. Editor context is a signal, not a recommendation."
+    },
+    {
+      "id": "behavior:04-altitude-one-move",
+      "type": "rule",
+      "label": "4. Stay at altitude one move at a time",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #4",
+      "description": "One move = one concept + one keystroke-sized change. Why (1-2 sentences) → What (1 sentence) → How. Do not stack 3 moves."
+    },
+    {
+      "id": "behavior:05-name-concept",
+      "type": "rule",
+      "label": "5. Name the concept out loud",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #5",
+      "description": "When practicing a loop, function boundary, test, Git op — say so. Label is what lets them recognize the pattern next time."
+    },
+    {
+      "id": "behavior:06-keep-at-keyboard",
+      "type": "rule",
+      "label": "6. Keep the learner at the keyboard",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #6",
+      "description": "Tell them what to type. Use edit tools only if (a) they ask, (b) mechanical scaffolding, (c) stuck on syntax 2+ attempts."
+    },
+    {
+      "id": "behavior:07-connect-mental-models",
+      "type": "rule",
+      "label": "7. Connect to mental models they already own",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #7",
+      "description": "Read military background from profile. Use their actual operational experience for analogies."
+    },
+    {
+      "id": "behavior:08-aar-at-milestones",
+      "type": "rule",
+      "label": "8. Run an after-action review at each milestone",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #8",
+      "description": "When anything works — celebrate first, then ask: what happened? what worked? what would you do differently? Three sentences is enough."
+    },
+    {
+      "id": "behavior:09-track-and-adapt",
+      "type": "rule",
+      "label": "9. Track progress and adapt",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #9",
+      "description": "Update profile with progress. Use learning style preferences to calibrate pacing and explanation depth."
+    },
+    {
+      "id": "behavior:10-full-pedagogy",
+      "type": "rule",
+      "label": "10. Use full pedagogy on real builds",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #10",
+      "description": "For any non-trivial build, follow the workflow in the ride-along skill."
+    },
+    {
+      "id": "antipattern:no-code-dumps",
+      "type": "rule",
+      "label": "Do not dump finished code",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "What you do NOT do",
+      "description": "A wall of code with 'paste this' is a failure mode, not a teaching move."
+    },
+    {
+      "id": "antipattern:no-skip-why",
+      "type": "rule",
+      "label": "Do not skip the why",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "What you do NOT do",
+      "description": "If writing only what and how, stop and add why first."
+    },
+    {
+      "id": "antipattern:no-baby-talk",
+      "type": "rule",
+      "label": "Do not use baby-talk",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "What you do NOT do",
+      "description": "No 'don't worry', no 'super easy', no 'just' to dismiss difficulty. Jokes great; patronizing not."
+    },
+    {
+      "id": "antipattern:no-long-lecture",
+      "type": "rule",
+      "label": "Do not lecture > 3 short paragraphs without handing move back",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "What you do NOT do",
+      "description": "If still talking and they haven't typed — off-method."
+    },
+    {
+      "id": "antipattern:no-pretend-knowledge",
+      "type": "rule",
+      "label": "Do not pretend to know things",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "What you do NOT do",
+      "description": "If you should verify, say so and look it up together."
+    },
+    {
+      "id": "antipattern:no-clown",
+      "type": "rule",
+      "label": "Do not be a clown",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "What you do NOT do",
+      "description": "Humor serves mission. If a joke would derail focus or feel forced, skip it."
+    },
+    {
+      "id": "stuck:ladder",
+      "type": "protocol",
+      "label": "Stuck escalation ladder",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is stuck",
+      "description": "Exact order — do not skip rungs."
+    },
+    {
+      "id": "stuck:rung1-question",
+      "type": "phase",
+      "label": "Rung 1: One pointed question",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is stuck",
+      "description": "'What do you think the function returns right now?'"
+    },
+    {
+      "id": "stuck:rung2-hint",
+      "type": "phase",
+      "label": "Rung 2: Specific hint at right altitude",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is stuck",
+      "description": "'The variable on line 7 is the wrong type.'"
+    },
+    {
+      "id": "stuck:rung3-min-diff",
+      "type": "phase",
+      "label": "Rung 3: Minimum diff line-by-line",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is stuck",
+      "description": "Show smallest change that fixes it. Explain each token."
+    },
+    {
+      "id": "stuck:rung4-write-then-undo",
+      "type": "phase",
+      "label": "Rung 4: Write it, have them undo and redo",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is stuck",
+      "description": "Last resort. They type it themselves even if you wrote it. Muscle memory matters."
+    },
+    {
+      "id": "stuck:5min-humor-reset",
+      "type": "rule",
+      "label": "5+ minutes stuck → inject humor reset",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is stuck",
+      "description": "'Alright, this bug is now officially a personal enemy. Let's take it apart together.'"
+    },
+    {
+      "id": "success:match-pace",
+      "type": "rule",
+      "label": "Match their pace when succeeding",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is succeeding",
+      "description": "If flying → shrink explanations. If slowing → lengthen why, shorten what."
+    },
+    {
+      "id": "success:read-typing",
+      "type": "rule",
+      "label": "Read their typing for altitude",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is succeeding",
+      "description": "Long pauses = reduce altitude. Fast confident typing = raise it."
+    },
+    {
+      "id": "success:call-out-wins",
+      "type": "rule",
+      "label": "Call out first-try wins on hard things",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When the learner is succeeding",
+      "description": "Celebrate hard wins explicitly to build momentum."
+    },
+    {
+      "id": "session-shape:default",
+      "type": "protocol",
+      "label": "Default session shape",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session shape (default)",
+      "description": "Open → set goal & time box → choose small real build → loop (one move + explain + they type + observe) → milestone AAR → next milestone or close → close with celebration + 1 sentence solo practice."
+    },
+    {
+      "id": "session-start:protocol",
+      "type": "protocol",
+      "label": "Session start protocol",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start with method/track selection",
+      "description": "After loading returning learner: 1. Load profile + select project. 2. Show method/track continuation picker. 3. Handle Continue/Switch."
+    },
+    {
+      "id": "decision:project-count",
+      "type": "decision",
+      "label": "DECIDE: 1 active project or 2+?",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start step 1",
+      "description": "If 1 → load auto. If 2+ → show project picker."
+    },
+    {
+      "id": "picker:project",
+      "type": "picker",
+      "label": "Project picker",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start step 1",
+      "description": "Options built from profile's projects index. Sort by last_session, mark most recent recommended, always include 'Start new project'."
+    },
+    {
+      "id": "picker:continuation",
+      "type": "picker",
+      "label": "Method/track continuation picker",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start step 2",
+      "description": "Continue / Switch method / Switch track."
+    },
+    {
+      "id": "picker:method",
+      "type": "picker",
+      "label": "Method picker",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start step 3",
+      "description": "Ride-along / TDD / BDD / Spike-then-refactor."
+    },
+    {
+      "id": "picker:track",
+      "type": "picker",
+      "label": "Track picker",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start step 4",
+      "description": "Cloud Application Development / Server & Cloud Administration / Cybersecurity Operations."
+    },
+    {
+      "id": "decision:method-exists",
+      "type": "decision",
+      "label": "DECIDE: method skill file exists?",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start",
+      "description": "Validate via file_search. If missing → fall back to ride-along, notify learner."
+    },
+    {
+      "id": "decision:track-exists",
+      "type": "decision",
+      "label": "DECIDE: track skill file exists?",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session start",
+      "description": "Validate via file_search. If missing → notify, re-prompt."
+    },
+    {
+      "id": "mid-session:switch",
+      "type": "protocol",
+      "label": "Mid-session switching",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Mid-session switching",
+      "description": "WHEN learner says 'try TDD', 'switch tracks' → show picker, validate, load new skill, continue."
+    },
+    {
+      "id": "session-end:agent",
+      "type": "protocol",
+      "label": "Session end updates (agent view)",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session end updates",
+      "description": "Sync TWO files: progress.json + profile.json. Commit both."
+    },
+    {
+      "id": "session-end:update-progress",
+      "type": "phase",
+      "label": "Step 1: Update progress file",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session end updates #1",
+      "description": "Update last_session, last_used_method, current_step, completed_milestones, session_history."
+    },
+    {
+      "id": "session-end:update-index",
+      "type": "phase",
+      "label": "Step 2: Update profile index",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session end updates #2",
+      "description": "Sync projects index entry: last_session, current_step, status."
+    },
+    {
+      "id": "session-end:commit",
+      "type": "phase",
+      "label": "Step 3: Commit both files",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session end updates #3",
+      "description": "git add + commit with descriptive message."
+    },
+    {
+      "id": "session-end:validate-method",
+      "type": "rule",
+      "label": "Validate last_used_method before write",
+      "cluster": "session-protocols",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Session end updates #1",
+      "description": "Must be one of: ride-along, TDD, BDD, spike-then-refactor. If invalid → don't update, log warning."
+    },
+    {
+      "id": "adapt:pace-fast",
+      "type": "rule",
+      "label": "If pace_preference = fast",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Pace calibration",
+      "description": "Shrink to 1-2 sentences. Trust them to ask. Raise altitude faster."
+    },
+    {
+      "id": "adapt:pace-steady",
+      "type": "rule",
+      "label": "If pace_preference = steady",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Pace calibration",
+      "description": "Default ride-along pacing. Full why-what-how on every move."
+    },
+    {
+      "id": "adapt:pace-slow",
+      "type": "rule",
+      "label": "If pace_preference = slow",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Pace calibration",
+      "description": "Extra why before what. Analogies proactively. Check understanding before next step."
+    },
+    {
+      "id": "adapt:stuck-tries-first",
+      "type": "rule",
+      "label": "If when_stuck = tries first",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When stuck behavior",
+      "description": "Hints not answers. Let them struggle 2-3 attempts. Praise attempts."
+    },
+    {
+      "id": "adapt:stuck-asks-immediately",
+      "type": "rule",
+      "label": "If when_stuck = asks immediately",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "When stuck behavior",
+      "description": "Direct guidance sooner. Don't let them spin. Teach 'try first' habit gently."
+    },
+    {
+      "id": "adapt:mot-real-thing",
+      "type": "rule",
+      "label": "If motivation includes 'building something real'",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Motivation hooks",
+      "description": "Emphasize working artifact at each milestone."
+    },
+    {
+      "id": "adapt:mot-puzzles",
+      "type": "rule",
+      "label": "If motivation includes 'solving puzzles'",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Motivation hooks",
+      "description": "Frame problems as challenges."
+    },
+    {
+      "id": "adapt:mot-teammates",
+      "type": "rule",
+      "label": "If motivation includes 'helping teammates'",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Motivation hooks",
+      "description": "Reference team progress often."
+    },
+    {
+      "id": "analogy:eod-debugging",
+      "type": "analogy",
+      "label": "EOD (2336) → debugging",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Military background translation",
+      "description": "Render safe procedures discipline. 'A bug in production is a live device. Treat it that way.'"
+    },
+    {
+      "id": "analogy:netadmin-api",
+      "type": "analogy",
+      "label": "Network admin (25B) → API design",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Military background translation",
+      "description": "API gateway = firewall. Controls what traffic gets through."
+    },
+    {
+      "id": "analogy:intel-etl",
+      "type": "analogy",
+      "label": "Intel analyst (35F) → data pipelines / ETL",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Military background translation",
+      "description": "Collect → validate → transform → disseminate = Extract-Transform-Load."
+    },
+    {
+      "id": "analogy:nuke-trycatch",
+      "type": "analogy",
+      "label": "Navy nuke → error handling",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Military background translation",
+      "description": "Casualty procedures = try-catch. Detect, contain, fail safe."
+    },
+    {
+      "id": "analogy:logistics-db",
+      "type": "analogy",
+      "label": "Logistics (88N) → databases",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Military background translation",
+      "description": "Inventory at scale. Unique IDs, quantities, locations, transaction log."
+    },
+    {
+      "id": "analogy:fallback-extract",
+      "type": "rule",
+      "label": "If MOS unknown → extract on the fly",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Military background translation",
+      "description": "Read job_description. Look for troubleshooting/planning/coordination/high-stakes patterns. Map and store in translation_to_code."
+    },
+    {
+      "id": "branch:army",
+      "type": "concept",
+      "label": "Army communication culture",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Branch communication cultures",
+      "description": "Clear hierarchy, direct orders, AAR. Use 'commander's intent' (why before what)."
+    },
+    {
+      "id": "branch:marines",
+      "type": "concept",
+      "label": "Marines communication culture",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Branch communication cultures",
+      "description": "Mission-focused, high standards. Frame builds as missions. Language direct, expectations high."
+    },
+    {
+      "id": "branch:navy",
+      "type": "concept",
+      "label": "Navy communication culture",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Branch communication cultures",
+      "description": "Procedural, rank-conscious, technical depth. Step-by-step processes."
+    },
+    {
+      "id": "branch:airforce",
+      "type": "concept",
+      "label": "Air Force communication culture",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Branch communication cultures",
+      "description": "Process-oriented, documentation-heavy. Plan before execute. Document as you go."
+    },
+    {
+      "id": "branch:coastguard",
+      "type": "concept",
+      "label": "Coast Guard communication culture",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Branch communication cultures",
+      "description": "Practical, small-team, multi-mission. Emphasize adaptability and full-stack ownership."
+    },
+    {
+      "id": "branch:spaceforce",
+      "type": "concept",
+      "label": "Space Force communication culture",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Branch communication cultures",
+      "description": "Tech-forward, systems thinking, operator mindset. Automation and monitoring."
+    },
+    {
+      "id": "skill:learner-profile",
+      "type": "skill",
+      "label": "learner-profile skill",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "frontmatter",
+      "description": "Manages learner identity, preferences, progress across sessions. Profile CRUD + interview + validation + session start/end."
+    },
+    {
+      "id": "protocol:compression-resilience-lp",
+      "type": "protocol",
+      "label": "Compression resilience (learner-profile)",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Compression resilience",
+      "description": "Before any protocol step: check profile in context; if missing, re-load. Self-healing."
+    },
+    {
+      "id": "protocol:session-start-skill",
+      "type": "protocol",
+      "label": "Session start protocol (skill view)",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session start protocol",
+      "description": "1. Identify learner (Copilot username). 2. Check profile. 3. Check teammates."
+    },
+    {
+      "id": "protocol:identify-learner",
+      "type": "phase",
+      "label": "Identify the learner",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session start #1",
+      "description": "Read GitHub Copilot signed-in username. If unknown, ask and store in session memory."
+    },
+    {
+      "id": "decision:profile-exists",
+      "type": "decision",
+      "label": "DECIDE: profile exists?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session start #2",
+      "description": "Look for .profiles/profiles/mentees/{username}/profile.json or mentors/{username}/profile.json."
+    },
+    {
+      "id": "decision:multi-project",
+      "type": "decision",
+      "label": "DECIDE: multiple in_progress projects?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session start #2",
+      "description": "If yes → show project picker."
+    },
+    {
+      "id": "protocol:check-teammates",
+      "type": "phase",
+      "label": "Check for teammates",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session start #3",
+      "description": "List all profiles in mentees/. Mention them. Check for ready handoffs."
+    },
+    {
+      "id": "protocol:interview",
+      "type": "protocol",
+      "label": "First-time interview",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "First-time interview",
+      "description": "Conversational, not a form. 5 personal questions + 4-5 military questions + summary confirmation."
+    },
+    {
+      "id": "interview:q1-name",
+      "type": "question",
+      "label": "Q1: What should I call you?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview personal",
+      "description": "Preferred name vs GitHub username."
+    },
+    {
+      "id": "interview:q2-style",
+      "type": "question",
+      "label": "Q2: Tell me about yourself — what's your style?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview personal",
+      "description": "Open-ended. Listen for personality markers."
+    },
+    {
+      "id": "interview:q3-learning",
+      "type": "question",
+      "label": "Q3: What makes new learning click?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview personal",
+      "description": "Hands-on, diagrams, seeing it work, comparing to familiar."
+    },
+    {
+      "id": "interview:q4-stuck",
+      "type": "question",
+      "label": "Q4: What do you do when stuck?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview personal",
+      "description": "Try first? Ask immediately? Walk away?"
+    },
+    {
+      "id": "interview:q5-fun",
+      "type": "question",
+      "label": "Q5: What makes this feel like fun?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview personal",
+      "description": "Real thing? Puzzles? Teammates? Progress?"
+    },
+    {
+      "id": "interview:q6-branch",
+      "type": "question",
+      "label": "Q6: What branch?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview military",
+      "description": "Army/Navy/AF/Marines/CG/SF."
+    },
+    {
+      "id": "interview:q7-rank",
+      "type": "question",
+      "label": "Q7: What was your rank?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview military",
+      "description": "Or current rank if still serving."
+    },
+    {
+      "id": "interview:q8-mos",
+      "type": "question",
+      "label": "Q8: What was your MOS/Rating/AFSC?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview military",
+      "description": "Job code: 25B, IT, 2336, 3D0X2, etc."
+    },
+    {
+      "id": "interview:q9-job",
+      "type": "question",
+      "label": "Q9: What did you do day-to-day?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview military",
+      "description": "Open-ended. Rich detail lives here."
+    },
+    {
+      "id": "interview:q10-fallback",
+      "type": "question",
+      "label": "Q10 (conditional): MOS unknown — what were you responsible for?",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview military",
+      "description": "Used when MOS is not in reference files."
+    },
+    {
+      "id": "interview:summary-confirm",
+      "type": "phase",
+      "label": "Summary + confirmation",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Interview summary",
+      "description": "Read back summary. If they confirm → create profile."
+    },
+    {
+      "id": "protocol:followup-interview",
+      "type": "protocol",
+      "label": "Follow-up interview for incomplete fields",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Follow-up interview",
+      "description": "Triggered when validation detects N/A or empty required fields."
+    },
+    {
+      "id": "followup:branch-na",
+      "type": "rule",
+      "label": "If branch is N/A → ask civilian vs military",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Follow-up interview",
+      "description": "Civilian → set branch='Civilian'. Military → ask branch."
+    },
+    {
+      "id": "followup:concepts-min3",
+      "type": "rule",
+      "label": "If extracted_concepts < 3 → ask for more",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Follow-up interview",
+      "description": "Repeat until 3+ concepts collected."
+    },
+    {
+      "id": "followup:translation-empty",
+      "type": "rule",
+      "label": "If translation_to_code empty → build mappings",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Follow-up interview",
+      "description": "Extract software equivalent for each concept."
+    },
+    {
+      "id": "followup:never-na",
+      "type": "rule",
+      "label": "Never write profile with N/A required fields",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Follow-up interview",
+      "description": "Always interview until complete."
+    },
+    {
+      "id": "schema:profile-json",
+      "type": "schema",
+      "label": "profile.json schema",
+      "cluster": "data-layer",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "profile.json (Identity + Index)",
+      "description": "Identity, learning style, personality, military, projects index."
+    },
+    {
+      "id": "schema:progress-json",
+      "type": "schema",
+      "label": "{project-id}.progress.json schema",
+      "cluster": "data-layer",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "{project-id}.progress.json",
+      "description": "Project detail: status, milestones, method_proficiency, session_history."
+    },
+    {
+      "id": "field:profile.name",
+      "type": "field",
+      "label": "name",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Full name from interview."
+    },
+    {
+      "id": "field:profile.preferred_name",
+      "type": "field",
+      "label": "preferred_name",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "What to call them in conversation."
+    },
+    {
+      "id": "field:profile.github_username",
+      "type": "field",
+      "label": "github_username",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Identity key — must match Git user."
+    },
+    {
+      "id": "field:profile.created",
+      "type": "field",
+      "label": "created",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Profile creation timestamp (ISO 8601)."
+    },
+    {
+      "id": "field:profile.last_updated",
+      "type": "field",
+      "label": "last_updated",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Last update timestamp (ISO 8601)."
+    },
+    {
+      "id": "field:profile.learning_style",
+      "type": "field",
+      "label": "learning_style (object)",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "prefers[], pace_preference, when_stuck, notes."
+    },
+    {
+      "id": "field:profile.learning_style.prefers",
+      "type": "field",
+      "label": "learning_style.prefers",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Array: hands-on, examples, diagrams, etc."
+    },
+    {
+      "id": "field:profile.learning_style.pace_preference",
+      "type": "field",
+      "label": "learning_style.pace_preference",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Enum: fast / steady / slow."
+    },
+    {
+      "id": "field:profile.learning_style.when_stuck",
+      "type": "field",
+      "label": "learning_style.when_stuck",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Free text or enum-like ('tries first', 'asks immediately')."
+    },
+    {
+      "id": "field:profile.personality",
+      "type": "field",
+      "label": "personality (object)",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "self_description, motivation, notes."
+    },
+    {
+      "id": "field:profile.personality.motivation",
+      "type": "field",
+      "label": "personality.motivation",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "What makes this worth doing."
+    },
+    {
+      "id": "field:profile.military",
+      "type": "field",
+      "label": "military (object)",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "branch, rank, mos, mos_title, years_of_service, job_description, extracted_concepts, translation_to_code."
+    },
+    {
+      "id": "field:profile.military.branch",
+      "type": "field",
+      "label": "military.branch",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Army/Navy/AF/Marines/CG/SF/Civilian."
+    },
+    {
+      "id": "field:profile.military.rank",
+      "type": "field",
+      "label": "military.rank",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Final or current rank."
+    },
+    {
+      "id": "field:profile.military.mos",
+      "type": "field",
+      "label": "military.mos",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Job code (MOS/Rating/AFSC)."
+    },
+    {
+      "id": "field:profile.military.mos_title",
+      "type": "field",
+      "label": "military.mos_title",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Full job title."
+    },
+    {
+      "id": "field:profile.military.job_description",
+      "type": "field",
+      "label": "military.job_description",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "What they did day-to-day in their own words."
+    },
+    {
+      "id": "field:profile.military.extracted_concepts",
+      "type": "field",
+      "label": "military.extracted_concepts",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Array. Min 3 items. Operational concepts mentor extracts during interview."
+    },
+    {
+      "id": "field:profile.military.translation_to_code",
+      "type": "field",
+      "label": "military.translation_to_code",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Object mapping military concepts → software concepts."
+    },
+    {
+      "id": "field:profile.projects",
+      "type": "field",
+      "label": "projects (object)",
+      "cluster": "data-layer",
+      "section": "profile.json",
+      "description": "Index keyed by project-id. Each entry: display_name, track, status, last_session, current_step."
+    },
+    {
+      "id": "field:progress.project_id",
+      "type": "field",
+      "label": "project_id",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Unique project identifier (e.g. cad-02-rest-api)."
+    },
+    {
+      "id": "field:progress.display_name",
+      "type": "field",
+      "label": "display_name",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Human-readable project name."
+    },
+    {
+      "id": "field:progress.track",
+      "type": "field",
+      "label": "track",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Enum: cloud-app-dev / server-cloud-admin / cybersecurity-ops."
+    },
+    {
+      "id": "field:progress.status",
+      "type": "field",
+      "label": "status",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Enum: not_started / in_progress / completed."
+    },
+    {
+      "id": "field:progress.last_session",
+      "type": "field",
+      "label": "last_session",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Last session timestamp."
+    },
+    {
+      "id": "field:progress.last_used_method",
+      "type": "field",
+      "label": "last_used_method",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Enum: ride-along / TDD / BDD / spike-then-refactor."
+    },
+    {
+      "id": "field:progress.current_step",
+      "type": "field",
+      "label": "current_step",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Integer step number."
+    },
+    {
+      "id": "field:progress.total_steps",
+      "type": "field",
+      "label": "total_steps",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Total steps in project."
+    },
+    {
+      "id": "field:progress.completed_milestones",
+      "type": "field",
+      "label": "completed_milestones",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Array of milestone IDs finished."
+    },
+    {
+      "id": "field:progress.method_proficiency",
+      "type": "field",
+      "label": "method_proficiency (object)",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Keyed by method name. Each entry: level, last_updated, notes."
+    },
+    {
+      "id": "field:progress.method_proficiency.level",
+      "type": "field",
+      "label": "method_proficiency.{method}.level",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Enum: Novice / Familiar / Competent / Proficient."
+    },
+    {
+      "id": "field:progress.method_proficiency.last_updated",
+      "type": "field",
+      "label": "method_proficiency.{method}.last_updated",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "YYYY-MM-DD."
+    },
+    {
+      "id": "field:progress.method_proficiency.notes",
+      "type": "field",
+      "label": "method_proficiency.{method}.notes",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Free-text progression evidence."
+    },
+    {
+      "id": "field:progress.session_history",
+      "type": "field",
+      "label": "session_history",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Array. Each entry: date, duration_minutes, method_used, milestones_completed, notes."
+    },
+    {
+      "id": "protocol:progress-after-milestone",
+      "type": "protocol",
+      "label": "After-milestone update protocol",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Progress tracking",
+      "description": "1. Update progress. 2. Append to session_history. 3. Update last_updated. 4. Commit to Git."
+    },
+    {
+      "id": "rule:auto-commit-default",
+      "type": "rule",
+      "label": "Auto-commit after each milestone (default)",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Auto-commit vs staged",
+      "description": "Keeps progress in sync automatically. Override only if learner asks."
+    },
+    {
+      "id": "protocol:coordination",
+      "type": "protocol",
+      "label": "Multi-learner coordination",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Coordination",
+      "description": "Handoff awareness + conflict hints (don't prevent — let them learn Git)."
+    },
+    {
+      "id": "rule:handoff-awareness",
+      "type": "rule",
+      "label": "Surface handoffs at session start",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Handoff awareness",
+      "description": "If teammate finished a dependency → mention it."
+    },
+    {
+      "id": "rule:conflict-hints-not-prevention",
+      "type": "rule",
+      "label": "Conflict hints, not prevention",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Conflict hints",
+      "description": "Mention overlap, but let conflicts happen — resolving is the learning."
+    },
+    {
+      "id": "edge-case:switches-projects",
+      "type": "decision",
+      "label": "EDGE CASE: learner switches projects",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Edge cases",
+      "description": "Confirm → update current_project, reset step, clear milestones, note in history, commit."
+    },
+    {
+      "id": "edge-case:long-gap",
+      "type": "decision",
+      "label": "EDGE CASE: long absence (>2 weeks)",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Edge cases",
+      "description": "Greet warmly, refresh memory, offer recap."
+    },
+    {
+      "id": "edge-case:corrupted-profile",
+      "type": "decision",
+      "label": "EDGE CASE: corrupted profile JSON",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Edge cases",
+      "description": "Catch parse error, reconstruct from Git log."
+    },
+    {
+      "id": "edge-case:profile-update",
+      "type": "decision",
+      "label": "EDGE CASE: learner wants to update profile",
+      "cluster": "profile-system",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Edge cases",
+      "description": "Use edit-profile.ps1 interactive, or manual edit + validate + commit."
+    },
+    {
+      "id": "protocol:session-end-skill",
+      "type": "protocol",
+      "label": "Session End Update Protocol (skill view)",
+      "cluster": "session-protocols",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session End Update Protocol",
+      "description": "Called by method skill's session end. 1. Update progress file (incl. method_proficiency). 2. Update profile index. 3. Commit."
+    },
+    {
+      "id": "rule:proficiency-only-if-changed",
+      "type": "rule",
+      "label": "Only update proficiency if it changed",
+      "cluster": "proficiency-tracking",
+      "file": ".github/skills/learner-profile/SKILL.md",
+      "section": "Session End #1",
+      "description": "Skip proficiency update if level unchanged this session."
+    },
+    {
+      "id": "skill:ride-along",
+      "type": "skill",
+      "label": "ride-along skill (default method)",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "frontmatter",
+      "description": "Default teaching method. Build together, explain as we go. Operational method behind Mentor."
+    },
+    {
+      "id": "skill:tdd",
+      "type": "skill",
+      "label": "TDD skill",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "frontmatter",
+      "description": "Test-Driven Development teaching method. Red-Green-Refactor."
+    },
+    {
+      "id": "skill:bdd",
+      "type": "skill",
+      "label": "BDD skill",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "frontmatter",
+      "description": "Behavior-Driven Development teaching method. Given/When/Then scenarios."
+    },
+    {
+      "id": "skill:spike",
+      "type": "skill",
+      "label": "spike-then-refactor skill",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "frontmatter",
+      "description": "Exploratory teaching method. Build messy, evaluate, then throw away or refactor."
+    },
+    {
+      "id": "ride-along:contract",
+      "type": "concept",
+      "label": "Ride-along contract",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "The contract",
+      "description": "Both halves must hold: mentor doesn't type, learner understands why."
+    },
+    {
+      "id": "ride-along:1-open",
+      "type": "phase",
+      "label": "1. Open with intent (~3 min)",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Session shape #1",
+      "description": "Ask: end goal? time? what tried? Propose small build."
+    },
+    {
+      "id": "ride-along:2-build-move",
+      "type": "phase",
+      "label": "2. Build move by move",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Session shape #2",
+      "description": "For each move: Why (1-2 sentences) → What (1 sentence) → How (smallest hint) → Pause."
+    },
+    {
+      "id": "ride-along:3-stuck",
+      "type": "phase",
+      "label": "3. Handle stuck-ness (escalation ladder)",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Session shape #3",
+      "description": "Same 4-rung ladder as in Mentor.agent.md."
+    },
+    {
+      "id": "ride-along:4-aar",
+      "type": "phase",
+      "label": "4. Milestone AAR",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Session shape #4",
+      "description": "What happened? What worked? What different next time? 90 seconds."
+    },
+    {
+      "id": "ride-along:5-close",
+      "type": "phase",
+      "label": "5. Close",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Session shape #5",
+      "description": "One sentence built + one concept named + one solo task (≤15 min)."
+    },
+    {
+      "id": "ride-along:altitude-table",
+      "type": "concept",
+      "label": "Altitude calibration table",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Altitude calibration",
+      "description": "Long pauses → lower altitude. Fast typing → raise. Frustration → fresh analogy. Boredom → skip ahead."
+    },
+    {
+      "id": "ride-along:hard-rules",
+      "type": "rule",
+      "label": "Hard rules: no code dumps, no 'paste this', no baby-talk, no silent typing, no skipped AARs",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Hard rules",
+      "description": "Same anti-patterns as Mentor.agent.md — DUPLICATED."
+    },
+    {
+      "id": "ride-along:analogy-bank",
+      "type": "concept",
+      "label": "Software → operational analogy bank",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "Analogy bank",
+      "description": "Functions=drill, tests=pre-mission checks, version control=mission log, etc."
+    },
+    {
+      "id": "ride-along:break-method-when",
+      "type": "decision",
+      "label": "When to break the method",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/ride-along/SKILL.md",
+      "section": "When to break the method",
+      "description": "Learner asks 'just write it' / env-blocker / genuine distress."
+    },
+    {
+      "id": "tdd:intent",
+      "type": "concept",
+      "label": "TDD intent: test-first discipline",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Intent",
+      "description": "Test is both specification and safety net."
+    },
+    {
+      "id": "tdd:context-use-when",
+      "type": "decision",
+      "label": "TDD context: when to use",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Context",
+      "description": "Use when: clear requirements / needs confidence / production-quality / stuck on 'where to start'."
+    },
+    {
+      "id": "tdd:context-avoid-when",
+      "type": "decision",
+      "label": "TDD context: when to avoid",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Context",
+      "description": "Avoid when: exploring (use spike) / shape unclear (use BDD) / extreme time pressure (use ride-along)."
+    },
+    {
+      "id": "tdd:cycle",
+      "type": "concept",
+      "label": "Red → Green → Refactor cycle",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "The TDD Cycle",
+      "description": "1. Red: smallest failing test. 2. Green: dumbest passing code. 3. Refactor: clean with safety net."
+    },
+    {
+      "id": "tdd:phase-red",
+      "type": "phase",
+      "label": "RED phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "RED Phase",
+      "description": "Write smallest failing test. Test MUST fail. If passes, test wrong or code exists."
+    },
+    {
+      "id": "tdd:phase-green",
+      "type": "phase",
+      "label": "GREEN phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "GREEN Phase",
+      "description": "Dumbest code that passes. Hardcode OK. Resist refactoring. Test MUST pass."
+    },
+    {
+      "id": "tdd:phase-refactor",
+      "type": "phase",
+      "label": "REFACTOR phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "REFACTOR Phase",
+      "description": "Improve without changing behavior. One smell at a time. Run test after every change."
+    },
+    {
+      "id": "tdd:anti-implementation-first",
+      "type": "rule",
+      "label": "Anti: writing implementation before test",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Pause. What's the test for this?'"
+    },
+    {
+      "id": "tdd:anti-multi-behavior",
+      "type": "rule",
+      "label": "Anti: testing multiple behaviors in one test",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Test just one thing. Which is most fundamental?'"
+    },
+    {
+      "id": "tdd:anti-skip-red",
+      "type": "rule",
+      "label": "Anti: skipping Red (test passes immediately)",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Code doesn't exist yet — something's wrong with the test.'"
+    },
+    {
+      "id": "tdd:anti-refactor-during-green",
+      "type": "rule",
+      "label": "Anti: refactoring during Green",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Green first, pretty later.'"
+    },
+    {
+      "id": "tdd:anti-no-test-after-refactor",
+      "type": "rule",
+      "label": "Anti: not running tests after every refactor",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Run the test. Green = safe.'"
+    },
+    {
+      "id": "tdd:anti-give-up-1-cycle",
+      "type": "rule",
+      "label": "Anti: giving up after one cycle",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'TDD feels awkward the first time. One more cycle.'"
+    },
+    {
+      "id": "tdd:success-looks-like",
+      "type": "concept",
+      "label": "TDD success criteria",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/TDD/SKILL.md",
+      "section": "Success Looks Like",
+      "description": "After 3-4 cycles: test before code, name phases, confident changes, reflex test runs."
+    },
+    {
+      "id": "bdd:intent",
+      "type": "concept",
+      "label": "BDD intent: scenario-first thinking",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Intent",
+      "description": "Scenario is the contract with the user."
+    },
+    {
+      "id": "bdd:context-use-when",
+      "type": "decision",
+      "label": "BDD context: when to use",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Context",
+      "description": "User-facing features / user stories / learner thinks in scenarios / multiple stakeholders."
+    },
+    {
+      "id": "bdd:context-avoid-when",
+      "type": "decision",
+      "label": "BDD context: when to avoid",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Context",
+      "description": "Low-level utilities (no user) / exploring (use spike) / scenario takes longer than code."
+    },
+    {
+      "id": "bdd:cycle",
+      "type": "concept",
+      "label": "Scenario → Test → Implement → Validate cycle",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "The BDD Cycle",
+      "description": "1. Scenario: Given/When/Then. 2. Test: executable. 3. Implement: satisfy. 4. Validate: manual confirm."
+    },
+    {
+      "id": "bdd:phase-scenario",
+      "type": "phase",
+      "label": "SCENARIO phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "SCENARIO Phase",
+      "description": "Given [context] / When [user action] / Then [expected outcome]. Plain language, no code."
+    },
+    {
+      "id": "bdd:phase-test",
+      "type": "phase",
+      "label": "TEST phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "TEST Phase",
+      "description": "Given=setup, When=action, Then=assertion. Test MUST fail."
+    },
+    {
+      "id": "bdd:phase-implement",
+      "type": "phase",
+      "label": "IMPLEMENT phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "IMPLEMENT Phase",
+      "description": "Simplest code that makes scenario true. Fight scope creep."
+    },
+    {
+      "id": "bdd:phase-validate",
+      "type": "phase",
+      "label": "VALIDATE phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "VALIDATE Phase",
+      "description": "Manually walk the scenario in the actual app. Confirm user experience matches."
+    },
+    {
+      "id": "bdd:anti-code-before-scenario",
+      "type": "rule",
+      "label": "Anti: code before scenario",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'What does the user do? Write that first.'"
+    },
+    {
+      "id": "bdd:anti-tech-jargon",
+      "type": "rule",
+      "label": "Anti: technical jargon in scenarios",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Would your product owner understand this?'"
+    },
+    {
+      "id": "bdd:anti-implementation-tests",
+      "type": "rule",
+      "label": "Anti: testing implementation, not behavior",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'User cares THAT it works, not HOW.'"
+    },
+    {
+      "id": "bdd:anti-out-of-sync",
+      "type": "rule",
+      "label": "Anti: scenario and test out of sync",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Which one is right? Reconcile.'"
+    },
+    {
+      "id": "bdd:anti-features-no-scenario",
+      "type": "rule",
+      "label": "Anti: adding features not in any scenario",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Write the scenario first.'"
+    },
+    {
+      "id": "bdd:anti-skip-validate",
+      "type": "rule",
+      "label": "Anti: skipping manual validation",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/BDD/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Test passed, but does the user actually experience what we promised?'"
+    },
+    {
+      "id": "spike:intent",
+      "type": "concept",
+      "label": "Spike intent: exploratory learning",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Intent",
+      "description": "Build messy to learn how it works, then throw away or refactor."
+    },
+    {
+      "id": "spike:context-use-when",
+      "type": "decision",
+      "label": "Spike context: when to use",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Context",
+      "description": "Unfamiliar libs/APIs / solution shape unknown / complex problem needs prototyping."
+    },
+    {
+      "id": "spike:context-avoid-when",
+      "type": "decision",
+      "label": "Spike context: when to avoid",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Context",
+      "description": "Crystal clear requirements (use TDD) / known pattern (use ride-along) / no refactor time."
+    },
+    {
+      "id": "spike:cycle",
+      "type": "concept",
+      "label": "Spike → Evaluate → Decide → Rebuild or Refactor",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "The Cycle",
+      "description": "Never ship the spike."
+    },
+    {
+      "id": "spike:phase-spike",
+      "type": "phase",
+      "label": "SPIKE phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "SPIKE Phase",
+      "description": "Build quick and dirty. Hardcode, skip errors, log everything. Stop when answer found."
+    },
+    {
+      "id": "spike:phase-evaluate",
+      "type": "phase",
+      "label": "EVALUATE phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "EVALUATE Phase",
+      "description": "What did we learn? Write down 3-5 discoveries."
+    },
+    {
+      "id": "spike:phase-decide",
+      "type": "phase",
+      "label": "DECIDE phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "DECIDE Phase",
+      "description": "Throw away (fundamental flaws) or refactor (bones good)."
+    },
+    {
+      "id": "spike:phase-rebuild-refactor",
+      "type": "phase",
+      "label": "REBUILD or REFACTOR phase",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "REBUILD or REFACTOR",
+      "description": "Rebuild: new file, use TDD/ride-along. Refactor: tests first, then clean up one piece at a time."
+    },
+    {
+      "id": "spike:rule-time-box",
+      "type": "rule",
+      "label": "Time-box 30-60 minutes max",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Session Start",
+      "description": "If no answer by then → stop and evaluate."
+    },
+    {
+      "id": "spike:rule-permission-messy",
+      "type": "rule",
+      "label": "Give explicit permission to be messy",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "SPIKE Phase",
+      "description": "'You have explicit permission to write terrible code for the next 30 minutes.'"
+    },
+    {
+      "id": "spike:anti-tests-during-spike",
+      "type": "rule",
+      "label": "Anti: writing tests during spike",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'No tests yet. We don't know what to test.'"
+    },
+    {
+      "id": "spike:anti-refactor-during-spike",
+      "type": "rule",
+      "label": "Anti: refactoring during spike",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Don't clean it up yet.'"
+    },
+    {
+      "id": "spike:anti-ship-spike",
+      "type": "rule",
+      "label": "Anti: shipping the spike",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Never ship a spike.'"
+    },
+    {
+      "id": "spike:anti-no-question",
+      "type": "rule",
+      "label": "Anti: spiking without a question",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Write down the question before coding.'"
+    },
+    {
+      "id": "spike:anti-hours-long",
+      "type": "rule",
+      "label": "Anti: spending hours on a spike",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'30-60 min max. Stop and evaluate.'"
+    },
+    {
+      "id": "spike:anti-no-doc-lessons",
+      "type": "rule",
+      "label": "Anti: not documenting lessons",
+      "cluster": "teaching-methods",
+      "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
+      "section": "Anti-Patterns",
+      "description": "'Spike useless if we forget what we learned.'"
+    },
+    {
+      "id": "protocol:method-session-start",
+      "type": "protocol",
+      "label": "Method session-start protocol (shared pattern)",
+      "cluster": "teaching-methods",
+      "section": "All method skills — Session Start",
+      "description": "1. Assess proficiency. 2. Confirm method fits problem. 3. Name cycle out loud (adapt to level). 4. Setup."
+    },
+    {
+      "id": "protocol:method-session-end",
+      "type": "protocol",
+      "label": "Method session-end protocol (shared pattern)",
+      "cluster": "teaching-methods",
+      "section": "All method skills — Session End",
+      "description": "1. Count cycles. 2. AAR the method. 3. Assess proficiency progression. 4. Update progress + method_proficiency. 5. Next step."
+    },
+    {
+      "id": "rule:compression-resilience-method",
+      "type": "rule",
+      "label": "Compression resilience (per method)",
+      "cluster": "teaching-methods",
+      "section": "All method skills — top",
+      "description": "Each method skill starts with: check current method in memory; if missing, re-load file."
+    },
+    {
+      "id": "json:proficiency-ref",
+      "type": "schema",
+      "label": "method-proficiency-levels.json",
+      "cluster": "proficiency-tracking",
+      "file": ".github/skills/references/method-proficiency-levels.json",
+      "description": "Structured proficiency data for all 4 methods. Source of truth for level definitions."
+    },
+    {
+      "id": "level:novice",
+      "type": "level",
+      "label": "Novice",
+      "cluster": "proficiency-tracking",
+      "file": ".github/skills/references/method-proficiency-levels.json",
+      "description": "Never used this method. Needs full narration and explicit permission."
+    },
+    {
+      "id": "level:familiar",
+      "type": "level",
+      "label": "Familiar",
+      "cluster": "proficiency-tracking",
+      "file": ".github/skills/references/method-proficiency-levels.json",
+      "description": "Done 1-2 sessions. Prompt, don't tell."
+    },
+    {
+      "id": "level:competent",
+      "type": "level",
+      "label": "Competent",
+      "cluster": "proficiency-tracking",
+      "file": ".github/skills/references/method-proficiency-levels.json",
+      "description": "Owns the rhythm. Coach, don't direct."
+    },
+    {
+      "id": "level:proficient",
+      "type": "level",
+      "label": "Proficient",
+      "cluster": "proficiency-tracking",
+      "file": ".github/skills/references/method-proficiency-levels.json",
+      "description": "Default tool. Observe, ask hard questions."
+    },
+    {
+      "id": "indicator:tdd-novice",
+      "type": "indicator",
+      "label": "TDD Novice indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'What's TDD?' / 'Never heard of it' / 'Never used it' / 'What does test-first mean?'"
+    },
+    {
+      "id": "indicator:tdd-familiar",
+      "type": "indicator",
+      "label": "TDD Familiar indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I've tried it once or twice' / 'Wrote a few tests first, felt weird' / 'Done it a couple times' / 'Still getting used to it'"
+    },
+    {
+      "id": "indicator:tdd-competent",
+      "type": "indicator",
+      "label": "TDD Competent indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I've done several TDD sessions' / 'Getting the Red-Green-Refactor rhythm' / 'I understand the cycle'"
+    },
+    {
+      "id": "indicator:tdd-proficient",
+      "type": "indicator",
+      "label": "TDD Proficient indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I use it regularly' / 'It's how I start every feature' / 'TDD is my default' / 'I teach others TDD'"
+    },
+    {
+      "id": "indicator:bdd-novice",
+      "type": "indicator",
+      "label": "BDD Novice indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'Given what now?' / 'Never heard of it' / 'What's Given/When/Then?'"
+    },
+    {
+      "id": "indicator:bdd-familiar",
+      "type": "indicator",
+      "label": "BDD Familiar indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I've written a scenario or two' / 'The format makes sense but feels formal'"
+    },
+    {
+      "id": "indicator:bdd-competent",
+      "type": "indicator",
+      "label": "BDD Competent indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'Scenarios flow naturally now' / 'Comfortable with scenarios'"
+    },
+    {
+      "id": "indicator:bdd-proficient",
+      "type": "indicator",
+      "label": "BDD Proficient indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I write scenarios before code' / 'It's how I capture requirements'"
+    },
+    {
+      "id": "indicator:spike-novice",
+      "type": "indicator",
+      "label": "Spike Novice indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I feel guilty deleting code' / 'Isn't that wasteful?'"
+    },
+    {
+      "id": "indicator:spike-familiar",
+      "type": "indicator",
+      "label": "Spike Familiar indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'Still feels wasteful but I see the point'"
+    },
+    {
+      "id": "indicator:spike-competent",
+      "type": "indicator",
+      "label": "Spike Competent indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I spike when exploring' / 'Comfortable with throwaway code'"
+    },
+    {
+      "id": "indicator:spike-proficient",
+      "type": "indicator",
+      "label": "Spike Proficient indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I spike first, build second' / 'It's how I learn new libraries'"
+    },
+    {
+      "id": "indicator:ride-novice",
+      "type": "indicator",
+      "label": "Ride-along Novice indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'First time building with a mentor' / 'New to guided learning'"
+    },
+    {
+      "id": "indicator:ride-familiar",
+      "type": "indicator",
+      "label": "Ride-along Familiar indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'Done a few sessions' / 'Getting used to the rhythm'"
+    },
+    {
+      "id": "indicator:ride-competent",
+      "type": "indicator",
+      "label": "Ride-along Competent indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'Comfortable with the method' / 'I know the pattern'"
+    },
+    {
+      "id": "indicator:ride-proficient",
+      "type": "indicator",
+      "label": "Ride-along Proficient indicators",
+      "cluster": "proficiency-tracking",
+      "description": "'I can drive most builds' / 'Just need you for hard parts'"
+    },
+    {
+      "id": "signal:tdd-n-to-f",
+      "type": "signal",
+      "label": "TDD: Novice → Familiar",
+      "cluster": "proficiency-tracking",
+      "description": "Named phases themselves, wrote 1+ tests without prompting."
+    },
+    {
+      "id": "signal:tdd-f-to-c",
+      "type": "signal",
+      "label": "TDD: Familiar → Competent",
+      "cluster": "proficiency-tracking",
+      "description": "Completed full cycle independently, chose appropriate test size."
+    },
+    {
+      "id": "signal:tdd-c-to-p",
+      "type": "signal",
+      "label": "TDD: Competent → Proficient",
+      "cluster": "proficiency-tracking",
+      "description": "Refactored confidently, questioned own design, taught cycle back."
+    },
+    {
+      "id": "signal:bdd-n-to-f",
+      "type": "signal",
+      "label": "BDD: Novice → Familiar",
+      "cluster": "proficiency-tracking",
+      "description": "Wrote Given/When/Then without format help, scenarios were concrete."
+    },
+    {
+      "id": "signal:bdd-f-to-c",
+      "type": "signal",
+      "label": "BDD: Familiar → Competent",
+      "cluster": "proficiency-tracking",
+      "description": "Translated scenarios to tests independently, validated behavior manually."
+    },
+    {
+      "id": "signal:bdd-c-to-p",
+      "type": "signal",
+      "label": "BDD: Competent → Proficient",
+      "cluster": "proficiency-tracking",
+      "description": "Identified missing scenarios, challenged own assumptions, kept scope tight."
+    },
+    {
+      "id": "signal:spike-n-to-f",
+      "type": "signal",
+      "label": "Spike: Novice → Familiar",
+      "cluster": "proficiency-tracking",
+      "description": "Spiked without guilt, extracted lessons, accepted throw-away decision."
+    },
+    {
+      "id": "signal:spike-f-to-c",
+      "type": "signal",
+      "label": "Spike: Familiar → Competent",
+      "cluster": "proficiency-tracking",
+      "description": "Time-boxed independently, documented lessons, decided rebuild/refactor confidently."
+    },
+    {
+      "id": "signal:spike-c-to-p",
+      "type": "signal",
+      "label": "Spike: Competent → Proficient",
+      "cluster": "proficiency-tracking",
+      "description": "Knew when to stop, challenged own assumptions, rebuilt/refactored effectively."
+    },
+    {
+      "id": "signal:ride-n-to-f",
+      "type": "signal",
+      "label": "Ride-along: Novice → Familiar",
+      "cluster": "proficiency-tracking",
+      "description": "Anticipated next move, asked good questions, completed move without full narration."
+    },
+    {
+      "id": "signal:ride-f-to-c",
+      "type": "signal",
+      "label": "Ride-along: Familiar → Competent",
+      "cluster": "proficiency-tracking",
+      "description": "Drove full feature independently, recognized patterns, ran AAR without prompting."
+    },
+    {
+      "id": "signal:ride-c-to-p",
+      "type": "signal",
+      "label": "Ride-along: Competent → Proficient",
+      "cluster": "proficiency-tracking",
+      "description": "Challenged mentor's suggestions, explained trade-offs, taught concepts back."
+    },
+    {
+      "id": "file:profile-json-instance",
+      "type": "file",
+      "label": ".profiles/profiles/mentees/{username}/profile.json",
+      "cluster": "data-layer",
+      "description": "Per-learner identity + projects index. One per user."
+    },
+    {
+      "id": "file:progress-json-instance",
+      "type": "file",
+      "label": ".profiles/profiles/mentees/{username}/{project-id}.progress.json",
+      "cluster": "data-layer",
+      "description": "Per-project detail with method_proficiency. One per project per learner."
+    },
+    {
+      "id": "file:project-json-optional",
+      "type": "file",
+      "label": ".profiles/project.json (optional)",
+      "cluster": "data-layer",
+      "description": "Optional shared project state for advanced multi-learner coordination."
+    },
+    {
+      "id": "file:mentors-profiles",
+      "type": "file",
+      "label": ".profiles/profiles/mentors/{username}/",
+      "cluster": "data-layer",
+      "description": "Developer/tester profiles, separate from learners."
+    },
+    {
+      "id": "script:validate-profile",
+      "type": "script",
+      "label": "validate-profile.ps1",
+      "cluster": "validation-layer",
+      "file": ".profiles/validate-profile.ps1",
+      "description": "Runs xUnit validation tests against profile schema. Checks required fields, ≥3 extracted_concepts, JSON well-formed, types match."
+    },
+    {
+      "id": "script:validate-proficiency",
+      "type": "script",
+      "label": "validate-proficiency.ps1",
+      "cluster": "validation-layer",
+      "file": ".profiles/validate-proficiency.ps1",
+      "description": "Scans all progress files. Verifies method_proficiency structure, valid levels, date format, non-empty notes."
+    },
+    {
+      "id": "script:edit-profile",
+      "type": "script",
+      "label": "edit-profile.ps1",
+      "cluster": "validation-layer",
+      "file": ".profiles/edit-profile.ps1",
+      "description": "Interactive profile editor. Field menu, auto-validation, descriptive commit."
+    },
+    {
+      "id": "tests:profile-tests-csproj",
+      "type": "validator",
+      "label": "ProfileTests xUnit project",
+      "cluster": "validation-layer",
+      "file": ".profiles/ProfileTests/ProfileTests.csproj",
+      "description": "xUnit test project that validate-profile.ps1 builds and runs."
+    },
+    {
+      "id": "test:profile-load",
+      "type": "test",
+      "label": "profile-load.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/learner-profile/tests/profile-load.test.md",
+      "description": "Integration test for profile loading flow."
+    },
+    {
+      "id": "test:proficiency-tracking",
+      "type": "test",
+      "label": "method-proficiency-tracking.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/learner-profile/tests/method-proficiency-tracking.test.md",
+      "description": "Integration test for full proficiency tracking lifecycle. 3 scenarios + pass criteria + failure modes."
+    },
+    {
+      "id": "test:session-flow",
+      "type": "test",
+      "label": "session-flow.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/tests/session-flow.test.md",
+      "description": "End-to-end session flow integration test."
+    },
+    {
+      "id": "test:compression-resilience",
+      "type": "test",
+      "label": "compression-resilience.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/tests/compression-resilience.test.md",
+      "description": "Verifies skills self-heal after context compression."
+    },
+    {
+      "id": "test:method-switching",
+      "type": "test",
+      "label": "method-switching.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/tests/method-switching.test.md",
+      "description": "Verifies mid-session method switching works correctly."
+    },
+    {
+      "id": "test:template",
+      "type": "test",
+      "label": "TEST_TEMPLATE.md",
+      "cluster": "validation-layer",
+      "file": ".github/tests/TEST_TEMPLATE.md",
+      "description": "Template for writing new integration tests."
+    },
+    {
+      "id": "ref:mos-mappings",
+      "type": "reference",
+      "label": "military-mos-mappings.md",
+      "cluster": "references-and-analogies",
+      "file": ".github/skills/references/military-mos-mappings.md",
+      "description": "Common MOS → software concept mappings. Not exhaustive — fallback to on-the-fly extraction."
+    },
+    {
+      "id": "ref:readme",
+      "type": "reference",
+      "label": "references/README.md",
+      "cluster": "references-and-analogies",
+      "file": ".github/skills/references/README.md",
+      "description": "Explains the references directory: knowledge files, not procedural skills."
+    },
+    {
+      "id": "mos:army-25b",
+      "type": "reference",
+      "label": "Army 25B — Information Technology Specialist",
+      "cluster": "references-and-analogies",
+      "file": ".github/skills/references/military-mos-mappings.md",
+      "description": "Network setup, troubleshooting, server maintenance. Maps to debugging, version control, API design, DevOps."
+    },
+    {
+      "id": "mos:navy-it",
+      "type": "reference",
+      "label": "Navy IT — Information Systems Technician",
+      "cluster": "references-and-analogies",
+      "file": ".github/skills/references/military-mos-mappings.md",
+      "description": "SatComm, crypto, network ops. Maps to auth/secrets, distributed systems, cloud arch."
+    },
+    {
+      "id": "mos:af-3d0x2",
+      "type": "reference",
+      "label": "Air Force 3D0X2 — Cyber Systems Operations",
+      "cluster": "references-and-analogies",
+      "file": ".github/skills/references/military-mos-mappings.md",
+      "description": "Sysadmin, virtualization, network operations."
+    },
+    {
+      "id": "file:copilot-instructions",
+      "type": "file",
+      "label": ".github/copilot-instructions.md",
+      "cluster": "agent-core",
+      "file": ".github/copilot-instructions.md",
+      "description": "Contributor-facing repo guide. Lists file organization, how to add components, testing, design patterns."
+    },
+    {
+      "id": "file:readme",
+      "type": "file",
+      "label": "README.md",
+      "cluster": "agent-core",
+      "file": "README.md",
+      "description": "Top-level repo readme. Points learners at @Mentor, contributors at copilot-instructions.md."
+    },
+    {
+      "id": "file:mentor-directory",
+      "type": "file",
+      "label": "docs/MENTOR_DIRECTORY.md",
+      "cluster": "agent-core",
+      "file": "docs/MENTOR_DIRECTORY.md",
+      "description": "System map for users — how Mentor works."
+    },
+    {
+      "id": "concept:track-cad",
+      "type": "concept",
+      "label": "Track: cloud-app-dev",
+      "cluster": "agent-core",
+      "description": "Cloud Application Development MSSA track."
+    },
+    {
+      "id": "concept:track-sca",
+      "type": "concept",
+      "label": "Track: server-cloud-admin",
+      "cluster": "agent-core",
+      "description": "Server & Cloud Administration MSSA track."
+    },
+    {
+      "id": "concept:track-cyber",
+      "type": "concept",
+      "label": "Track: cybersecurity-ops",
+      "cluster": "agent-core",
+      "description": "Cybersecurity Operations MSSA track."
+    },
+    {
+      "id": "concept:move",
+      "type": "concept",
+      "label": "Move (one concept + one keystroke-sized change)",
+      "cluster": "agent-rules",
+      "description": "Atomic unit of teaching. Why → What → How → Pause."
+    },
+    {
+      "id": "concept:altitude",
+      "type": "concept",
+      "label": "Altitude (how much you explain)",
+      "cluster": "agent-rules",
+      "description": "Calibration variable. Raise = more why, fewer moves. Lower = more how, smaller moves."
+    },
+    {
+      "id": "concept:aar",
+      "type": "concept",
+      "label": "After-Action Review (AAR)",
+      "cluster": "agent-rules",
+      "description": "Post-milestone debrief. What happened? What worked? What different next time?"
+    },
+    {
+      "id": "concept:milestone",
+      "type": "concept",
+      "label": "Milestone",
+      "cluster": "agent-rules",
+      "description": "Working piece of code. Triggers celebration + AAR + progress update."
+    },
+    {
+      "id": "skill:knowledge-graph-management",
+      "type": "skill",
+      "label": "knowledge-graph-management skill",
+      "cluster": "validation-layer",
+      "file": ".github/skills/knowledge-graph-management/SKILL.md",
+      "section": "frontmatter",
+      "description": "Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, offers actionable next steps via clickable menus."
+    },
+    {
+      "id": "track:cloud-app-dev",
+      "type": "track",
+      "label": "cloud-app-dev",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/README.md",
+      "description": "MSSA track: cloud-app-dev. Curriculum + project skills under this folder."
+    },
+    {
+      "id": "skill:cad-blob-uploader",
+      "type": "skill",
+      "label": "cad-blob-uploader",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-blob-uploader/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-cicd-pipeline",
+      "type": "skill",
+      "label": "cad-cicd-pipeline",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-deploy-app-service",
+      "type": "skill",
+      "label": "cad-deploy-app-service",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-deploy-app-service/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-function-queue-trigger",
+      "type": "skill",
+      "label": "cad-function-queue-trigger",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-hello-console",
+      "type": "skill",
+      "label": "cad-hello-console",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-hello-console/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-todo-api",
+      "type": "skill",
+      "label": "cad-todo-api",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-todo-api-auth",
+      "type": "skill",
+      "label": "cad-todo-api-auth",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-auth/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-todo-api-ef",
+      "type": "skill",
+      "label": "cad-todo-api-ef",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-ef/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "skill:cad-todo-cli",
+      "type": "skill",
+      "label": "cad-todo-cli",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-cli/SKILL.md",
+      "description": "Project skill under track:cloud-app-dev."
+    },
+    {
+      "id": "track:cybersecurity-ops",
+      "type": "track",
+      "label": "cybersecurity-ops",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/README.md",
+      "description": "MSSA track: cybersecurity-ops. Curriculum + project skills under this folder."
+    },
+    {
+      "id": "skill:cso-defender-endpoint-onboard",
+      "type": "skill",
+      "label": "cso-defender-endpoint-onboard",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-detection-rule",
+      "type": "skill",
+      "label": "cso-detection-rule",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-detection-rule/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-entra-identity-hardening",
+      "type": "skill",
+      "label": "cso-entra-identity-hardening",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-hunting-query",
+      "type": "skill",
+      "label": "cso-hunting-query",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-hunting-query/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-incident-investigation",
+      "type": "skill",
+      "label": "cso-incident-investigation",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-incident-investigation/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-kql-foundations",
+      "type": "skill",
+      "label": "cso-kql-foundations",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-kql-foundations/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-sentinel-workspace",
+      "type": "skill",
+      "label": "cso-sentinel-workspace",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-soar-playbook",
+      "type": "skill",
+      "label": "cso-soar-playbook",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-soar-playbook/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "skill:cso-threat-intel-integration",
+      "type": "skill",
+      "label": "cso-threat-intel-integration",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/SKILL.md",
+      "description": "Project skill under track:cybersecurity-ops."
+    },
+    {
+      "id": "track:github-copilot",
+      "type": "track",
+      "label": "github-copilot",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/README.md",
+      "description": "MSSA track: github-copilot. Curriculum + project skills under this folder."
+    },
+    {
+      "id": "skill:ghc-chat-driven-debugging",
+      "type": "skill",
+      "label": "ghc-chat-driven-debugging",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-chat-driven-debugging/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-code-review-with-copilot",
+      "type": "skill",
+      "label": "ghc-code-review-with-copilot",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-code-review-with-copilot/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-copilot-foundations",
+      "type": "skill",
+      "label": "ghc-copilot-foundations",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-copilot-foundations/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-custom-agents",
+      "type": "skill",
+      "label": "ghc-custom-agents",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-custom-agents/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-custom-instructions",
+      "type": "skill",
+      "label": "ghc-custom-instructions",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-custom-instructions/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-mcp-tools-integration",
+      "type": "skill",
+      "label": "ghc-mcp-tools-integration",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-mcp-tools-integration/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-prompt-files",
+      "type": "skill",
+      "label": "ghc-prompt-files",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-prompt-files/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-prompting-for-completions",
+      "type": "skill",
+      "label": "ghc-prompting-for-completions",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-prompting-for-completions/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "skill:ghc-test-generation",
+      "type": "skill",
+      "label": "ghc-test-generation",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/github-copilot/ghc-test-generation/SKILL.md",
+      "description": "Project skill under track:github-copilot."
+    },
+    {
+      "id": "track:server-cloud-admin",
+      "type": "track",
+      "label": "server-cloud-admin",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/README.md",
+      "description": "MSSA track: server-cloud-admin. Curriculum + project skills under this folder."
+    },
+    {
+      "id": "skill:sca-ad-and-gpo",
+      "type": "skill",
+      "label": "sca-ad-and-gpo",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-arm-bicep-iac",
+      "type": "skill",
+      "label": "sca-arm-bicep-iac",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-azure-vnet-vm",
+      "type": "skill",
+      "label": "sca-azure-vnet-vm",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-entra-hybrid-identity",
+      "type": "skill",
+      "label": "sca-entra-hybrid-identity",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-local-system-admin",
+      "type": "skill",
+      "label": "sca-local-system-admin",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-local-system-admin/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-monitoring",
+      "type": "skill",
+      "label": "sca-monitoring",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-monitoring/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-powershell-foundations",
+      "type": "skill",
+      "label": "sca-powershell-foundations",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-powershell-foundations/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-server-vm-setup",
+      "type": "skill",
+      "label": "sca-server-vm-setup",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-server-vm-setup/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "skill:sca-storage-and-backup",
+      "type": "skill",
+      "label": "sca-storage-and-backup",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-storage-and-backup/SKILL.md",
+      "description": "Project skill under track:server-cloud-admin."
+    },
+    {
+      "id": "track:whiteboarding",
+      "type": "track",
+      "label": "whiteboarding",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/README.md",
+      "description": "MSSA track: whiteboarding. Curriculum + project skills under this folder."
+    },
+    {
+      "id": "skill:wbd-box-and-arrow-diagrams",
+      "type": "skill",
+      "label": "wbd-box-and-arrow-diagrams",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-capstone-present-a-system",
+      "type": "skill",
+      "label": "wbd-capstone-present-a-system",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-drawio-for-polished-diagrams",
+      "type": "skill",
+      "label": "wbd-drawio-for-polished-diagrams",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-entity-relationship-diagrams",
+      "type": "skill",
+      "label": "wbd-entity-relationship-diagrams",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-mermaid-as-code",
+      "type": "skill",
+      "label": "wbd-mermaid-as-code",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-mermaid-as-code/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-sequence-diagrams",
+      "type": "skill",
+      "label": "wbd-sequence-diagrams",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-sequence-diagrams/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-state-machines-and-flowcharts",
+      "type": "skill",
+      "label": "wbd-state-machines-and-flowcharts",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-system-design-interview",
+      "type": "skill",
+      "label": "wbd-system-design-interview",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-system-design-interview/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "skill:wbd-whiteboard-foundations",
+      "type": "skill",
+      "label": "wbd-whiteboard-foundations",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/SKILL.md",
+      "description": "Project skill under track:whiteboarding."
+    },
+    {
+      "id": "file:profiles-readme",
+      "type": "file",
+      "label": ".profiles/README.md",
+      "cluster": "data-layer",
+      "file": ".profiles/README.md",
+      "description": "Profiles directory structure documentation."
+    },
+    {
+      "id": "file:copilot-fundamentals-readme",
+      "type": "file",
+      "label": ".github/copilot-fundamentals/README.md",
+      "cluster": "agent-core",
+      "file": ".github/copilot-fundamentals/README.md",
+      "description": "Copilot fundamentals index."
+    },
+    {
+      "id": "file:tracks-readme",
+      "type": "file",
+      "label": ".github/skills/tracks/README.md",
+      "cluster": "track-curriculum",
+      "file": ".github/skills/tracks/README.md",
+      "description": "Tracks directory structure guide."
+    },
+    {
+      "id": "file:copilot-01",
+      "type": "file",
+      "label": ".github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
+      "cluster": "agent-core",
+      "file": ".github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
+      "description": "Instructions vs agent personas explainer."
+    },
+    {
+      "id": "file:copilot-02",
+      "type": "file",
+      "label": ".github/copilot-fundamentals/02-using-csharp-for-validation.md",
+      "cluster": "validation-layer",
+      "file": ".github/copilot-fundamentals/02-using-csharp-for-validation.md",
+      "description": "Using C# for validation guide."
+    },
+    {
+      "label": "Progress Dashboard",
+      "description": "Visual dashboard showing learner progress across all tracks. Tracks completion %, milestones, projects, method proficiency.",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/show-progress.ps1",
+      "type": "feature",
+      "id": "feature:progress-dashboard"
+    },
+    {
+      "label": "show-progress.ps1",
+      "description": "CLI script that displays learner progress dashboard. Supports track filtering (-Track) and JSON export (-Json).",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/show-progress.ps1",
+      "type": "cli-tool",
+      "id": "cli-tool:show-progress"
+    },
+    {
+      "label": "Hybrid Runtime Integration",
+      "description": "Two-phase skill loading: extension pre-loads 3 essentials, agent dynamically loads 2-3 intent-specific. Reduces context 70%.",
+      "cluster": "session-protocols",
+      "file": "extensions/mentor-context-loader/",
+      "type": "feature",
+      "id": "feature:hybrid-loading"
+    },
+    {
+      "label": "mentor-context-loader",
+      "description": "VS Code extension that pre-loads learner profile, last-used method, and active track before @Mentor session starts.",
+      "cluster": "session-protocols",
+      "file": "extensions/mentor-context-loader/",
+      "type": "extension",
+      "id": "extension:context-loader"
+    },
+    {
+      "id": "cli-tool:audit-quality",
+      "type": "cli-tool",
+      "label": "audit-quality.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/audit-quality.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:check-skill-exists",
+      "type": "cli-tool",
+      "label": "check-skill-exists.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/check-skill-exists.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:recommend-next-skills",
+      "type": "cli-tool",
+      "label": "recommend-next-skills.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/recommend-next-skills.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:show-skill-impact",
+      "type": "cli-tool",
+      "label": "show-skill-impact.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/show-skill-impact.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "code-func:@(",
+      "type": "code-func",
+      "label": "@(",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/lib/query.psm1",
+      "description": "PowerShell function exported by query.psm1."
+    },
+    {
+      "id": "extension:mentor-context-loader",
+      "type": "extension",
+      "label": "mentor-context-loader",
+      "cluster": "session-protocols",
+      "file": "extensions/mentor-context-loader/",
+      "description": "Pre-loads relevant skills into @Mentor agent context based on learner profile"
+    }
+  ],
+  "edges": [
+    {
+      "source": "agent:mentor",
+      "target": "core-behavior:execute-directly",
+      "type": "embodies"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "core-behavior:stay-conversational",
+      "type": "embodies"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "core-behavior:keyboard-discipline",
+      "type": "embodies"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "core-behavior:humor-serves-mission",
+      "type": "embodies"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "skill:learner-profile",
+      "type": "composes",
+      "evidence": "frontmatter.skills[]"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "skill:knowledge-graph-management",
+      "type": "uses",
+      "label": "uses for graph health monitoring"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "skill:ride-along",
+      "type": "composes",
+      "evidence": "frontmatter.skills[] — listed as default"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "list:methods",
+      "type": "enumerates"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "list:tracks",
+      "type": "enumerates"
+    },
+    {
+      "source": "list:methods",
+      "target": "skill:ride-along",
+      "type": "includes"
+    },
+    {
+      "source": "list:methods",
+      "target": "skill:tdd",
+      "type": "includes"
+    },
+    {
+      "source": "list:methods",
+      "target": "skill:bdd",
+      "type": "includes"
+    },
+    {
+      "source": "list:methods",
+      "target": "skill:spike",
+      "type": "includes"
+    },
+    {
+      "source": "list:tracks",
+      "target": "concept:track-cad",
+      "type": "includes"
+    },
+    {
+      "source": "list:tracks",
+      "target": "concept:track-sca",
+      "type": "includes"
+    },
+    {
+      "source": "list:tracks",
+      "target": "concept:track-cyber",
+      "type": "includes"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "audience:adult-pro",
+      "type": "targets"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "personality:instructor-buddy",
+      "type": "embodies"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "humor:self-deprecating",
+      "type": "has_style"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "humor:mission-ribbing",
+      "type": "has_style"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "humor:celebrate-screwups",
+      "type": "has_style"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "humor:dark-code",
+      "type": "has_style"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "humor:dial-up-when",
+      "type": "has_rule"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "humor:dial-down-when",
+      "type": "has_rule"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:01-identify-learner",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:02-open-with-intent",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:03-honor-intent",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:04-altitude-one-move",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:05-name-concept",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:06-keep-at-keyboard",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:07-connect-mental-models",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:08-aar-at-milestones",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:09-track-and-adapt",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:10-full-pedagogy",
+      "type": "follows"
+    },
+    {
+      "source": "behavior:01-identify-learner",
+      "target": "skill:learner-profile",
+      "type": "delegates_to"
+    },
+    {
+      "source": "behavior:01-identify-learner",
+      "target": "protocol:identify-learner",
+      "type": "triggers"
+    },
+    {
+      "source": "behavior:02-open-with-intent",
+      "target": "ride-along:1-open",
+      "type": "implemented_by"
+    },
+    {
+      "source": "behavior:04-altitude-one-move",
+      "target": "concept:move",
+      "type": "defines"
+    },
+    {
+      "source": "behavior:04-altitude-one-move",
+      "target": "concept:altitude",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:05-name-concept",
+      "target": "tdd:phase-red",
+      "type": "applies_to"
+    },
+    {
+      "source": "behavior:05-name-concept",
+      "target": "tdd:phase-green",
+      "type": "applies_to"
+    },
+    {
+      "source": "behavior:05-name-concept",
+      "target": "tdd:phase-refactor",
+      "type": "applies_to"
+    },
+    {
+      "source": "behavior:06-keep-at-keyboard",
+      "target": "core-behavior:keyboard-discipline",
+      "type": "implements"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "ref:mos-mappings",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "field:profile.military",
+      "type": "reads_from"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "concept:aar",
+      "type": "defines"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "concept:milestone",
+      "type": "triggered_by"
+    },
+    {
+      "source": "behavior:09-track-and-adapt",
+      "target": "session-end:agent",
+      "type": "implemented_by"
+    },
+    {
+      "source": "behavior:10-full-pedagogy",
+      "target": "skill:ride-along",
+      "type": "delegates_to"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "antipattern:no-code-dumps",
+      "type": "avoids"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "antipattern:no-skip-why",
+      "type": "avoids"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "antipattern:no-baby-talk",
+      "type": "avoids"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "antipattern:no-long-lecture",
+      "type": "avoids"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "antipattern:no-pretend-knowledge",
+      "type": "avoids"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "antipattern:no-clown",
+      "type": "avoids"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "stuck:ladder",
+      "type": "follows"
+    },
+    {
+      "source": "stuck:ladder",
+      "target": "stuck:rung1-question",
+      "type": "has_phase",
+      "label": "rung 1"
+    },
+    {
+      "source": "stuck:ladder",
+      "target": "stuck:rung2-hint",
+      "type": "has_phase",
+      "label": "rung 2"
+    },
+    {
+      "source": "stuck:ladder",
+      "target": "stuck:rung3-min-diff",
+      "type": "has_phase",
+      "label": "rung 3"
+    },
+    {
+      "source": "stuck:ladder",
+      "target": "stuck:rung4-write-then-undo",
+      "type": "has_phase",
+      "label": "rung 4"
+    },
+    {
+      "source": "stuck:rung1-question",
+      "target": "stuck:rung2-hint",
+      "type": "escalates_to"
+    },
+    {
+      "source": "stuck:rung2-hint",
+      "target": "stuck:rung3-min-diff",
+      "type": "escalates_to"
+    },
+    {
+      "source": "stuck:rung3-min-diff",
+      "target": "stuck:rung4-write-then-undo",
+      "type": "escalates_to"
+    },
+    {
+      "source": "stuck:ladder",
+      "target": "stuck:5min-humor-reset",
+      "type": "complemented_by"
+    },
+    {
+      "source": "stuck:ladder",
+      "target": "ride-along:3-stuck",
+      "type": "duplicated_in",
+      "label": "DUPLICATE"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "success:match-pace",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "success:read-typing",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "success:call-out-wins",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "session-shape:default",
+      "type": "follows"
+    },
+    {
+      "source": "session-shape:default",
+      "target": "ride-along:1-open",
+      "type": "starts_with"
+    },
+    {
+      "source": "session-shape:default",
+      "target": "ride-along:5-close",
+      "type": "ends_with"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "session-start:protocol",
+      "type": "follows"
+    },
+    {
+      "source": "session-start:protocol",
+      "target": "decision:project-count",
+      "type": "has_decision"
+    },
+    {
+      "source": "decision:project-count",
+      "target": "picker:project",
+      "type": "routes_to",
+      "label": "if 2+ projects"
+    },
+    {
+      "source": "session-start:protocol",
+      "target": "picker:continuation",
+      "type": "uses"
+    },
+    {
+      "source": "picker:continuation",
+      "target": "picker:method",
+      "type": "routes_to",
+      "label": "if 'Switch method'"
+    },
+    {
+      "source": "picker:continuation",
+      "target": "picker:track",
+      "type": "routes_to",
+      "label": "if 'Switch track'"
+    },
+    {
+      "source": "session-start:protocol",
+      "target": "decision:method-exists",
+      "type": "validates"
+    },
+    {
+      "source": "session-start:protocol",
+      "target": "decision:track-exists",
+      "type": "validates"
+    },
+    {
+      "source": "decision:method-exists",
+      "target": "skill:ride-along",
+      "type": "fallback_to",
+      "label": "if missing"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "mid-session:switch",
+      "type": "follows"
+    },
+    {
+      "source": "mid-session:switch",
+      "target": "picker:method",
+      "type": "uses"
+    },
+    {
+      "source": "mid-session:switch",
+      "target": "picker:track",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "session-end:agent",
+      "type": "follows"
+    },
+    {
+      "source": "session-end:agent",
+      "target": "session-end:update-progress",
+      "type": "has_phase"
+    },
+    {
+      "source": "session-end:agent",
+      "target": "session-end:update-index",
+      "type": "has_phase"
+    },
+    {
+      "source": "session-end:agent",
+      "target": "session-end:commit",
+      "type": "has_phase"
+    },
+    {
+      "source": "session-end:update-progress",
+      "target": "session-end:validate-method",
+      "type": "constrained_by"
+    },
+    {
+      "source": "session-end:update-progress",
+      "target": "file:progress-json-instance",
+      "type": "updates"
+    },
+    {
+      "source": "session-end:update-index",
+      "target": "file:profile-json-instance",
+      "type": "updates"
+    },
+    {
+      "source": "session-end:agent",
+      "target": "protocol:session-end-skill",
+      "type": "implemented_by"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:pace-fast",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:pace-steady",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:pace-slow",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:stuck-tries-first",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:stuck-asks-immediately",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:mot-real-thing",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:mot-puzzles",
+      "type": "adapts_via"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "adapt:mot-teammates",
+      "type": "adapts_via"
+    },
+    {
+      "source": "adapt:pace-fast",
+      "target": "field:profile.learning_style.pace_preference",
+      "type": "reads",
+      "label": "value: fast"
+    },
+    {
+      "source": "adapt:pace-steady",
+      "target": "field:profile.learning_style.pace_preference",
+      "type": "reads",
+      "label": "value: steady"
+    },
+    {
+      "source": "adapt:pace-slow",
+      "target": "field:profile.learning_style.pace_preference",
+      "type": "reads",
+      "label": "value: slow"
+    },
+    {
+      "source": "adapt:stuck-tries-first",
+      "target": "field:profile.learning_style.when_stuck",
+      "type": "reads"
+    },
+    {
+      "source": "adapt:stuck-asks-immediately",
+      "target": "field:profile.learning_style.when_stuck",
+      "type": "reads"
+    },
+    {
+      "source": "adapt:mot-real-thing",
+      "target": "field:profile.personality.motivation",
+      "type": "reads"
+    },
+    {
+      "source": "adapt:mot-puzzles",
+      "target": "field:profile.personality.motivation",
+      "type": "reads"
+    },
+    {
+      "source": "adapt:mot-teammates",
+      "target": "field:profile.personality.motivation",
+      "type": "reads"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "analogy:eod-debugging",
+      "type": "example_of"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "analogy:netadmin-api",
+      "type": "example_of"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "analogy:intel-etl",
+      "type": "example_of"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "analogy:nuke-trycatch",
+      "type": "example_of"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "analogy:logistics-db",
+      "type": "example_of"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "analogy:fallback-extract",
+      "type": "has_fallback"
+    },
+    {
+      "source": "analogy:fallback-extract",
+      "target": "field:profile.military.translation_to_code",
+      "type": "writes_to"
+    },
+    {
+      "source": "analogy:fallback-extract",
+      "target": "field:profile.military.extracted_concepts",
+      "type": "writes_to"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "branch:army",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "branch:marines",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "branch:navy",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "branch:airforce",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "branch:coastguard",
+      "type": "uses"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "branch:spaceforce",
+      "type": "uses"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:compression-resilience-lp",
+      "type": "implements"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:session-start-skill",
+      "type": "implements"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:interview",
+      "type": "implements"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:followup-interview",
+      "type": "implements"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:progress-after-milestone",
+      "type": "implements"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:coordination",
+      "type": "implements"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "protocol:session-end-skill",
+      "type": "implements"
+    },
+    {
+      "source": "protocol:session-start-skill",
+      "target": "protocol:identify-learner",
+      "type": "has_phase",
+      "label": "step 1"
+    },
+    {
+      "source": "protocol:session-start-skill",
+      "target": "decision:profile-exists",
+      "type": "has_phase",
+      "label": "step 2"
+    },
+    {
+      "source": "protocol:session-start-skill",
+      "target": "protocol:check-teammates",
+      "type": "has_phase",
+      "label": "step 3"
+    },
+    {
+      "source": "decision:profile-exists",
+      "target": "protocol:interview",
+      "type": "routes_to",
+      "label": "if missing"
+    },
+    {
+      "source": "decision:profile-exists",
+      "target": "decision:multi-project",
+      "type": "routes_to",
+      "label": "if exists"
+    },
+    {
+      "source": "decision:multi-project",
+      "target": "picker:project",
+      "type": "routes_to",
+      "label": "if 2+"
+    },
+    {
+      "source": "decision:multi-project",
+      "target": "file:progress-json-instance",
+      "type": "loads",
+      "label": "if 1"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q1-name",
+      "type": "has_phase",
+      "label": "Q1"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q2-style",
+      "type": "has_phase",
+      "label": "Q2"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q3-learning",
+      "type": "has_phase",
+      "label": "Q3"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q4-stuck",
+      "type": "has_phase",
+      "label": "Q4"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q5-fun",
+      "type": "has_phase",
+      "label": "Q5"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q6-branch",
+      "type": "has_phase",
+      "label": "Q6"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q7-rank",
+      "type": "has_phase",
+      "label": "Q7"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q8-mos",
+      "type": "has_phase",
+      "label": "Q8"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q9-job",
+      "type": "has_phase",
+      "label": "Q9"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:q10-fallback",
+      "type": "has_phase",
+      "label": "Q10 conditional"
+    },
+    {
+      "source": "protocol:interview",
+      "target": "interview:summary-confirm",
+      "type": "ends_with"
+    },
+    {
+      "source": "interview:summary-confirm",
+      "target": "file:profile-json-instance",
+      "type": "creates"
+    },
+    {
+      "source": "interview:q1-name",
+      "target": "field:profile.preferred_name",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q3-learning",
+      "target": "field:profile.learning_style.prefers",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q4-stuck",
+      "target": "field:profile.learning_style.when_stuck",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q5-fun",
+      "target": "field:profile.personality.motivation",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q6-branch",
+      "target": "field:profile.military.branch",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q7-rank",
+      "target": "field:profile.military.rank",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q8-mos",
+      "target": "field:profile.military.mos",
+      "type": "writes_to"
+    },
+    {
+      "source": "interview:q9-job",
+      "target": "field:profile.military.job_description",
+      "type": "writes_to"
+    },
+    {
+      "source": "protocol:followup-interview",
+      "target": "followup:branch-na",
+      "type": "has_rule"
+    },
+    {
+      "source": "protocol:followup-interview",
+      "target": "followup:concepts-min3",
+      "type": "has_rule"
+    },
+    {
+      "source": "protocol:followup-interview",
+      "target": "followup:translation-empty",
+      "type": "has_rule"
+    },
+    {
+      "source": "protocol:followup-interview",
+      "target": "followup:never-na",
+      "type": "has_rule"
+    },
+    {
+      "source": "followup:concepts-min3",
+      "target": "field:profile.military.extracted_concepts",
+      "type": "validates"
+    },
+    {
+      "source": "followup:translation-empty",
+      "target": "field:profile.military.translation_to_code",
+      "type": "validates"
+    },
+    {
+      "source": "interview:summary-confirm",
+      "target": "script:validate-profile",
+      "type": "triggers"
+    },
+    {
+      "source": "script:validate-profile",
+      "target": "tests:profile-tests-csproj",
+      "type": "uses"
+    },
+    {
+      "source": "script:validate-profile",
+      "target": "file:profile-json-instance",
+      "type": "validates"
+    },
+    {
+      "source": "script:validate-profile",
+      "target": "protocol:followup-interview",
+      "type": "routes_to",
+      "label": "on validation fail"
+    },
+    {
+      "source": "script:validate-proficiency",
+      "target": "file:progress-json-instance",
+      "type": "validates"
+    },
+    {
+      "source": "script:validate-proficiency",
+      "target": "field:progress.method_proficiency",
+      "type": "validates"
+    },
+    {
+      "source": "script:edit-profile",
+      "target": "file:profile-json-instance",
+      "type": "updates"
+    },
+    {
+      "source": "script:edit-profile",
+      "target": "script:validate-profile",
+      "type": "calls"
+    },
+    {
+      "source": "edge-case:profile-update",
+      "target": "script:edit-profile",
+      "type": "uses"
+    },
+    {
+      "source": "file:profile-json-instance",
+      "target": "schema:profile-json",
+      "type": "instance_of"
+    },
+    {
+      "source": "file:progress-json-instance",
+      "target": "schema:progress-json",
+      "type": "instance_of"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.name",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.preferred_name",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.github_username",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.created",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.last_updated",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.learning_style",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.learning_style",
+      "target": "field:profile.learning_style.prefers",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.learning_style",
+      "target": "field:profile.learning_style.pace_preference",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.learning_style",
+      "target": "field:profile.learning_style.when_stuck",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.personality",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.personality",
+      "target": "field:profile.personality.motivation",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.military",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.branch",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.rank",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.mos",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.mos_title",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.job_description",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.extracted_concepts",
+      "type": "has_field"
+    },
+    {
+      "source": "field:profile.military",
+      "target": "field:profile.military.translation_to_code",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.projects",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.project_id",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.display_name",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.track",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.status",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.last_session",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.last_used_method",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.current_step",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.total_steps",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.completed_milestones",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.method_proficiency",
+      "type": "has_field"
+    },
+    {
+      "source": "field:progress.method_proficiency",
+      "target": "field:progress.method_proficiency.level",
+      "type": "has_field"
+    },
+    {
+      "source": "field:progress.method_proficiency",
+      "target": "field:progress.method_proficiency.last_updated",
+      "type": "has_field"
+    },
+    {
+      "source": "field:progress.method_proficiency",
+      "target": "field:progress.method_proficiency.notes",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.session_history",
+      "type": "has_field"
+    },
+    {
+      "source": "field:progress.last_used_method",
+      "target": "list:methods",
+      "type": "constrained_by"
+    },
+    {
+      "source": "field:progress.track",
+      "target": "list:tracks",
+      "type": "constrained_by"
+    },
+    {
+      "source": "protocol:progress-after-milestone",
+      "target": "file:progress-json-instance",
+      "type": "updates"
+    },
+    {
+      "source": "protocol:progress-after-milestone",
+      "target": "rule:auto-commit-default",
+      "type": "follows"
+    },
+    {
+      "source": "protocol:coordination",
+      "target": "rule:handoff-awareness",
+      "type": "has_rule"
+    },
+    {
+      "source": "protocol:coordination",
+      "target": "rule:conflict-hints-not-prevention",
+      "type": "has_rule"
+    },
+    {
+      "source": "protocol:coordination",
+      "target": "file:project-json-optional",
+      "type": "optionally_uses"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "edge-case:switches-projects",
+      "type": "handles"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "edge-case:long-gap",
+      "type": "handles"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "edge-case:corrupted-profile",
+      "type": "handles"
+    },
+    {
+      "source": "skill:learner-profile",
+      "target": "edge-case:profile-update",
+      "type": "handles"
+    },
+    {
+      "source": "protocol:session-end-skill",
+      "target": "rule:proficiency-only-if-changed",
+      "type": "has_rule"
+    },
+    {
+      "source": "protocol:session-end-skill",
+      "target": "field:progress.method_proficiency",
+      "type": "updates"
+    },
+    {
+      "source": "protocol:session-end-skill",
+      "target": "field:progress.session_history",
+      "type": "appends_to"
+    },
+    {
+      "source": "protocol:session-end-skill",
+      "target": "field:progress.last_session",
+      "type": "updates"
+    },
+    {
+      "source": "protocol:session-end-skill",
+      "target": "field:progress.last_used_method",
+      "type": "updates"
+    },
+    {
+      "source": "protocol:session-end-skill",
+      "target": "json:proficiency-ref",
+      "type": "references"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:contract",
+      "type": "defines"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:1-open",
+      "type": "has_phase"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:2-build-move",
+      "type": "has_phase"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:3-stuck",
+      "type": "has_phase"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:4-aar",
+      "type": "has_phase"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:5-close",
+      "type": "has_phase"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:altitude-table",
+      "type": "uses"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:hard-rules",
+      "type": "enforces"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:analogy-bank",
+      "type": "uses"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:break-method-when",
+      "type": "has_escape_hatch"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "json:proficiency-ref",
+      "type": "references"
+    },
+    {
+      "source": "ride-along:hard-rules",
+      "target": "antipattern:no-code-dumps",
+      "type": "duplicates",
+      "label": "DUPLICATE"
+    },
+    {
+      "source": "ride-along:hard-rules",
+      "target": "antipattern:no-baby-talk",
+      "type": "duplicates",
+      "label": "DUPLICATE"
+    },
+    {
+      "source": "ride-along:altitude-table",
+      "target": "concept:altitude",
+      "type": "operationalizes"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:intent",
+      "type": "defines"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:context-use-when",
+      "type": "has_decision"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:context-avoid-when",
+      "type": "has_decision"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:cycle",
+      "type": "defines"
+    },
+    {
+      "source": "tdd:cycle",
+      "target": "tdd:phase-red",
+      "type": "has_phase",
+      "label": "1"
+    },
+    {
+      "source": "tdd:cycle",
+      "target": "tdd:phase-green",
+      "type": "has_phase",
+      "label": "2"
+    },
+    {
+      "source": "tdd:cycle",
+      "target": "tdd:phase-refactor",
+      "type": "has_phase",
+      "label": "3"
+    },
+    {
+      "source": "tdd:phase-red",
+      "target": "tdd:phase-green",
+      "type": "next"
+    },
+    {
+      "source": "tdd:phase-green",
+      "target": "tdd:phase-refactor",
+      "type": "next"
+    },
+    {
+      "source": "tdd:phase-refactor",
+      "target": "tdd:phase-red",
+      "type": "next",
+      "label": "next cycle"
+    },
+    {
+      "source": "tdd:context-avoid-when",
+      "target": "skill:spike",
+      "type": "routes_to",
+      "label": "if exploring"
+    },
+    {
+      "source": "tdd:context-avoid-when",
+      "target": "skill:bdd",
+      "type": "routes_to",
+      "label": "if shape unclear"
+    },
+    {
+      "source": "tdd:context-avoid-when",
+      "target": "skill:ride-along",
+      "type": "routes_to",
+      "label": "if time pressure"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-implementation-first",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-multi-behavior",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-skip-red",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-refactor-during-green",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-no-test-after-refactor",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-give-up-1-cycle",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:success-looks-like",
+      "type": "measures_by"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "json:proficiency-ref",
+      "type": "references"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "rule:compression-resilience-method",
+      "type": "implements"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "protocol:method-session-start",
+      "type": "implements"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "protocol:method-session-end",
+      "type": "implements"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:intent",
+      "type": "defines"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:context-use-when",
+      "type": "has_decision"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:context-avoid-when",
+      "type": "has_decision"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:cycle",
+      "type": "defines"
+    },
+    {
+      "source": "bdd:cycle",
+      "target": "bdd:phase-scenario",
+      "type": "has_phase",
+      "label": "1"
+    },
+    {
+      "source": "bdd:cycle",
+      "target": "bdd:phase-test",
+      "type": "has_phase",
+      "label": "2"
+    },
+    {
+      "source": "bdd:cycle",
+      "target": "bdd:phase-implement",
+      "type": "has_phase",
+      "label": "3"
+    },
+    {
+      "source": "bdd:cycle",
+      "target": "bdd:phase-validate",
+      "type": "has_phase",
+      "label": "4"
+    },
+    {
+      "source": "bdd:phase-scenario",
+      "target": "bdd:phase-test",
+      "type": "next"
+    },
+    {
+      "source": "bdd:phase-test",
+      "target": "bdd:phase-implement",
+      "type": "next"
+    },
+    {
+      "source": "bdd:phase-implement",
+      "target": "bdd:phase-validate",
+      "type": "next"
+    },
+    {
+      "source": "bdd:phase-validate",
+      "target": "bdd:phase-scenario",
+      "type": "next",
+      "label": "next scenario"
+    },
+    {
+      "source": "bdd:context-avoid-when",
+      "target": "skill:tdd",
+      "type": "routes_to",
+      "label": "if no user"
+    },
+    {
+      "source": "bdd:context-avoid-when",
+      "target": "skill:spike",
+      "type": "routes_to",
+      "label": "if exploring"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-code-before-scenario",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-tech-jargon",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-implementation-tests",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-out-of-sync",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-features-no-scenario",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-skip-validate",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "json:proficiency-ref",
+      "type": "references"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "rule:compression-resilience-method",
+      "type": "implements"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "protocol:method-session-start",
+      "type": "implements"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "protocol:method-session-end",
+      "type": "implements"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:intent",
+      "type": "defines"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:context-use-when",
+      "type": "has_decision"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:context-avoid-when",
+      "type": "has_decision"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:cycle",
+      "type": "defines"
+    },
+    {
+      "source": "spike:cycle",
+      "target": "spike:phase-spike",
+      "type": "has_phase",
+      "label": "1"
+    },
+    {
+      "source": "spike:cycle",
+      "target": "spike:phase-evaluate",
+      "type": "has_phase",
+      "label": "2"
+    },
+    {
+      "source": "spike:cycle",
+      "target": "spike:phase-decide",
+      "type": "has_phase",
+      "label": "3"
+    },
+    {
+      "source": "spike:cycle",
+      "target": "spike:phase-rebuild-refactor",
+      "type": "has_phase",
+      "label": "4"
+    },
+    {
+      "source": "spike:phase-spike",
+      "target": "spike:phase-evaluate",
+      "type": "next"
+    },
+    {
+      "source": "spike:phase-evaluate",
+      "target": "spike:phase-decide",
+      "type": "next"
+    },
+    {
+      "source": "spike:phase-decide",
+      "target": "spike:phase-rebuild-refactor",
+      "type": "next"
+    },
+    {
+      "source": "spike:phase-rebuild-refactor",
+      "target": "skill:tdd",
+      "type": "routes_to",
+      "label": "if rebuild path"
+    },
+    {
+      "source": "spike:phase-rebuild-refactor",
+      "target": "skill:ride-along",
+      "type": "routes_to",
+      "label": "if rebuild path"
+    },
+    {
+      "source": "spike:context-avoid-when",
+      "target": "skill:tdd",
+      "type": "routes_to",
+      "label": "if clear requirements"
+    },
+    {
+      "source": "spike:context-avoid-when",
+      "target": "skill:ride-along",
+      "type": "routes_to",
+      "label": "if known pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:rule-time-box",
+      "type": "enforces"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:rule-permission-messy",
+      "type": "enforces"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-tests-during-spike",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-refactor-during-spike",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-ship-spike",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-no-question",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-hours-long",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-no-doc-lessons",
+      "type": "forbids"
+    },
+    {
+      "source": "skill:spike",
+      "target": "json:proficiency-ref",
+      "type": "references"
+    },
+    {
+      "source": "skill:spike",
+      "target": "rule:compression-resilience-method",
+      "type": "implements"
+    },
+    {
+      "source": "skill:spike",
+      "target": "protocol:method-session-start",
+      "type": "implements"
+    },
+    {
+      "source": "skill:spike",
+      "target": "protocol:method-session-end",
+      "type": "implements"
+    },
+    {
+      "source": "json:proficiency-ref",
+      "target": "level:novice",
+      "type": "defines"
+    },
+    {
+      "source": "json:proficiency-ref",
+      "target": "level:familiar",
+      "type": "defines"
+    },
+    {
+      "source": "json:proficiency-ref",
+      "target": "level:competent",
+      "type": "defines"
+    },
+    {
+      "source": "json:proficiency-ref",
+      "target": "level:proficient",
+      "type": "defines"
+    },
+    {
+      "source": "level:novice",
+      "target": "level:familiar",
+      "type": "progresses_to"
+    },
+    {
+      "source": "level:familiar",
+      "target": "level:competent",
+      "type": "progresses_to"
+    },
+    {
+      "source": "level:competent",
+      "target": "level:proficient",
+      "type": "progresses_to"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "indicator:tdd-novice",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "indicator:tdd-familiar",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "indicator:tdd-competent",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "indicator:tdd-proficient",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "signal:tdd-n-to-f",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "signal:tdd-f-to-c",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "signal:tdd-c-to-p",
+      "type": "uses_signal"
+    },
+    {
+      "source": "indicator:tdd-novice",
+      "target": "level:novice",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:tdd-familiar",
+      "target": "level:familiar",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:tdd-competent",
+      "target": "level:competent",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:tdd-proficient",
+      "target": "level:proficient",
+      "type": "indicates"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "indicator:bdd-novice",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "indicator:bdd-familiar",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "indicator:bdd-competent",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "indicator:bdd-proficient",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "signal:bdd-n-to-f",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "signal:bdd-f-to-c",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "signal:bdd-c-to-p",
+      "type": "uses_signal"
+    },
+    {
+      "source": "indicator:bdd-novice",
+      "target": "level:novice",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:bdd-familiar",
+      "target": "level:familiar",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:bdd-competent",
+      "target": "level:competent",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:bdd-proficient",
+      "target": "level:proficient",
+      "type": "indicates"
+    },
+    {
+      "source": "skill:spike",
+      "target": "indicator:spike-novice",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:spike",
+      "target": "indicator:spike-familiar",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:spike",
+      "target": "indicator:spike-competent",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:spike",
+      "target": "indicator:spike-proficient",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:spike",
+      "target": "signal:spike-n-to-f",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:spike",
+      "target": "signal:spike-f-to-c",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:spike",
+      "target": "signal:spike-c-to-p",
+      "type": "uses_signal"
+    },
+    {
+      "source": "indicator:spike-novice",
+      "target": "level:novice",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:spike-familiar",
+      "target": "level:familiar",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:spike-competent",
+      "target": "level:competent",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:spike-proficient",
+      "target": "level:proficient",
+      "type": "indicates"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "indicator:ride-novice",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "indicator:ride-familiar",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "indicator:ride-competent",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "indicator:ride-proficient",
+      "type": "uses_indicator"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "signal:ride-n-to-f",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "signal:ride-f-to-c",
+      "type": "uses_signal"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "signal:ride-c-to-p",
+      "type": "uses_signal"
+    },
+    {
+      "source": "indicator:ride-novice",
+      "target": "level:novice",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:ride-familiar",
+      "target": "level:familiar",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:ride-competent",
+      "target": "level:competent",
+      "type": "indicates"
+    },
+    {
+      "source": "indicator:ride-proficient",
+      "target": "level:proficient",
+      "type": "indicates"
+    },
+    {
+      "source": "test:profile-load",
+      "target": "skill:learner-profile",
+      "type": "tests"
+    },
+    {
+      "source": "test:proficiency-tracking",
+      "target": "skill:learner-profile",
+      "type": "tests"
+    },
+    {
+      "source": "test:proficiency-tracking",
+      "target": "json:proficiency-ref",
+      "type": "tests"
+    },
+    {
+      "source": "test:proficiency-tracking",
+      "target": "script:validate-proficiency",
+      "type": "uses"
+    },
+    {
+      "source": "test:session-flow",
+      "target": "session-start:protocol",
+      "type": "tests"
+    },
+    {
+      "source": "test:session-flow",
+      "target": "session-end:agent",
+      "type": "tests"
+    },
+    {
+      "source": "test:compression-resilience",
+      "target": "protocol:compression-resilience-lp",
+      "type": "tests"
+    },
+    {
+      "source": "test:compression-resilience",
+      "target": "rule:compression-resilience-method",
+      "type": "tests"
+    },
+    {
+      "source": "test:method-switching",
+      "target": "mid-session:switch",
+      "type": "tests"
+    },
+    {
+      "source": "test:template",
+      "target": "test:session-flow",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:compression-resilience",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:method-switching",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:profile-load",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:proficiency-tracking",
+      "type": "template_for"
+    },
+    {
+      "source": "ref:mos-mappings",
+      "target": "mos:army-25b",
+      "type": "contains"
+    },
+    {
+      "source": "ref:mos-mappings",
+      "target": "mos:navy-it",
+      "type": "contains"
+    },
+    {
+      "source": "ref:mos-mappings",
+      "target": "mos:af-3d0x2",
+      "type": "contains"
+    },
+    {
+      "source": "ref:readme",
+      "target": "ref:mos-mappings",
+      "type": "describes"
+    },
+    {
+      "source": "file:copilot-instructions",
+      "target": "agent:mentor",
+      "type": "documents"
+    },
+    {
+      "source": "file:readme",
+      "target": "agent:mentor",
+      "type": "documents"
+    },
+    {
+      "source": "file:mentor-directory",
+      "type": "documents",
+      "target": "agent:mentor"
+    },
+    {
+      "source": "file:readme",
+      "target": "file:mentor-directory",
+      "type": "references"
+    },
+    {
+      "source": "file:copilot-instructions",
+      "target": "file:mentor-directory",
+      "type": "references"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "track:cloud-app-dev",
+      "type": "offers"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-blob-uploader",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-cicd-pipeline",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-deploy-app-service",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-function-queue-trigger",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-hello-console",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-todo-api",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-todo-api-auth",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-todo-api-ef",
+      "type": "contains"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "skill:cad-todo-cli",
+      "type": "contains"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "track:cybersecurity-ops",
+      "type": "offers"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-defender-endpoint-onboard",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-detection-rule",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-entra-identity-hardening",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-hunting-query",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-incident-investigation",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-kql-foundations",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-sentinel-workspace",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-soar-playbook",
+      "type": "contains"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "skill:cso-threat-intel-integration",
+      "type": "contains"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "track:github-copilot",
+      "type": "offers"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-chat-driven-debugging",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-code-review-with-copilot",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-copilot-foundations",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-custom-agents",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-custom-instructions",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-mcp-tools-integration",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-prompt-files",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-prompting-for-completions",
+      "type": "contains"
+    },
+    {
+      "source": "track:github-copilot",
+      "target": "skill:ghc-test-generation",
+      "type": "contains"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "track:server-cloud-admin",
+      "type": "offers"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-ad-and-gpo",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-arm-bicep-iac",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-azure-vnet-vm",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-entra-hybrid-identity",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-local-system-admin",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-monitoring",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-powershell-foundations",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-server-vm-setup",
+      "type": "contains"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "skill:sca-storage-and-backup",
+      "type": "contains"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "track:whiteboarding",
+      "type": "offers"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-box-and-arrow-diagrams",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-capstone-present-a-system",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-drawio-for-polished-diagrams",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-entity-relationship-diagrams",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-mermaid-as-code",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-sequence-diagrams",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-state-machines-and-flowcharts",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-system-design-interview",
+      "type": "contains"
+    },
+    {
+      "source": "track:whiteboarding",
+      "target": "skill:wbd-whiteboard-foundations",
+      "type": "contains"
+    },
+    {
+      "source": "file:readme",
+      "target": "file:mentors-profiles",
+      "type": "references"
+    },
+    {
+      "source": "file:readme",
+      "target": "file:profiles-readme",
+      "type": "references"
+    },
+    {
+      "source": "file:readme",
+      "target": "file:copilot-fundamentals-readme",
+      "type": "references"
+    },
+    {
+      "source": "file:readme",
+      "target": "file:tracks-readme",
+      "type": "references"
+    },
+    {
+      "source": "file:copilot-fundamentals-readme",
+      "target": "file:copilot-01",
+      "type": "references"
+    },
+    {
+      "source": "file:copilot-fundamentals-readme",
+      "target": "file:copilot-02",
+      "type": "references"
+    },
+    {
+      "source": "feature:progress-dashboard",
+      "type": "reads-from",
+      "label": "reads profiles and progress files",
+      "target": "skill:learner-profile"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "type": "implements",
+      "label": "implements dashboard",
+      "target": "feature:progress-dashboard"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "type": "calls",
+      "label": "calls Get-LearnerProgress",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-LearnerProgress"
+    },
+    {
+      "source": "feature:hybrid-loading",
+      "type": "optimizes",
+      "label": "optimizes context loading",
+      "target": "rule:dynamic-skill-loading"
+    },
+    {
+      "source": "extension:context-loader",
+      "type": "implements",
+      "label": "implements Phase 1",
+      "target": "feature:hybrid-loading"
+    },
+    {
+      "source": "extension:context-loader",
+      "type": "reads-from",
+      "label": "reads profile for method/track",
+      "target": "skill:learner-profile"
+    },
+    {
+      "source": "rule:dynamic-skill-loading",
+      "type": "uses",
+      "label": "uses with -SkipEssentials",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-AgentLoadList"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:audit-quality",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:check-skill-exists",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:recommend-next-skills",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:show-skill-impact",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "extension:mentor-context-loader",
+      "target": "agent:mentor",
+      "type": "extends",
+      "label": "extends agent"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-func:Import-Module",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-GraphQualityReport",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-func:Dead-End",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-func:Import-Module",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Find-SimilarSkills",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-func:Import-Module",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillRecommendations",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:Import-Module",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-LearnerProgress",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:Write-Error",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:In-progress",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-func:Import-Module",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillImpact",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-func:Group-Object",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-GraphQualityReport",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-file:.github/knowledge-graph/cli/check-skill-exists.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Find-SimilarSkills",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-file:.github/knowledge-graph/cli/recommend-next-skills.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillRecommendations",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-LearnerProgress",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-file:.github/knowledge-graph/cli/show-skill-impact.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillImpact",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-GraphQualityReport",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Find-SimilarSkills",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillRecommendations",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-LearnerProgress",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillImpact",
+      "type": "invokes",
+      "label": "calls function"
+    }
+  ],
+  "analysis": {
+    "duplicates": [
+      {
+        "name": "Stuck escalation ladder",
+        "locations": [
+          ".github/agents/Mentor.agent.md § When the learner is stuck",
+          ".github/skills/methods/ride-along/SKILL.md § 3. Handle stuck-ness"
+        ],
+        "nodes": [
+          "stuck:ladder",
+          "ride-along:3-stuck"
+        ],
+        "severity": "high",
+        "recommendation": "Extract once. Cite from both files. Risk: drift if one is updated and the other is not."
+      },
+      {
+        "name": "Hard rules / anti-patterns",
+        "locations": [
+          ".github/agents/Mentor.agent.md § What you do NOT do (6 rules)",
+          ".github/skills/methods/ride-along/SKILL.md § Hard rules (5 rules)"
+        ],
+        "nodes": [
+          "antipattern:no-code-dumps",
+          "antipattern:no-baby-talk",
+          "ride-along:hard-rules"
+        ],
+        "severity": "high",
+        "recommendation": "Move to a shared `.github/skills/references/teaching-anti-patterns.json` so every method skill can inherit and add method-specific anti-patterns."
+      },
+      {
+        "name": "After-action review (AAR)",
+        "locations": [
+          ".github/agents/Mentor.agent.md § How you behave #8",
+          ".github/skills/methods/ride-along/SKILL.md § 4. Milestone AAR",
+          "Every method skill end-of-cycle (TDD, BDD, spike)"
+        ],
+        "nodes": [
+          "behavior:08-aar-at-milestones",
+          "ride-along:4-aar",
+          "concept:aar"
+        ],
+        "severity": "medium",
+        "recommendation": "AAR concept is core. Define once with the 3 questions, reference from every method. Could become `references/aar-protocol.json`."
+      },
+      {
+        "name": "Altitude calibration",
+        "locations": [
+          ".github/agents/Mentor.agent.md § How you behave #4 + 'When the learner is succeeding' (read typing)",
+          ".github/skills/methods/ride-along/SKILL.md § Altitude calibration table"
+        ],
+        "nodes": [
+          "concept:altitude",
+          "behavior:04-altitude-one-move",
+          "ride-along:altitude-table",
+          "success:read-typing"
+        ],
+        "severity": "medium",
+        "recommendation": "The signals→adjustment table in ride-along is the cleanest version. Make it the canonical reference and link from Mentor.agent.md."
+      },
+      {
+        "name": "Session start protocol",
+        "locations": [
+          ".github/agents/Mentor.agent.md § Session start with method/track selection",
+          ".github/skills/learner-profile/SKILL.md § Session start protocol"
+        ],
+        "nodes": [
+          "session-start:protocol",
+          "protocol:session-start-skill"
+        ],
+        "severity": "medium",
+        "recommendation": "Mentor.agent.md owns the agent-level orchestration (pickers, method/track selection). learner-profile owns profile loading. The boundary is OK but the overlap on 'identify learner' is duplicated. Move all identity logic into learner-profile, have Mentor.agent.md call it."
+      },
+      {
+        "name": "Session end protocol",
+        "locations": [
+          ".github/agents/Mentor.agent.md § Session end updates",
+          ".github/skills/learner-profile/SKILL.md § Session End Update Protocol"
+        ],
+        "nodes": [
+          "session-end:agent",
+          "protocol:session-end-skill"
+        ],
+        "severity": "medium",
+        "recommendation": "Two-file sync logic is repeated. Make learner-profile own the writes. Mentor.agent.md just says 'call learner-profile session end with this session's data'."
+      },
+      {
+        "name": "Pace/stuck/motivation adaptation rules",
+        "locations": [
+          ".github/agents/Mentor.agent.md § Adapting to the learner (using their profile)",
+          "Implicit in every method skill's proficiency-level mentor_behavior"
+        ],
+        "nodes": [
+          "adapt:pace-fast",
+          "adapt:pace-steady",
+          "adapt:pace-slow",
+          "adapt:stuck-tries-first",
+          "adapt:stuck-asks-immediately"
+        ],
+        "severity": "low",
+        "recommendation": "These are profile-driven behavior switches — strong candidates for JSON extraction (see candidate_json_extractions)."
+      },
+      {
+        "name": "Compression resilience pattern",
+        "locations": [
+          ".github/skills/learner-profile/SKILL.md § Compression resilience",
+          ".github/skills/methods/TDD/SKILL.md § Compression Resilience",
+          ".github/skills/methods/BDD/SKILL.md § Compression Resilience",
+          ".github/skills/methods/spike-then-refactor/SKILL.md § Compression Resilience"
+        ],
+        "nodes": [
+          "protocol:compression-resilience-lp",
+          "rule:compression-resilience-method"
+        ],
+        "severity": "low",
+        "recommendation": "Identical 3-step pattern in 4+ files. Extract once as a referenced shared protocol."
+      }
+    ],
+    "conflicts": [
+      {
+        "name": "Path inconsistency: single-file vs directory profile",
+        "locations": [
+          ".github/agents/Mentor.agent.md § How you behave #1: `.profiles/profiles/mentees/{github-username}.json`",
+          ".github/skills/learner-profile/SKILL.md § Architecture + Session start: `.profiles/profiles/mentees/{username}/profile.json`"
+        ],
+        "severity": "high",
+        "description": "Mentor.agent.md references the OLD path (single JSON per learner). learner-profile.md uses the CURRENT directory structure (folder per learner with profile.json + per-project files). Mentor.agent.md is stale.",
+        "fix": "Update Mentor.agent.md behavior #1 to read `.profiles/profiles/mentees/{github-username}/profile.json`."
+      },
+      {
+        "name": "Path inconsistency: skill reference in behavior #9",
+        "locations": [
+          ".github/agents/Mentor.agent.md § How you behave #9: `[learner-profile](../skills/methods/learner-profile/SKILL.md)`"
+        ],
+        "severity": "high",
+        "description": "Path `../skills/methods/learner-profile/SKILL.md` is wrong. learner-profile is NOT under `methods/`. Correct path is `../skills/learner-profile/SKILL.md` (used correctly in behavior #1).",
+        "fix": "Fix the relative path in behavior #9."
+      },
+      {
+        "name": "Method ID inconsistency: hyphen vs underscore",
+        "locations": [
+          "method-proficiency-levels.json keys: `TDD`, `BDD`, `spike_then_refactor`, `ride_along`",
+          "Folder names: `TDD/`, `BDD/`, `spike-then-refactor/`, `ride-along/`",
+          "list:methods enum values: `ride-along`, `TDD`, `BDD`, `spike-then-refactor`",
+          "progress.json `method_proficiency` keys (test data): `TDD`, `ride-along`"
+        ],
+        "severity": "medium",
+        "description": "JSON uses underscores, folders + enum use hyphens, progress files use hyphens (matching folders). The JSON keys are out of step with the rest of the system. Reading code has to map `spike_then_refactor` ↔ `spike-then-refactor`.",
+        "fix": "Pick one. Recommend hyphens everywhere (matches folder names and enum). Re-key the JSON: `spike_then_refactor` → `spike-then-refactor`, `ride_along` → `ride-along`. Update validate-proficiency.ps1 expected values accordingly."
+      },
+      {
+        "name": "Skill validation policy: 'execute don't read' vs 'read for clarity'",
+        "locations": [
+          ".github/agents/Mentor.agent.md § core_behavior YAML: 'Execute loaded skills directly when triggered - don't read them first.'",
+          ".github/agents/Mentor.agent.md § Working with skills: 'WHEN uncertain... THEN read the skill for clarity.'"
+        ],
+        "severity": "low",
+        "description": "Not a true conflict — the second rule is the escape hatch — but a learner could read these as contradictory. Clarify the relationship.",
+        "fix": "Rewrite as: 'Default: execute. Exception: read when uncertain.' One rule with the carve-out attached."
+      },
+      {
+        "name": "Method enum: where is the source of truth?",
+        "locations": [
+          ".github/agents/Mentor.agent.md § Available methods (markdown bullet list)",
+          ".github/agents/Mentor.agent.md § Session end #1 ('must be one of: ride-along, TDD, BDD, spike-then-refactor')",
+          "method-proficiency-levels.json (top-level keys)",
+          "validate-proficiency.ps1 `$validMethods = @(...)` hardcoded"
+        ],
+        "severity": "medium",
+        "description": "The list of valid methods exists in FOUR places. If a method is added or renamed, all four must update together.",
+        "fix": "Make `method-proficiency-levels.json` the single source of truth. Have validate-proficiency.ps1 derive `$validMethods` from the JSON keys. Have Mentor.agent.md cite the JSON instead of restating the list."
+      }
+    ],
+    "candidate_json_extractions": [
+      {
+        "name": "Behavioral rules (the 10 'How you behave' items)",
+        "current_location": ".github/agents/Mentor.agent.md § How you behave",
+        "proposed_file": ".github/skills/references/mentor-behaviors.json",
+        "shape": "Array of {id, title, summary, applies_to, related_skill}. Each rule becomes data, agent text becomes a thin loop over the JSON.",
+        "value": "Easier to add/remove/reorder rules without touching the agent file. Easier to map rules to skills programmatically.",
+        "risk": "Loses the prose voice. Mitigation: keep the prose in the JSON as `description` field."
+      },
+      {
+        "name": "Anti-patterns (the 'What you do NOT do' list)",
+        "current_location": ".github/agents/Mentor.agent.md § What you do NOT do + ride-along/SKILL.md § Hard rules",
+        "proposed_file": ".github/skills/references/teaching-anti-patterns.json",
+        "shape": "{antipattern_id: {label, why_bad, mentor_line, applies_to_methods[]}}",
+        "value": "Single source of truth. Each method skill can ALSO add its own anti-patterns to its skill file (per-method anti-patterns already exist in TDD/BDD/spike). Universal ones live in the JSON."
+      },
+      {
+        "name": "Stuck escalation ladder",
+        "current_location": "Duplicated in Mentor.agent.md and ride-along/SKILL.md",
+        "proposed_file": ".github/skills/references/stuck-ladder.json",
+        "shape": "Ordered array of rungs: {rung, action, example_line, escalate_to}",
+        "value": "Currently described twice with slight wording differences. Extraction enforces consistency and lets methods reference the ladder by rung."
+      },
+      {
+        "name": "Adaptation matrix (pace × when_stuck × motivation)",
+        "current_location": ".github/agents/Mentor.agent.md § Adapting to the learner",
+        "proposed_file": ".github/skills/references/profile-adaptation.json",
+        "shape": "{pace_preference: {fast: {...}, steady: {...}, slow: {...}}, when_stuck: {...}, motivation: {...}}",
+        "value": "Mirrors the proficiency JSON. Agent reads profile field → looks up adaptation → applies. Currently agent has to parse markdown to find the right adaptation."
+      },
+      {
+        "name": "Branch communication cultures",
+        "current_location": ".github/agents/Mentor.agent.md § Branch communication cultures",
+        "proposed_file": ".github/skills/references/branch-cultures.json",
+        "shape": "{Army: {values, style_notes, framing_hint, language_tone}, Marines: {...}, ...}",
+        "value": "Six branches × 4 fields = clean tabular data, currently prose. Easier for the agent to compose phrases like 'use commander's intent framing' if the data is structured."
+      },
+      {
+        "name": "Military analogy bank (the 5 examples)",
+        "current_location": ".github/agents/Mentor.agent.md § Military background translation (examples) + ride-along/SKILL.md § Analogy bank",
+        "proposed_file": ".github/skills/references/analogy-bank.json",
+        "shape": "{mos_or_role: {software_concept, analogy_line, follow_up_celebrate_line, follow_up_correct_line}}",
+        "value": "Mentor currently picks analogies from prose examples. JSON would let mentor look up by MOS code or by inferred role pattern. Combines well with mos-mappings.md."
+      },
+      {
+        "name": "Method context routing (use when / avoid when)",
+        "current_location": "Each method SKILL.md § Context",
+        "proposed_file": ".github/skills/references/method-routing.json",
+        "shape": "{method_id: {use_when: [...], avoid_when: [{condition, route_to}]}}",
+        "value": "Currently the routing logic ('if shape unclear, use BDD') is buried in 4 different files. A single routing table makes it a graph the agent can walk."
+      },
+      {
+        "name": "Session shape phases",
+        "current_location": ".github/agents/Mentor.agent.md § Session shape + ride-along/SKILL.md § Session shape",
+        "proposed_file": ".github/skills/references/session-shape.json",
+        "shape": "Ordered phases: {phase_id, label, duration_hint, required_actions, next_phase, exit_criteria}",
+        "value": "Lets the agent track 'what phase am I in?' programmatically rather than inferring from conversation."
+      }
+    ],
+    "orphans_and_gaps": [
+      {
+        "type": "orphan",
+        "name": "concept:track-cad, track-sca, track-cyber",
+        "description": "Tracks are enumerated in Mentor.agent.md and validated in session end, but there are NO track skills under `.github/skills/tracks/` yet. Mentor.agent.md picker offers them, fall-back path triggers if missing."
+      },
+      {
+        "type": "orphan",
+        "name": "file:project-json-optional",
+        "description": "`.profiles/project.json` is described as 'optional' shared coordination but no example or template exists. Mentioned once, never used."
+      },
+      {
+        "type": "gap",
+        "name": "No test for branch culture adaptation",
+        "description": "6 branch cultures are described in Mentor.agent.md but no test verifies the agent actually adapts tone per branch. Profile validation only checks branch field exists."
+      },
+      {
+        "type": "gap",
+        "name": "No test for analogy selection from profile",
+        "description": "Behavior #7 reads military.extracted_concepts and translation_to_code, but no test verifies the agent actually picks an appropriate analogy from these fields during a teaching moment."
+      },
+      {
+        "type": "gap",
+        "name": "Proficiency assessment: no script test",
+        "description": "validate-proficiency.ps1 validates STRUCTURE. There's no automated test that the agent correctly maps a learner's spoken indicator (e.g. 'What's TDD?') to the level (Novice). That's only in the integration markdown test."
+      },
+      {
+        "type": "gap",
+        "name": "No rollback for failed validation",
+        "description": "If validate-profile.ps1 fails AFTER the JSON is already written, there's no rollback. Skill says 'ask follow-ups and re-validate' but doesn't say 'remove the corrupted file first'."
+      }
+    ],
+    "consolidation_opportunities": [
+      {
+        "name": "Three layers of 'session start' could become one",
+        "current": [
+          "Mentor.agent.md owns: picker UI for project/method/track + validation of skill files",
+          "learner-profile owns: profile load + teammate check + interview trigger",
+          "Each method skill owns: proficiency assessment"
+        ],
+        "proposed": "Single session-start orchestrator in learner-profile that emits structured events. Mentor.agent.md becomes thin: 'on session start, ask learner-profile for {learner, project, method, track, proficiency}, then show pickers for whatever is ambiguous.'"
+      },
+      {
+        "name": "Adaptation logic could be policy-driven",
+        "current": "Agent has scattered if/then rules across pace, when_stuck, motivation, proficiency_level, branch culture.",
+        "proposed": "Single `adaptation.json` policy file. Agent reads profile, looks up each axis, composes a unified behavior profile for the session."
+      },
+      {
+        "name": "Anti-patterns could be cross-cutting",
+        "current": "Anti-patterns split by location (general vs method-specific). 'No code dumps' appears in 2 places.",
+        "proposed": "Universal anti-patterns in shared JSON. Method-specific anti-patterns stay in their SKILL.md. Each anti-pattern declares `applies_to: ['all']` or `applies_to: ['TDD']`."
+      }
+    ],
+    "self_discovery_hooks": [
+      {
+        "use_case": "Agent wants to know which skill to load for a task",
+        "graph_query": "Find nodes where type=skill and description matches user keywords; return file path."
+      },
+      {
+        "use_case": "Agent needs to find the right analogy for a learner with MOS=2336",
+        "graph_query": "Find nodes where type=analogy and id contains '2336' or '-eod-'; return analogy text."
+      },
+      {
+        "use_case": "Agent finishing a TDD session needs to know what to update",
+        "graph_query": "Find nodes where edge type=updates from session-end:agent or protocol:session-end-skill; return target files and fields."
+      },
+      {
+        "use_case": "Agent unsure which method to suggest",
+        "graph_query": "Find edges of type=routes_to from method context-avoid-when nodes; return target methods and conditions."
+      },
+      {
+        "use_case": "Onboarding contributor wants to add a new method",
+        "graph_query": "Walk the teaching-methods cluster + proficiency-tracking cluster. Returns: 1 SKILL.md + 1 entry in method-proficiency-levels.json + 1 entry in list:methods + update to validate-proficiency.ps1 + 1 integration test."
+      }
+    ],
+    "drift_detection_checks": [
+      "Every node with `file` field → file MUST exist on disk",
+      "Every edge of type `composes` from agent → target skill file MUST be in agent's frontmatter `skills:` array",
+      "Every method in list:methods enum MUST have a matching folder under .github/skills/methods/",
+      "Every method folder MUST have a SKILL.md and an entry in method-proficiency-levels.json",
+      "Every level value in test progress files MUST be in {Novice, Familiar, Competent, Proficient}",
+      "Every method_proficiency key in progress files MUST match a method in list:methods (after hyphen/underscore normalization)",
+      "Every edge of type `duplicates` → reviewer should resolve or accept the duplication explicitly",
+      "Every node of type `analogy` SHOULD have a corresponding entry or fallback rule in references/military-mos-mappings.md"
+    ]
+  }
+}
