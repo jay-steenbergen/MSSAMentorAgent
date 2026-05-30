@@ -46,8 +46,8 @@ $scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
 
 # ---------- load graph (for richer classification than health.ps1 exposes) ----------
 $graphPath = switch ($Layer) {
-    'code'   { Join-Path $scriptDir 'data\code\code-graph.json' }
-    'system' { Join-Path $scriptDir 'data\system\mentor-graph.json' }
+    'code'   { Join-Path $scriptDir 'data\MentorAgent\code\code-graph.json' }
+    'system' { Join-Path $scriptDir 'data\MentorAgent\system\mentor-graph.json' }
     'merged' { Join-Path $scriptDir 'output/merged-graph.json' }
 }
 if (-not (Test-Path $graphPath)) {

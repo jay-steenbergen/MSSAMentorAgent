@@ -50,8 +50,8 @@ $scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
 
 # ---------- locate graph ----------
 $graphPath = switch ($Layer) {
-    'code'   { Join-Path $scriptDir 'data\code\code-graph.json' }
-    'system' { Join-Path $scriptDir 'data\system\mentor-graph.json' }
+    'code'   { Join-Path $scriptDir 'data\MentorAgent\code\code-graph.json' }
+    'system' { Join-Path $scriptDir 'data\MentorAgent\system\mentor-graph.json' }
     'merged' { Join-Path $scriptDir 'output/merged-graph.json' }
 }
 
