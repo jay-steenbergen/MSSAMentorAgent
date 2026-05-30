@@ -84,16 +84,7 @@ foreach ($file in $stagedFiles) {
     }
 }
 
-if (-not $needsAutoDiscover -and -not $needsExtract) {
-    Write-Info "No graph-relevant changes detected. Skipping."
-    exit 0
-}
-
-# Report what changed
-$uniqueTypes = $changedTypes | Select-Object -Unique
-Write-Info "Detected changes: $($uniqueTypes -join ', ')"
-
-# Paths
+# Paths (needed for health check even if no changes)
 $graphDir = Join-Path $repoRoot '.github' 'knowledge-graph'
 $autoDiscoverScript = Join-Path $graphDir 'build' 'auto-discover-features.ps1'
 $extractScript = Join-Path $graphDir 'build' 'extract-code-graph.ps1'
@@ -106,6 +97,14 @@ $mergedGraph = Join-Path $graphDir 'output' 'merged-graph.json'
 
 # Track if we made changes
 $graphChanged = $false
+
+# Report what will be processed
+if (-not $needsAutoDiscover -and -not $needsExtract) {
+    Write-Info "No graph-relevant changes detected. Running health check only..."
+} else {
+    $uniqueTypes = $changedTypes | Select-Object -Unique
+    Write-Info "Detected changes: $($uniqueTypes -join ', ')"
+}
 
 # Step 1: Auto-discover (if needed)
 if ($needsAutoDiscover) {
@@ -153,7 +152,7 @@ if ($needsExtract) {
     }
 }
 
-# Step 3: Merge (always run if anything changed)
+# Step 3: Merge (only if something changed)
 if ($graphChanged) {
     Write-Header "🔗 Merging graph layers..."
     try {
@@ -188,12 +187,13 @@ if ($graphChanged) {
         Write-Error "Dangling edge fix encountered an error: $_"
         exit 1
     }
+}
 
-    # Step 5: Verify graph health and auto-remediate
-    Write-Header "✅ Verifying graph health..."
-    try {
-        $healthScript = Join-Path $graphDir 'build' 'health.ps1'
-        $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged 2>&1 | Out-String
+# Step 5: ALWAYS verify graph health (runs even if no changes detected)
+Write-Header "✅ Verifying graph health..."
+try {
+    $healthScript = Join-Path $graphDir 'build' 'health.ps1'
+    $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged 2>&1 | Out-String
         
         # Parse health checks
         $hasDanglingEdges = $healthOutput -match '\[FAIL\]\s+dangling-edges\s+\((\d+)\)'
@@ -275,9 +275,10 @@ if ($graphChanged) {
     } catch {
         Write-Warning "Health check encountered an error: $_"
         # Don't block commit on health check errors, just warn
-    }
+}
 
-    # Step 6: Stage updated graph files
+# Step 6: Stage updated graph files (if any changed)
+if ($graphChanged) {
     Write-Header "➕ Staging graph updates..."
     $graphFiles = @($systemGraph, $codeGraph, $mergedGraph) | Where-Object { Test-Path $_ }
     
@@ -291,7 +292,7 @@ if ($graphChanged) {
     
     Write-Success "Graph is up to date and staged"
 } else {
-    Write-Info "No graph updates needed"
+    Write-Info "Graph is clean, no updates to stage"
 }
 
 Write-Host ""
