@@ -68,7 +68,8 @@ if (Test-Path $cliDir) {
             Label = 'defined in'
         }
         
-        # Parse script to find function calls and module imports
+        # Parse script to find module imports only
+        # (Function call edges are created by code extraction, not auto-discover)
         $content = Get-Content $script.FullName -Raw
         
         # Find module imports (Import-Module or using module)
@@ -86,32 +87,6 @@ if (Test-Path $cliDir) {
                     Target = "code-file:$modulePath"
                     Type = 'imports'
                     Label = "imports module"
-                }
-            }
-        }
-        
-        # Find likely function calls (Get-*, Set-*, etc.)
-        # Match PowerShell verb-noun pattern
-        $funcPattern = '(?:^|[^\w])([A-Z][a-z]+-[A-Za-z0-9]+)(?:\s|\()'
-        $funcMatches = [regex]::Matches($content, $funcPattern)
-        $foundFunctions = @{}
-        foreach ($match in $funcMatches) {
-            $funcName = $match.Groups[1].Value
-            # Skip common cmdlets (Get-ChildItem, ConvertFrom-Json, etc.)
-            if ($funcName -match '^(Get-ChildItem|Get-Content|ConvertFrom-Json|ConvertTo-Json|Join-Path|Test-Path|Write-Host|Out-Null|Select-Object|Where-Object|ForEach-Object|Sort-Object)') {
-                continue
-            }
-            # Only count each function once
-            if (-not $foundFunctions.ContainsKey($funcName)) {
-                $foundFunctions[$funcName] = $true
-                
-                # Try to find this function in discovered code-func nodes
-                # Will be resolved during merge when we know what functions exist
-                $cliEdges += [pscustomobject]@{
-                    Source = $toolId
-                    Target = "code-func:$funcName"
-                    Type = 'invokes'
-                    Label = "calls function"
                 }
             }
         }

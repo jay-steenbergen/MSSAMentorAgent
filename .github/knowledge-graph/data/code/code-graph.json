@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-05-30T11:27:23-07:00",
+    "generated": "2026-05-30T11:32:50-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -7837,15 +7837,6 @@
       "description": "Section 'Status' in README.md"
     },
     {
-      "id": "code-file:.github/knowledge-graph/build/rebuild-if-stale.ps1",
-      "type": "code-file",
-      "label": "rebuild-if-stale.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/rebuild-if-stale.ps1",
-      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
       "id": "code-file:.github/knowledge-graph/build/fix-dangling-edges.ps1",
       "type": "code-file",
       "label": "fix-dangling-edges.ps1",
@@ -7860,6 +7851,15 @@
       "label": "gap-analysis.ps1",
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/build/gap-analysis.ps1",
+      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/rebuild-if-stale.ps1",
+      "type": "code-file",
+      "label": "rebuild-if-stale.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/rebuild-if-stale.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
       "missing": true
     },
@@ -12239,15 +12239,15 @@
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
-      "type": "calls",
-      "label": "calls Test-ProficiencyEntry"
-    },
-    {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
       "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
       "type": "calls",
       "label": "calls Get-ProgressFiles"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
+      "type": "calls",
+      "label": "calls Test-ProficiencyEntry"
     }
   ],
   "bridges": [],

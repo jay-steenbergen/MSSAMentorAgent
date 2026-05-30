@@ -167,20 +167,68 @@ if ($graphChanged) {
     # Step 4: Fix dangling edges
     Write-Header "🔧 Fixing dangling edges..."
     try {
-        $output = & pwsh -NoProfile -File $fixDanglingScript 2>&1
-        if ($output -match 'Fixed (\d+)') {
+        $fixOutput = & pwsh -NoProfile -File $fixDanglingScript 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Dangling edge fix failed with exit code $LASTEXITCODE"
+            Write-Host ""
+            Write-Host "Fix output:" -ForegroundColor Yellow
+            $fixOutput | Write-Host
+            exit 1
+        }
+        
+        if ($fixOutput -match 'Fixed (\d+)') {
             $fixed = $matches[1]
             if ([int]$fixed -gt 0) {
                 Write-Success "Fixed $fixed dangling edges"
             } else {
-                Write-Info "No dangling edges found"
+                Write-Info "No dangling edges to fix"
             }
         }
     } catch {
-        Write-Warning "Dangling edge fix had warnings: $_"
+        Write-Error "Dangling edge fix encountered an error: $_"
+        exit 1
     }
 
-    # Step 5: Stage updated graph files
+    # Step 5: Verify graph health
+    Write-Header "✅ Verifying graph health..."
+    try {
+        $healthScript = Join-Path $graphDir 'build' 'health.ps1'
+        $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged -Quiet 2>&1 | Out-String
+        
+        # Parse health checks for CRITICAL failures only
+        # FAIL dangling-edges = BLOCK commit
+        # FAIL stub-nodes = ALLOW (expected for build scripts)
+        # WARN anything = ALLOW
+        $hasDanglingEdges = $healthOutput -match '\[FAIL\]\s+dangling-edges'
+        $hasDuplicateIds = $healthOutput -match '\[FAIL\]\s+duplicate-node-ids'
+        
+        if ($hasDanglingEdges -or $hasDuplicateIds) {
+            Write-Error "Graph has CRITICAL failures (connectivity issues)"
+            Write-Host ""
+            Write-Host "Health output:" -ForegroundColor Yellow
+            Write-Host $healthOutput
+            Write-Host ""
+            Write-Host "Fix these issues before committing:" -ForegroundColor Yellow
+            Write-Host "  pwsh .github/knowledge-graph/build/fix-dangling-edges.ps1" -ForegroundColor White
+            Write-Host "  pwsh .github/knowledge-graph/build/health.ps1" -ForegroundColor White
+            exit 1
+        }
+        
+        # Parse summary line if present
+        if ($healthOutput -match 'Summary:\s*PASS\s*(\d+)\s*\|\s*WARN\s*(\d+)\s*\|\s*FAIL\s*(\d+)') {
+            $pass = [int]$matches[1]
+            $warn = [int]$matches[2]
+            $fail = [int]$matches[3]
+            Write-Success "Graph health: PASS $pass | WARN $warn | FAIL $fail (non-critical)"
+        } else {
+            Write-Success "Graph connectivity verified"
+        }
+    } catch {
+        Write-Warning "Health check encountered an error: $_"
+        # Don't block commit on health check errors, just warn
+    }
+
+    # Step 6: Stage updated graph files
     Write-Header "➕ Staging graph updates..."
     $graphFiles = @($systemGraph, $codeGraph, $mergedGraph) | Where-Object { Test-Path $_ }
     

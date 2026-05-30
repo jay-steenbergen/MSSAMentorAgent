@@ -43,7 +43,15 @@ When changes are detected, the hook runs:
 2. **Extract** (if code changed) — Parses code artifacts into code graph
 3. **Merge** — Combines system + code graphs into merged graph
 4. **Fix dangling edges** — Auto-repairs references
-5. **Stage graph files** — Adds updated graphs to your commit
+5. **Verify health** — Ensures graph is fully connected with zero failures
+6. **Stage graph files** — Adds updated graphs to your commit
+
+**Health Check Gate:** The hook will **block the commit** if:
+- Dangling edges cannot be fixed
+- Graph health check reports any failures
+- Critical connectivity warnings remain
+
+This ensures every commit maintains a fully healthy, connected graph.
 
 ### Efficiency
 
@@ -77,7 +85,10 @@ The hook adds these files to your commit automatically — no manual `git add` n
 ✓ Graphs merged
 
 🔧 Fixing dangling edges...
-  No dangling edges found
+✓ Fixed 2 dangling edges
+
+✅ Verifying graph health...
+✓ Graph health: PASS 5 | WARN 0 | FAIL 0
 
 ➕ Staging graph updates...
   Staged: mentor-graph.json
@@ -115,7 +126,17 @@ Run manually to see full error:
 ```powershell
 pwsh .github/hooks/pre-commit
 ```
+If health check blocks the commit:
+```powershell
+# View detailed health report
+pwsh .github/knowledge-graph/build/health.ps1
 
+# Fix dangling edges manually
+pwsh .github/knowledge-graph/build/fix-dangling-edges.ps1
+
+# Run full rebuild if needed
+pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1
+```
 ### Graph out of sync
 
 Run full rebuild:
