@@ -22,6 +22,9 @@ yarn-error.log*
 *.tmp
 *.temp
 
+# Build artifacts (knowledge graph)
+.github/knowledge-graph/output/
+
 # IMPORTANT: DO NOT ignore .profiles/
 # Learner profiles and progress tracking live here and MUST be committed to Git
 # !.profiles/

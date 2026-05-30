@@ -8,7 +8,10 @@ Multi-layer structured map of the Mentor system. Each layer is its own JSON grap
 .github/knowledge-graph/
 ├── README.md                    ← you are here
 ├── INTEGRATION_SUMMARY.md
-├── merged-graph.json            ← generated; do not edit
+│
+├── output/                      ← Generated artifacts (gitignored)
+│   ├── merged-graph.json       ← Combined graph from all layers
+│   └── call-flow-nodes.json    ← Pre-computed call flows
 │
 ├── cli/                         ← Daily user commands
 │   ├── audit-quality.ps1       ← Find technical debt
@@ -22,7 +25,9 @@ Multi-layer structured map of the Mentor system. Each layer is its own JSON grap
 │   ├── rebuild-if-stale.ps1    ← Auto-rebuild when needed
 │   ├── health.ps1              ← Health checks
 │   ├── gap-analysis.ps1        ← Gap classification
-│   └── fix-remaining-gaps.ps1  ← Gap repair
+│   ├── fix-remaining-gaps.ps1  ← Gap repair
+│   ├── generate-call-flow-nodes.ps1 ← Pre-compute call flows
+│   └── scaffold-node-type.ps1  ← Scaffold new node types
 │
 ├── tests/                       ← Validation & debugging
 │   ├── test-graph.ps1          ← Full integrity check
@@ -37,21 +42,31 @@ Multi-layer structured map of the Mentor system. Each layer is its own JSON grap
 ├── lib/                         ← Core runtime module
 │   └── query.psm1              ← 12 exported functions
 │
+├── queries/                     ← Query scripts (callable from skill)
+│   ├── Get-CallFlow.ps1        ← Show execution flow
+│   ├── Get-Dependencies.ps1    ← Outgoing edges
+│   ├── Get-Dependents.ps1      ← Incoming edges
+│   ├── Get-SkillPath.ps1       ← Shortest path between nodes
+│   ├── Get-SkillRecommendations.ps1 ← Learning path
+│   ├── Get-Subgraph.ps1        ← Export filtered subgraphs
+│   └── _Format-GraphOutput.ps1 ← Shared formatting helpers
+│
 └── data/                        ← Source graphs
-    ├── system/                 ← Architecture & call flow
-    │   ├── mentor-graph.json
-    │   └── README.md
-    └── code/                   ← Source map
-        ├── code-graph.json
-        └── README.md
+    └── MentorAgent/            ← This repo's graphs
+        ├── system/             ← Architecture & call flow
+        │   ├── mentor-graph.json
+        │   └── README.md
+        └── code/               ← Source map
+            ├── code-graph.json
+            └── README.md
 ```
 
 ## Why two graphs?
 
 | Graph | Answers | Best for |
 |---|---|---|
-| `data/system/` | "What does this agent DO? What are the rules? How does a session flow?" | Onboarding, finding rule duplicates, picking what to extract to JSON |
-| `data/code/` | "Where is this rule actually written? What script implements this validator? Which test covers this skill?" | Code review, refactoring, dead-code detection, dependency tracking |
+| `data/MentorAgent/system/` | "What does this agent DO? What are the rules? How does a session flow?" | Onboarding, finding rule duplicates, picking what to extract to JSON |
+| `data/MentorAgent/code/` | "Where is this rule actually written? What script implements this validator? Which test covers this skill?" | Code review, refactoring, dead-code detection, dependency tracking |
 
 A **system** node `script:validate-profile` says "this script validates profiles." A **code** node `code-file:.profiles/validate-profile.ps1` says "here is the actual file with these functions and parameters." `merge.ps1` joins them so you can ask either question against one graph.
 
@@ -65,7 +80,7 @@ A **system** node `script:validate-profile` says "this script validates profiles
 Prefixes never collide. `merge.ps1`:
 1. Reads every `*-graph.json` in subfolders
 2. Validates no duplicate node IDs across graphs (collision = abort)
-3. Merges nodes, edges, clusters into `merged-graph.json`
+3. Merges nodes, edges, clusters into `output/merged-graph.json`
 4. Adds an optional `bridges` section in each graph's metadata declaring `system_id → code_id` mappings (e.g. system's `script:validate-profile-ps1` ↔ code's `code-file:.profiles/validate-profile.ps1`). Merge resolves these into typed `implemented_by` edges.
 
 ## Quick commands
@@ -110,7 +125,7 @@ The graph auto-rebuilds when source files are modified. Run `rebuild-if-stale.ps
 ```powershell
 # In your workflow script:
 pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1 -Quiet
-# ... then use merged-graph.json
+# ... then use output/merged-graph.json
 ```
 
 **Staleness triggers:**

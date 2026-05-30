@@ -16,8 +16,8 @@
     Preview changes without writing to graph.
 
 .EXAMPLE
-    pwsh .github/knowledge-graph/data/system/auto-discover-features.ps1
-    pwsh .github/knowledge-graph/data/system/auto-discover-features.ps1 -DryRun
+    pwsh .github/knowledge-graph/build/auto-discover-features.ps1
+    pwsh .github/knowledge-graph/build/auto-discover-features.ps1 -DryRun
 #>
 
 [CmdletBinding()]

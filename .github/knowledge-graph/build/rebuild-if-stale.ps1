@@ -44,7 +44,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path "$PSScriptRoot\..\..\..").Path
-$mergedGraphPath = Join-Path $root '.github/knowledge-graph/merged-graph.json'
+$mergedGraphPath = Join-Path $root '.github/knowledge-graph/output/merged-graph.json'
 
 function Write-Progress($msg, $color = 'Cyan') {
     if (-not $Quiet) { Write-Host $msg -ForegroundColor $color }
@@ -111,7 +111,7 @@ if ($Force) {
         
         # Check build scripts
         $buildScripts = @(
-            '.github/knowledge-graph/data/code/extract.ps1'
+            '.github/knowledge-graph/build/extract-code-graph.ps1'
             '.github/knowledge-graph/build/merge.ps1'
         )
         
@@ -162,7 +162,7 @@ $rebuildStart = Get-Date
 try {
     # Step 0: Auto-discover new features (system graph)
     Write-Progress "[0/6] Auto-discovering features..." 'Cyan'
-    $discoverPath = Join-Path $root '.github/knowledge-graph/data/system/auto-discover-features.ps1'
+    $discoverPath = Join-Path $root '.github/knowledge-graph/build/auto-discover-features.ps1'
     if (Test-Path $discoverPath) {
         $discoverOutput = & pwsh -NoProfile -File $discoverPath 2>&1
         if ($LASTEXITCODE -ne 0) {
@@ -178,7 +178,7 @@ try {
     
     # Step 1: Extract code graph
     Write-Progress "[1/6] Extracting code graph..." 'Cyan'
-    $extractOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/data/code/extract.ps1') 2>&1
+    $extractOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/extract-code-graph.ps1') 2>&1
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Extract failed:" -ForegroundColor Red
         $extractOutput | Write-Host

@@ -1,6 +1,6 @@
 ---
 name: knowledge-graph-management
-description: Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, and offers actionable next steps.
+description: "Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, and offers actionable next steps. Also handles natural language queries about the codebase by querying the knowledge graph (e.g., 'show me the call flow', 'what uses X', 'trace dependencies')."
 ---
 
 # Knowledge Graph Management Skill
@@ -21,8 +21,75 @@ USE when:
 - User says "graph health"
 - After making changes to skills, agents, or graph infrastructure
 - When debugging graph connectivity issues
+- **User asks questions about the codebase that can be answered by the graph** (see Intent Recognition below)
 
-## Workflow
+## Intent Recognition (Answer Questions First)
+
+WHEN the user's request matches a graph query pattern → ANSWER the question directly by calling the appropriate query script BEFORE running health checks.
+
+### Common Query Patterns
+
+| User says | Script to call |
+|---|---|
+| "show me the call flow for X" | `.\Get-CallFlow.ps1 -NodeName "X"` |
+| "what uses X?" / "what depends on X?" | `.\Get-Dependents.ps1 -NodeName "X"` |
+| "what does X use?" / "what does X depend on?" | `.\Get-Dependencies.ps1 -NodeName "X"` |
+| "how do I get from A to B?" | `.\Get-SkillPath.ps1 -From "A" -To "B"` |
+| "what skills load for [intent]?" | `.\Get-SkillRecommendations.ps1 -Intent "[intent]"` |
+
+All scripts are in `.github/knowledge-graph/queries/`. See [queries/README.md](./../knowledge-graph/queries/README.md) for full documentation.
+
+### Query Workflow
+
+**Step 1: Match user intent to script**
+
+Extract the key information from the user's query:
+- Node name (X)
+- Intent phrase
+- From/To nodes (for path queries)
+
+**Step 2: Call the appropriate script**
+
+```powershell
+# Change to queries directory
+cd .github/knowledge-graph/queries
+
+# Call script with extracted parameters
+.\Get-CallFlow.ps1 -NodeName "Mentor"
+```
+
+**Step 3: Display script output**
+
+Scripts handle all formatting — colored output, suggestions, error messages. Just run the script and show the results.
+
+**Exit codes:**
+- 0 = success
+- 1 = node not found
+- 2 = invalid parameters
+
+### Examples
+
+**"Show me the call flow for the Mentor agent"**
+```powershell
+pwsh -NoProfile -File .github/knowledge-graph/queries/Get-CallFlow.ps1 -NodeName "Mentor"
+```
+
+**"What uses the learner-profile skill?"**
+```powershell
+pwsh -NoProfile -File .github/knowledge-graph/queries/Get-Dependents.ps1 -NodeName "learner-profile"
+```
+
+**"What skills load for 'build a REST API'?"**
+```powershell
+pwsh -NoProfile -File .github/knowledge-graph/queries/Get-SkillRecommendations.ps1 -Intent "build a REST API" -Track "cloud-app-dev"
+```
+
+**"How do I get from Mentor.agent.md to query.psm1?"**
+```powershell
+pwsh -NoProfile -File .github/knowledge-graph/queries/Get-SkillPath.ps1 -From "Mentor" -To "query.psm1"
+```
+
+## Workflow (Health & Maintenance)
 
 ### Phase 1: Run Checks
 
@@ -213,6 +280,7 @@ User: [Selects "Skip for now"]
 ## Integration Notes
 
 - This skill works with the existing build pipeline scripts
+- Query scripts in `.github/knowledge-graph/queries/` handle all data retrieval and formatting
 - Does NOT modify graph files directly — delegates to existing tools
 - Safe to run repeatedly — read-only checks, write-only on explicit user action
 - Can be invoked standalone or as part of a development workflow
@@ -223,3 +291,4 @@ Skill exits when:
 - All critical checks pass AND user selects "Done"
 - User selects "Skip for now" on all remaining issues
 - User explicitly says "stop", "cancel", or "exit"
+- User's question is answered (for query mode)

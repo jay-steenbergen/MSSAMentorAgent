@@ -19,7 +19,7 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Output = "merged-graph.json"
+    [string]$Output = "output/merged-graph.json"
 )
 
 $ErrorActionPreference = "Stop"

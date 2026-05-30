@@ -48,7 +48,7 @@ $scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
 $graphPath = switch ($Layer) {
     'code'   { Join-Path $scriptDir 'data\code\code-graph.json' }
     'system' { Join-Path $scriptDir 'data\system\mentor-graph.json' }
-    'merged' { Join-Path $scriptDir 'merged-graph.json' }
+    'merged' { Join-Path $scriptDir 'output/merged-graph.json' }
 }
 if (-not (Test-Path $graphPath)) {
     Write-Host "ERROR: Graph file not found: $graphPath" -ForegroundColor Red

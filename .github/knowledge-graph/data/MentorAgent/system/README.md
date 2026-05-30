@@ -52,6 +52,7 @@ The graph has five sections:
 |---|---|
 | `agent` | The Mentor itself. |
 | `skill` | A SKILL.md file. |
+| `architecture` | A system component, layer, or architectural pattern. |
 | `protocol` | A named, ordered sequence of steps (e.g., session start). |
 | `phase` | One step inside a protocol or a method cycle. |
 | `decision` | A branch point (`if X then Y`). |
