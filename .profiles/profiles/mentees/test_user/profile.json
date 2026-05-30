@@ -1,0 +1,60 @@
+{
+  "name": "Test User",
+  "preferred_name": "Test",
+  "github_username": "test_user",
+  "created": "2026-05-29T20:00:00Z",
+  "last_updated": "2026-05-29T20:30:00Z",
+  
+  "learning_style": {
+    "prefers": ["hands-on"],
+    "pace_preference": "fast",
+    "when_stuck": "tries first",
+    "notes": "Testing multi-project flow"
+  },
+  
+  "personality": {
+    "self_description": "Test profile",
+    "motivation": "Testing",
+    "notes": ""
+  },
+  
+  "military": {
+    "branch": "Army",
+    "rank": "SGT",
+    "mos": "25B",
+    "mos_title": "Information Technology Specialist",
+    "years_of_service": 4,
+    "job_description": "Network admin",
+    "extracted_concepts": [
+      "network troubleshooting",
+      "system administration",
+      "security protocols"
+    ],
+    "translation_to_code": {
+      "network_troubleshooting": "Debugging distributed systems"
+    }
+  },
+  
+  "projects": {
+    "cad-01-hello-csharp": {
+      "display_name": "Hello C# (CAD)",
+      "track": "cloud-app-dev",
+      "status": "completed",
+      "completed_at": "2026-05-15"
+    },
+    "cad-02-rest-api": {
+      "display_name": "REST API Project (CAD)",
+      "track": "cloud-app-dev",
+      "status": "in_progress",
+      "last_session": "2026-05-28",
+      "current_step": 3
+    },
+    "sca-01-powershell": {
+      "display_name": "PowerShell Automation (SCA)",
+      "track": "server-cloud-admin",
+      "status": "in_progress",
+      "last_session": "2026-05-25",
+      "current_step": 2
+    }
+  }
+}

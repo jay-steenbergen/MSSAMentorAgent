@@ -1,0 +1,42 @@
+{
+  "name": "mentor-context-loader",
+  "displayName": "MSSA Mentor Context Loader",
+  "description": "Pre-loads relevant skills into @Mentor agent context based on learner profile",
+  "version": "0.1.0",
+  "publisher": "mssa",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Education"
+  ],
+  "activationEvents": [
+    "onChatParticipant:Mentor"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "Mentor",
+        "name": "mentor-context-loader",
+        "description": "MSSA Mentor with smart context loading"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.x",
+    "@typescript-eslint/parser": "^6.x",
+    "eslint": "^8.x",
+    "typescript": "^5.x"
+  },
+  "dependencies": {}
+}

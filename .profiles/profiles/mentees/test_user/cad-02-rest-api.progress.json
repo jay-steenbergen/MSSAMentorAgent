@@ -1,0 +1,52 @@
+{
+  "project_id": "cad-02-rest-api",
+  "display_name": "REST API Project (CAD)",
+  "track": "cloud-app-dev",
+  "status": "in_progress",
+  "started_at": "2026-05-21T10:00:00Z",
+  "last_session": "2026-05-29T15:15:00Z",
+  "last_used_method": "TDD",
+  "current_step": 3,
+  "total_steps": 8,
+  "completed_milestones": [
+    "project-setup",
+    "first-endpoint",
+    "validation-layer"
+  ],
+  "method_proficiency": {
+    "TDD": {
+      "level": "Competent",
+      "last_updated": "2026-05-29",
+      "notes": "Progressed to Competent. Completed 3 more cycles (JWT validation). Named phases without prompting, predicted next tests, wrote Arrange-Act-Assert independently. Ready for minimal prompting next session."
+    },
+    "ride-along": {
+      "level": "Competent",
+      "last_updated": "2026-05-21",
+      "notes": "Comfortable with why-what-how rhythm. Asks good questions during build."
+    }
+  },
+  "session_history": [
+    {
+      "date": "2026-05-21",
+      "duration_minutes": 45,
+      "method_used": "ride-along",
+      "milestones_completed": ["project-setup"],
+      "notes": "Set up ASP.NET Core project"
+    },
+    {
+      "date": "2026-05-28",
+      "duration_minutes": 60,
+      "method_used": "TDD",
+      "milestones_completed": ["first-endpoint", "validation-layer"],
+      "notes": "Wrote tests first. GET endpoint working."
+    },
+    {
+      "date": "2026-05-29",
+      "duration_minutes": 45,
+      "method_used": "TDD",
+      "milestones_completed": ["jwt-validation"],
+      "notes": "TDD session: JWT token validation. Progressed to Competent level. Named phases independently, predicted tests, minimal prompting needed."
+    }
+  ],
+  "notes": "Using TDD now. Learner getting better with async/await."
+}

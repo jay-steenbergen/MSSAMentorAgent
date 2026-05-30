@@ -27,7 +27,9 @@ if (-not $repoRoot) {
 }
 
 $sourceHook = Join-Path $repoRoot '.github' 'hooks' 'pre-commit'
+$sourceScript = Join-Path $repoRoot '.github' 'hooks' 'pre-commit.ps1'
 $targetHook = Join-Path $repoRoot '.git' 'hooks' 'pre-commit'
+$targetScript = Join-Path $repoRoot '.git' 'hooks' 'pre-commit.ps1'
 $targetDir = Split-Path $targetHook -Parent
 
 # Ensure .git/hooks exists
@@ -38,8 +40,17 @@ if (-not (Test-Path $targetDir)) {
 if ($Uninstall) {
     Write-Host "🗑️  Uninstalling pre-commit hook..." -ForegroundColor Cyan
     
+    $removed = $false
     if (Test-Path $targetHook) {
         Remove-Item $targetHook -Force
+        $removed = $true
+    }
+    if (Test-Path $targetScript) {
+        Remove-Item $targetScript -Force
+        $removed = $true
+    }
+    
+    if ($removed) {
         Write-Host "✓ Hook removed" -ForegroundColor Green
     } else {
         Write-Host "  Hook not installed" -ForegroundColor Gray
@@ -67,26 +78,24 @@ if (Test-Path $targetHook) {
             exit 0
         }
         Remove-Item $targetHook -Force
+        if (Test-Path $targetScript) {
+            Remove-Item $targetScript -Force
+        }
     }
 }
 
 Write-Host "📦 Installing pre-commit hook..." -ForegroundColor Cyan
 
+# Copy both files (bash wrapper + PowerShell script)
 try {
-    # Try symlink first (requires elevated privileges on Windows)
-    New-Item -ItemType SymbolicLink -Path $targetHook -Target $sourceHook -Force -ErrorAction Stop | Out-Null
-    Write-Host "✓ Hook installed (symlink)" -ForegroundColor Green
-    Write-Host "  Location: $targetHook" -ForegroundColor Gray
-    Write-Host "  Target: $sourceHook" -ForegroundColor Gray
-} catch {
-    # Fallback: Copy the file
-    Write-Host "  (Symlink failed, copying instead)" -ForegroundColor Gray
     Copy-Item $sourceHook $targetHook -Force
-    Write-Host "✓ Hook installed (copy)" -ForegroundColor Green
-    Write-Host "  Location: $targetHook" -ForegroundColor Gray
-    Write-Host ""
-    Write-Host "  Note: Hook is a copy, not a link." -ForegroundColor Yellow
-    Write-Host "  Run this script again after modifying .github/hooks/pre-commit" -ForegroundColor Yellow
+    Copy-Item $sourceScript $targetScript -Force
+    Write-Host "✓ Hook installed" -ForegroundColor Green
+    Write-Host "  Bash wrapper: $targetHook" -ForegroundColor Gray
+    Write-Host "  PowerShell script: $targetScript" -ForegroundColor Gray
+} catch {
+    Write-Error "Failed to install hook: $_"
+    exit 1
 }
 
 Write-Host ""

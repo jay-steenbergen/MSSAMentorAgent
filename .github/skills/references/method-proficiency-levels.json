@@ -1,0 +1,206 @@
+{
+  "TDD": {
+    "method_name": "Test-Driven Development",
+    "method_id": "TDD",
+    "levels": {
+      "Novice": {
+        "indicators": [
+          "What's TDD?",
+          "Never heard of it",
+          "Never used it",
+          "What does test-first mean?"
+        ],
+        "teaching_approach": "Full narration every phase, explain why-what-how every step",
+        "mentor_behavior": "Line-by-line guidance, explain concepts, give explicit permission to write ugly Green code"
+      },
+      "Familiar": {
+        "indicators": [
+          "I've tried it once or twice",
+          "Wrote a few tests first, felt weird",
+          "Done it a couple times",
+          "Still getting used to it"
+        ],
+        "teaching_approach": "Less narration, prompt them to name phases, step in when stuck",
+        "mentor_behavior": "Ask questions first, they explain then you fill gaps, reinforce phase names"
+      },
+      "Competent": {
+        "indicators": [
+          "I've done several TDD sessions",
+          "Getting the Red-Green-Refactor rhythm",
+          "I understand the cycle",
+          "Done it multiple times"
+        ],
+        "teaching_approach": "Minimal guidance, coach don't direct, AAR after each cycle",
+        "mentor_behavior": "Watch them work, step in only on errors, ask coaching questions"
+      },
+      "Proficient": {
+        "indicators": [
+          "I use it regularly",
+          "It's how I start every feature",
+          "TDD is my default",
+          "I teach others TDD"
+        ],
+        "teaching_approach": "Observe, ask questions, pair on hard refactors only",
+        "mentor_behavior": "Challenge assumptions, ask hard questions about test design, no reminders needed"
+      }
+    },
+    "progression_signals": {
+      "Novice_to_Familiar": "Named phases themselves, wrote 1+ tests without prompting",
+      "Familiar_to_Competent": "Completed full cycle independently, chose appropriate test size",
+      "Competent_to_Proficient": "Refactored confidently, questioned own design, taught cycle back to mentor"
+    }
+  },
+  "BDD": {
+    "method_name": "Behavior-Driven Development",
+    "method_id": "BDD",
+    "levels": {
+      "Novice": {
+        "indicators": [
+          "Given what now?",
+          "Never heard of it",
+          "What's Given/When/Then?",
+          "Never written scenarios"
+        ],
+        "teaching_approach": "Full guidance on scenario format, translate together line-by-line",
+        "mentor_behavior": "Format each line together, explain Given/When/Then structure, concrete not abstract"
+      },
+      "Familiar": {
+        "indicators": [
+          "I've written a scenario or two",
+          "The format makes sense but feels formal",
+          "Done it once or twice",
+          "Still learning the structure"
+        ],
+        "teaching_approach": "Prompt them to write scenarios, coach on clarity, map to tests together",
+        "mentor_behavior": "Prompt for structure, coach for clarity, reinforce format"
+      },
+      "Competent": {
+        "indicators": [
+          "I've done several BDD features",
+          "Scenarios flow naturally now",
+          "I get Given/When/Then",
+          "Comfortable with scenarios"
+        ],
+        "teaching_approach": "Minimal scenario help, coach on test translation and validation",
+        "mentor_behavior": "Minimal guidance on scenarios, ask clarifying questions, step in on anti-patterns"
+      },
+      "Proficient": {
+        "indicators": [
+          "I write scenarios before code",
+          "It's how I capture requirements",
+          "BDD is my default for user features",
+          "I use it for all user stories"
+        ],
+        "teaching_approach": "Observe, ask hard questions about scenario coverage and edge cases",
+        "mentor_behavior": "Challenge assumptions, identify missing scenarios, question user experience claims"
+      }
+    },
+    "progression_signals": {
+      "Novice_to_Familiar": "Wrote Given/When/Then without format help, scenarios were concrete",
+      "Familiar_to_Competent": "Translated scenarios to tests independently, validated behavior manually",
+      "Competent_to_Proficient": "Identified missing scenarios, challenged own assumptions, kept scope tight"
+    }
+  },
+  "spike_then_refactor": {
+    "method_name": "Spike-Then-Refactor",
+    "method_id": "spike_then_refactor",
+    "levels": {
+      "Novice": {
+        "indicators": [
+          "I feel guilty deleting code",
+          "Never deliberately thrown code away",
+          "Never built a throwaway prototype",
+          "Isn't that wasteful?"
+        ],
+        "teaching_approach": "Give explicit permission to be messy, guide evaluation, strong rebuild/refactor coaching",
+        "mentor_behavior": "Frequent permission reminders, fight perfectionism hard, encourage logging"
+      },
+      "Familiar": {
+        "indicators": [
+          "I've spiked once or twice",
+          "Still feels wasteful but I see the point",
+          "Done it a couple times",
+          "Getting more comfortable with throwaway code"
+        ],
+        "teaching_approach": "Light permission reminders, coach on extraction of lessons, guide decision",
+        "mentor_behavior": "Permission reminder at start, redirect perfectionism, suggest shortcuts"
+      },
+      "Competent": {
+        "indicators": [
+          "I spike when exploring",
+          "Comfortable with throwaway code",
+          "I get when to spike vs build",
+          "Done it multiple times"
+        ],
+        "teaching_approach": "Minimal spike guidance, pair on decide phase, challenge evaluation depth",
+        "mentor_behavior": "Minimal interference during spike, step in on anti-patterns, time checks"
+      },
+      "Proficient": {
+        "indicators": [
+          "I spike first, build second",
+          "It's how I learn new libraries",
+          "Spike is my exploration tool",
+          "I always spike unknowns"
+        ],
+        "teaching_approach": "Observe, ask hard questions about time-boxing and lesson extraction",
+        "mentor_behavior": "Watch them explore, challenge time-boxing, question feature creep"
+      }
+    },
+    "progression_signals": {
+      "Novice_to_Familiar": "Spiked without guilt, extracted lessons, accepted throw-away decision",
+      "Familiar_to_Competent": "Time-boxed independently, documented lessons clearly, decided rebuild/refactor confidently",
+      "Competent_to_Proficient": "Knew when to stop spiking, challenged own assumptions in evaluation, rebuilt/refactored effectively"
+    }
+  },
+  "ride_along": {
+    "method_name": "Ride-Along",
+    "method_id": "ride_along",
+    "levels": {
+      "Novice": {
+        "indicators": [
+          "First time building with a mentor",
+          "Never pair-programmed before",
+          "New to guided learning",
+          "First session"
+        ],
+        "teaching_approach": "Full why-what-how on every move, celebrate small wins, name concepts explicitly",
+        "mentor_behavior": "Narrate everything, check understanding frequently, one move at a time"
+      },
+      "Familiar": {
+        "indicators": [
+          "Done a few sessions",
+          "Getting used to the rhythm",
+          "Starting to anticipate moves",
+          "A few builds together"
+        ],
+        "teaching_approach": "Less narration, prompt for next steps, reinforce concepts",
+        "mentor_behavior": "Ask 'what's next?' before telling, shorter explanations, more observation"
+      },
+      "Competent": {
+        "indicators": [
+          "Comfortable with the method",
+          "I know the pattern",
+          "Several sessions under my belt",
+          "Getting confident"
+        ],
+        "teaching_approach": "Coach don't direct, step in when stuck, after-action reviews",
+        "mentor_behavior": "Watch and guide, intervene only on errors, raise altitude on concepts"
+      },
+      "Proficient": {
+        "indicators": [
+          "I can drive most builds",
+          "Just need you for hard parts",
+          "Experienced with this approach",
+          "Comfortable leading"
+        ],
+        "teaching_approach": "Pair as equals, challenge decisions, focus on edge cases and architecture",
+        "mentor_behavior": "Minimal intervention, ask hard questions, focus on design trade-offs"
+      }
+    },
+    "progression_signals": {
+      "Novice_to_Familiar": "Anticipated next move, asked good questions, completed move without full narration",
+      "Familiar_to_Competent": "Drove full feature independently, recognized patterns, ran AAR without prompting",
+      "Competent_to_Proficient": "Challenged mentor's suggestions, explained trade-offs, taught concepts back"
+    }
+  }
+}

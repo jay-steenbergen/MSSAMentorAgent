@@ -5423,6 +5423,36 @@
       "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillImpact",
       "type": "invokes",
       "label": "calls function"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-GraphQualityReport",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Find-SimilarSkills",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillRecommendations",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-LearnerProgress",
+      "type": "invokes",
+      "label": "calls function"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-func:.github/knowledge-graph/lib/query.psm1::Get-SkillImpact",
+      "type": "invokes",
+      "label": "calls function"
     }
   ],
   "analysis": {

@@ -1,0 +1,53 @@
+{
+  "name": "Jay Steenbergen",
+  "preferred_name": "Jay",
+  "github_username": "jasteenb",
+  "created": "2026-05-29T21:24:00Z",
+  "last_updated": "2026-05-29T22:00:00Z",
+  
+  "learning_style": {
+    "prefers": ["hands-on", "conversation-driven", "building-alongside"],
+    "pace_preference": "fast",
+    "when_stuck": "tries multiple approaches, then asks for pushback or alternative framing",
+    "notes": "Experiential learner — discovers through conversation, not upfront analysis. Never writes from blank pages. Directs the build, doesn't pour concrete himself."
+  },
+  
+  "personality": {
+    "self_description": "Conductor-architect. Strong taste, relentless iteration. Self-taught. Gets nervous before big changes — channels it into reading files and listing risks.",
+    "motivation": "Autonomy (designs the blueprint, directs the build) and Competence (naming blind spots, rejecting what doesn't feel right).",
+    "notes": "Writing is slow — interview him, draft for review. Discovers constraints through conversation."
+  },
+  
+  "military": {
+    "branch": "Marines",
+    "rank": "SSgt",
+    "mos": "2336",
+    "mos_title": "Explosive Ordnance Disposal Technician",
+    "years_of_service": 9,
+    "job_description": "EOD technician (bomb squad). Defused IEDs, operated remote robots, conducted render safe procedures under high-risk conditions. Wide operational scope across multiple threat types.",
+    "extracted_concepts": [
+      "render safe procedures (methodical step-by-step approach, confirm each stage)",
+      "risk analysis and threat assessment before action",
+      "remote operation of robots and tools",
+      "precision work under extreme pressure",
+      "fail-safe mindset (casualty procedures, don't assume)"
+    ],
+    "translation_to_code": {
+      "render_safe_procedures": "Debugging methodology — don't guess and hope, follow the steps, confirm each stage works before proceeding. A bug in production is a live device.",
+      "risk_analysis": "Code review and impact assessment — evaluate what can break before you touch it",
+      "remote_operation": "Automation and tooling — build systems that do the dangerous work so humans stay safe",
+      "precision_under_pressure": "Production incident response — stay methodical when everything's on fire",
+      "fail_safe": "Error handling and defensive programming — design for failure, contain faults, fail gracefully"
+    }
+  },
+  
+  "projects": {
+    "mssa-mentor-agent": {
+      "display_name": "MSSA Mentor Agent (Testing)",
+      "track": "testing",
+      "status": "in_progress",
+      "last_session": "2026-05-29",
+      "current_step": 0
+    }
+  }
+}

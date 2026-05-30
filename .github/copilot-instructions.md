@@ -1,0 +1,196 @@
+# MSSA Mentor Agent
+
+This repository builds a custom GitHub Copilot agent that teaches software engineering to veterans transitioning through the Microsoft Software & Systems Academy (MSSA).
+
+---
+
+## For Learners
+
+**Use `@Mentor` in Copilot Chat.**
+
+That's it. The Mentor will:
+- Learn your style through a short interview
+- Build real code alongside you (you stay at the keyboard)
+- Use analogies from your military background
+- Track your progress across projects
+
+See [docs/MENTOR_DIRECTORY.md](docs/MENTOR_DIRECTORY.md) for how the system works.
+
+---
+
+## For Contributors
+
+You're building this system. Here's the architecture:
+
+### Core Concepts
+
+| Concept | What it is | Example |
+|---|---|---|
+| **Agent** | Personality + orchestration | `Mentor.agent.md` — teaches, celebrates, uses MOS analogies |
+| **Skill** | Reusable protocol (portable) | `learner-profile`, `TDD`, `BDD` — how to do something |
+| **Track** | What to build (curriculum) | `cloud-app-dev`, `server-cloud-admin` — MSSA tracks |
+| **Profile** | Learner identity + progress | `.profiles/mentees/{username}/` — Git-tracked state |
+| **Method** | How to teach | `ride-along`, `TDD`, `BDD` — pedagogy approach |
+
+**Key principle:** Agents compose skills. Skills are portable. Profiles persist in Git.
+
+---
+
+### File Organization
+
+```
+.github/
+├── agents/                    Agent personas
+│   └── Mentor.agent.md       MSSA Mentor (composes skills)
+│
+├── skills/                    Reusable protocols
+│   ├── learner-profile/      Profile CRUD + interview
+│   ├── references/           Reference data (MOS mappings, proficiency levels)
+│   └── methods/              Teaching methods
+│       ├── ride-along/       Default: build together, explain as we go
+│       ├── TDD/              Test-first workflow
+│       ├── BDD/              Behavior-driven development
+│       └── spike-then-refactor/  Explore, then clean up
+│
+└── tests/                     Integration tests
+    ├── TEST_TEMPLATE.md       Template for new tests
+    ├── session-flow.test.md
+    ├── method-switching.test.md
+    └── compression-resilience.test.md
+
+.profiles/
+└── profiles/
+    ├── mentees/              Learner data
+    │   └── {username}/
+    │       ├── profile.json           Identity + projects index
+    │       └── {project-id}.progress.json  Per-project progress
+    └── mentors/              Developer/tester profiles
+        └── {username}/
+            └── profile.json
+
+docs/
+├── MENTOR_DIRECTORY.md       System map (start here)
+├── CONTRIBUTOR_GUIDE.md      How to add skills/tracks/tests
+├── TESTING_GUIDE.md          How to run and write tests
+└── ARCHITECTURE.md           Design decisions
+```
+
+---
+
+### How to Add New Components
+
+#### Add a new teaching method
+
+1. Create `.github/skills/methods/{method-name}/SKILL.md`
+2. Add method to "Available methods" list in `Mentor.agent.md`
+3. Create tests in `.github/skills/methods/{method-name}/tests/`
+4. Validate: Session start picker should show new method
+
+#### Add a new track
+
+1. Create `.github/skills/tracks/{track-name}/SKILL.md`
+2. Add track to "Available tracks" list in `Mentor.agent.md`
+3. Validate: Track picker should show new track
+
+#### Add a new agent
+
+1. Create `.github/agents/{AgentName}.agent.md`
+2. Follow YAML frontmatter structure (see `Mentor.agent.md`)
+3. List which skills it composes in `skills:` array
+4. Test invocation: `@AgentName` in Copilot Chat
+
+#### Add a behavioral test
+
+1. Copy `.github/tests/TEST_TEMPLATE.md`
+2. Name: `{feature-under-test}.test.md`
+3. Fill in: Setup, Scenario, Expected Behavior, Pass Criteria
+4. Run: Paste scenario into Copilot Chat, observe behavior
+5. Document result in "Actual Result" section
+
+---
+
+### Testing
+
+| Test Type | Location | Run Method |
+|---|---|---|
+| **Integration tests** | `.github/tests/*.test.md` | Paste scenario into `@Mentor` chat |
+| **Skill unit tests** | `.github/skills/{skill}/tests/*.test.md` | Paste with skill loaded |
+| **Profile validation** | `.profiles/ProfileTests/` | `Invoke-Pester .profiles/ProfileTests/` |
+
+---
+
+### Key Design Patterns
+
+**Pattern 1: Skills are method-agnostic**
+- Track skills define WHAT to build (e.g., "Build a REST API")
+- Method skills define HOW to teach (e.g., "Test-first with Red-Green-Refactor")
+- Agent composes them: method + track = session
+
+**Pattern 2: Profile = identity + index**
+- `profile.json` = stable identity (name, learning style, military background, projects index)
+- `{project-id}.progress.json` = detailed project progress (milestones, session history)
+- Fast session start (index lookup) + rich detail (progress file)
+
+**Pattern 3: Compression resilience**
+- Essential behavior in YAML frontmatter (`core_behavior`)
+- Skills self-heal: check if profile in context, re-load if missing
+- Metadata doesn't compress
+
+**Pattern 4: Validation before loading**
+- Check skill file exists before loading
+- Fall back to safe defaults (e.g., `ride-along` method)
+- Never crash on missing files
+
+---
+
+### Common Tasks
+
+**Run behavioral tests:**
+```powershell
+# Open Copilot Chat
+# Paste test scenario from .github/tests/*.test.md
+# Observe behavior
+# Document result in test file
+```
+
+**Validate a profile:**
+```powershell
+.\.profiles\validate-profile.ps1 -Username alex_smith
+```
+
+**Create a new learner:**
+- Profile created automatically on first `@Mentor` session
+- Interview runs, profile saved to `.profiles/profiles/mentees/{username}/`
+
+**Check system health:**
+- Run integration tests in `.github/tests/`
+- Verify profile validation passes
+- Test compression resilience (long conversation, check behavior retention)
+
+---
+
+### Getting Help
+
+- **File structure:** See [docs/MENTOR_DIRECTORY.md](docs/MENTOR_DIRECTORY.md)
+- **Bug reports:** File as issue with test case that reproduces it
+
+---
+
+## Design Philosophy
+
+**For the learner:**
+- Teach by building real code alongside them
+- Never dump finished solutions
+- Celebrate small wins loudly
+- Use their military background for analogies
+
+**For the contributor:**
+- Everything in Git (no external state)
+- Portable skills (reusable across agents)
+- Fail gracefully (validate before load, fall back to defaults)
+- Test via real scenarios (behavioral tests, not unit tests)
+
+## Out of scope
+
+- A web app, RAG pipeline, or hosted service — this ships as a Copilot customization, period.
+- Generating MSSA curriculum from scratch — Microsoft Learn and the MSSA program own the curriculum; we mentor *on top of it*.

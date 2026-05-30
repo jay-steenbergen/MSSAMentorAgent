@@ -1,0 +1,48 @@
+{
+  "name": "Test Learner",
+  "preferred_name": "Test",
+  "github_username": "test_incomplete",
+  "created": "2026-05-29T22:00:00Z",
+  "last_updated": "2026-05-29T22:00:00Z",
+  
+  "learning_style": {
+    "prefers": ["hands-on"],
+    "pace_preference": "steady",
+    "when_stuck": "asks for help",
+    "notes": ""
+  },
+  
+  "personality": {
+    "self_description": "I like building things",
+    "motivation": "Career transition",
+    "notes": ""
+  },
+  
+  "military": {
+    "branch": "Marines",
+    "rank": "Cpl",
+    "mos": "0311",
+    "mos_title": "Rifleman",
+    "years_of_service": 4,
+    "job_description": "Infantry operations, squad tactics, patrol leadership.",
+    "extracted_concepts": [
+      "mission planning",
+      "squad tactics and patrol security",
+      "contact drills (immediate action under fire)"
+    ],
+    "translation_to_code": {
+      "mission_planning": "System design — assess failure modes, build fallbacks, coordinate across services",
+      "contact_drills": "Error handling — immediate action when something breaks in production"
+    }
+  },
+  
+  "progress": {
+    "current_track": "cloud-app-dev",
+    "current_project": "cad-hello-csharp",
+    "current_step": 1,
+    "completed_milestones": [],
+    "started_at": "2026-05-29T22:00:00Z"
+  },
+  
+  "session_history": []
+}

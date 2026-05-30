@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# IMPORTANT: DO NOT ignore .profiles/
+# Learner profiles and progress tracking live here and MUST be committed to Git
+# !.profiles/
+
+# IMPORTANT: DO NOT ignore .github/
+# Agent customizations live here
+# !.github/
