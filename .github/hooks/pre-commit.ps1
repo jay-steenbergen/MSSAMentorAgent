@@ -195,12 +195,21 @@ try {
     $healthScript = Join-Path $graphDir 'build' 'health.ps1'
     $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged 2>&1 | Out-String
         
-        # Parse health checks
+        # Parse health checks and capture counts immediately
         $hasDanglingEdges = $healthOutput -match '\[FAIL\]\s+dangling-edges\s+\((\d+)\)'
+        $danglingCount = if ($hasDanglingEdges) { [int]$matches[1] } else { 0 }
+        
         $hasDuplicateIds = $healthOutput -match '\[FAIL\]\s+duplicate-node-ids\s+\((\d+)\)'
+        $duplicateCount = if ($hasDuplicateIds) { [int]$matches[1] } else { 0 }
+        
         $hasStubNodes = $healthOutput -match '\[FAIL\]\s+stub-nodes\s+\((\d+)\)'
+        $stubCount = if ($hasStubNodes) { [int]$matches[1] } else { 0 }
+        
         $hasOrphans = $healthOutput -match '\[WARN\]\s+orphan-nodes\s+\((\d+)\)'
+        $orphanCount = if ($hasOrphans) { [int]$matches[1] } else { 0 }
+        
         $hasIslands = $healthOutput -match '\[WARN\]\s+islands\s+\((\d+)\)'
+        $islandCount = if ($hasIslands) { [int]$matches[1] } else { 0 }
         
         # CRITICAL: Block commit on connectivity issues
         if ($hasDanglingEdges -or $hasDuplicateIds) {
@@ -217,7 +226,6 @@ try {
         
         # AUTO-FIX: Stub nodes (files exist but not in graph)
         if ($hasStubNodes) {
-            $stubCount = [int]$matches[1]
             Write-Warning "Found $stubCount stub nodes (files not yet extracted)"
             Write-Header "🔧 Auto-fixing: Re-running extract..."
             
@@ -243,7 +251,6 @@ try {
         
         # REPORT: Orphan nodes (no edges)
         if ($hasOrphans) {
-            $orphanCount = [int]$matches[1]
             Write-Warning "Found $orphanCount orphan nodes (no edges)"
             Write-Info "These may need manual wiring. Run:"
             Write-Info "  pwsh .github/knowledge-graph/build/health.ps1 -Layer merged | Select-String orphan -Context 5"
@@ -251,7 +258,6 @@ try {
         
         # REPORT: Islands (disconnected components)
         if ($hasIslands) {
-            $islandCount = [int]$matches[1]
             Write-Warning "Found $islandCount island nodes (disconnected components)"
             Write-Info "Normal for growing graphs. Will connect over time."
         }
