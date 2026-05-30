@@ -105,8 +105,20 @@ $findings['dangling-edges'] = @{ severity = 'FAIL'; count = $dangling.Count; ite
 # FAIL: duplicate node IDs
 $findings['duplicate-node-ids'] = @{ severity = 'FAIL'; count = $dupeIds.Count; items = $dupeIds }
 
-# FAIL: stub nodes
-$stubs = @($nodes | Where-Object { $_.PSObject.Properties.Name -contains 'missing' -and $_.missing -eq $true })
+# FAIL: stub nodes (exclude intentionally excluded paths)
+$excludedPatterns = @(
+    '\.github[/\\]knowledge-graph[/\\]build[/\\]',      # Graph build scripts
+    '\.github[/\\]knowledge-graph[/\\]data[/\\]',       # Graph source data
+    '\.github[/\\]knowledge-graph[/\\]tests[/\\]',      # Graph tests
+    '\.github[/\\]knowledge-graph[/\\]output[/\\]'      # Graph artifacts
+)
+$stubs = @($nodes | Where-Object { 
+    $_.PSObject.Properties.Name -contains 'missing' -and $_.missing -eq $true 
+} | Where-Object {
+    $id = $_.id
+    # Exclude if matches any intentionally excluded pattern
+    -not ($excludedPatterns | Where-Object { $id -match $_ })
+})
 $findings['stub-nodes'] = @{ severity = 'FAIL'; count = $stubs.Count; items = $stubs.id }
 
 # WARN: islands (connected components, undirected)

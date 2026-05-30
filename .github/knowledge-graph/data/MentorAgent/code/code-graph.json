@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-05-30T11:32:50-07:00",
+    "generated": "2026-05-30T12:41:46-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,20 +19,20 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 103,
-      "stub_files": 4,
-      "functions": 31,
-      "sections": 573,
+      "files": 111,
+      "stub_files": 5,
+      "functions": 36,
+      "sections": 581,
       "schemas": 9,
       "fields": 82,
       "yaml_fields": 66,
       "tests": 6,
       "scenarios": 29,
       "classes": 7,
-      "imports": 14,
-      "total_nodes": 929,
-      "total_edges": 871,
-      "bridges": 0,
+      "imports": 19,
+      "total_nodes": 962,
+      "total_edges": 916,
+      "bridges": 263,
       "dangling_edges": 0,
       "orphan_nodes": 6
     }
@@ -612,6 +612,270 @@
       "description": "PowerShell function Get-LearnerProgress in .github/knowledge-graph/lib/query.psm1"
     },
     {
+      "id": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "type": "code-file",
+      "label": "_Format-GraphOutput.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "File: .github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "extension": ".ps1",
+      "size_bytes": 2734
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::script::Title",
+      "type": "code-param",
+      "label": "Title",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "Script parameter -Title"
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::script::NodeId",
+      "type": "code-param",
+      "label": "NodeId",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "Script parameter -NodeId"
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "code-func",
+      "label": "Write-GraphHeader",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "PowerShell function Write-GraphHeader in .github/knowledge-graph/queries/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "code-func",
+      "label": "Write-GraphSection",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "PowerShell function Write-GraphSection in .github/knowledge-graph/queries/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphPath",
+      "type": "code-func",
+      "label": "Write-GraphPath",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "PowerShell function Write-GraphPath in .github/knowledge-graph/queries/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "code-func",
+      "label": "Write-GraphSuggestions",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "PowerShell function Write-GraphSuggestions in .github/knowledge-graph/queries/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::ConvertTo-GraphJson",
+      "type": "code-func",
+      "label": "ConvertTo-GraphJson",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "description": "PowerShell function ConvertTo-GraphJson in .github/knowledge-graph/queries/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "type": "code-file",
+      "label": "Get-CallFlow.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "description": "File: .github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "extension": ".ps1",
+      "size_bytes": 7319
+    },
+    {
+      "id": "code-import:.github/knowledge-graph/queries/Get-CallFlow.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "code-import",
+      "label": "dot-source $PSScriptRoot/_Format-GraphOutput.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "description": "Dot-source of $PSScriptRoot/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "type": "code-file",
+      "label": "Get-Dependencies.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "description": "File: .github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "extension": ".ps1",
+      "size_bytes": 2091
+    },
+    {
+      "id": "code-import:.github/knowledge-graph/queries/Get-Dependencies.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "code-import",
+      "label": "dot-source $PSScriptRoot/_Format-GraphOutput.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "description": "Dot-source of $PSScriptRoot/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "type": "code-file",
+      "label": "Get-Dependents.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Dependents.ps1",
+      "description": "File: .github/knowledge-graph/queries/Get-Dependents.ps1",
+      "extension": ".ps1",
+      "size_bytes": 2063
+    },
+    {
+      "id": "code-import:.github/knowledge-graph/queries/Get-Dependents.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "code-import",
+      "label": "dot-source $PSScriptRoot/_Format-GraphOutput.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Dependents.ps1",
+      "description": "Dot-source of $PSScriptRoot/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "type": "code-file",
+      "label": "Get-SkillPath.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "description": "File: .github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "extension": ".ps1",
+      "size_bytes": 3722
+    },
+    {
+      "id": "code-import:.github/knowledge-graph/queries/Get-SkillPath.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "code-import",
+      "label": "dot-source $PSScriptRoot/_Format-GraphOutput.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "description": "Dot-source of $PSScriptRoot/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "type": "code-file",
+      "label": "Get-SkillRecommendations.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "description": "File: .github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "extension": ".ps1",
+      "size_bytes": 3003
+    },
+    {
+      "id": "code-import:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "code-import",
+      "label": "dot-source $PSScriptRoot/_Format-GraphOutput.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "description": "Dot-source of $PSScriptRoot/_Format-GraphOutput.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "type": "code-file",
+      "label": "Get-Subgraph.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "description": "File: .github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "extension": ".ps1",
+      "size_bytes": 6597
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::RootNode",
+      "type": "code-param",
+      "label": "RootNode",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "description": "Script parameter -RootNode"
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::NodeTypes",
+      "type": "code-param",
+      "label": "NodeTypes",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "description": "Script parameter -NodeTypes"
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::EdgeTypes",
+      "type": "code-param",
+      "label": "EdgeTypes",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "description": "Script parameter -EdgeTypes"
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::MaxDepth",
+      "type": "code-param",
+      "label": "MaxDepth",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "description": "Script parameter -MaxDepth"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/queries/README.md",
+      "type": "code-file",
+      "label": "README.md",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "File: .github/knowledge-graph/queries/README.md",
+      "extension": ".md",
+      "size_bytes": 4318
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Available_Scripts",
+      "type": "code-section",
+      "label": "Available Scripts",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Available Scripts' in .github/knowledge-graph/queries/README.md"
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Usage_Pattern",
+      "type": "code-section",
+      "label": "Usage Pattern",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Usage Pattern' in .github/knowledge-graph/queries/README.md"
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Script_Behavior",
+      "type": "code-section",
+      "label": "Script Behavior",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Script Behavior' in .github/knowledge-graph/queries/README.md"
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Pre-Computed_Call_Flows",
+      "type": "code-section",
+      "label": "Pre-Computed Call Flows",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Pre-Computed Call Flows' in .github/knowledge-graph/queries/README.md"
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Integration_with_Skill",
+      "type": "code-section",
+      "label": "Integration with Skill",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Integration with Skill' in .github/knowledge-graph/queries/README.md"
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Development",
+      "type": "code-section",
+      "label": "Development",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Development' in .github/knowledge-graph/queries/README.md"
+    },
+    {
+      "id": "code-section:.github/knowledge-graph/queries/README.md::Subgraph_Export",
+      "type": "code-section",
+      "label": "Subgraph Export",
+      "cluster": "docs-source",
+      "file": ".github/knowledge-graph/queries/README.md",
+      "description": "Section 'Subgraph Export' in .github/knowledge-graph/queries/README.md"
+    },
+    {
       "id": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
       "type": "code-file",
       "label": "PROFICIENCY_SYSTEM_HANDOFF.md",
@@ -799,7 +1063,7 @@
       "file": ".github/skills/knowledge-graph-management/SKILL.md",
       "description": "File: .github/skills/knowledge-graph-management/SKILL.md",
       "extension": ".md",
-      "size_bytes": 6266
+      "size_bytes": 8928
     },
     {
       "id": "code-yaml-field:.github/skills/knowledge-graph-management/SKILL.md::name",
@@ -816,8 +1080,8 @@
       "label": "description",
       "cluster": "skills-source",
       "file": ".github/skills/knowledge-graph-management/SKILL.md",
-      "description": "Frontmatter 'description: Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, and offers actionable next steps.'",
-      "value": "Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, and offers actionable next steps."
+      "description": "Frontmatter 'description: Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, and offers actionable next steps. Also handles natural language queries about the codebase by querying the knowledge graph (e.g., 'show me the call flow', 'what uses X', 'trace dependencies').'",
+      "value": "Interactive knowledge graph health monitoring and maintenance workflow. Runs health check, displays results, and offers actionable next steps. Also handles natural language queries about the codebase by querying the knowledge graph (e.g., 'show me the call flow', 'what uses X', 'trace dependencies')."
     },
     {
       "id": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Purpose",
@@ -836,12 +1100,20 @@
       "description": "Section 'When to use this skill' in .github/skills/knowledge-graph-management/SKILL.md"
     },
     {
-      "id": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Workflow",
+      "id": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Intent_Recognition__Answer_Questions_First_",
       "type": "code-section",
-      "label": "Workflow",
+      "label": "Intent Recognition (Answer Questions First)",
       "cluster": "skills-source",
       "file": ".github/skills/knowledge-graph-management/SKILL.md",
-      "description": "Section 'Workflow' in .github/skills/knowledge-graph-management/SKILL.md"
+      "description": "Section 'Intent Recognition (Answer Questions First)' in .github/skills/knowledge-graph-management/SKILL.md"
+    },
+    {
+      "id": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Workflow__Health___Maintenance_",
+      "type": "code-section",
+      "label": "Workflow (Health & Maintenance)",
+      "cluster": "skills-source",
+      "file": ".github/skills/knowledge-graph-management/SKILL.md",
+      "description": "Section 'Workflow (Health & Maintenance)' in .github/skills/knowledge-graph-management/SKILL.md"
     },
     {
       "id": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Action_Loop",
@@ -7794,7 +8066,7 @@
       "file": "README.md",
       "description": "File: README.md",
       "extension": ".md",
-      "size_bytes": 3979
+      "size_bytes": 4005
     },
     {
       "id": "code-section:README.md::For_Learners",
@@ -7837,11 +8109,11 @@
       "description": "Section 'Status' in README.md"
     },
     {
-      "id": "code-file:.github/knowledge-graph/build/fix-dangling-edges.ps1",
+      "id": "code-file:.github/knowledge-graph/build/health.ps1",
       "type": "code-file",
-      "label": "fix-dangling-edges.ps1",
+      "label": "health.ps1",
       "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/fix-dangling-edges.ps1",
+      "file": ".github/knowledge-graph/build/health.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
       "missing": true
     },
@@ -7855,20 +8127,29 @@
       "missing": true
     },
     {
+      "id": "code-file:.github/knowledge-graph/build/generate-call-flow-nodes.ps1",
+      "type": "code-file",
+      "label": "generate-call-flow-nodes.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/generate-call-flow-nodes.ps1",
+      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/fix-dangling-edges.ps1",
+      "type": "code-file",
+      "label": "fix-dangling-edges.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/fix-dangling-edges.ps1",
+      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
       "id": "code-file:.github/knowledge-graph/build/rebuild-if-stale.ps1",
       "type": "code-file",
       "label": "rebuild-if-stale.ps1",
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/build/rebuild-if-stale.ps1",
-      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
-      "id": "code-file:.github/knowledge-graph/build/health.ps1",
-      "type": "code-file",
-      "label": "health.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/health.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
       "missing": true
     }
@@ -8223,6 +8504,152 @@
       "type": "defined_in"
     },
     {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-param:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::script::Title",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-param:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::script::NodeId",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "target": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "target": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphPath",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphPath",
+      "target": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "target": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::ConvertTo-GraphJson",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::ConvertTo-GraphJson",
+      "target": "code-file:.github/knowledge-graph/queries/_Format-GraphOutput.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-import:.github/knowledge-graph/queries/Get-CallFlow.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "imports"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-import:.github/knowledge-graph/queries/Get-Dependencies.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "imports"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-import:.github/knowledge-graph/queries/Get-Dependents.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "imports"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "target": "code-import:.github/knowledge-graph/queries/Get-SkillPath.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "imports"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "target": "code-import:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
+      "type": "imports"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "target": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::RootNode",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "target": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::NodeTypes",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "target": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::EdgeTypes",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "target": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::MaxDepth",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Available_Scripts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Usage_Pattern",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Script_Behavior",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Pre-Computed_Call_Flows",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Integration_with_Skill",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Development",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-section:.github/knowledge-graph/queries/README.md::Subgraph_Export",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-file:.github/knowledge-graph/build/generate-call-flow-nodes.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/generate-call-flow-nodes.ps1"
+    },
+    {
       "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
       "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Deliverables_Summary",
       "type": "contains"
@@ -8356,7 +8783,12 @@
     },
     {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
-      "target": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Workflow",
+      "target": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Intent_Recognition__Answer_Questions_First_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "target": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Workflow__Health___Maintenance_",
       "type": "contains"
     },
     {
@@ -8383,6 +8815,30 @@
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
       "target": "code-section:.github/skills/knowledge-graph-management/SKILL.md::Exit_Criteria",
       "type": "contains"
+    },
+    {
+      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-CallFlow.ps1"
+    },
+    {
+      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-Dependents.ps1"
+    },
+    {
+      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-SkillRecommendations.ps1"
+    },
+    {
+      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-SkillPath.ps1"
     },
     {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
@@ -12220,10 +12676,70 @@
       "label": "docs/MENTOR_DIRECTORY.md"
     },
     {
-      "source": "code-file:.profiles/edit-profile.ps1",
-      "target": "code-func:.profiles/edit-profile.ps1::Edit-Field",
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
       "type": "calls",
-      "label": "calls Edit-Field"
+      "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "calls",
+      "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "calls",
+      "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "calls",
+      "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphPath",
+      "type": "calls",
+      "label": "calls Write-GraphPath"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
@@ -12238,19 +12754,1341 @@
       "label": "calls Validate-Profile"
     },
     {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
+      "source": "code-file:.profiles/edit-profile.ps1",
+      "target": "code-func:.profiles/edit-profile.ps1::Edit-Field",
       "type": "calls",
-      "label": "calls Get-ProgressFiles"
+      "label": "calls Edit-Field"
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
       "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
       "type": "calls",
       "label": "calls Test-ProficiencyEntry"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
+      "type": "calls",
+      "label": "calls Get-ProgressFiles"
     }
   ],
-  "bridges": [],
+  "bridges": [
+    {
+      "system": "agent:mentor",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "core-behavior:execute-directly",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "core-behavior:stay-conversational",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "core-behavior:keyboard-discipline",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "core-behavior:humor-serves-mission",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "audience:adult-pro",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "list:methods",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "list:tracks",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "personality:instructor-buddy",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:dynamic-skill-loading",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "humor:self-deprecating",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "humor:mission-ribbing",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "humor:celebrate-screwups",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "humor:dark-code",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "humor:dial-up-when",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "humor:dial-down-when",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:01-identify-learner",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:02-open-with-intent",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:03-honor-intent",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:04-altitude-one-move",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:05-name-concept",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:06-keep-at-keyboard",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:07-connect-mental-models",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:08-aar-at-milestones",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:09-track-and-adapt",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:10-full-pedagogy",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "antipattern:no-code-dumps",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "antipattern:no-skip-why",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "antipattern:no-baby-talk",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "antipattern:no-long-lecture",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "antipattern:no-pretend-knowledge",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "antipattern:no-clown",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "stuck:ladder",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "stuck:rung1-question",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "stuck:rung2-hint",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "stuck:rung3-min-diff",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "stuck:rung4-write-then-undo",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "stuck:5min-humor-reset",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "success:match-pace",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "success:read-typing",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "success:call-out-wins",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-shape:default",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-start:protocol",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:project-count",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "picker:project",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "picker:continuation",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "picker:method",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "picker:track",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:method-exists",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:track-exists",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "mid-session:switch",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-end:agent",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-end:update-progress",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-end:update-index",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-end:commit",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "session-end:validate-method",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:pace-fast",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:pace-steady",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:pace-slow",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:stuck-tries-first",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:stuck-asks-immediately",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:mot-real-thing",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:mot-puzzles",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "adapt:mot-teammates",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "analogy:eod-debugging",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "analogy:netadmin-api",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "analogy:intel-etl",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "analogy:nuke-trycatch",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "analogy:logistics-db",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "analogy:fallback-extract",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "branch:army",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "branch:marines",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "branch:navy",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "branch:airforce",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "branch:coastguard",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "branch:spaceforce",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:learner-profile",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:compression-resilience-lp",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:session-start-skill",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:identify-learner",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:profile-exists",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:multi-project",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:check-teammates",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:interview",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q1-name",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q2-style",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q3-learning",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q4-stuck",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q5-fun",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q6-branch",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q7-rank",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q8-mos",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q9-job",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:q10-fallback",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "interview:summary-confirm",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:followup-interview",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "followup:branch-na",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "followup:concepts-min3",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "followup:translation-empty",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "followup:never-na",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "schema:profile-json",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "schema:progress-json",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:progress-after-milestone",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:auto-commit-default",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:coordination",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:handoff-awareness",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:conflict-hints-not-prevention",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "edge-case:switches-projects",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "edge-case:long-gap",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "edge-case:corrupted-profile",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "edge-case:profile-update",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "protocol:session-end-skill",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:proficiency-only-if-changed",
+      "code": "code-file:.github/skills/learner-profile/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ride-along",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:tdd",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:bdd",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:spike",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:contract",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:1-open",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:2-build-move",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:3-stuck",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:4-aar",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:5-close",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:altitude-table",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:hard-rules",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:analogy-bank",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ride-along:break-method-when",
+      "code": "code-file:.github/skills/methods/ride-along/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:intent",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:context-use-when",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:context-avoid-when",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:cycle",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:phase-red",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:phase-green",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:phase-refactor",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:anti-implementation-first",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:anti-multi-behavior",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:anti-skip-red",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:anti-refactor-during-green",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:anti-no-test-after-refactor",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:anti-give-up-1-cycle",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tdd:success-looks-like",
+      "code": "code-file:.github/skills/methods/TDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:intent",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:context-use-when",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:context-avoid-when",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:cycle",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:phase-scenario",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:phase-test",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:phase-implement",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:phase-validate",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:anti-code-before-scenario",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:anti-tech-jargon",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:anti-implementation-tests",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:anti-out-of-sync",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:anti-features-no-scenario",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "bdd:anti-skip-validate",
+      "code": "code-file:.github/skills/methods/BDD/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:intent",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:context-use-when",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:context-avoid-when",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:cycle",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:phase-spike",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:phase-evaluate",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:phase-decide",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:phase-rebuild-refactor",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:rule-time-box",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:rule-permission-messy",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:anti-tests-during-spike",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:anti-refactor-during-spike",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:anti-ship-spike",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:anti-no-question",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:anti-hours-long",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "spike:anti-no-doc-lessons",
+      "code": "code-file:.github/skills/methods/spike-then-refactor/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "json:proficiency-ref",
+      "code": "code-file:.github/skills/references/method-proficiency-levels.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "level:novice",
+      "code": "code-file:.github/skills/references/method-proficiency-levels.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "level:familiar",
+      "code": "code-file:.github/skills/references/method-proficiency-levels.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "level:competent",
+      "code": "code-file:.github/skills/references/method-proficiency-levels.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "level:proficient",
+      "code": "code-file:.github/skills/references/method-proficiency-levels.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "script:validate-profile",
+      "code": "code-file:.profiles/validate-profile.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "script:validate-proficiency",
+      "code": "code-file:.profiles/validate-proficiency.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "script:edit-profile",
+      "code": "code-file:.profiles/edit-profile.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "tests:profile-tests-csproj",
+      "code": "code-file:.profiles/ProfileTests/ProfileTests.csproj",
+      "type": "implemented_by"
+    },
+    {
+      "system": "test:profile-load",
+      "code": "code-file:.github/skills/learner-profile/tests/profile-load.test.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "test:proficiency-tracking",
+      "code": "code-file:.github/skills/learner-profile/tests/method-proficiency-tracking.test.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "test:session-flow",
+      "code": "code-file:.github/tests/session-flow.test.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "test:compression-resilience",
+      "code": "code-file:.github/tests/compression-resilience.test.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "test:method-switching",
+      "code": "code-file:.github/tests/method-switching.test.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "test:template",
+      "code": "code-file:.github/tests/TEST_TEMPLATE.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ref:mos-mappings",
+      "code": "code-file:.github/skills/references/military-mos-mappings.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "ref:readme",
+      "code": "code-file:.github/skills/references/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "mos:army-25b",
+      "code": "code-file:.github/skills/references/military-mos-mappings.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "mos:navy-it",
+      "code": "code-file:.github/skills/references/military-mos-mappings.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "mos:af-3d0x2",
+      "code": "code-file:.github/skills/references/military-mos-mappings.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:copilot-instructions",
+      "code": "code-file:.github/copilot-instructions.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:readme",
+      "code": "code-file:README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:mentor-directory",
+      "code": "code-file:docs/MENTOR_DIRECTORY.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:knowledge-graph-management",
+      "code": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "track:cloud-app-dev",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-blob-uploader",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-blob-uploader/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-cicd-pipeline",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-deploy-app-service",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-deploy-app-service/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-function-queue-trigger",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-hello-console",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-hello-console/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-todo-api",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-todo-api/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-todo-api-auth",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-todo-api-auth/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-todo-api-ef",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-todo-api-ef/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cad-todo-cli",
+      "code": "code-file:.github/skills/tracks/cloud-app-dev/cad-todo-cli/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "track:cybersecurity-ops",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-defender-endpoint-onboard",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-detection-rule",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-detection-rule/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-entra-identity-hardening",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-hunting-query",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-hunting-query/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-incident-investigation",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-incident-investigation/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-kql-foundations",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-kql-foundations/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-sentinel-workspace",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-soar-playbook",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-soar-playbook/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:cso-threat-intel-integration",
+      "code": "code-file:.github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "track:github-copilot",
+      "code": "code-file:.github/skills/tracks/github-copilot/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-chat-driven-debugging",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-chat-driven-debugging/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-code-review-with-copilot",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-code-review-with-copilot/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-copilot-foundations",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-copilot-foundations/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-custom-agents",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-custom-agents/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-custom-instructions",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-custom-instructions/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-mcp-tools-integration",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-mcp-tools-integration/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-prompt-files",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-prompt-files/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-prompting-for-completions",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-prompting-for-completions/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:ghc-test-generation",
+      "code": "code-file:.github/skills/tracks/github-copilot/ghc-test-generation/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "track:server-cloud-admin",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-ad-and-gpo",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-arm-bicep-iac",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-azure-vnet-vm",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-entra-hybrid-identity",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-local-system-admin",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-local-system-admin/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-monitoring",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-monitoring/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-powershell-foundations",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-powershell-foundations/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-server-vm-setup",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-server-vm-setup/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:sca-storage-and-backup",
+      "code": "code-file:.github/skills/tracks/server-cloud-admin/sca-storage-and-backup/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "track:whiteboarding",
+      "code": "code-file:.github/skills/tracks/whiteboarding/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-box-and-arrow-diagrams",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-capstone-present-a-system",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-drawio-for-polished-diagrams",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-entity-relationship-diagrams",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-mermaid-as-code",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-mermaid-as-code/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-sequence-diagrams",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-sequence-diagrams/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-state-machines-and-flowcharts",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-system-design-interview",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-system-design-interview/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "skill:wbd-whiteboard-foundations",
+      "code": "code-file:.github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/SKILL.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:profiles-readme",
+      "code": "code-file:.profiles/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:copilot-fundamentals-readme",
+      "code": "code-file:.github/copilot-fundamentals/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:tracks-readme",
+      "code": "code-file:.github/skills/tracks/README.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:copilot-01",
+      "code": "code-file:.github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "file:copilot-02",
+      "code": "code-file:.github/copilot-fundamentals/02-using-csharp-for-validation.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "feature:progress-dashboard",
+      "code": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:show-progress",
+      "code": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:audit-quality",
+      "code": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:check-skill-exists",
+      "code": "code-file:.github/knowledge-graph/cli/check-skill-exists.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:recommend-next-skills",
+      "code": "code-file:.github/knowledge-graph/cli/recommend-next-skills.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:show-skill-impact",
+      "code": "code-file:.github/knowledge-graph/cli/show-skill-impact.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "code-func:@(",
+      "code": "code-file:.github/knowledge-graph/lib/query.psm1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "schema:profile-json",
+      "code": "code-schema:.profiles/profiles/mentees/test_incomplete.json",
+      "type": "instance_of"
+    },
+    {
+      "system": "schema:progress-json",
+      "code": "code-schema:.profiles/profiles/mentees/test_user/cad-02-rest-api.progress.json",
+      "type": "instance_of"
+    },
+    {
+      "system": "schema:profile-json",
+      "code": "code-schema:.profiles/profiles/mentees/test_user/profile.json",
+      "type": "instance_of"
+    },
+    {
+      "system": "schema:profile-json",
+      "code": "code-schema:.profiles/profiles/mentors/jasteenb.json",
+      "type": "instance_of"
+    },
+    {
+      "system": "schema:progress-json",
+      "code": "code-schema:.profiles/profiles/mentors/jasteenb/mssa-mentor-agent.progress.json",
+      "type": "instance_of"
+    },
+    {
+      "system": "schema:profile-json",
+      "code": "code-schema:.profiles/profiles/mentors/jasteenb/profile.json",
+      "type": "instance_of"
+    }
+  ],
   "analysis": {
     "status": "auto-generated; rerun extract.ps1 to refresh",
     "notes": [

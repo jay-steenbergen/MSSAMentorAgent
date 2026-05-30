@@ -32,14 +32,15 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$Output = "code-graph.json"
+    [string]$Output = "data/MentorAgent/code/code-graph.json"
 )
 
 $ErrorActionPreference = "Stop"
 
 # ---------- bootstrap ----------
 $scriptDir = $PSScriptRoot
-$outPath = Join-Path $scriptDir $Output
+$kgRoot = Split-Path $scriptDir -Parent  # .github/knowledge-graph/
+$outPath = Join-Path $kgRoot $Output
 
 # Repo root = walk up from script until .github exists alongside .profiles
 $repoRoot = $scriptDir
@@ -126,6 +127,7 @@ $includePatterns = @(
     '.github/copilot-instructions.md',
     '.github/knowledge-graph/lib',      # PowerShell modules
     '.github/knowledge-graph/cli',      # CLI scripts
+    '.github/knowledge-graph/queries',  # Query scripts
     '.profiles',
     'extensions',                       # VS Code extensions
     'docs',
@@ -573,7 +575,7 @@ Write-Host ""
 # ---------- pass 3: auto-bridge to system graph ----------
 Write-Host "Auto-bridging to system graph..." -ForegroundColor Cyan
 
-$systemGraphPath = Join-Path $repoRoot ".github/knowledge-graph/system/mentor-graph.json"
+$systemGraphPath = Join-Path $repoRoot ".github/knowledge-graph/data/MentorAgent/system/mentor-graph.json"
 $bridges = @()
 if (Test-Path $systemGraphPath) {
     $sysGraph = Get-Content $systemGraphPath -Raw | ConvertFrom-Json
