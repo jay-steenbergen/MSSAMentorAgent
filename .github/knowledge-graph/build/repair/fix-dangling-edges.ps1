@@ -28,12 +28,13 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $scriptRoot = Split-Path -Parent $PSCommandPath
-$graphRoot = Split-Path -Parent $scriptRoot
+$buildRoot = Split-Path -Parent $scriptRoot
+$graphRoot = Split-Path -Parent $buildRoot
 
 # ---------- Load graphs ----------
 $systemPath = Join-Path $graphRoot 'data\MentorAgent\system\mentor-graph.json'
 $codePath = Join-Path $graphRoot 'data\MentorAgent\code\code-graph.json'
-$mergedPath = Join-Path $graphRoot 'output/merged-graph.json'
+$mergedPath = Join-Path $graphRoot 'output\merged-graph.json'
 
 if (-not (Test-Path $mergedPath)) {
     Write-Host "ERROR: Merged graph not found at: $mergedPath" -ForegroundColor Red
