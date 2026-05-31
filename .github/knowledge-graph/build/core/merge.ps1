@@ -117,12 +117,16 @@ $merged = [ordered]@{
 foreach ($layer in $layers) {
     if ($layer.Graph.clusters) {
         foreach ($c in $layer.Graph.clusters) {
-            # tag cluster with its source layer
+            # tag cluster with its source layer, preserve any extra semantic fields
             $cluster = [ordered]@{
                 id          = $c.id
                 label       = $c.label
                 description = $c.description
                 layer       = $layer.Name
+            }
+            foreach ($prop in $c.PSObject.Properties) {
+                if ($cluster.Contains($prop.Name)) { continue }
+                $cluster[$prop.Name] = $prop.Value
             }
             $merged.clusters += [PSCustomObject]$cluster
         }
@@ -150,6 +154,40 @@ foreach ($layer in $layers) {
             }
         }
     }
+}
+
+# ---------- auto-declare clusters referenced by nodes but never defined ----------
+# Nodes can carry a `cluster` field that points to a cluster id. If a layer assigns
+# nodes to a cluster but forgets to declare it in clusters[], the gap audit (rightly)
+# flags every such node. Rather than fail loudly, we synthesize a placeholder so the
+# graph stays self-consistent and mark it auto_declared so a human can curate later.
+$declaredClusterIds = @{}
+foreach ($c in $merged.clusters) { $declaredClusterIds[$c.id] = $true }
+
+$usedClusters = @{}
+foreach ($n in $merged.nodes) {
+    if ($n.PSObject.Properties.Name -contains 'cluster' -and $n.cluster) {
+        if (-not $usedClusters.ContainsKey($n.cluster)) {
+            $usedClusters[$n.cluster] = $n.layer
+        }
+    }
+}
+
+$autoDeclaredCount = 0
+foreach ($cid in $usedClusters.Keys) {
+    if (-not $declaredClusterIds.ContainsKey($cid)) {
+        $merged.clusters += [PSCustomObject]([ordered]@{
+            id            = $cid
+            label         = $cid
+            description   = "Auto-declared during merge — referenced by nodes but missing from clusters[] in source layer. Curate label/description in the originating graph."
+            layer         = $usedClusters[$cid]
+            auto_declared = $true
+        })
+        $autoDeclaredCount++
+    }
+}
+if ($autoDeclaredCount -gt 0) {
+    Write-Host "Auto-declared $autoDeclaredCount cluster(s) referenced by nodes but not in clusters[]" -ForegroundColor Yellow
 }
 
 # ---------- resolve bridges into edges ----------

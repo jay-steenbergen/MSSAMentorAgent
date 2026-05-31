@@ -42,7 +42,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
+$scriptDir = (Resolve-Path "$PSScriptRoot\..\..").Path
 
 # ---------- load graph (for richer classification than health.ps1 exposes) ----------
 $graphPath = switch ($Layer) {
@@ -64,7 +64,7 @@ $nodeById = @{}
 foreach ($n in $nodes) { $nodeById[$n.id] = $n }
 
 # ---------- run health.ps1 -Json ----------
-$healthScript = Join-Path $scriptDir 'build\health.ps1'
+$healthScript = Join-Path $scriptDir 'build\core\health.ps1'
 if (-not (Test-Path $healthScript)) {
     Write-Host "ERROR: health.ps1 not found at $healthScript" -ForegroundColor Red
     exit 2

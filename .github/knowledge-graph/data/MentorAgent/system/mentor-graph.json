@@ -2994,7 +2994,64 @@
       "id": "build-script:split-code-graph",
       "description": "Knowledge graph utility script - splits monolithic code-graph.json into per-type files",
       "type": "build-script",
+      "cluster": "infra-layer",
       "file": ".github/knowledge-graph/build/advanced/split-code-graph.ps1"
+    },
+    {
+      "id": "cli-tool:analyze-agent-size",
+      "type": "cli-tool",
+      "label": "analyze-agent-size.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:enforce-method",
+      "type": "cli-tool",
+      "label": "enforce-method.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/enforce-method.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:enforce-track",
+      "type": "cli-tool",
+      "label": "enforce-track.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/enforce-track.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:find-drift",
+      "type": "cli-tool",
+      "label": "find-drift.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/find-drift.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:get-behavior",
+      "type": "cli-tool",
+      "label": "get-behavior.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/get-behavior.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:query-node",
+      "type": "cli-tool",
+      "label": "query-node.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/query-node.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:session-protocol",
+      "type": "cli-tool",
+      "label": "session-protocol.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/session-protocol.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -3027,7 +3084,72 @@
     "name": "MSSA Mentor System Knowledge Graph"
   },
   "clusters": [
-    null
+    {
+      "id": "agent-core",
+      "label": "Agent Core",
+      "description": "Mentor agent identity and core behaviors. Holds the agent persona, the always-on rules that survive context compaction (execute-directly, stay-conversational, keyboard-discipline, humor-serves-mission), and the foundational identity that every session inherits before any skill loads.",
+      "triggers": ["mentor agent", "core behavior", "agent identity", "persona", "compression resilience"]
+    },
+    {
+      "id": "agent-rules",
+      "label": "Agent Rules & Personality",
+      "description": "Behavioral rules and personality traits that shape how Mentor talks, jokes, and adapts. Includes humor style (self-deprecating, mission-focused, dark-humor-about-code), dial-up/dial-down conditions, dynamic skill loading rules, and the instructor-buddy personality blend.",
+      "triggers": ["personality", "humor", "tone", "voice", "skill loading", "adaptation rules"]
+    },
+    {
+      "id": "teaching-methods",
+      "label": "Teaching Methods",
+      "description": "The four pedagogical approaches Mentor can use in a session: ride-along (default, build together), TDD (test-first), BDD (behavior-scenarios-first), and spike-then-refactor (explore then clean). Each method defines its own move loop, pacing, and milestone shape.",
+      "triggers": ["teaching method", "pedagogy", "ride-along", "TDD", "BDD", "spike", "how to teach"]
+    },
+    {
+      "id": "track-curriculum",
+      "label": "Track Curriculum",
+      "description": "MSSA track definitions and the project skills that live under each track. Covers cloud-app-dev, server-cloud-admin, and cybersecurity-ops — plus the per-project skill files (e.g., cad-blob-uploader, cad-cicd-pipeline) that define what to build for each curriculum step.",
+      "triggers": ["MSSA track", "curriculum", "project skill", "cloud-app-dev", "server-cloud-admin", "cybersecurity-ops"]
+    },
+    {
+      "id": "profile-system",
+      "label": "Learner Profile System",
+      "description": "Everything about who the learner is and how Mentor adapts to them: the learner-profile skill, identification protocol, first-time interview flow, returning-learner greet flow, session-start protocols, and compression-resilience patterns that re-load the profile mid-session.",
+      "triggers": ["learner profile", "identification", "first-time interview", "returning learner", "session start", "profile persistence"]
+    },
+    {
+      "id": "proficiency-tracking",
+      "label": "Proficiency Tracking",
+      "description": "How Mentor measures and records what a learner has demonstrated. Includes the proficiency level scale (novice -> proficient), per-method proficiency rules, the proficiency-only-if-changed write rule, and the reference JSON that defines what counts as a level-up.",
+      "triggers": ["proficiency", "skill level", "novice", "competent", "proficient", "level up", "demonstrated skill"]
+    },
+    {
+      "id": "session-protocols",
+      "label": "Session Protocols",
+      "description": "Procedural rules that govern session flow: session-shape default, session-start protocol, session-end updates, project count decision logic, milestone after-action review, and the handoff cadence between sessions.",
+      "triggers": ["session shape", "session start", "session end", "AAR", "after-action review", "milestone", "handoff"]
+    },
+    {
+      "id": "references-and-analogies",
+      "label": "Military References & Analogies",
+      "description": "The catalog of military-to-software analogies Mentor draws on (EOD render-safe -> debugging, network admin -> APIs, intel collection -> ETL, nuke casualty procedures -> try/catch, logistics -> databases). Tied to learner MOS lookup so analogies match the learner's actual operational experience.",
+      "triggers": ["military analogy", "MOS", "EOD", "intel", "nuke", "logistics", "branch culture", "veteran translation"]
+    },
+    {
+      "id": "data-layer",
+      "label": "Data Layer",
+      "description": "Persistent state schemas: profile.json (learner identity + projects index), {project-id}.progress.json (per-project detail), mentor profile schemas. Defines every field, its type, and which protocol writes it. Source of truth for what survives between sessions.",
+      "triggers": ["schema", "profile.json", "progress.json", "data model", "persistent state", "Git-tracked state"]
+    },
+    {
+      "id": "validation-layer",
+      "label": "Validation Layer",
+      "description": "PowerShell scripts that validate profile and proficiency data before writes commit. Includes validate-profile, validate-proficiency, edit-profile — the integrity gates that prevent malformed state from being persisted to Git.",
+      "triggers": ["validate", "profile validation", "proficiency validation", "data integrity", "pre-commit"]
+    },
+    {
+      "id": "infra-layer",
+      "label": "Infrastructure & Tests",
+      "description": "Plumbing that supports the mentor system: behavioral test scenarios (.github/tests/*.test.md), the knowledge-graph build scripts (extract, merge, health, gap-analysis, rebuild-if-stale), and the supporting utility tooling. Not learner-facing — keeps the system itself running.",
+      "triggers": ["test", "behavioral test", "build script", "knowledge graph build", "rebuild", "gap analysis", "infrastructure"]
+    }
   ],
   "edges": [
     {
@@ -5526,6 +5648,12 @@
       "source": "module:query"
     },
     {
+      "description": "LLM-context packer: BFS from seed (node-id / file-path / intent), token-budgeted JSON pack with seed-always-full + distance-based pruning, query_hints[] for re-fetch, -FollowUp/-Expand for stateful expansion. Use to design integration of new code against existing graph.",
+      "type": "related_to",
+      "target": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "source": "module:query"
+    },
+    {
       "description": "Query scripts documentation",
       "type": "documented_in",
       "target": "code-file:.github/knowledge-graph/queries/README.md",
@@ -5552,6 +5680,120 @@
       "target": "build-script:scaffold-node-type",
       "type": "related_to",
       "source": "build-script:split-code-graph"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:analyze-agent-size",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:enforce-method",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:enforce-track",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:find-drift",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:get-behavior",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:query-node",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:session-protocol",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:analyze-agent-size",
+      "target": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-file:.github/knowledge-graph/cli/check-skill-exists.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:enforce-method",
+      "target": "code-file:.github/knowledge-graph/cli/enforce-method.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:enforce-track",
+      "target": "code-file:.github/knowledge-graph/cli/enforce-track.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:find-drift",
+      "target": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:get-behavior",
+      "target": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:query-node",
+      "target": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-file:.github/knowledge-graph/cli/recommend-next-skills.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:session-protocol",
+      "target": "code-file:.github/knowledge-graph/cli/session-protocol.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-file:.github/knowledge-graph/cli/show-skill-impact.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }

@@ -43,7 +43,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$root = (Resolve-Path "$PSScriptRoot\..\..\..").Path
+# Script lives at .github/knowledge-graph/build/core/ — repo root is 4 levels up.
+$root = (Resolve-Path "$PSScriptRoot\..\..\..\..").Path
 $mergedGraphPath = Join-Path $root '.github/knowledge-graph/output/merged-graph.json'
 
 function Write-Progress($msg, $color = 'Cyan') {
@@ -162,7 +163,7 @@ $rebuildStart = Get-Date
 try {
     # Step 0: Auto-discover new features (system graph)
     Write-Progress "[0/6] Auto-discovering features..." 'Cyan'
-    $discoverPath = Join-Path $root '.github/knowledge-graph/build/auto-discover-features.ps1'
+    $discoverPath = Join-Path $root '.github/knowledge-graph/build/advanced/auto-discover-features.ps1'
     if (Test-Path $discoverPath) {
         $discoverOutput = & pwsh -NoProfile -File $discoverPath 2>&1
         if ($LASTEXITCODE -ne 0) {
@@ -199,32 +200,44 @@ try {
     
     # Step 3: Fix dangling edges (auto-repair)
     Write-Progress "[3/6] Checking for dangling edges..." 'Cyan'
-    $fixOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/fix-dangling-edges.ps1') 2>&1
-    if ($LASTEXITCODE -eq 0) {
-        $fixCount = ($fixOutput | Select-String -Pattern 'Fixed (\d+)').Matches
-        if ($fixCount.Count -gt 0) {
-            Write-Detail "Fixed $($fixCount[0].Groups[1].Value) dangling edges"
-        } else {
-            Write-Detail "No dangling edges"
+    $fixPath = Join-Path $root '.github/knowledge-graph/build/repair/fix-dangling-edges.ps1'
+    if (Test-Path $fixPath) {
+        $fixOutput = & pwsh -NoProfile -File $fixPath 2>&1
+        if ($LASTEXITCODE -eq 0) {
+            $fixCount = ($fixOutput | Select-String -Pattern 'Fixed (\d+)').Matches
+            if ($fixCount.Count -gt 0) {
+                Write-Detail "Fixed $($fixCount[0].Groups[1].Value) dangling edges"
+            } else {
+                Write-Detail "No dangling edges"
+            }
+        } elseif ($LASTEXITCODE -eq 1) {
+            # Exit code 1 = manual review needed (not fatal)
+            Write-Detail "Manual review needed (see fix-dangling-edges.ps1 output)"
         }
-    } elseif ($LASTEXITCODE -eq 1) {
-        # Exit code 1 = manual review needed (not fatal)
-        Write-Detail "Manual review needed (see fix-dangling-edges.ps1 output)"
+    } else {
+        Write-Detail "Skipped: fix-dangling-edges.ps1 not found at $fixPath"
     }
     
     if (-not $SkipValidation) {
         # Step 4: Health check
         Write-Progress "[4/6] Running health check..." 'Cyan'
         $healthOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/core/health.ps1') -Layer merged -Quiet 2>&1
-        $healthStatus = ($healthOutput | Select-String -Pattern 'Summary: (.+)$').Matches.Groups[1].Value
+        $healthMatch = $healthOutput | Select-String -Pattern 'Summary: (.+)$' | Select-Object -First 1
+        $healthStatus = if ($healthMatch) { $healthMatch.Matches[0].Groups[1].Value } else { 'no summary' }
         Write-Detail $healthStatus
-        
+
         # Step 5: Gap analysis
         Write-Progress "[5/6] Running gap analysis..." 'Cyan'
-        $gapOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/gap-analysis.ps1') -Layer merged 2>&1
-        $gapStatus = ($gapOutput | Select-String -Pattern 'Summary: (.+)$').Matches.Groups[1].Value
+        $gapPath = Join-Path $root '.github/knowledge-graph/build/advanced/gap-analysis.ps1'
+        if (Test-Path $gapPath) {
+            $gapOutput = & pwsh -NoProfile -File $gapPath -Layer merged 2>&1
+            $gapMatch = $gapOutput | Select-String -Pattern 'Summary: (.+)$' | Select-Object -First 1
+            $gapStatus = if ($gapMatch) { $gapMatch.Matches[0].Groups[1].Value } else { 'no summary' }
+        } else {
+            $gapStatus = "skipped (gap-analysis.ps1 not found at $gapPath)"
+        }
         Write-Detail $gapStatus
-        
+
         # Check for critical failures
         if ($healthStatus -match 'FAIL \d+[^0]' -or $gapStatus -match 'NEEDS REVIEW \d+[^0]') {
             Write-Host ""

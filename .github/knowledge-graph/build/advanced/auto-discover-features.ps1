@@ -28,7 +28,7 @@ $ErrorActionPreference = 'Stop'
 # ---------- paths ----------
 $scriptDir = $PSScriptRoot
 $repoRoot = (Resolve-Path "$scriptDir\..\..\..\..").Path
-$graphPath = Join-Path $scriptDir 'mentor-graph.json'
+$graphPath = Join-Path $repoRoot '.github/knowledge-graph/data/MentorAgent/system/mentor-graph.json'
 $cliDir = Join-Path $repoRoot '.github/knowledge-graph/cli'
 $libDir = Join-Path $repoRoot '.github/knowledge-graph/lib'
 $extDir = Join-Path $repoRoot 'extensions'

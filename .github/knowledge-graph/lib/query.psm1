@@ -27,9 +27,12 @@ function Get-KnowledgeGraph {
     )
     
     $graphPath = Join-Path $PSScriptRoot '../output/merged-graph.json'
-    
-    # Check if rebuild needed
-    & (Join-Path $PSScriptRoot '../build/rebuild-if-stale.ps1') -Quiet
+
+    # Check if rebuild needed (best-effort: don't fail graph loads if rebuild is unavailable)
+    $rebuildScript = Join-Path $PSScriptRoot '../build/core/rebuild-if-stale.ps1'
+    if (Test-Path -LiteralPath $rebuildScript) {
+        try { & $rebuildScript -Quiet } catch { Write-Verbose "rebuild-if-stale skipped: $($_.Exception.Message)" }
+    }
     
     # Return cached if fresh
     if (-not $Refresh -and $script:GraphCache) {
