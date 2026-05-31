@@ -26,7 +26,7 @@ function Get-KnowledgeGraph {
         [switch]$Refresh
     )
     
-    $graphPath = Join-Path $PSScriptRoot '../merged-graph.json'
+    $graphPath = Join-Path $PSScriptRoot '../output/merged-graph.json'
     
     # Check if rebuild needed
     & (Join-Path $PSScriptRoot '../build/rebuild-if-stale.ps1') -Quiet

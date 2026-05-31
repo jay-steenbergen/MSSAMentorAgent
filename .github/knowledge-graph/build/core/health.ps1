@@ -17,6 +17,9 @@
       WARN  unclustered-nodes   cluster field empty or points to missing cluster
       WARN  duplicate-edges     same (source, target, type) > 1
       WARN  dropped-bridges     unresolved cross-layer bridges (merged only)
+      WARN  doc-drift           TYPE_CATALOG.md out of sync with actual graph files
+      WARN  code-coverage       repo files not in graph (by category) + stale nodes
+      WARN  session-artifacts   code files with zero system-layer reachability (deletion candidates)
       INFO  node-type-dist      counts per node.type
       INFO  edge-type-dist      counts per edge.type
       INFO  top-hubs            top 10 highest-degree nodes
@@ -46,7 +49,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
+$scriptDir = (Resolve-Path "$PSScriptRoot\..\..").Path
 
 # ---------- locate graph ----------
 $graphPath = switch ($Layer) {
@@ -278,6 +281,249 @@ foreach ($n in $nodes) {
 }
 $findings['prunable'] = @{ severity = 'INFO'; count = $prunable.Count; items = $prunable }
 
+# WARN: doc-drift (TYPE_CATALOG.md vs actual graph)
+$catalogPath = Join-Path $scriptDir 'TYPE_CATALOG.md'
+$docDriftItems = @()
+if (Test-Path $catalogPath) {
+    $catalogText = Get-Content $catalogPath -Raw
+    $catalogLines = Get-Content $catalogPath
+
+    # Check 1: File references — every *-graph.json or *.json mentioned should exist
+    $referencedFiles = [regex]::Matches($catalogText, 'code-[a-z-]+-graph\.json|code-edge-catalog\.json') |
+        ForEach-Object { $_.Value } | Sort-Object -Unique
+    $codeDir = Join-Path $scriptDir 'data\MentorAgent\code'
+    foreach ($ref in $referencedFiles) {
+        $refPath = Join-Path $codeDir $ref
+        if (-not (Test-Path $refPath)) {
+            $docDriftItems += [pscustomobject]@{
+                check   = 'missing-file'
+                detail  = "TYPE_CATALOG.md references '$ref' but it does not exist on disk"
+                fix     = "Remove reference or create the file"
+            }
+        }
+    }
+
+    # Check 1b: Actual files on disk not mentioned in catalog
+    if (Test-Path $codeDir) {
+        $actualFiles = Get-ChildItem $codeDir -Filter '*-graph.json' | ForEach-Object { $_.Name }
+        foreach ($af in $actualFiles) {
+            if ($catalogText -notmatch [regex]::Escape($af)) {
+                $docDriftItems += [pscustomobject]@{
+                    check   = 'unlisted-file'
+                    detail  = "'$af' exists on disk but is not mentioned in TYPE_CATALOG.md"
+                    fix     = "Add it to the Physical File Organization and Quick Reference sections"
+                }
+            }
+        }
+    }
+
+    # Check 2: Node count drift — extract "(N nodes" from catalog, compare to graph
+    $countMatches = [regex]::Matches($catalogText, '(code-[a-z-]+-graph\.json)\s+.*?\((\d+)\s+nodes')
+    foreach ($m in $countMatches) {
+        $fileName = $m.Groups[1].Value
+        $docCount = [int]$m.Groups[2].Value
+        $filePath = Join-Path $codeDir $fileName
+        if (Test-Path $filePath) {
+            $fileGraph = Get-Content $filePath -Raw | ConvertFrom-Json -Depth 32
+            $actualCount = @($fileGraph.nodes).Count
+            if ($docCount -ne $actualCount) {
+                $docDriftItems += [pscustomobject]@{
+                    check   = 'count-mismatch'
+                    detail  = "${fileName}: catalog says ${docCount} nodes, actual is ${actualCount}"
+                    fix     = "Update TYPE_CATALOG.md node count from ${docCount} to ${actualCount}"
+                }
+            }
+        }
+    }
+
+    # Check 3: Duplicate #### headings (same type defined twice)
+    $h4Headings = $catalogLines | Where-Object { $_ -match '^####\s+' } | ForEach-Object { $_.Trim() }
+    $h4Groups = $h4Headings | Group-Object | Where-Object { $_.Count -gt 1 }
+    foreach ($dup in $h4Groups) {
+        $docDriftItems += [pscustomobject]@{
+            check   = 'duplicate-section'
+            detail  = "Heading '$($dup.Name)' appears $($dup.Count) times in TYPE_CATALOG.md"
+            fix     = "Remove the duplicate definition (keep the one with more detail)"
+        }
+    }
+}
+$findings['doc-drift'] = @{ severity = 'WARN'; count = $docDriftItems.Count; items = $docDriftItems }
+
+# WARN: code-coverage (repo files vs graph code-file nodes)
+$coverageItems = @()
+$coverageStats = @{ total = 0; mapped = 0; missing = 0; stale = 0; excluded = 0 }
+$repoRoot = (Resolve-Path "$scriptDir\..\..").Path
+$gitAvailable = $false
+try {
+    Push-Location $repoRoot
+    $gitTest = git rev-parse --is-inside-work-tree 2>&1
+    $gitAvailable = ($LASTEXITCODE -eq 0)
+} finally { Pop-Location }
+
+if ($gitAvailable) {
+    Push-Location $repoRoot
+    try {
+        # Get all tracked source files
+        $trackedFiles = @(git ls-files | Where-Object {
+            $_ -match '\.(ps1|psm1|ts|tsx|cs|csproj|md|json|yaml|yml|agent\.md)$'
+        } | ForEach-Object { $_ -replace '\\', '/' })
+
+        # Paths the extractor intentionally excludes (self-referential or build artifacts)
+        $intentionalExcludes = @(
+            '[/\\](bin|obj|node_modules)[/\\]',
+            'knowledge-graph[/\\](build|data|tests|output|demos)[/\\]',
+            'knowledge-graph[/\\](build|data|tests|output|demos)$',
+            'knowledge-graph[/\\][A-Z][A-Z0-9_-]+\.md$'   # top-level KG docs (README, AUTO-DISCOVERY, etc.)
+        )
+
+        # Graph code-file nodes
+        $graphFilePaths = @($nodes | Where-Object { $_.type -eq 'code-file' } |
+            ForEach-Object { $_.file -replace '\\', '/' })
+
+        $coverageStats.total = $trackedFiles.Count
+
+        foreach ($f in $trackedFiles) {
+            $isExcluded = $intentionalExcludes | Where-Object { $f -match $_ }
+            if ($isExcluded) {
+                $coverageStats.excluded++
+                continue
+            }
+
+            if ($f -in $graphFilePaths) {
+                $coverageStats.mapped++
+            } else {
+                $coverageStats.missing++
+                # Categorize the gap
+                $category = if ($f -match '\.github[/\\]hooks[/\\]') { 'hooks' }
+                    elseif ($f -match '\.github[/\\]skills[/\\]') { 'skill' }
+                    elseif ($f -match '\.github[/\\]agents[/\\]') { 'agent' }
+                    elseif ($f -match 'extensions[/\\]') { 'extension' }
+                    elseif ($f -match '\.profiles[/\\]') { 'profile' }
+                    elseif ($f -match 'knowledge-graph[/\\]') { 'kg-infra' }
+                    elseif ($f -match 'docs[/\\]') { 'docs' }
+                    else { 'other' }
+
+                $coverageItems += [pscustomobject]@{
+                    file     = $f
+                    category = $category
+                }
+            }
+        }
+
+        # Check for stale nodes (graph has file, repo doesn't)
+        foreach ($gf in $graphFilePaths) {
+            $fullPath = Join-Path $repoRoot $gf
+            if (-not (Test-Path $fullPath)) {
+                $coverageStats.stale++
+                $coverageItems += [pscustomobject]@{
+                    file     = $gf
+                    category = 'stale'
+                }
+            }
+        }
+    } finally { Pop-Location }
+}
+
+$eligibleTotal = $coverageStats.total - $coverageStats.excluded
+$coveragePct = if ($eligibleTotal -gt 0) { [math]::Round(100.0 * $coverageStats.mapped / $eligibleTotal, 1) } else { 100.0 }
+$findings['code-coverage'] = @{
+    severity = 'WARN'
+    count    = $coverageItems.Count
+    stats    = $coverageStats
+    pct      = $coveragePct
+    items    = $coverageItems
+}
+
+# WARN: session-artifacts (code-file nodes completely disconnected from the system layer)
+# A file is "connected" if:
+#   1. It has a direct edge to/from a system-layer node (skill, agent, test, hook, etc.), OR
+#   2. It's contained by a directory/parent file that IS connected (e.g., extension source files under extension:mentor-context-loader)
+# Files with ZERO system reachability are deletion candidates.
+
+$artifactItems = @()
+
+# Step 1: Build a set of code-file IDs that have direct system-layer connections
+$directlyConnected = @{}
+foreach ($cf in ($nodes | Where-Object { $_.type -eq 'code-file' })) {
+    foreach ($e in $edges) {
+        if ($e.target -eq $cf.id -or $e.source -eq $cf.id) {
+            $otherSide = if ($e.source -eq $cf.id) { $e.target } else { $e.source }
+            if ($otherSide -notlike 'code-*') {
+                $directlyConnected[$cf.id] = $true
+                break
+            }
+        }
+    }
+}
+
+# Step 2: For files NOT directly connected, check if a parent directory file IS connected
+# (e.g., extension source .ts files are children of extension:mentor-context-loader via contains edges)
+$allCodeFiles = @($nodes | Where-Object { $_.type -eq 'code-file' })
+$reachable = @{} + $directlyConnected  # copy
+
+# Propagate: if file A is connected and has a 'contains' edge to file B, B is reachable
+$changed = $true
+while ($changed) {
+    $changed = $false
+    foreach ($e in $edges) {
+        if ($e.type -eq 'contains' -and $reachable.ContainsKey($e.source) -and
+            $nodeIdSet.ContainsKey($e.target) -and $nodeIdSet[$e.target].type -eq 'code-file' -and
+            -not $reachable.ContainsKey($e.target)) {
+            $reachable[$e.target] = $true
+            $changed = $true
+        }
+    }
+}
+
+# Step 3: Files that are NOT reachable from any system node are deletion candidates
+# Exclude files in directories that are inherently infrastructure (knowledge-graph build/data/tests)
+$infraExcludes = @(
+    'knowledge-graph[/\\](build|data|tests|output|demos|queries|cli|lib)[/\\]',
+    'knowledge-graph[/\\](build|data|tests|output|demos|queries|cli|lib)$'
+)
+
+foreach ($cf in $allCodeFiles) {
+    if ($reachable.ContainsKey($cf.id)) { continue }
+
+    # Skip infrastructure files (graph build scripts, etc.)
+    $isInfra = $infraExcludes | Where-Object { $cf.file -match $_ }
+    if ($isInfra) { continue }
+
+    # Classify: data files are expected to lack system edges (they're runtime, not design)
+    $isDataFile = $cf.file -match '^\.profiles[/\\]profiles[/\\]'
+    if ($isDataFile) { continue }
+
+    # Count code-layer edges (to distinguish "truly isolated" from "has internal structure")
+    $codeEdgeCount = 0
+    $incomingFrom = @()
+    foreach ($e in $edges) {
+        if ($e.target -eq $cf.id) {
+            $codeEdgeCount++
+            if ($e.source -notlike 'code-*') { $incomingFrom += $e.source }
+        }
+        if ($e.source -eq $cf.id) { $codeEdgeCount++ }
+    }
+
+    # Classify the verdict
+    $verdict = if ($codeEdgeCount -eq 0) {
+        'ISOLATED — zero edges, likely a session artifact. Safe to delete.'
+    } elseif ($cf.file -match '(HANDOFF|VALIDATION|CHECKLIST|SUMMARY|ANALYSIS|TODO)') {
+        'SESSION DOC — name pattern suggests one-time session artifact. Review and delete.'
+    } else {
+        'UNWIRED — has code structure but no system node claims it. Wire to a skill/agent/test or delete.'
+    }
+
+    $artifactItems += [pscustomobject]@{
+        file         = $cf.file
+        system_edges = 0
+        code_edges   = $codeEdgeCount
+        incoming     = ($incomingFrom -join ', ')
+        verdict      = $verdict
+    }
+}
+
+$findings['session-artifacts'] = @{ severity = 'WARN'; count = $artifactItems.Count; items = $artifactItems }
+
 # ---------- output ----------
 $failCount = 0
 $warnCount = 0
@@ -388,6 +634,44 @@ Write-Section 'cluster-sizes' $findings['cluster-sizes'] {
 Write-Section 'prunable' $findings['prunable'] {
     param($f) $f.items | Select-Object -First 10 | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
     if ($f.count -gt 10) { Write-Host ("    ... and {0} more" -f ($f.count - 10)) -ForegroundColor DarkGray }
+}
+Write-Section 'doc-drift' $findings['doc-drift'] {
+    param($f) foreach ($r in $f.items) {
+        Write-Host ("    [{0}] {1}" -f $r.check, $r.detail) -ForegroundColor DarkGray
+        Write-Host ("      Fix: {0}" -f $r.fix) -ForegroundColor DarkYellow
+    }
+}
+Write-Section 'code-coverage' $findings['code-coverage'] {
+    param($f)
+    $s = $f.stats
+    $eligible = $s.total - $s.excluded
+    Write-Host ("    Tracked files:  {0}  (excluded: {1}  eligible: {2})" -f $s.total, $s.excluded, $eligible) -ForegroundColor DarkGray
+    Write-Host ("    In graph:       {0}  ({1}%)" -f $s.mapped, $f.pct) -ForegroundColor DarkGray
+    Write-Host ("    Missing:        {0}" -f $s.missing) -ForegroundColor DarkGray
+    if ($s.stale -gt 0) { Write-Host ("    Stale:          {0}  (graph node but file deleted)" -f $s.stale) -ForegroundColor DarkGray }
+
+    # Group missing by category
+    $byCategory = $f.items | Where-Object { $_.category -ne 'stale' } | Group-Object category | Sort-Object Count -Descending
+    foreach ($grp in $byCategory) {
+        Write-Host ("    [{0}] {1} files:" -f $grp.Name, $grp.Count) -ForegroundColor Yellow
+        $grp.Group | Select-Object -First 5 | ForEach-Object { Write-Host "      $($_.file)" -ForegroundColor DarkGray }
+        if ($grp.Count -gt 5) { Write-Host ("      ... and {0} more" -f ($grp.Count - 5)) -ForegroundColor DarkGray }
+    }
+
+    # Stale nodes
+    $staleItems = @($f.items | Where-Object { $_.category -eq 'stale' })
+    if ($staleItems.Count -gt 0) {
+        Write-Host ("    [stale] {0} graph nodes for deleted files:" -f $staleItems.Count) -ForegroundColor Red
+        $staleItems | Select-Object -First 5 | ForEach-Object { Write-Host "      $($_.file)" -ForegroundColor DarkGray }
+    }
+}
+Write-Section 'session-artifacts' $findings['session-artifacts'] {
+    param($f)
+    Write-Host "    Files with no system-layer connection (not reachable from any skill, agent, test, or infra node):" -ForegroundColor DarkGray
+    foreach ($r in $f.items) {
+        Write-Host ("    {0}" -f $r.file) -ForegroundColor Yellow
+        Write-Host ("      Verdict: {0}  (code-edges: {1})" -f $r.verdict, $r.code_edges) -ForegroundColor DarkGray
+    }
 }
 
 Write-Host ""

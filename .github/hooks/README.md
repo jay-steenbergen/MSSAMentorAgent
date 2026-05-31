@@ -129,7 +129,7 @@ pwsh .github/hooks/pre-commit
 If health check blocks the commit:
 ```powershell
 # View detailed health report
-pwsh .github/knowledge-graph/build/health.ps1
+pwsh .github/knowledge-graph/build/core/health.ps1
 
 # Fix dangling edges manually
 pwsh .github/knowledge-graph/build/fix-dangling-edges.ps1

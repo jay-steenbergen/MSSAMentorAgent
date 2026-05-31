@@ -86,10 +86,10 @@ foreach ($file in $stagedFiles) {
 
 # Paths (needed for health check even if no changes)
 $graphDir = Join-Path $repoRoot '.github' 'knowledge-graph'
-$autoDiscoverScript = Join-Path $graphDir 'build' 'auto-discover-features.ps1'
-$extractScript = Join-Path $graphDir 'build' 'extract-code-graph.ps1'
-$mergeScript = Join-Path $graphDir 'build' 'merge.ps1'
-$fixDanglingScript = Join-Path $graphDir 'build' 'fix-dangling-edges.ps1'
+$autoDiscoverScript = Join-Path $graphDir 'build' 'advanced' 'auto-discover-features.ps1'
+$extractScript = Join-Path $graphDir 'build' 'core' 'extract-code-graph.ps1'
+$mergeScript = Join-Path $graphDir 'build' 'core' 'merge.ps1'
+$fixDanglingScript = Join-Path $graphDir 'build' 'repair' 'fix-dangling-edges.ps1'
 
 $systemGraph = Join-Path $graphDir 'data' 'MentorAgent' 'system' 'mentor-graph.json'
 $codeGraph = Join-Path $graphDir 'data' 'MentorAgent' 'code' 'code-graph.json'
@@ -192,7 +192,7 @@ if ($graphChanged) {
 # Step 5: ALWAYS verify graph health (runs even if no changes detected)
 Write-Header "✅ Verifying graph health..."
 try {
-    $healthScript = Join-Path $graphDir 'build' 'health.ps1'
+    $healthScript = Join-Path $graphDir 'build' 'core' 'health.ps1'
     $healthOutput = & pwsh -NoProfile -File $healthScript -Layer merged 2>&1 | Out-String
         
         # Parse health checks and capture counts immediately

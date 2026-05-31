@@ -39,7 +39,7 @@ $ErrorActionPreference = "Stop"
 
 # ---------- bootstrap ----------
 $scriptDir = $PSScriptRoot
-$kgRoot = Split-Path $scriptDir -Parent  # .github/knowledge-graph/
+$kgRoot = Split-Path (Split-Path $scriptDir -Parent) -Parent  # .github/knowledge-graph/
 $outPath = Join-Path $kgRoot $Output
 
 # Repo root = walk up from script until .github exists alongside .profiles
@@ -121,6 +121,7 @@ Write-Host "Walking repo..." -ForegroundColor Cyan
 
 $includePatterns = @(
     '.github/agents',
+    '.github/hooks',                    # Git hooks (pre-commit, install)
     '.github/skills',
     '.github/tests',
     '.github/copilot-fundamentals',
@@ -529,6 +530,57 @@ foreach ($f in $files) {
         '.csproj' { }  # just the file node
     }
 }
+
+# ---------- pass 1b: project structure edges ----------
+Write-Host "Linking project structure (C# projects, npm packages, VS Code extensions)..." -ForegroundColor Cyan
+$projectEdges = 0
+
+# C# projects: link .csproj to all .cs files in same directory
+$csprojFiles = $files | Where-Object { $_.Extension -eq '.csproj' }
+foreach ($csproj in $csprojFiles) {
+    $projDir = $csproj.DirectoryName
+    $projRel = To-RepoRelative $csproj.FullName
+    $projId = To-CodeId $projRel
+    
+    # Find all .cs files in same directory
+    $csFiles = $files | Where-Object { $_.Extension -eq '.cs' -and $_.DirectoryName -eq $projDir }
+    foreach ($cs in $csFiles) {
+        $csRel = To-RepoRelative $cs.FullName
+        $csId = To-CodeId $csRel
+        [void]$edges.Add([PSCustomObject]@{
+            source = $projId
+            target = $csId
+            type = 'contains'
+        })
+        $projectEdges++
+    }
+}
+
+# npm packages: link package.json to *.ts, *.tsx in src/
+$packageJsonFiles = $files | Where-Object { $_.Name -eq 'package.json' }
+foreach ($pkg in $packageJsonFiles) {
+    $pkgDir = $pkg.DirectoryName
+    $srcDir = Join-Path $pkgDir 'src'
+    if (-not (Test-Path $srcDir)) { continue }
+    
+    $pkgRel = To-RepoRelative $pkg.FullName
+    $pkgId = To-CodeId $pkgRel
+    
+    # Find all .ts/.tsx files in src/
+    $tsFiles = Get-ChildItem $srcDir -Recurse -File -Include *.ts, *.tsx
+    foreach ($ts in $tsFiles) {
+        $tsRel = To-RepoRelative $ts.FullName
+        $tsId = To-CodeId $tsRel
+        [void]$edges.Add([PSCustomObject]@{
+            source = $pkgId
+            target = $tsId
+            type = 'contains'
+        })
+        $projectEdges++
+    }
+}
+
+Write-Host "  Project structure edges: $projectEdges" -ForegroundColor Green
 
 # ---------- pass 2: PS function call graph (best-effort) ----------
 Write-Host "Inferring PowerShell call graph..." -ForegroundColor Cyan

@@ -146,6 +146,18 @@ if ($node.type -eq "agent" -and $outgoing) {
                 label = if ($depNode) { $depNode.label } else { $_.target }
                 type = if ($depNode) { $depNode.type } else { $null }
             }
+        }
+        
+        $dependencyChains += [PSCustomObject]@{
+            skill = $skill.label
+            dependencies = $deps
+        }
+    }
+}
+
+# Output
+if ($AsJson) {
+    [PSCustomObject]@{
         precomputed = $usePrecomputed
         call_flow_node = if ($callFlowNode) { $callFlowNode.id } else { $null }
         outgoing = $outgoingItems
@@ -180,23 +192,6 @@ if ($node.type -eq "agent" -and $outgoing) {
         Write-Host "Metadata:" -ForegroundColor DarkGray
         Write-Host "  Generated: $($callFlowNode.generated)" -ForegroundColor DarkGray
         Write-Host "  Depth: $($callFlowNode.depth)" -ForegroundColor DarkGray
-    Write-GraphHeader -Title "CALL FLOW: $($node.label)" -NodeId $node.id
-    Write-GraphSection -Title "Uses/Loads:" -Items $outgoingItems -Direction "outgoing" -ShowType
-    Write-GraphSection -Title "Used By:" -Items $incomingItems -Direction "incoming" -ShowType
-    
-    if ($dependencyChains.Count -gt 0) {
-        Write-Host "Skill dependency chains:" -ForegroundColor Yellow
-        foreach ($chain in $dependencyChains) {
-            Write-Host "`n  $($chain.skill):" -ForegroundColor White
-            if ($chain.dependencies.Count -eq 0) {
-                Write-Host "    (no dependencies)" -ForegroundColor Gray
-            } else {
-                foreach ($dep in $chain.dependencies) {
-                    Write-Host "    → [$($dep.edgeType)] $($dep.label)" -ForegroundColor Gray
-                }
-            }
-        }
-        Write-Host ""
     }
 }
 

@@ -262,5 +262,5 @@ Write-Host "  Edges: $($graph.edges.Count)" -ForegroundColor White
 Write-Host "  Saved to: $graphPath" -ForegroundColor DarkGray
 Write-Host ""
 Write-Host "Next step: Rebuild merged graph" -ForegroundColor Cyan
-Write-Host "  pwsh .github/knowledge-graph/build/merge.ps1" -ForegroundColor DarkGray
+Write-Host "  pwsh .github/knowledge-graph/build/core/merge.ps1" -ForegroundColor DarkGray
 Write-Host ""

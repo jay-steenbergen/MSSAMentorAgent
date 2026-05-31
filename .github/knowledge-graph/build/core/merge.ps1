@@ -24,7 +24,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
+$scriptDir = (Resolve-Path "$PSScriptRoot\..\..").Path
 $outPath = Join-Path $scriptDir $Output
 
 Write-Host ""

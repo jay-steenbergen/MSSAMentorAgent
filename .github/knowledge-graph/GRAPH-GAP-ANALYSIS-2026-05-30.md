@@ -210,7 +210,7 @@ After fixes, run:
 
 ```powershell
 # 1. Check dangling edges
-pwsh .github/knowledge-graph/build/health.ps1 -Layer merged
+pwsh .github/knowledge-graph/build/core/health.ps1 -Layer merged
 
 # 2. Check orphans
 pwsh .github/knowledge-graph/build/gap-analysis.ps1 -Layer merged
@@ -219,7 +219,7 @@ pwsh .github/knowledge-graph/build/gap-analysis.ps1 -Layer merged
 pwsh .github/knowledge-graph/cli/query-graph.ps1 -From "cli-tool:show-progress" -Depth 2
 
 # 4. Rebuild and verify
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1 -Force
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Force
 ```
 
 ---

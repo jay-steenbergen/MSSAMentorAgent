@@ -97,10 +97,10 @@ Execute both health check and gap analysis:
 
 ```powershell
 # Health check
-pwsh -NoProfile -File .github/knowledge-graph/build/health.ps1 -Layer merged
+pwsh -NoProfile -File .github/knowledge-graph/build/core/health.ps1 -Layer merged
 
 # Gap analysis  
-pwsh -NoProfile -File .github/knowledge-graph/build/gap-analysis.ps1 -Layer merged
+pwsh -NoProfile -File .github/knowledge-graph/build/advanced/gap-analysis.ps1 -Layer merged
 ```
 
 ### Phase 2: Display Summary
@@ -198,12 +198,12 @@ Then re-run Phase 1 to verify fixes.
 **For "Show details" (any issue):**
 Re-run the relevant check without `-Quiet` flag:
 ```powershell
-pwsh -NoProfile -File .github/knowledge-graph/build/health.ps1 -Layer merged
+pwsh -NoProfile -File .github/knowledge-graph/build/core/health.ps1 -Layer merged
 ```
 
 **For "Auto-discover connections" (orphan nodes):**
 ```powershell
-pwsh -NoProfile -File .github/knowledge-graph/build/rebuild-if-stale.ps1 -Force
+pwsh -NoProfile -File .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Force
 ```
 
 **For "Assign clusters" (unclustered nodes):**

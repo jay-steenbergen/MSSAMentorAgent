@@ -111,7 +111,7 @@ Export-ModuleMember -Function Get-MyNewFeature
 Force a rebuild anytime:
 
 ```powershell
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1 -Force
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Force
 ```
 
 Test discovery only (dry-run):

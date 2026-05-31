@@ -111,8 +111,8 @@ if ($Force) {
         
         # Check build scripts
         $buildScripts = @(
-            '.github/knowledge-graph/build/extract-code-graph.ps1'
-            '.github/knowledge-graph/build/merge.ps1'
+            '.github/knowledge-graph/build/core/extract-code-graph.ps1'
+            '.github/knowledge-graph/build/core/merge.ps1'
         )
         
         foreach ($script in $buildScripts) {
@@ -178,7 +178,7 @@ try {
     
     # Step 1: Extract code graph
     Write-Progress "[1/6] Extracting code graph..." 'Cyan'
-    $extractOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/extract-code-graph.ps1') 2>&1
+    $extractOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/core/extract-code-graph.ps1') 2>&1
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Extract failed:" -ForegroundColor Red
         $extractOutput | Write-Host
@@ -188,7 +188,7 @@ try {
     
     # Step 2: Merge layers
     Write-Progress "[2/6] Merging layers..." 'Cyan'
-    $mergeOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/merge.ps1') 2>&1
+    $mergeOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/core/merge.ps1') 2>&1
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Merge failed:" -ForegroundColor Red
         $mergeOutput | Write-Host
@@ -215,7 +215,7 @@ try {
     if (-not $SkipValidation) {
         # Step 4: Health check
         Write-Progress "[4/6] Running health check..." 'Cyan'
-        $healthOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/health.ps1') -Layer merged -Quiet 2>&1
+        $healthOutput = & pwsh -NoProfile -File (Join-Path $root '.github/knowledge-graph/build/core/health.ps1') -Layer merged -Quiet 2>&1
         $healthStatus = ($healthOutput | Select-String -Pattern 'Summary: (.+)$').Matches.Groups[1].Value
         Write-Detail $healthStatus
         

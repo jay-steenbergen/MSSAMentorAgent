@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-05-30T12:41:46-07:00",
+    "generated": "2026-05-30T23:14:00-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,22 +19,22 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 111,
-      "stub_files": 5,
-      "functions": 36,
-      "sections": 581,
+      "files": 112,
+      "stub_files": 6,
+      "functions": 41,
+      "sections": 570,
       "schemas": 9,
-      "fields": 82,
+      "fields": 83,
       "yaml_fields": 66,
       "tests": 6,
       "scenarios": 29,
       "classes": 7,
       "imports": 19,
-      "total_nodes": 962,
-      "total_edges": 916,
-      "bridges": 263,
+      "total_nodes": 960,
+      "total_edges": 932,
+      "bridges": 269,
       "dangling_edges": 0,
-      "orphan_nodes": 6
+      "orphan_nodes": 4
     }
   },
   "clusters": [
@@ -440,6 +440,156 @@
       "description": "Section 'Out of scope' in .github/copilot-instructions.md"
     },
     {
+      "id": "code-file:.github/hooks/install.ps1",
+      "type": "code-file",
+      "label": "install.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/install.ps1",
+      "description": "File: .github/hooks/install.ps1",
+      "extension": ".ps1",
+      "size_bytes": 3724
+    },
+    {
+      "id": "code-param:.github/hooks/install.ps1::script::Uninstall",
+      "type": "code-param",
+      "label": "Uninstall",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/install.ps1",
+      "description": "Script parameter -Uninstall"
+    },
+    {
+      "id": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "code-file",
+      "label": "pre-commit.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "File: .github/hooks/pre-commit.ps1",
+      "extension": ".ps1",
+      "size_bytes": 11208
+    },
+    {
+      "id": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
+      "type": "code-func",
+      "label": "Write-Header",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "PowerShell function Write-Header in .github/hooks/pre-commit.ps1"
+    },
+    {
+      "id": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
+      "type": "code-func",
+      "label": "Write-Success",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "PowerShell function Write-Success in .github/hooks/pre-commit.ps1"
+    },
+    {
+      "id": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
+      "type": "code-func",
+      "label": "Write-Info",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "PowerShell function Write-Info in .github/hooks/pre-commit.ps1"
+    },
+    {
+      "id": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
+      "type": "code-func",
+      "label": "Write-Warning",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "PowerShell function Write-Warning in .github/hooks/pre-commit.ps1"
+    },
+    {
+      "id": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "code-func",
+      "label": "Write-Error",
+      "cluster": "scripts-source",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "PowerShell function Write-Error in .github/hooks/pre-commit.ps1"
+    },
+    {
+      "id": "code-file:.github/hooks/README.md",
+      "type": "code-file",
+      "label": "README.md",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "File: .github/hooks/README.md",
+      "extension": ".md",
+      "size_bytes": 5007
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::What_s_Here",
+      "type": "code-section",
+      "label": "What's Here",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'What's Here' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::Quick_Start",
+      "type": "code-section",
+      "label": "Quick Start",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'Quick Start' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::How_It_Works",
+      "type": "code-section",
+      "label": "How It Works",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'How It Works' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::What_Gets_Committed",
+      "type": "code-section",
+      "label": "What Gets Committed",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'What Gets Committed' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::Example_Output",
+      "type": "code-section",
+      "label": "Example Output",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'Example Output' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::Bypass__Emergency_",
+      "type": "code-section",
+      "label": "Bypass (Emergency)",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'Bypass (Emergency)' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::Troubleshooting",
+      "type": "code-section",
+      "label": "Troubleshooting",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'Troubleshooting' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::Design_Principles",
+      "type": "code-section",
+      "label": "Design Principles",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'Design Principles' in .github/hooks/README.md"
+    },
+    {
+      "id": "code-section:.github/hooks/README.md::Related_Files",
+      "type": "code-section",
+      "label": "Related Files",
+      "cluster": "docs-source",
+      "file": ".github/hooks/README.md",
+      "description": "Section 'Related Files' in .github/hooks/README.md"
+    },
+    {
       "id": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
       "type": "code-file",
       "label": "audit-quality.ps1",
@@ -497,7 +647,7 @@
       "file": ".github/knowledge-graph/lib/query.psm1",
       "description": "File: .github/knowledge-graph/lib/query.psm1",
       "extension": ".psm1",
-      "size_bytes": 33861
+      "size_bytes": 33868
     },
     {
       "id": "code-param:.github/knowledge-graph/lib/query.psm1::script::Refresh",
@@ -685,7 +835,7 @@
       "file": ".github/knowledge-graph/queries/Get-CallFlow.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-CallFlow.ps1",
       "extension": ".ps1",
-      "size_bytes": 7319
+      "size_bytes": 6652
     },
     {
       "id": "code-import:.github/knowledge-graph/queries/Get-CallFlow.ps1::dot-source::_PSScriptRoot__Format-GraphOutput.ps1",
@@ -876,186 +1026,6 @@
       "description": "Section 'Subgraph Export' in .github/knowledge-graph/queries/README.md"
     },
     {
-      "id": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "type": "code-file",
-      "label": "PROFICIENCY_SYSTEM_HANDOFF.md",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "File: .github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "extension": ".md",
-      "size_bytes": 12143
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Deliverables_Summary",
-      "type": "code-section",
-      "label": "🎯 Deliverables Summary",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '🎯 Deliverables Summary' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::__Validation_Results",
-      "type": "code-section",
-      "label": "✅ Validation Results",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '✅ Validation Results' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___System_Integration_Verification",
-      "type": "code-section",
-      "label": "📊 System Integration Verification",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '📊 System Integration Verification' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Modified_Files__5_",
-      "type": "code-section",
-      "label": "📁 Modified Files (5)",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '📁 Modified Files (5)' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Cross-Reference_Audit",
-      "type": "code-section",
-      "label": "🔍 Cross-Reference Audit",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '🔍 Cross-Reference Audit' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___How_to_Use_This_System",
-      "type": "code-section",
-      "label": "🚀 How to Use This System",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '🚀 How to Use This System' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Example_Usage__Demonstrated_",
-      "type": "code-section",
-      "label": "🎓 Example Usage (Demonstrated)",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '🎓 Example Usage (Demonstrated)' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::__Acceptance_Criteria__ALL_MET_",
-      "type": "code-section",
-      "label": "✅ Acceptance Criteria (ALL MET)",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '✅ Acceptance Criteria (ALL MET)' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Known_Limitations___Future_Work",
-      "type": "code-section",
-      "label": "📝 Known Limitations / Future Work",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '📝 Known Limitations / Future Work' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Final_Status",
-      "type": "code-section",
-      "label": "🎯 Final Status",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '🎯 Final Status' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::__SYSTEM_VALIDATED_-_READY_FOR_USE",
-      "type": "code-section",
-      "label": "✅ SYSTEM VALIDATED - READY FOR USE",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '✅ SYSTEM VALIDATED - READY FOR USE' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Next_Session_Recommendations",
-      "type": "code-section",
-      "label": "🔄 Next Session Recommendations",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "description": "Section '🔄 Next Session Recommendations' in .github/PROFICIENCY_SYSTEM_HANDOFF.md"
-    },
-    {
-      "id": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "type": "code-file",
-      "label": "PROFICIENCY_SYSTEM_VALIDATION.md",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "File: .github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "extension": ".md",
-      "size_bytes": 10952
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::__Core_Components",
-      "type": "code-section",
-      "label": "✅ Core Components",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '✅ Core Components' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Functional_Validation_Tests",
-      "type": "code-section",
-      "label": "🧪 Functional Validation Tests",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '🧪 Functional Validation Tests' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Completeness_Checklist",
-      "type": "code-section",
-      "label": "📊 Completeness Checklist",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '📊 Completeness Checklist' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Cross-Reference_Validation",
-      "type": "code-section",
-      "label": "🔍 Cross-Reference Validation",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '🔍 Cross-Reference Validation' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Known_Issues___Follow-up_Items",
-      "type": "code-section",
-      "label": "⚠️ Known Issues / Follow-up Items",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '⚠️ Known Issues / Follow-up Items' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Success_Criteria__ALL_MUST_PASS_",
-      "type": "code-section",
-      "label": "🎯 Success Criteria (ALL MUST PASS)",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '🎯 Success Criteria (ALL MUST PASS)' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Run_All_Validations",
-      "type": "code-section",
-      "label": "🚀 Run All Validations",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '🚀 Run All Validations' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
-      "id": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::__Sign-off",
-      "type": "code-section",
-      "label": "✅ Sign-off",
-      "cluster": "docs-source",
-      "file": ".github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "description": "Section '✅ Sign-off' in .github/PROFICIENCY_SYSTEM_VALIDATION.md"
-    },
-    {
       "id": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
       "type": "code-file",
       "label": "SKILL.md",
@@ -1063,7 +1033,7 @@
       "file": ".github/skills/knowledge-graph-management/SKILL.md",
       "description": "File: .github/skills/knowledge-graph-management/SKILL.md",
       "extension": ".md",
-      "size_bytes": 8928
+      "size_bytes": 8952
     },
     {
       "id": "code-yaml-field:.github/skills/knowledge-graph-management/SKILL.md::name",
@@ -6861,7 +6831,7 @@
       "file": ".profiles/profiles/mentors/jasteenb.json",
       "description": "File: .profiles/profiles/mentors/jasteenb.json",
       "extension": ".json",
-      "size_bytes": 2919
+      "size_bytes": 3101
     },
     {
       "id": "code-schema:.profiles/profiles/mentors/jasteenb.json",
@@ -6924,6 +6894,15 @@
       "cluster": "schemas-source",
       "file": ".profiles/profiles/mentors/jasteenb.json",
       "description": "Field 'learning_style' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:.profiles/profiles/mentors/jasteenb.json::method_proficiency",
+      "type": "code-field",
+      "label": "method_proficiency",
+      "cluster": "schemas-source",
+      "file": ".profiles/profiles/mentors/jasteenb.json",
+      "description": "Field 'method_proficiency' (type=object)",
       "value_type": "object"
     },
     {
@@ -8109,47 +8088,29 @@
       "description": "Section 'Status' in README.md"
     },
     {
-      "id": "code-file:.github/knowledge-graph/build/health.ps1",
+      "id": "code-file:.github/knowledge-graph/build/core/health.ps1",
       "type": "code-file",
       "label": "health.ps1",
       "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/health.ps1",
-      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
+      "file": ".github/knowledge-graph/build/core/health.ps1",
+      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
       "missing": true
     },
     {
-      "id": "code-file:.github/knowledge-graph/build/gap-analysis.ps1",
+      "id": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "type": "code-file",
       "label": "gap-analysis.ps1",
       "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/gap-analysis.ps1",
+      "file": ".github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
       "missing": true
     },
     {
-      "id": "code-file:.github/knowledge-graph/build/generate-call-flow-nodes.ps1",
-      "type": "code-file",
-      "label": "generate-call-flow-nodes.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/generate-call-flow-nodes.ps1",
-      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
-      "id": "code-file:.github/knowledge-graph/build/fix-dangling-edges.ps1",
-      "type": "code-file",
-      "label": "fix-dangling-edges.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/fix-dangling-edges.ps1",
-      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
-      "id": "code-file:.github/knowledge-graph/build/rebuild-if-stale.ps1",
+      "id": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "type": "code-file",
       "label": "rebuild-if-stale.ps1",
       "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/rebuild-if-stale.ps1",
+      "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
       "missing": true
     }
@@ -8367,6 +8328,118 @@
       "target": "code-file:docs/MENTOR_DIRECTORY.md",
       "type": "references",
       "label": "docs/MENTOR_DIRECTORY.md"
+    },
+    {
+      "source": "code-file:.github/hooks/install.ps1",
+      "target": "code-param:.github/hooks/install.ps1::script::Uninstall",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
+      "target": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
+      "target": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
+      "target": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
+      "target": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "target": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::What_s_Here",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::Quick_Start",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::How_It_Works",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::What_Gets_Committed",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::Example_Output",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::Bypass__Emergency_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::Troubleshooting",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::Design_Principles",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-section:.github/hooks/README.md::Related_Files",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-file:.github/hooks/install.ps1",
+      "type": "invokes",
+      "label": "invokes .github/hooks/install.ps1"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-file:.github/knowledge-graph/build/core/health.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/core/health.ps1"
     },
     {
       "source": "code-file:.github/knowledge-graph/lib/query.psm1",
@@ -8644,124 +8717,6 @@
       "type": "contains"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/README.md",
-      "target": "code-file:.github/knowledge-graph/build/generate-call-flow-nodes.ps1",
-      "type": "invokes",
-      "label": "invokes .github/knowledge-graph/build/generate-call-flow-nodes.ps1"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Deliverables_Summary",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::__Validation_Results",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___System_Integration_Verification",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Modified_Files__5_",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Cross-Reference_Audit",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___How_to_Use_This_System",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Example_Usage__Demonstrated_",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::__Acceptance_Criteria__ALL_MET_",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Known_Limitations___Future_Work",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Final_Status",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::__SYSTEM_VALIDATED_-_READY_FOR_USE",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_HANDOFF.md::___Next_Session_Recommendations",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_HANDOFF.md",
-      "target": "code-file:.profiles/validate-proficiency.ps1",
-      "type": "invokes",
-      "label": "invokes .profiles/validate-proficiency.ps1"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::__Core_Components",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Functional_Validation_Tests",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Completeness_Checklist",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Cross-Reference_Validation",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Known_Issues___Follow-up_Items",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Success_Criteria__ALL_MUST_PASS_",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::___Run_All_Validations",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-section:.github/PROFICIENCY_SYSTEM_VALIDATION.md::__Sign-off",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/PROFICIENCY_SYSTEM_VALIDATION.md",
-      "target": "code-file:.profiles/validate-proficiency.ps1",
-      "type": "invokes",
-      "label": "invokes .profiles/validate-proficiency.ps1"
-    },
-    {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
       "target": "code-yaml-field:.github/skills/knowledge-graph-management/SKILL.md::name",
       "type": "contains"
@@ -8842,27 +8797,21 @@
     },
     {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
-      "target": "code-file:.github/knowledge-graph/build/health.ps1",
+      "target": "code-file:.github/knowledge-graph/build/core/health.ps1",
       "type": "invokes",
-      "label": "invokes .github/knowledge-graph/build/health.ps1"
+      "label": "invokes .github/knowledge-graph/build/core/health.ps1"
     },
     {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
-      "target": "code-file:.github/knowledge-graph/build/gap-analysis.ps1",
+      "target": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "type": "invokes",
-      "label": "invokes .github/knowledge-graph/build/gap-analysis.ps1"
+      "label": "invokes .github/knowledge-graph/build/advanced/gap-analysis.ps1"
     },
     {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
-      "target": "code-file:.github/knowledge-graph/build/fix-dangling-edges.ps1",
+      "target": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "type": "invokes",
-      "label": "invokes .github/knowledge-graph/build/fix-dangling-edges.ps1"
-    },
-    {
-      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
-      "target": "code-file:.github/knowledge-graph/build/rebuild-if-stale.ps1",
-      "type": "invokes",
-      "label": "invokes .github/knowledge-graph/build/rebuild-if-stale.ps1"
+      "label": "invokes .github/knowledge-graph/build/core/rebuild-if-stale.ps1"
     },
     {
       "source": "code-file:.github/skills/learner-profile/SKILL.md",
@@ -11976,6 +11925,11 @@
     },
     {
       "source": "code-schema:.profiles/profiles/mentors/jasteenb.json",
+      "target": "code-field:.profiles/profiles/mentors/jasteenb.json::method_proficiency",
+      "type": "contains"
+    },
+    {
+      "source": "code-schema:.profiles/profiles/mentors/jasteenb.json",
       "target": "code-field:.profiles/profiles/mentors/jasteenb.json::personality",
       "type": "contains"
     },
@@ -12676,16 +12630,66 @@
       "label": "docs/MENTOR_DIRECTORY.md"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
-      "type": "calls",
-      "label": "calls Write-GraphSection"
+      "source": "code-file:.profiles/ProfileTests/ProfileTests.csproj",
+      "target": "code-file:.profiles/ProfileTests/LearnerProfileCompletenessTests.cs",
+      "type": "contains"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "source": "code-file:extensions/mentor-context-loader/package.json",
+      "target": "code-file:extensions/mentor-context-loader/src/extension.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mentor-context-loader/package.json",
+      "target": "code-file:extensions/mentor-context-loader/src/profileReader.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mentor-context-loader/package.json",
+      "target": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/hooks/install.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
-      "label": "calls Write-GraphHeader"
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
+      "type": "calls",
+      "label": "calls Write-Header"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
+      "type": "calls",
+      "label": "calls Write-Success"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
+      "type": "calls",
+      "label": "calls Write-Warning"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
+      "type": "calls",
+      "label": "calls Write-Info"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
@@ -12694,16 +12698,16 @@
       "label": "calls Write-GraphSuggestions"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
-      "type": "calls",
-      "label": "calls Write-GraphSection"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
@@ -12712,10 +12716,22 @@
       "label": "calls Write-GraphSuggestions"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "calls",
+      "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
       "type": "calls",
       "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
@@ -12725,6 +12741,12 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
@@ -12736,10 +12758,10 @@
       "label": "calls Write-GraphPath"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "source": "code-file:.profiles/edit-profile.ps1",
+      "target": "code-func:.profiles/edit-profile.ps1::Edit-Field",
       "type": "calls",
-      "label": "calls Write-GraphSuggestions"
+      "label": "calls Edit-Field"
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
@@ -12754,22 +12776,22 @@
       "label": "calls Validate-Profile"
     },
     {
-      "source": "code-file:.profiles/edit-profile.ps1",
-      "target": "code-func:.profiles/edit-profile.ps1::Edit-Field",
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
       "type": "calls",
-      "label": "calls Edit-Field"
+      "label": "calls Get-ProgressFiles"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
       "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
       "type": "calls",
       "label": "calls Test-ProficiencyEntry"
-    },
-    {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
-      "type": "calls",
-      "label": "calls Get-ProgressFiles"
     }
   ],
   "bridges": [
@@ -13659,6 +13681,11 @@
       "type": "implemented_by"
     },
     {
+      "system": "module:query",
+      "code": "code-file:.github/knowledge-graph/lib/query.psm1",
+      "type": "implemented_by"
+    },
+    {
       "system": "script:validate-proficiency",
       "code": "code-file:.profiles/validate-proficiency.ps1",
       "type": "implemented_by"
@@ -14034,6 +14061,16 @@
       "type": "implemented_by"
     },
     {
+      "system": "feature:hybrid-loading",
+      "code": "code-file:extensions/mentor-context-loader/package.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "extension:context-loader",
+      "code": "code-file:extensions/mentor-context-loader/package.json",
+      "type": "implemented_by"
+    },
+    {
       "system": "cli-tool:audit-quality",
       "code": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
       "type": "implemented_by"
@@ -14056,6 +14093,21 @@
     {
       "system": "code-func:@(",
       "code": "code-file:.github/knowledge-graph/lib/query.psm1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "extension:mentor-context-loader",
+      "code": "code-file:extensions/mentor-context-loader/package.json",
+      "type": "implemented_by"
+    },
+    {
+      "system": "hook:pre-commit.ps1",
+      "code": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "config:Mentor-agent",
+      "code": "code-file:.github/agents/Mentor.agent.md",
       "type": "implemented_by"
     },
     {

@@ -1,92 +1,4 @@
 {
-  "metadata": {
-    "name": "MSSA Mentor System Knowledge Graph",
-    "version": "1.0.0",
-    "created": "2026-05-30",
-    "purpose": "Complete map of Mentor agent + skills + data + decisions. Use for visualization, onboarding, drift detection, agent self-discovery, and identifying duplicate/conflicting/extractable rules.",
-    "root_file": ".github/agents/Mentor.agent.md",
-    "node_count_estimate": 400,
-    "edge_count_estimate": 750,
-    "schema": {
-      "node": [
-        "id",
-        "type",
-        "label",
-        "cluster",
-        "file",
-        "section",
-        "description"
-      ],
-      "edge": [
-        "source",
-        "target",
-        "type",
-        "label",
-        "evidence"
-      ]
-    }
-  },
-  "clusters": [
-    {
-      "id": "agent-core",
-      "label": "Agent Core Identity",
-      "description": "The Mentor agent's identity, model, core behavior YAML, and skill composition.",
-      "color": "#4A90E2"
-    },
-    {
-      "id": "agent-rules",
-      "label": "Behavioral Rules",
-      "description": "The 10 'How you behave' rules, personality rules, voice, anti-patterns, stuck escalation.",
-      "color": "#7B68EE"
-    },
-    {
-      "id": "session-protocols",
-      "label": "Session Lifecycle",
-      "description": "Start, mid-session switching, and end protocols. Includes pickers and decisions.",
-      "color": "#50C878"
-    },
-    {
-      "id": "profile-system",
-      "label": "Learner Profile System",
-      "description": "learner-profile skill, identity, interview, schemas, validation flow.",
-      "color": "#FF8C42"
-    },
-    {
-      "id": "teaching-methods",
-      "label": "Teaching Methods",
-      "description": "Four method skills (ride-along, TDD, BDD, spike-then-refactor) and their phases.",
-      "color": "#E94B6A"
-    },
-    {
-      "id": "proficiency-tracking",
-      "label": "Proficiency System",
-      "description": "JSON reference, 4-level system per method, indicators, progression signals.",
-      "color": "#F4A261"
-    },
-    {
-      "id": "data-layer",
-      "label": "Data Files & Schemas",
-      "description": "JSON files (profile, progress, proficiency reference) and their field schemas.",
-      "color": "#264653"
-    },
-    {
-      "id": "validation-layer",
-      "label": "Validation & Tests",
-      "description": "PowerShell scripts and markdown integration tests.",
-      "color": "#2A9D8F"
-    },
-    {
-      "id": "references-and-analogies",
-      "label": "References & Analogies",
-      "description": "MOS mappings, branch communication cultures, military→code analogy bank.",
-      "color": "#8B5A3C"
-    },
-    {
-      "id": "track-curriculum",
-      "label": "Track Curriculum",
-      "description": "MSSA track curricula and their per-project skill catalogs."
-    }
-  ],
   "nodes": [
     {
       "id": "agent:mentor",
@@ -2196,6 +2108,14 @@
       "description": "Runs xUnit validation tests against profile schema. Checks required fields, ≥3 extracted_concepts, JSON well-formed, types match."
     },
     {
+      "id": "module:query",
+      "type": "script",
+      "label": "query.psm1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/lib/query.psm1",
+      "description": "PowerShell module providing graph query functions: Get-KnowledgeGraph, Get-RelevantSkills, Get-SkillDependencies, Get-LearnerProgress, Get-AgentLoadList, Get-SkillsForIntent, Get-NodeNeighbors"
+    },
+    {
       "id": "script:validate-proficiency",
       "type": "script",
       "label": "validate-proficiency.ps1",
@@ -2236,28 +2156,28 @@
       "description": "Integration test for full proficiency tracking lifecycle. 3 scenarios + pass criteria + failure modes."
     },
     {
-      "id": "test:session-flow",
-      "type": "test",
-      "label": "session-flow.test.md",
-      "cluster": "validation-layer",
       "file": ".github/tests/session-flow.test.md",
-      "description": "End-to-end session flow integration test."
+      "description": "Behavioral test for session-flow",
+      "cluster": "infra-layer",
+      "label": "session-flow.test.md",
+      "id": "test:session-flow",
+      "type": "test"
     },
     {
-      "id": "test:compression-resilience",
-      "type": "test",
-      "label": "compression-resilience.test.md",
-      "cluster": "validation-layer",
       "file": ".github/tests/compression-resilience.test.md",
-      "description": "Verifies skills self-heal after context compression."
+      "description": "Behavioral test for compression-resilience",
+      "cluster": "infra-layer",
+      "label": "compression-resilience.test.md",
+      "id": "test:compression-resilience",
+      "type": "test"
     },
     {
-      "id": "test:method-switching",
-      "type": "test",
-      "label": "method-switching.test.md",
-      "cluster": "validation-layer",
       "file": ".github/tests/method-switching.test.md",
-      "description": "Verifies mid-session method switching works correctly."
+      "description": "Behavioral test for method-switching",
+      "cluster": "infra-layer",
+      "label": "method-switching.test.md",
+      "id": "test:method-switching",
+      "type": "test"
     },
     {
       "id": "test:template",
@@ -2849,7 +2769,7 @@
       "label": "Hybrid Runtime Integration",
       "description": "Two-phase skill loading: extension pre-loads 3 essentials, agent dynamically loads 2-3 intent-specific. Reduces context 70%.",
       "cluster": "session-protocols",
-      "file": "extensions/mentor-context-loader/",
+      "file": "extensions/mentor-context-loader/package.json",
       "type": "feature",
       "id": "feature:hybrid-loading"
     },
@@ -2857,7 +2777,7 @@
       "label": "mentor-context-loader",
       "description": "VS Code extension that pre-loads learner profile, last-used method, and active track before @Mentor session starts.",
       "cluster": "session-protocols",
-      "file": "extensions/mentor-context-loader/",
+      "file": "extensions/mentor-context-loader/package.json",
       "type": "extension",
       "id": "extension:context-loader"
     },
@@ -2902,13 +2822,212 @@
       "description": "PowerShell function exported by query.psm1."
     },
     {
-      "id": "extension:mentor-context-loader",
       "type": "extension",
-      "label": "mentor-context-loader",
-      "cluster": "session-protocols",
-      "file": "extensions/mentor-context-loader/",
-      "description": "Pre-loads relevant skills into @Mentor agent context based on learner profile"
+      "label": "MSSA Mentor Context Loader",
+      "version": "0.1.0",
+      "publisher": "mssa",
+      "file": "extensions/mentor-context-loader/package.json",
+      "description": "Pre-loads relevant skills into @Mentor agent context based on learner profile",
+      "id": "extension:mentor-context-loader",
+      "cluster": "infra-layer"
+    },
+    {
+      "type": "hook",
+      "label": "pre-commit",
+      "file": ".github/hooks/pre-commit",
+      "description": "Git pre-commit hook",
+      "id": "hook:pre-commit",
+      "cluster": "infra-layer",
+      "trigger_event": "pre-commit",
+      "language": "bash"
+    },
+    {
+      "type": "hook",
+      "label": "pre-commit.ps1",
+      "file": ".github/hooks/pre-commit.ps1",
+      "description": "Git pre-commit hook",
+      "id": "hook:pre-commit.ps1",
+      "cluster": "infra-layer",
+      "trigger_event": "pre-commit",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "utility",
+      "label": "add-tracks-and-skills.ps1",
+      "file": ".github/knowledge-graph/build/advanced/add-tracks-and-skills.ps1",
+      "description": "Knowledge graph utility script",
+      "id": "build-script:add-tracks-and-skills",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "validate",
+      "label": "audit-system-graph.ps1",
+      "file": ".github/knowledge-graph/build/advanced/audit-system-graph.ps1",
+      "description": "Knowledge graph validate script",
+      "id": "build-script:audit-system-graph",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "utility",
+      "label": "auto-discover-features.ps1",
+      "file": ".github/knowledge-graph/build/advanced/auto-discover-features.ps1",
+      "description": "Knowledge graph utility script",
+      "id": "build-script:auto-discover-features",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "extract",
+      "label": "extract-code-graph.ps1",
+      "file": ".github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "description": "Knowledge graph extract script",
+      "id": "build-script:extract-code-graph",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "extract",
+      "label": "extract-infrastructure.ps1",
+      "file": ".github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
+      "description": "Knowledge graph extract script",
+      "id": "build-script:extract-infrastructure",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "repair",
+      "label": "fix-dangling-edges.ps1",
+      "file": ".github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "description": "Knowledge graph repair script",
+      "id": "build-script:fix-dangling-edges",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "repair",
+      "label": "fix-remaining-gaps.ps1",
+      "file": ".github/knowledge-graph/build/repair/fix-remaining-gaps.ps1",
+      "description": "Knowledge graph repair script",
+      "id": "build-script:fix-remaining-gaps",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "utility",
+      "label": "gap-analysis.ps1",
+      "file": ".github/knowledge-graph/build/advanced/gap-analysis.ps1",
+      "description": "Knowledge graph utility script",
+      "id": "build-script:gap-analysis",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "utility",
+      "label": "generate-call-flow-nodes.ps1",
+      "file": ".github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
+      "description": "Knowledge graph utility script",
+      "id": "build-script:generate-call-flow-nodes",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "validate",
+      "label": "health.ps1",
+      "file": ".github/knowledge-graph/build/core/health.ps1",
+      "description": "Knowledge graph validate script",
+      "id": "build-script:health",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "merge",
+      "label": "merge.ps1",
+      "file": ".github/knowledge-graph/build/core/merge.ps1",
+      "description": "Knowledge graph merge script",
+      "id": "build-script:merge",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "build",
+      "label": "rebuild-if-stale.ps1",
+      "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "description": "Knowledge graph build script",
+      "id": "build-script:rebuild-if-stale",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "type": "build-script",
+      "purpose": "generate",
+      "label": "scaffold-node-type.ps1",
+      "file": ".github/knowledge-graph/build/advanced/scaffold-node-type.ps1",
+      "description": "Knowledge graph generate script",
+      "id": "build-script:scaffold-node-type",
+      "cluster": "infra-layer",
+      "language": "powershell"
+    },
+    {
+      "file": ".github/agents/Mentor.agent.md",
+      "format": "yaml-frontmatter",
+      "cluster": "infra-layer",
+      "label": "Mentor.agent.md",
+      "id": "config:Mentor-agent",
+      "description": "Mentor agent configuration",
+      "type": "config"
+    },
+    {
+      "id": "build-script:split-code-graph",
+      "description": "Knowledge graph utility script - splits monolithic code-graph.json into per-type files",
+      "type": "build-script",
+      "file": ".github/knowledge-graph/build/advanced/split-code-graph.ps1"
     }
+  ],
+  "metadata": {
+    "purpose": "Complete map of Mentor agent + skills + data + decisions. Use for visualization, onboarding, drift detection, agent self-discovery, and identifying duplicate/conflicting/extractable rules.",
+    "edge_count_estimate": 750,
+    "version": "1.0.0",
+    "infrastructure_updated_at": "2026-05-30T20:55:38Z",
+    "infrastructure_updated_by": "extract-infrastructure.ps1",
+    "root_file": ".github/agents/Mentor.agent.md",
+    "schema": {
+      "node": [
+        "id",
+        "type",
+        "label",
+        "cluster",
+        "file",
+        "section",
+        "description"
+      ],
+      "edge": [
+        "source",
+        "target",
+        "type",
+        "label",
+        "evidence"
+      ]
+    },
+    "created": "2026-05-30",
+    "node_count_estimate": 400,
+    "name": "MSSA Mentor System Knowledge Graph"
+  },
+  "clusters": [
+    null
   ],
   "edges": [
     {
@@ -5191,6 +5310,30 @@
       "target": "feature:progress-dashboard"
     },
     {
+      "source": "cli-tool:audit-quality",
+      "type": "uses",
+      "label": "uses query functions",
+      "target": "module:query"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "type": "uses",
+      "label": "uses query functions",
+      "target": "module:query"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "type": "uses",
+      "label": "uses query functions",
+      "target": "module:query"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "type": "uses",
+      "label": "uses query functions",
+      "target": "module:query"
+    },
+    {
       "source": "feature:hybrid-loading",
       "type": "optimizes",
       "label": "optimizes context loading",
@@ -5237,323 +5380,178 @@
       "target": "agent:mentor",
       "type": "extends",
       "label": "extends agent"
+    },
+    {
+      "description": "Validates Mentor agent behavior",
+      "type": "tests",
+      "target": "agent:Mentor",
+      "source": "test:session-flow"
+    },
+    {
+      "description": "Delegates to PowerShell implementation",
+      "type": "runs",
+      "target": "hook:pre-commit.ps1",
+      "source": "hook:pre-commit"
+    },
+    {
+      "description": "Executes fix-dangling-edges during pre-commit",
+      "type": "runs",
+      "target": "build-script:fix-dangling-edges",
+      "source": "hook:pre-commit.ps1"
+    },
+    {
+      "description": "Executes health during pre-commit",
+      "type": "runs",
+      "target": "build-script:health",
+      "source": "hook:pre-commit.ps1"
+    },
+    {
+      "description": "Executes auto-discover-features during pre-commit",
+      "type": "runs",
+      "target": "build-script:auto-discover-features",
+      "source": "hook:pre-commit.ps1"
+    },
+    {
+      "description": "Executes extract-code-graph during pre-commit",
+      "type": "runs",
+      "target": "build-script:extract-code-graph",
+      "source": "hook:pre-commit.ps1"
+    },
+    {
+      "description": "Executes merge during pre-commit",
+      "type": "runs",
+      "target": "build-script:merge",
+      "source": "hook:pre-commit.ps1"
+    },
+    {
+      "description": "Defines Mentor agent behavior",
+      "type": "configures",
+      "target": "agent:Mentor",
+      "source": "config:Mentor-agent"
+    },
+    {
+      "description": "Both manage system graph content",
+      "type": "related_to",
+      "target": "build-script:auto-discover-features",
+      "source": "build-script:add-tracks-and-skills"
+    },
+    {
+      "description": "Triggers extract when stale",
+      "type": "calls",
+      "target": "build-script:extract-code-graph",
+      "source": "build-script:rebuild-if-stale"
+    },
+    {
+      "description": "Triggers merge after extract",
+      "type": "calls",
+      "target": "build-script:merge",
+      "source": "build-script:rebuild-if-stale"
+    },
+    {
+      "description": "Reads merged graph for call flow data",
+      "type": "reads",
+      "target": "build-script:merge",
+      "source": "build-script:generate-call-flow-nodes"
+    },
+    {
+      "description": "Both add nodes to system graph",
+      "type": "related_to",
+      "target": "build-script:auto-discover-features",
+      "source": "build-script:extract-infrastructure"
+    },
+    {
+      "description": "Uses health output to find gaps",
+      "type": "reads",
+      "target": "build-script:health",
+      "source": "build-script:fix-remaining-gaps"
+    },
+    {
+      "description": "Creates structure for extraction",
+      "type": "related_to",
+      "target": "build-script:extract-code-graph",
+      "source": "build-script:scaffold-node-type"
+    },
+    {
+      "description": "Both analyze graph quality",
+      "type": "related_to",
+      "target": "build-script:health",
+      "source": "build-script:gap-analysis"
+    },
+    {
+      "description": "Both validate graph integrity",
+      "type": "related_to",
+      "target": "build-script:health",
+      "source": "build-script:audit-system-graph"
+    },
+    {
+      "description": "TDD red phase behavioral test",
+      "type": "tested_by",
+      "target": "code-file:.github/skills/methods/TDD/tests/red-phase.test.md",
+      "source": "skill:tdd"
+    },
+    {
+      "description": "Extension documentation",
+      "type": "documented_in",
+      "target": "code-file:extensions/mentor-context-loader/README.md",
+      "source": "extension:mentor-context-loader"
+    },
+    {
+      "description": "Extension setup guide",
+      "type": "documented_in",
+      "target": "code-file:extensions/mentor-context-loader/SETUP.md",
+      "source": "extension:mentor-context-loader"
+    },
+    {
+      "description": "TypeScript configuration",
+      "type": "contains",
+      "target": "code-file:extensions/mentor-context-loader/tsconfig.json",
+      "source": "extension:mentor-context-loader"
+    },
+    {
+      "description": "CAD first project integration test",
+      "type": "tested_by",
+      "target": "code-file:.github/tests/mentor-cad-first-project.md",
+      "source": "skill:cad-hello-console"
+    },
+    {
+      "source": "tests:profile-tests-csproj",
+      "target": "code-file:.profiles/ProfileTests/README.md",
+      "type": "documented_in",
+      "description": "Profile test documentation"
+    },
+    {
+      "description": "Graph query utility",
+      "type": "related_to",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "source": "module:query"
+    },
+    {
+      "description": "Query scripts documentation",
+      "type": "documented_in",
+      "target": "code-file:.github/knowledge-graph/queries/README.md",
+      "source": "module:query"
+    },
+    {
+      "description": "Hook installation script",
+      "type": "documented_in",
+      "target": "code-file:.github/hooks/install.ps1",
+      "source": "hook:pre-commit"
+    },
+    {
+      "description": "Hooks documentation",
+      "type": "documented_in",
+      "target": "code-file:.github/hooks/README.md",
+      "source": "hook:pre-commit"
+    },
+    {
+      "target": "build-script:merge",
+      "type": "inverse_of",
+      "source": "build-script:split-code-graph"
+    },
+    {
+      "target": "build-script:scaffold-node-type",
+      "type": "related_to",
+      "source": "build-script:split-code-graph"
     }
-  ],
-  "analysis": {
-    "duplicates": [
-      {
-        "name": "Stuck escalation ladder",
-        "locations": [
-          ".github/agents/Mentor.agent.md § When the learner is stuck",
-          ".github/skills/methods/ride-along/SKILL.md § 3. Handle stuck-ness"
-        ],
-        "nodes": [
-          "stuck:ladder",
-          "ride-along:3-stuck"
-        ],
-        "severity": "high",
-        "recommendation": "Extract once. Cite from both files. Risk: drift if one is updated and the other is not."
-      },
-      {
-        "name": "Hard rules / anti-patterns",
-        "locations": [
-          ".github/agents/Mentor.agent.md § What you do NOT do (6 rules)",
-          ".github/skills/methods/ride-along/SKILL.md § Hard rules (5 rules)"
-        ],
-        "nodes": [
-          "antipattern:no-code-dumps",
-          "antipattern:no-baby-talk",
-          "ride-along:hard-rules"
-        ],
-        "severity": "high",
-        "recommendation": "Move to a shared `.github/skills/references/teaching-anti-patterns.json` so every method skill can inherit and add method-specific anti-patterns."
-      },
-      {
-        "name": "After-action review (AAR)",
-        "locations": [
-          ".github/agents/Mentor.agent.md § How you behave #8",
-          ".github/skills/methods/ride-along/SKILL.md § 4. Milestone AAR",
-          "Every method skill end-of-cycle (TDD, BDD, spike)"
-        ],
-        "nodes": [
-          "behavior:08-aar-at-milestones",
-          "ride-along:4-aar",
-          "concept:aar"
-        ],
-        "severity": "medium",
-        "recommendation": "AAR concept is core. Define once with the 3 questions, reference from every method. Could become `references/aar-protocol.json`."
-      },
-      {
-        "name": "Altitude calibration",
-        "locations": [
-          ".github/agents/Mentor.agent.md § How you behave #4 + 'When the learner is succeeding' (read typing)",
-          ".github/skills/methods/ride-along/SKILL.md § Altitude calibration table"
-        ],
-        "nodes": [
-          "concept:altitude",
-          "behavior:04-altitude-one-move",
-          "ride-along:altitude-table",
-          "success:read-typing"
-        ],
-        "severity": "medium",
-        "recommendation": "The signals→adjustment table in ride-along is the cleanest version. Make it the canonical reference and link from Mentor.agent.md."
-      },
-      {
-        "name": "Session start protocol",
-        "locations": [
-          ".github/agents/Mentor.agent.md § Session start with method/track selection",
-          ".github/skills/learner-profile/SKILL.md § Session start protocol"
-        ],
-        "nodes": [
-          "session-start:protocol",
-          "protocol:session-start-skill"
-        ],
-        "severity": "medium",
-        "recommendation": "Mentor.agent.md owns the agent-level orchestration (pickers, method/track selection). learner-profile owns profile loading. The boundary is OK but the overlap on 'identify learner' is duplicated. Move all identity logic into learner-profile, have Mentor.agent.md call it."
-      },
-      {
-        "name": "Session end protocol",
-        "locations": [
-          ".github/agents/Mentor.agent.md § Session end updates",
-          ".github/skills/learner-profile/SKILL.md § Session End Update Protocol"
-        ],
-        "nodes": [
-          "session-end:agent",
-          "protocol:session-end-skill"
-        ],
-        "severity": "medium",
-        "recommendation": "Two-file sync logic is repeated. Make learner-profile own the writes. Mentor.agent.md just says 'call learner-profile session end with this session's data'."
-      },
-      {
-        "name": "Pace/stuck/motivation adaptation rules",
-        "locations": [
-          ".github/agents/Mentor.agent.md § Adapting to the learner (using their profile)",
-          "Implicit in every method skill's proficiency-level mentor_behavior"
-        ],
-        "nodes": [
-          "adapt:pace-fast",
-          "adapt:pace-steady",
-          "adapt:pace-slow",
-          "adapt:stuck-tries-first",
-          "adapt:stuck-asks-immediately"
-        ],
-        "severity": "low",
-        "recommendation": "These are profile-driven behavior switches — strong candidates for JSON extraction (see candidate_json_extractions)."
-      },
-      {
-        "name": "Compression resilience pattern",
-        "locations": [
-          ".github/skills/learner-profile/SKILL.md § Compression resilience",
-          ".github/skills/methods/TDD/SKILL.md § Compression Resilience",
-          ".github/skills/methods/BDD/SKILL.md § Compression Resilience",
-          ".github/skills/methods/spike-then-refactor/SKILL.md § Compression Resilience"
-        ],
-        "nodes": [
-          "protocol:compression-resilience-lp",
-          "rule:compression-resilience-method"
-        ],
-        "severity": "low",
-        "recommendation": "Identical 3-step pattern in 4+ files. Extract once as a referenced shared protocol."
-      }
-    ],
-    "conflicts": [
-      {
-        "name": "Path inconsistency: single-file vs directory profile",
-        "locations": [
-          ".github/agents/Mentor.agent.md § How you behave #1: `.profiles/profiles/mentees/{github-username}.json`",
-          ".github/skills/learner-profile/SKILL.md § Architecture + Session start: `.profiles/profiles/mentees/{username}/profile.json`"
-        ],
-        "severity": "high",
-        "description": "Mentor.agent.md references the OLD path (single JSON per learner). learner-profile.md uses the CURRENT directory structure (folder per learner with profile.json + per-project files). Mentor.agent.md is stale.",
-        "fix": "Update Mentor.agent.md behavior #1 to read `.profiles/profiles/mentees/{github-username}/profile.json`."
-      },
-      {
-        "name": "Path inconsistency: skill reference in behavior #9",
-        "locations": [
-          ".github/agents/Mentor.agent.md § How you behave #9: `[learner-profile](../skills/methods/learner-profile/SKILL.md)`"
-        ],
-        "severity": "high",
-        "description": "Path `../skills/methods/learner-profile/SKILL.md` is wrong. learner-profile is NOT under `methods/`. Correct path is `../skills/learner-profile/SKILL.md` (used correctly in behavior #1).",
-        "fix": "Fix the relative path in behavior #9."
-      },
-      {
-        "name": "Method ID inconsistency: hyphen vs underscore",
-        "locations": [
-          "method-proficiency-levels.json keys: `TDD`, `BDD`, `spike_then_refactor`, `ride_along`",
-          "Folder names: `TDD/`, `BDD/`, `spike-then-refactor/`, `ride-along/`",
-          "list:methods enum values: `ride-along`, `TDD`, `BDD`, `spike-then-refactor`",
-          "progress.json `method_proficiency` keys (test data): `TDD`, `ride-along`"
-        ],
-        "severity": "medium",
-        "description": "JSON uses underscores, folders + enum use hyphens, progress files use hyphens (matching folders). The JSON keys are out of step with the rest of the system. Reading code has to map `spike_then_refactor` ↔ `spike-then-refactor`.",
-        "fix": "Pick one. Recommend hyphens everywhere (matches folder names and enum). Re-key the JSON: `spike_then_refactor` → `spike-then-refactor`, `ride_along` → `ride-along`. Update validate-proficiency.ps1 expected values accordingly."
-      },
-      {
-        "name": "Skill validation policy: 'execute don't read' vs 'read for clarity'",
-        "locations": [
-          ".github/agents/Mentor.agent.md § core_behavior YAML: 'Execute loaded skills directly when triggered - don't read them first.'",
-          ".github/agents/Mentor.agent.md § Working with skills: 'WHEN uncertain... THEN read the skill for clarity.'"
-        ],
-        "severity": "low",
-        "description": "Not a true conflict — the second rule is the escape hatch — but a learner could read these as contradictory. Clarify the relationship.",
-        "fix": "Rewrite as: 'Default: execute. Exception: read when uncertain.' One rule with the carve-out attached."
-      },
-      {
-        "name": "Method enum: where is the source of truth?",
-        "locations": [
-          ".github/agents/Mentor.agent.md § Available methods (markdown bullet list)",
-          ".github/agents/Mentor.agent.md § Session end #1 ('must be one of: ride-along, TDD, BDD, spike-then-refactor')",
-          "method-proficiency-levels.json (top-level keys)",
-          "validate-proficiency.ps1 `$validMethods = @(...)` hardcoded"
-        ],
-        "severity": "medium",
-        "description": "The list of valid methods exists in FOUR places. If a method is added or renamed, all four must update together.",
-        "fix": "Make `method-proficiency-levels.json` the single source of truth. Have validate-proficiency.ps1 derive `$validMethods` from the JSON keys. Have Mentor.agent.md cite the JSON instead of restating the list."
-      }
-    ],
-    "candidate_json_extractions": [
-      {
-        "name": "Behavioral rules (the 10 'How you behave' items)",
-        "current_location": ".github/agents/Mentor.agent.md § How you behave",
-        "proposed_file": ".github/skills/references/mentor-behaviors.json",
-        "shape": "Array of {id, title, summary, applies_to, related_skill}. Each rule becomes data, agent text becomes a thin loop over the JSON.",
-        "value": "Easier to add/remove/reorder rules without touching the agent file. Easier to map rules to skills programmatically.",
-        "risk": "Loses the prose voice. Mitigation: keep the prose in the JSON as `description` field."
-      },
-      {
-        "name": "Anti-patterns (the 'What you do NOT do' list)",
-        "current_location": ".github/agents/Mentor.agent.md § What you do NOT do + ride-along/SKILL.md § Hard rules",
-        "proposed_file": ".github/skills/references/teaching-anti-patterns.json",
-        "shape": "{antipattern_id: {label, why_bad, mentor_line, applies_to_methods[]}}",
-        "value": "Single source of truth. Each method skill can ALSO add its own anti-patterns to its skill file (per-method anti-patterns already exist in TDD/BDD/spike). Universal ones live in the JSON."
-      },
-      {
-        "name": "Stuck escalation ladder",
-        "current_location": "Duplicated in Mentor.agent.md and ride-along/SKILL.md",
-        "proposed_file": ".github/skills/references/stuck-ladder.json",
-        "shape": "Ordered array of rungs: {rung, action, example_line, escalate_to}",
-        "value": "Currently described twice with slight wording differences. Extraction enforces consistency and lets methods reference the ladder by rung."
-      },
-      {
-        "name": "Adaptation matrix (pace × when_stuck × motivation)",
-        "current_location": ".github/agents/Mentor.agent.md § Adapting to the learner",
-        "proposed_file": ".github/skills/references/profile-adaptation.json",
-        "shape": "{pace_preference: {fast: {...}, steady: {...}, slow: {...}}, when_stuck: {...}, motivation: {...}}",
-        "value": "Mirrors the proficiency JSON. Agent reads profile field → looks up adaptation → applies. Currently agent has to parse markdown to find the right adaptation."
-      },
-      {
-        "name": "Branch communication cultures",
-        "current_location": ".github/agents/Mentor.agent.md § Branch communication cultures",
-        "proposed_file": ".github/skills/references/branch-cultures.json",
-        "shape": "{Army: {values, style_notes, framing_hint, language_tone}, Marines: {...}, ...}",
-        "value": "Six branches × 4 fields = clean tabular data, currently prose. Easier for the agent to compose phrases like 'use commander's intent framing' if the data is structured."
-      },
-      {
-        "name": "Military analogy bank (the 5 examples)",
-        "current_location": ".github/agents/Mentor.agent.md § Military background translation (examples) + ride-along/SKILL.md § Analogy bank",
-        "proposed_file": ".github/skills/references/analogy-bank.json",
-        "shape": "{mos_or_role: {software_concept, analogy_line, follow_up_celebrate_line, follow_up_correct_line}}",
-        "value": "Mentor currently picks analogies from prose examples. JSON would let mentor look up by MOS code or by inferred role pattern. Combines well with mos-mappings.md."
-      },
-      {
-        "name": "Method context routing (use when / avoid when)",
-        "current_location": "Each method SKILL.md § Context",
-        "proposed_file": ".github/skills/references/method-routing.json",
-        "shape": "{method_id: {use_when: [...], avoid_when: [{condition, route_to}]}}",
-        "value": "Currently the routing logic ('if shape unclear, use BDD') is buried in 4 different files. A single routing table makes it a graph the agent can walk."
-      },
-      {
-        "name": "Session shape phases",
-        "current_location": ".github/agents/Mentor.agent.md § Session shape + ride-along/SKILL.md § Session shape",
-        "proposed_file": ".github/skills/references/session-shape.json",
-        "shape": "Ordered phases: {phase_id, label, duration_hint, required_actions, next_phase, exit_criteria}",
-        "value": "Lets the agent track 'what phase am I in?' programmatically rather than inferring from conversation."
-      }
-    ],
-    "orphans_and_gaps": [
-      {
-        "type": "orphan",
-        "name": "concept:track-cad, track-sca, track-cyber",
-        "description": "Tracks are enumerated in Mentor.agent.md and validated in session end, but there are NO track skills under `.github/skills/tracks/` yet. Mentor.agent.md picker offers them, fall-back path triggers if missing."
-      },
-      {
-        "type": "orphan",
-        "name": "file:project-json-optional",
-        "description": "`.profiles/project.json` is described as 'optional' shared coordination but no example or template exists. Mentioned once, never used."
-      },
-      {
-        "type": "gap",
-        "name": "No test for branch culture adaptation",
-        "description": "6 branch cultures are described in Mentor.agent.md but no test verifies the agent actually adapts tone per branch. Profile validation only checks branch field exists."
-      },
-      {
-        "type": "gap",
-        "name": "No test for analogy selection from profile",
-        "description": "Behavior #7 reads military.extracted_concepts and translation_to_code, but no test verifies the agent actually picks an appropriate analogy from these fields during a teaching moment."
-      },
-      {
-        "type": "gap",
-        "name": "Proficiency assessment: no script test",
-        "description": "validate-proficiency.ps1 validates STRUCTURE. There's no automated test that the agent correctly maps a learner's spoken indicator (e.g. 'What's TDD?') to the level (Novice). That's only in the integration markdown test."
-      },
-      {
-        "type": "gap",
-        "name": "No rollback for failed validation",
-        "description": "If validate-profile.ps1 fails AFTER the JSON is already written, there's no rollback. Skill says 'ask follow-ups and re-validate' but doesn't say 'remove the corrupted file first'."
-      }
-    ],
-    "consolidation_opportunities": [
-      {
-        "name": "Three layers of 'session start' could become one",
-        "current": [
-          "Mentor.agent.md owns: picker UI for project/method/track + validation of skill files",
-          "learner-profile owns: profile load + teammate check + interview trigger",
-          "Each method skill owns: proficiency assessment"
-        ],
-        "proposed": "Single session-start orchestrator in learner-profile that emits structured events. Mentor.agent.md becomes thin: 'on session start, ask learner-profile for {learner, project, method, track, proficiency}, then show pickers for whatever is ambiguous.'"
-      },
-      {
-        "name": "Adaptation logic could be policy-driven",
-        "current": "Agent has scattered if/then rules across pace, when_stuck, motivation, proficiency_level, branch culture.",
-        "proposed": "Single `adaptation.json` policy file. Agent reads profile, looks up each axis, composes a unified behavior profile for the session."
-      },
-      {
-        "name": "Anti-patterns could be cross-cutting",
-        "current": "Anti-patterns split by location (general vs method-specific). 'No code dumps' appears in 2 places.",
-        "proposed": "Universal anti-patterns in shared JSON. Method-specific anti-patterns stay in their SKILL.md. Each anti-pattern declares `applies_to: ['all']` or `applies_to: ['TDD']`."
-      }
-    ],
-    "self_discovery_hooks": [
-      {
-        "use_case": "Agent wants to know which skill to load for a task",
-        "graph_query": "Find nodes where type=skill and description matches user keywords; return file path."
-      },
-      {
-        "use_case": "Agent needs to find the right analogy for a learner with MOS=2336",
-        "graph_query": "Find nodes where type=analogy and id contains '2336' or '-eod-'; return analogy text."
-      },
-      {
-        "use_case": "Agent finishing a TDD session needs to know what to update",
-        "graph_query": "Find nodes where edge type=updates from session-end:agent or protocol:session-end-skill; return target files and fields."
-      },
-      {
-        "use_case": "Agent unsure which method to suggest",
-        "graph_query": "Find edges of type=routes_to from method context-avoid-when nodes; return target methods and conditions."
-      },
-      {
-        "use_case": "Onboarding contributor wants to add a new method",
-        "graph_query": "Walk the teaching-methods cluster + proficiency-tracking cluster. Returns: 1 SKILL.md + 1 entry in method-proficiency-levels.json + 1 entry in list:methods + update to validate-proficiency.ps1 + 1 integration test."
-      }
-    ],
-    "drift_detection_checks": [
-      "Every node with `file` field → file MUST exist on disk",
-      "Every edge of type `composes` from agent → target skill file MUST be in agent's frontmatter `skills:` array",
-      "Every method in list:methods enum MUST have a matching folder under .github/skills/methods/",
-      "Every method folder MUST have a SKILL.md and an entry in method-proficiency-levels.json",
-      "Every level value in test progress files MUST be in {Novice, Familiar, Competent, Proficient}",
-      "Every method_proficiency key in progress files MUST match a method in list:methods (after hyphen/underscore normalization)",
-      "Every edge of type `duplicates` → reviewer should resolve or accept the duplication explicitly",
-      "Every node of type `analogy` SHOULD have a corresponding entry or fallback rule in references/military-mos-mappings.md"
-    ]
-  }
+  ]
 }
