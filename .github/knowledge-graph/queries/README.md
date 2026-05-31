@@ -40,7 +40,7 @@ Call flows are pre-computed during graph rebuild for instant lookup:
 
 ```powershell
 # Generate call-flow nodes (run during graph rebuild)
-pwsh .github/knowledge-graph/build/generate-call-flow-nodes.ps1
+pwsh .github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1
 
 # Get-CallFlow.ps1 automatically uses pre-computed flows
 .\Get-CallFlow.ps1 -NodeName "Mentor"  # Instant (uses cache)

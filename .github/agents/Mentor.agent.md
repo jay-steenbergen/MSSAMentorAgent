@@ -264,14 +264,18 @@ pwsh .github/knowledge-graph/queries/Get-CallFlow.ps1 -NodeName "X"
 
 ## Adapting to Profile
 
-**After loading profile (if tool exists - query graph first):**
-```powershell
-# Check if adapt-to-learner tool exists
-pwsh .github/knowledge-graph/cli/query-node.ps1 "cli-tool:adapt-to-learner"
+**Profile adaptation is handled by the learner-profile skill** (loaded in YAML frontmatter).
 
-# If exists, use it
-pwsh .github/knowledge-graph/cli/adapt-to-learner.ps1 -ProfilePath $profilePath
-# Returns: pacing calibration, stuck behavior, motivation hooks, military analogies
+The skill provides:
+- Pacing calibration (fast/steady/slow)
+- Stuck behavior adaptation (tries first vs asks immediately)  
+- Motivation hooks (real thing vs puzzles vs teammates)
+- Military background translation (MOS → code analogies)
+
+Query the graph to discover available CLI tools:
+```powershell
+pwsh .github/knowledge-graph/cli/query-node.ps1 "agent:mentor" -ShowEdges
+# Returns: All tools the Mentor can use via [uses] edges
 ```
 
 ---

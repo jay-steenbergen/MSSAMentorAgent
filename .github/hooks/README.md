@@ -132,16 +132,16 @@ If health check blocks the commit:
 pwsh .github/knowledge-graph/build/core/health.ps1
 
 # Fix dangling edges manually
-pwsh .github/knowledge-graph/build/fix-dangling-edges.ps1
+pwsh .github/knowledge-graph/build/repair/fix-dangling-edges.ps1
 
 # Run full rebuild if needed
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1
 ```
 ### Graph out of sync
 
 Run full rebuild:
 ```powershell
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1
 ```
 
 ## Design Principles
@@ -157,5 +157,5 @@ pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1
 - `.github/knowledge-graph/data/system/auto-discover-features.ps1` — Convention-based discovery
 - `.github/knowledge-graph/data/code/extract.ps1` — Code artifact extraction
 - `.github/knowledge-graph/build/merge.ps1` — Graph layer merger
-- `.github/knowledge-graph/build/fix-dangling-edges.ps1` — Auto-repair dangling references
-- `.github/knowledge-graph/build/rebuild-if-stale.ps1` — Full rebuild (manual)
+- `.github/knowledge-graph/build/repair/fix-dangling-edges.ps1` — Auto-repair dangling references
+- `.github/knowledge-graph/build/core/rebuild-if-stale.ps1` — Full rebuild (manual)

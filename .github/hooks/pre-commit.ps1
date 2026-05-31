@@ -219,7 +219,7 @@ try {
             Write-Host $healthOutput
             Write-Host ""
             Write-Host "Fix these issues before committing:" -ForegroundColor Yellow
-            Write-Host "  pwsh .github/knowledge-graph/build/fix-dangling-edges.ps1" -ForegroundColor White
+            Write-Host "  pwsh .github/knowledge-graph/build/repair/fix-dangling-edges.ps1" -ForegroundColor White
             Write-Host "  pwsh .github/knowledge-graph/build/health.ps1" -ForegroundColor White
             exit 1
         }

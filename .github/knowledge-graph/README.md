@@ -124,7 +124,7 @@ The graph auto-rebuilds when source files are modified. Run `rebuild-if-stale.ps
 
 ```powershell
 # In your workflow script:
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1 -Quiet
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Quiet
 # ... then use output/merged-graph.json
 ```
 

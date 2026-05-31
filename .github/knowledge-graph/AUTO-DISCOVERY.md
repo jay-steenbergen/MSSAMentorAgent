@@ -59,7 +59,7 @@ The new `data/system/auto-discover-features.ps1` script automatically finds:
 
 ### **3. Automated Rebuild Pipeline**
 
-The `build/rebuild-if-stale.ps1` orchestrator now runs a 5-step process:
+The `build/core/rebuild-if-stale.ps1` orchestrator now runs a 5-step process:
 
 ```
 [0/5] Auto-discover features (system graph)
@@ -140,7 +140,7 @@ pwsh .github/knowledge-graph/data/system/auto-discover-features.ps1
 
 ### **Modified:**
 - ✅ `data/code/extract.ps1` - Added extensions/, lib/, cli/ scanning + TypeScript parser
-- ✅ `build/rebuild-if-stale.ps1` - Added Step 0 auto-discovery
+- ✅ `build/core/rebuild-if-stale.ps1` - Added Step 0 auto-discovery
 
 ### **Created:**
 - ✅ `data/system/auto-discover-features.ps1` - Pattern-based feature discovery

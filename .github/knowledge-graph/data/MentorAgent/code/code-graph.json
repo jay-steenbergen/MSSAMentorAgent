@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-05-30T23:14:00-07:00",
+    "generated": "2026-05-30T23:52:09-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,22 +19,22 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 112,
-      "stub_files": 6,
+      "files": 118,
+      "stub_files": 5,
       "functions": 41,
-      "sections": 570,
+      "sections": 569,
       "schemas": 9,
       "fields": 83,
-      "yaml_fields": 66,
+      "yaml_fields": 65,
       "tests": 6,
       "scenarios": 29,
       "classes": 7,
       "imports": 19,
-      "total_nodes": 960,
-      "total_edges": 932,
+      "total_nodes": 969,
+      "total_edges": 950,
       "bridges": 269,
       "dangling_edges": 0,
-      "orphan_nodes": 4
+      "orphan_nodes": 3
     }
   },
   "clusters": [
@@ -78,7 +78,7 @@
       "file": ".github/agents/Mentor.agent.md",
       "description": "File: .github/agents/Mentor.agent.md",
       "extension": ".md",
-      "size_bytes": 22507
+      "size_bytes": 11634
     },
     {
       "id": "code-yaml-field:.github/agents/Mentor.agent.md::name",
@@ -95,17 +95,8 @@
       "label": "description",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Frontmatter 'description: MSSA Mentor — teaches veterans software engineering by building real code alongside them. Use for: learning to code, building a first project, understanding a concept hands-on, MSSA bootcamp practice, transitioning from military to software engineering, mentor session, teach me X, help me build Y while explaining it.'",
-      "value": "MSSA Mentor — teaches veterans software engineering by building real code alongside them. Use for: learning to code, building a first project, understanding a concept hands-on, MSSA bootcamp practice, transitioning from military to software engineering, mentor session, teach me X, help me build Y while explaining it."
-    },
-    {
-      "id": "code-yaml-field:.github/agents/Mentor.agent.md::model",
-      "type": "code-yaml-field",
-      "label": "model",
-      "cluster": "agents-source",
-      "file": ".github/agents/Mentor.agent.md",
-      "description": "Frontmatter 'model: Claude Sonnet 4.5'",
-      "value": "Claude Sonnet 4.5"
+      "description": "Frontmatter 'description: MSSA Mentor — teaches veterans software engineering by building real code alongside them.'",
+      "value": "MSSA Mentor — teaches veterans software engineering by building real code alongside them."
     },
     {
       "id": "code-yaml-field:.github/agents/Mentor.agent.md::skills",
@@ -113,131 +104,124 @@
       "label": "skills",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Frontmatter list 'skills' (2 items)",
+      "description": "Frontmatter list 'skills' (3 items)",
       "items": [
         "../skills/learner-profile/SKILL.md",
-        "../skills/methods/ride-along/SKILL.md"
+        "../skills/methods/ride-along/SKILL.md",
+        "../skills/knowledge-graph-management/SKILL.md"
       ]
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Available_methods_and_tracks",
+      "id": "code-section:.github/agents/Mentor.agent.md::Discovery-First_Workflow",
       "type": "code-section",
-      "label": "Available methods and tracks",
+      "label": "Discovery-First Workflow",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Available methods and tracks' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Discovery-First Workflow' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Who_you_are_talking_to",
+      "id": "code-section:.github/agents/Mentor.agent.md::Graph-Driven_Code_Generation__STRICT_DISCIPLINE_",
       "type": "code-section",
-      "label": "Who you are talking to",
+      "label": "Graph-Driven Code Generation (STRICT DISCIPLINE)",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Who you are talking to' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Graph-Driven Code Generation (STRICT DISCIPLINE)' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Your_personality",
+      "id": "code-section:.github/agents/Mentor.agent.md::Core_Workflow__Using_Discovered_Tools_",
       "type": "code-section",
-      "label": "Your personality",
+      "label": "Core Workflow (Using Discovered Tools)",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Your personality' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Core Workflow (Using Discovered Tools)' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::How_you_behave",
+      "id": "code-section:.github/agents/Mentor.agent.md::Available_Teaching_Methods",
       "type": "code-section",
-      "label": "How you behave",
+      "label": "Available Teaching Methods",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'How you behave' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Available Teaching Methods' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Working_with_skills",
+      "id": "code-section:.github/agents/Mentor.agent.md::Available_MSSA_Tracks",
       "type": "code-section",
-      "label": "Working with skills",
+      "label": "Available MSSA Tracks",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Working with skills' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Available MSSA Tracks' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Session_start_with_method_track_selection",
+      "id": "code-section:.github/agents/Mentor.agent.md::Your_Personality",
       "type": "code-section",
-      "label": "Session start with method/track selection",
+      "label": "Your Personality",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Session start with method/track selection' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Your Personality' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Dynamic_Skill_Loading__Knowledge_Graph_",
+      "id": "code-section:.github/agents/Mentor.agent.md::Core_Behaviors",
       "type": "code-section",
-      "label": "Dynamic Skill Loading (Knowledge Graph)",
+      "label": "Core Behaviors",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Dynamic Skill Loading (Knowledge Graph)' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Core Behaviors' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Hybrid_Context_Loading__Two-Phase_",
+      "id": "code-section:.github/agents/Mentor.agent.md::When_Stuck",
       "type": "code-section",
-      "label": "Hybrid Context Loading (Two-Phase)",
+      "label": "When Stuck",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Hybrid Context Loading (Two-Phase)' in .github/agents/Mentor.agent.md"
+      "description": "Section 'When Stuck' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Mid-session_switching",
+      "id": "code-section:.github/agents/Mentor.agent.md::When_Succeeding",
       "type": "code-section",
-      "label": "Mid-session switching",
+      "label": "When Succeeding",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Mid-session switching' in .github/agents/Mentor.agent.md"
+      "description": "Section 'When Succeeding' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Session_end_updates",
+      "id": "code-section:.github/agents/Mentor.agent.md::Antipatterns__Never_Do_",
       "type": "code-section",
-      "label": "Session end updates",
+      "label": "Antipatterns (Never Do)",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Session end updates' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Antipatterns (Never Do)' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::Adapting_to_the_learner__using_their_profile_",
+      "id": "code-section:.github/agents/Mentor.agent.md::Session_Shape",
       "type": "code-section",
-      "label": "Adapting to the learner (using their profile)",
+      "label": "Session Shape",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Adapting to the learner (using their profile)' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Session Shape' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::What_you_do_NOT_do",
+      "id": "code-section:.github/agents/Mentor.agent.md::Dynamic_Skill_Loading__Graph-Driven_",
       "type": "code-section",
-      "label": "What you do NOT do",
+      "label": "Dynamic Skill Loading (Graph-Driven)",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'What you do NOT do' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Dynamic Skill Loading (Graph-Driven)' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::When_the_learner_is_stuck",
+      "id": "code-section:.github/agents/Mentor.agent.md::Answering_Questions__Graph_Queries_",
       "type": "code-section",
-      "label": "When the learner is stuck",
+      "label": "Answering Questions (Graph Queries)",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'When the learner is stuck' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Answering Questions (Graph Queries)' in .github/agents/Mentor.agent.md"
     },
     {
-      "id": "code-section:.github/agents/Mentor.agent.md::When_the_learner_is_succeeding",
+      "id": "code-section:.github/agents/Mentor.agent.md::Adapting_to_Profile",
       "type": "code-section",
-      "label": "When the learner is succeeding",
+      "label": "Adapting to Profile",
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'When the learner is succeeding' in .github/agents/Mentor.agent.md"
-    },
-    {
-      "id": "code-section:.github/agents/Mentor.agent.md::Session_shape__default_",
-      "type": "code-section",
-      "label": "Session shape (default)",
-      "cluster": "agents-source",
-      "file": ".github/agents/Mentor.agent.md",
-      "description": "Section 'Session shape (default)' in .github/agents/Mentor.agent.md"
+      "description": "Section 'Adapting to Profile' in .github/agents/Mentor.agent.md"
     },
     {
       "id": "code-file:.github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
@@ -465,7 +449,7 @@
       "file": ".github/hooks/pre-commit.ps1",
       "description": "File: .github/hooks/pre-commit.ps1",
       "extension": ".ps1",
-      "size_bytes": 11208
+      "size_bytes": 11215
     },
     {
       "id": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
@@ -515,7 +499,7 @@
       "file": ".github/hooks/README.md",
       "description": "File: .github/hooks/README.md",
       "extension": ".md",
-      "size_bytes": 5007
+      "size_bytes": 5036
     },
     {
       "id": "code-section:.github/hooks/README.md::What_s_Here",
@@ -590,6 +574,24 @@
       "description": "Section 'Related Files' in .github/hooks/README.md"
     },
     {
+      "id": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "type": "code-file",
+      "label": "analyze-agent-size.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "description": "File: .github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "extension": ".ps1",
+      "size_bytes": 5980
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/analyze-agent-size.ps1::script::true",
+      "type": "code-param",
+      "label": "true",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "description": "Script parameter -true"
+    },
+    {
       "id": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
       "type": "code-file",
       "label": "audit-quality.ps1",
@@ -610,6 +612,78 @@
       "size_bytes": 4498
     },
     {
+      "id": "code-file:.github/knowledge-graph/cli/enforce-method.ps1",
+      "type": "code-file",
+      "label": "enforce-method.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/enforce-method.ps1",
+      "description": "File: .github/knowledge-graph/cli/enforce-method.ps1",
+      "extension": ".ps1",
+      "size_bytes": 5338
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/enforce-method.ps1::script::true",
+      "type": "code-param",
+      "label": "true",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/enforce-method.ps1",
+      "description": "Script parameter -true"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/enforce-track.ps1",
+      "type": "code-file",
+      "label": "enforce-track.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/enforce-track.ps1",
+      "description": "File: .github/knowledge-graph/cli/enforce-track.ps1",
+      "extension": ".ps1",
+      "size_bytes": 5218
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/enforce-track.ps1::script::true",
+      "type": "code-param",
+      "label": "true",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/enforce-track.ps1",
+      "description": "Script parameter -true"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
+      "type": "code-file",
+      "label": "get-behavior.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/get-behavior.ps1",
+      "description": "File: .github/knowledge-graph/cli/get-behavior.ps1",
+      "extension": ".ps1",
+      "size_bytes": 6398
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/get-behavior.ps1::script::true",
+      "type": "code-param",
+      "label": "true",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/get-behavior.ps1",
+      "description": "Script parameter -true"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "type": "code-file",
+      "label": "query-node.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/query-node.ps1",
+      "description": "File: .github/knowledge-graph/cli/query-node.ps1",
+      "extension": ".ps1",
+      "size_bytes": 2723
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/query-node.ps1::script::true",
+      "type": "code-param",
+      "label": "true",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/query-node.ps1",
+      "description": "Script parameter -true"
+    },
+    {
       "id": "code-file:.github/knowledge-graph/cli/recommend-next-skills.ps1",
       "type": "code-file",
       "label": "recommend-next-skills.ps1",
@@ -618,6 +692,24 @@
       "description": "File: .github/knowledge-graph/cli/recommend-next-skills.ps1",
       "extension": ".ps1",
       "size_bytes": 4118
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/session-protocol.ps1",
+      "type": "code-file",
+      "label": "session-protocol.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/session-protocol.ps1",
+      "description": "File: .github/knowledge-graph/cli/session-protocol.ps1",
+      "extension": ".ps1",
+      "size_bytes": 5742
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/session-protocol.ps1::script::true",
+      "type": "code-param",
+      "label": "true",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/session-protocol.ps1",
+      "description": "Script parameter -true"
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
@@ -967,7 +1059,7 @@
       "file": ".github/knowledge-graph/queries/README.md",
       "description": "File: .github/knowledge-graph/queries/README.md",
       "extension": ".md",
-      "size_bytes": 4318
+      "size_bytes": 4327
     },
     {
       "id": "code-section:.github/knowledge-graph/queries/README.md::Available_Scripts",
@@ -1033,7 +1125,7 @@
       "file": ".github/skills/knowledge-graph-management/SKILL.md",
       "description": "File: .github/skills/knowledge-graph-management/SKILL.md",
       "extension": ".md",
-      "size_bytes": 8952
+      "size_bytes": 8964
     },
     {
       "id": "code-yaml-field:.github/skills/knowledge-graph-management/SKILL.md::name",
@@ -8088,6 +8180,33 @@
       "description": "Section 'Status' in README.md"
     },
     {
+      "id": "code-file:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
+      "type": "code-file",
+      "label": "generate-call-flow-nodes.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
+      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "type": "code-file",
+      "label": "rebuild-if-stale.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "type": "code-file",
+      "label": "fix-dangling-edges.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
       "id": "code-file:.github/knowledge-graph/build/core/health.ps1",
       "type": "code-file",
       "label": "health.ps1",
@@ -8104,15 +8223,6 @@
       "file": ".github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
       "missing": true
-    },
-    {
-      "id": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
-      "type": "code-file",
-      "label": "rebuild-if-stale.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
-      "description": "STUB: referenced by 1 edge(s) but file not found on disk",
-      "missing": true
     }
   ],
   "edges": [
@@ -8124,11 +8234,6 @@
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
       "target": "code-yaml-field:.github/agents/Mentor.agent.md::description",
-      "type": "contains"
-    },
-    {
-      "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-yaml-field:.github/agents/Mentor.agent.md::model",
       "type": "contains"
     },
     {
@@ -8150,78 +8255,139 @@
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Available_methods_and_tracks",
+      "target": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "type": "composes",
+      "label": "composes ../skills/knowledge-graph-management/SKILL.md"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-section:.github/agents/Mentor.agent.md::Discovery-First_Workflow",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Who_you_are_talking_to",
+      "target": "code-section:.github/agents/Mentor.agent.md::Graph-Driven_Code_Generation__STRICT_DISCIPLINE_",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Your_personality",
+      "target": "code-section:.github/agents/Mentor.agent.md::Core_Workflow__Using_Discovered_Tools_",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::How_you_behave",
+      "target": "code-section:.github/agents/Mentor.agent.md::Available_Teaching_Methods",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Working_with_skills",
+      "target": "code-section:.github/agents/Mentor.agent.md::Available_MSSA_Tracks",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Session_start_with_method_track_selection",
+      "target": "code-section:.github/agents/Mentor.agent.md::Your_Personality",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Dynamic_Skill_Loading__Knowledge_Graph_",
+      "target": "code-section:.github/agents/Mentor.agent.md::Core_Behaviors",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Hybrid_Context_Loading__Two-Phase_",
+      "target": "code-section:.github/agents/Mentor.agent.md::When_Stuck",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Mid-session_switching",
+      "target": "code-section:.github/agents/Mentor.agent.md::When_Succeeding",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Session_end_updates",
+      "target": "code-section:.github/agents/Mentor.agent.md::Antipatterns__Never_Do_",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Adapting_to_the_learner__using_their_profile_",
+      "target": "code-section:.github/agents/Mentor.agent.md::Session_Shape",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::What_you_do_NOT_do",
+      "target": "code-section:.github/agents/Mentor.agent.md::Dynamic_Skill_Loading__Graph-Driven_",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::When_the_learner_is_stuck",
+      "target": "code-section:.github/agents/Mentor.agent.md::Answering_Questions__Graph_Queries_",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::When_the_learner_is_succeeding",
+      "target": "code-section:.github/agents/Mentor.agent.md::Adapting_to_Profile",
       "type": "contains"
     },
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
-      "target": "code-section:.github/agents/Mentor.agent.md::Session_shape__default_",
-      "type": "contains"
+      "target": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/cli/query-node.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-CallFlow.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-Dependencies.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-Dependents.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/cli/session-protocol.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/cli/session-protocol.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/cli/get-behavior.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/cli/enforce-method.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/cli/enforce-method.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/cli/enforce-track.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/cli/enforce-track.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/queries/Get-SkillRecommendations.ps1"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-file:.github/knowledge-graph/cli/recommend-next-skills.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/cli/recommend-next-skills.ps1"
     },
     {
       "source": "code-file:.github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
@@ -8440,6 +8606,48 @@
       "target": "code-file:.github/knowledge-graph/build/core/health.ps1",
       "type": "invokes",
       "label": "invokes .github/knowledge-graph/build/core/health.ps1"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-file:.github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/repair/fix-dangling-edges.ps1"
+    },
+    {
+      "source": "code-file:.github/hooks/README.md",
+      "target": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/core/rebuild-if-stale.ps1"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/analyze-agent-size.ps1::script::true",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/enforce-method.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/enforce-method.ps1::script::true",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/enforce-track.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/enforce-track.ps1::script::true",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/get-behavior.ps1::script::true",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/query-node.ps1::script::true",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/session-protocol.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/session-protocol.ps1::script::true",
+      "type": "contains"
     },
     {
       "source": "code-file:.github/knowledge-graph/lib/query.psm1",
@@ -8717,6 +8925,12 @@
       "type": "contains"
     },
     {
+      "source": "code-file:.github/knowledge-graph/queries/README.md",
+      "target": "code-file:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1"
+    },
+    {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
       "target": "code-yaml-field:.github/skills/knowledge-graph-management/SKILL.md::name",
       "type": "contains"
@@ -8806,6 +9020,12 @@
       "target": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "type": "invokes",
       "label": "invokes .github/knowledge-graph/build/advanced/gap-analysis.ps1"
+    },
+    {
+      "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
+      "target": "code-file:.github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/repair/fix-dangling-edges.ps1"
     },
     {
       "source": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
@@ -12663,12 +12883,6 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
-      "type": "calls",
-      "label": "calls Write-Error"
-    },
-    {
-      "source": "code-file:.github/hooks/pre-commit.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
       "type": "calls",
       "label": "calls Write-Success"
@@ -12686,6 +12900,36 @@
       "label": "calls Write-Info"
     },
     {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
+      "type": "calls",
+      "label": "calls Write-Warning"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
       "source": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
@@ -12693,12 +12937,6 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
-      "type": "calls",
-      "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
@@ -12710,7 +12948,7 @@
       "label": "calls Write-GraphSection"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
@@ -12728,7 +12966,7 @@
       "label": "calls Write-GraphSection"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
@@ -12746,7 +12984,7 @@
       "label": "calls Write-GraphSection"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
@@ -12758,10 +12996,10 @@
       "label": "calls Write-GraphPath"
     },
     {
-      "source": "code-file:.profiles/edit-profile.ps1",
-      "target": "code-func:.profiles/edit-profile.ps1::Edit-Field",
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
-      "label": "calls Edit-Field"
+      "label": "calls Write-GraphSuggestions"
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
@@ -12771,9 +13009,21 @@
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
+      "target": "code-func:.profiles/edit-profile.ps1::Edit-Field",
+      "type": "calls",
+      "label": "calls Edit-Field"
+    },
+    {
+      "source": "code-file:.profiles/edit-profile.ps1",
       "target": "code-func:.profiles/edit-profile.ps1::Validate-Profile",
       "type": "calls",
       "label": "calls Validate-Profile"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
+      "type": "calls",
+      "label": "calls Test-ProficiencyEntry"
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
@@ -12786,12 +13036,6 @@
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
-    },
-    {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
-      "type": "calls",
-      "label": "calls Test-ProficiencyEntry"
     }
   ],
   "bridges": [

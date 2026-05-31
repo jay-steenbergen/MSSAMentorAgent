@@ -191,7 +191,7 @@ Based on findings, present clickable options using `vscode_askQuestions`:
 
 **For "Auto-fix" (dangling edges):**
 ```powershell
-pwsh -NoProfile -File .github/knowledge-graph/build/fix-dangling-edges.ps1
+pwsh -NoProfile -File .github/knowledge-graph/build/repair/fix-dangling-edges.ps1
 ```
 Then re-run Phase 1 to verify fixes.
 
@@ -213,7 +213,7 @@ pwsh -NoProfile -File .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -F
 
 **For "Full rebuild":**
 ```powershell
-pwsh -NoProfile -File .github/knowledge-graph/build/rebuild-if-stale.ps1 -Force
+pwsh -NoProfile -File .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Force
 ```
 
 **For "View details":**
