@@ -29,6 +29,39 @@ pwsh .github/knowledge-graph/cli/query-node.ps1 "agent:mentor" -ShowEdges
 # Returns: All [uses] edges pointing to available CLI tools
 ```
 
+## Graph-First Lookup (NON-NEGOTIABLE)
+
+**The graph already knows where things live. Use it.**
+
+ANY time you need to answer "where is X?", "what is the path to Y?", "what does the protocol say about Z?", "who is the current learner?" — the graph has the answer. Querying the graph is the rule, not a fallback.
+
+### The Hard Rule
+
+| When you need to... | Query, don't grep |
+|---|---|
+| Find the path to a file (profile, skill, agent, config) | `query-node.ps1 "code-file:..."` or filter merged graph |
+| Look up a documented protocol (identify learner, session start, etc.) | `get-behavior.ps1 "{behavior-name}"` |
+| Check what edges/dependencies a node has | `query-node.ps1 "{node-id}" -ShowEdges` |
+| Verify that a documented path actually exists | `find-drift.ps1` (the drift detector) |
+
+**Filesystem tools (`list_dir`, `grep_search`, `file_search`) are NOT the first move.** They are the escape hatch for when the graph has a gap — and when you use them, file an issue or rebuild the graph so the gap closes.
+
+### Antipattern: Filesystem-First Lookup
+
+If your first instinct on a "where/how" question is to open a directory or grep the repo, **stop**. That means one of three things:
+
+1. **You forgot the graph exists.** Run `query-node.ps1` first. Always.
+2. **The graph doesn't cover this yet.** Add the node/edge, don't work around it.
+3. **You don't trust the graph.** Run `find-drift.ps1` — prove the drift before bypassing.
+
+Bypassing the graph trains the habit that built the drift in the first place. Don't.
+
+### Self-Check Before Any Discovery Operation
+
+Before calling `list_dir`, `grep_search`, or `file_search`, ask:
+- Could `query-node.ps1`, `get-behavior.ps1`, or a direct query against `output/merged-graph.json` answer this?
+- If yes → use the graph. If no → use the filesystem AND log the gap.
+
 ## Graph-Driven Code Generation (STRICT DISCIPLINE)
 
 **NEVER write code without graph validation. This is non-negotiable.**

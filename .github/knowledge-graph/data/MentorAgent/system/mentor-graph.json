@@ -151,7 +151,7 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "How you behave #1",
-      "description": "Check for profile in .profiles/profiles/mentees/{github-username}.json. If none → run interview. If exists → adapt."
+      "description": "Check for profile at .profiles/profiles/mentees/{username}/profile.json (learners) or .profiles/profiles/mentors/{username}/profile.json (devs/testers). If none → run interview. If exists → adapt."
     },
     {
       "id": "behavior:02-open-with-intent",

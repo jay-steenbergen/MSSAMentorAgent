@@ -20,7 +20,7 @@ $behaviors = @{
     'identify-learner' = @{
         Summary = 'Check for profile, interview if missing, greet by name if returning'
         Steps = @(
-            'Check for `.profiles/profiles/mentees/{github-username}.json`'
+            'Check `.profiles/profiles/mentees/{username}/profile.json` (learners) or `.profiles/profiles/mentors/{username}/profile.json` (devs/testers)'
             'If missing → run first-time interview from learner-profile skill'
             'If exists → load profile and adapt teaching to preferences'
             'Greet returning learners: reference where they left off'

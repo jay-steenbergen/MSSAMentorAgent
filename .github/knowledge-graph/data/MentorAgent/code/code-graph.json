@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-05-30T23:57:09-07:00",
+    "generated": "2026-05-31T00:07:39-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,10 +19,10 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 118,
+      "files": 119,
       "stub_files": 5,
-      "functions": 41,
-      "sections": 569,
+      "functions": 42,
+      "sections": 570,
       "schemas": 9,
       "fields": 83,
       "yaml_fields": 65,
@@ -30,8 +30,8 @@
       "scenarios": 29,
       "classes": 7,
       "imports": 19,
-      "total_nodes": 969,
-      "total_edges": 950,
+      "total_nodes": 972,
+      "total_edges": 955,
       "bridges": 269,
       "dangling_edges": 0,
       "orphan_nodes": 3
@@ -78,7 +78,7 @@
       "file": ".github/agents/Mentor.agent.md",
       "description": "File: .github/agents/Mentor.agent.md",
       "extension": ".md",
-      "size_bytes": 11634
+      "size_bytes": 13495
     },
     {
       "id": "code-yaml-field:.github/agents/Mentor.agent.md::name",
@@ -118,6 +118,14 @@
       "cluster": "agents-source",
       "file": ".github/agents/Mentor.agent.md",
       "description": "Section 'Discovery-First Workflow' in .github/agents/Mentor.agent.md"
+    },
+    {
+      "id": "code-section:.github/agents/Mentor.agent.md::Graph-First_Lookup__NON-NEGOTIABLE_",
+      "type": "code-section",
+      "label": "Graph-First Lookup (NON-NEGOTIABLE)",
+      "cluster": "agents-source",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "Section 'Graph-First Lookup (NON-NEGOTIABLE)' in .github/agents/Mentor.agent.md"
     },
     {
       "id": "code-section:.github/agents/Mentor.agent.md::Graph-Driven_Code_Generation__STRICT_DISCIPLINE_",
@@ -648,6 +656,24 @@
       "description": "Script parameter -true"
     },
     {
+      "id": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "type": "code-file",
+      "label": "find-drift.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/find-drift.ps1",
+      "description": "File: .github/knowledge-graph/cli/find-drift.ps1",
+      "extension": ".ps1",
+      "size_bytes": 6772
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
+      "type": "code-func",
+      "label": "Get-StringFields",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/find-drift.ps1",
+      "description": "PowerShell function Get-StringFields in .github/knowledge-graph/cli/find-drift.ps1"
+    },
+    {
       "id": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
       "type": "code-file",
       "label": "get-behavior.ps1",
@@ -655,7 +681,7 @@
       "file": ".github/knowledge-graph/cli/get-behavior.ps1",
       "description": "File: .github/knowledge-graph/cli/get-behavior.ps1",
       "extension": ".ps1",
-      "size_bytes": 6398
+      "size_bytes": 6477
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/get-behavior.ps1::script::true",
@@ -1225,7 +1251,7 @@
       "file": ".github/skills/learner-profile/SKILL.md",
       "description": "File: .github/skills/learner-profile/SKILL.md",
       "extension": ".md",
-      "size_bytes": 25025
+      "size_bytes": 25153
     },
     {
       "id": "code-yaml-field:.github/skills/learner-profile/SKILL.md::name",
@@ -8180,33 +8206,6 @@
       "description": "Section 'Status' in README.md"
     },
     {
-      "id": "code-file:.github/knowledge-graph/build/core/health.ps1",
-      "type": "code-file",
-      "label": "health.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/core/health.ps1",
-      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
-      "id": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
-      "type": "code-file",
-      "label": "rebuild-if-stale.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
-      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
-      "id": "code-file:.github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
-      "type": "code-file",
-      "label": "fix-dangling-edges.ps1",
-      "cluster": "scripts-source",
-      "file": ".github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
-      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
-      "missing": true
-    },
-    {
       "id": "code-file:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
       "type": "code-file",
       "label": "generate-call-flow-nodes.ps1",
@@ -8222,6 +8221,33 @@
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "description": "STUB: referenced by 1 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "type": "code-file",
+      "label": "rebuild-if-stale.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/core/health.ps1",
+      "type": "code-file",
+      "label": "health.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/core/health.ps1",
+      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
+      "missing": true
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "type": "code-file",
+      "label": "fix-dangling-edges.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
+      "description": "STUB: referenced by 2 edge(s) but file not found on disk",
       "missing": true
     }
   ],
@@ -8262,6 +8288,11 @@
     {
       "source": "code-file:.github/agents/Mentor.agent.md",
       "target": "code-section:.github/agents/Mentor.agent.md::Discovery-First_Workflow",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:.github/agents/Mentor.agent.md",
+      "target": "code-section:.github/agents/Mentor.agent.md::Graph-First_Lookup__NON-NEGOTIABLE_",
       "type": "contains"
     },
     {
@@ -8633,6 +8664,16 @@
       "source": "code-file:.github/knowledge-graph/cli/enforce-track.ps1",
       "target": "code-param:.github/knowledge-graph/cli/enforce-track.ps1::script::true",
       "type": "contains"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
+      "target": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "type": "defined_in"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
@@ -12883,6 +12924,12 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
+      "type": "calls",
+      "label": "calls Write-Info"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
       "type": "calls",
       "label": "calls Write-Warning"
@@ -12895,12 +12942,6 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
-      "type": "calls",
-      "label": "calls Write-Info"
-    },
-    {
-      "source": "code-file:.github/hooks/pre-commit.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
       "type": "calls",
       "label": "calls Write-Header"
@@ -12910,6 +12951,18 @@
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
+      "type": "calls",
+      "label": "calls Get-StringFields"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
@@ -12937,6 +12990,12 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
@@ -12948,7 +13007,7 @@
       "label": "calls Write-GraphSuggestions"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
       "type": "calls",
       "label": "calls Write-GraphSection"
@@ -12966,7 +13025,7 @@
       "label": "calls Write-GraphSuggestions"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
       "type": "calls",
       "label": "calls Write-GraphSection"
@@ -12982,12 +13041,6 @@
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
-      "type": "calls",
-      "label": "calls Write-GraphSection"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
@@ -13009,27 +13062,27 @@
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
-      "target": "code-func:.profiles/edit-profile.ps1::Validate-Profile",
-      "type": "calls",
-      "label": "calls Validate-Profile"
-    },
-    {
-      "source": "code-file:.profiles/edit-profile.ps1",
       "target": "code-func:.profiles/edit-profile.ps1::Show-Menu",
       "type": "calls",
       "label": "calls Show-Menu"
     },
     {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
+      "source": "code-file:.profiles/edit-profile.ps1",
+      "target": "code-func:.profiles/edit-profile.ps1::Validate-Profile",
       "type": "calls",
-      "label": "calls Get-ProgressFiles"
+      "label": "calls Validate-Profile"
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
+      "type": "calls",
+      "label": "calls Get-ProgressFiles"
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",

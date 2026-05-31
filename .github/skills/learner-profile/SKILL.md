@@ -13,7 +13,7 @@ This skill manages learner identity, preferences, and progress across sessions. 
 
 **Before executing any protocol step:**
 1. Check if the learner's profile data is in your loaded context
-2. If missing (due to compression): Re-load `.profiles/profiles/mentees/{username}.json` or `.profiles/profiles/mentors/{username}.json`
+2. If missing (due to compression): Re-load `.profiles/profiles/mentees/{username}/profile.json` or `.profiles/profiles/mentors/{username}/profile.json`
 3. Then proceed with the protocol
 
 This makes the skill self-healing — it doesn't assume the profile survived compression, it verifies and restores if needed.
@@ -92,7 +92,7 @@ Options built from profile's `projects` index:
 
 **If file does not exist:**
 - Run the first-time interview (see below)
-- Create the profile file in `.profiles/profiles/mentees/{username}.json`
+- Create the profile file in `.profiles/profiles/mentees/{username}/profile.json` (creates the `{username}/` folder if needed)
 - **Validate the profile** by running `.profiles/validate-profile.ps1 -Username {username}`
 - **Check validation results:**
   - If validation **passes** (exit code 0) → commit with message: `"Add learner profile: {name}"`
@@ -504,7 +504,7 @@ If they say *"I prefer faster pacing now"* or *"I want to change my learning sty
 When you need to use this skill:
 
 - [ ] Identify the current learner (GitHub username)
-- [ ] Check for `.profiles/profiles/mentees/{username}.json` (learner) or `.profiles/profiles/mentors/{username}.json` (mentor/developer)
+- [ ] Check for `.profiles/profiles/mentees/{username}/profile.json` (learner) or `.profiles/profiles/mentors/{username}/profile.json` (mentor/developer)
 - [ ] If missing → run interview, create profile
   - [ ] Write JSON file to appropriate directory
   - [ ] **Validate** with `.profiles/validate-profile.ps1 -Username {username}`
@@ -536,7 +536,7 @@ When you need to use this skill:
      - **Only update if proficiency changed** (assessed during method's session end AAR)
      - If level unchanged → skip proficiency update
 
-2. **Update profile index** (`.profiles/mentees/{username}/profile.json`)
+2. **Update profile index** (`.profiles/profiles/mentees/{username}/profile.json`)
    - Update project entry in `projects` object:
      - `last_session` (today's date)
      - `status` (if changed: `not_started` → `in_progress` → `completed`)
@@ -544,7 +544,7 @@ When you need to use this skill:
    - Update `last_updated` timestamp on profile root
 
 3. **Commit to Git**
-   - Stage both files: `git add .profiles/mentees/{username}/profile.json .profiles/mentees/{username}/{project-id}.progress.json`
+   - Stage both files: `git add .profiles/profiles/mentees/{username}/profile.json .profiles/profiles/mentees/{username}/{project-id}.progress.json`
    - Commit with message: `"Session {date}: {project-name} - {brief-summary}"`
    - Example: `"Session 2026-05-22: CAD REST API - Completed basic routing"`
 
@@ -557,7 +557,7 @@ To verify the profile system works:
 1. Start a session in a fresh project (no `.profiles/` directory)
 2. Mentor should detect no profile exists
 3. Mentor runs interview
-4. Mentor creates `.profiles/profiles/mentees/{your-username}.json` (or `.profiles/profiles/mentors/{username}.json` for mentor/test profiles)
+4. Mentor creates `.profiles/profiles/mentees/{your-username}/profile.json` (or `.profiles/profiles/mentors/{username}/profile.json` for mentor/test profiles)
 5. **Mentor validates the profile** by running `.profiles/validate-profile.ps1 -Username {username}`
 6. If validation passes → mentor commits the file
    - If validation fails → mentor asks follow-ups, fixes fields, re-validates, then commits
