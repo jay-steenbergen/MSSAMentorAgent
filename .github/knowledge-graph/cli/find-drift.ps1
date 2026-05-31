@@ -101,6 +101,9 @@ foreach ($node in $systemGraph.nodes) {
     foreach ($field in Get-StringFields -Object $node) {
         $text = $field.Value
         if (-not $text) { continue }
+        # Skip display-only fields. `.label` is a short human name, not a reference.
+        # `.file` and `.id` are path anchors, not prose containing references.
+        if ($field.Path -eq '.label' -or $field.Path -eq '.file' -or $field.Path -eq '.id') { continue }
         $matches = $pathRegex.Matches($text)
         foreach ($m in $matches) {
             $candidate = $m.Value.TrimEnd('.', ',', ')', ']')

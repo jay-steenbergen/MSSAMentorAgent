@@ -28,9 +28,9 @@ You're building this system. Here's the architecture:
 |---|---|---|
 | **Agent** | Personality + orchestration | `Mentor.agent.md` — teaches, celebrates, uses MOS analogies |
 | **Skill** | Reusable protocol (portable) | `learner-profile`, `TDD`, `BDD` — how to do something |
-| **Track** | What to build (curriculum) | `cloud-app-dev`, `server-cloud-admin` — MSSA tracks |
-| **Profile** | Learner identity + progress | `.profiles/mentees/{username}/` — Git-tracked state |
-| **Method** | How to teach | `ride-along`, `TDD`, `BDD` — pedagogy approach |
+| **Track** | What to build (curriculum) | `cloud-app-dev`, `server-cloud-admin`, `cybersecurity-ops`, `github-copilot`, `whiteboarding` |
+| **Profile** | Learner/contributor identity + progress | `.profiles/profiles/mentees/{username}/` — Git-tracked state |
+| **Method** | How to teach | `ride-along`, `TDD`, `BDD`, `spike-then-refactor` |
 
 **Key principle:** Agents compose skills. Skills are portable. Profiles persist in Git.
 
@@ -45,34 +45,42 @@ You're building this system. Here's the architecture:
 │
 ├── skills/                    Reusable protocols
 │   ├── learner-profile/      Profile CRUD + interview
+│   ├── knowledge-graph-management/  Graph health & queries
 │   ├── references/           Reference data (MOS mappings, proficiency levels)
-│   └── methods/              Teaching methods
-│       ├── ride-along/       Default: build together, explain as we go
-│       ├── TDD/              Test-first workflow
-│       ├── BDD/              Behavior-driven development
-│       └── spike-then-refactor/  Explore, then clean up
+│   ├── methods/              Teaching methods
+│   │   ├── ride-along/       Default: build together, explain as we go
+│   │   ├── TDD/              Test-first workflow
+│   │   ├── BDD/              Behavior-driven development
+│   │   └── spike-then-refactor/  Explore, then clean up
+│   └── tracks/               MSSA curriculum tracks
+│       ├── cloud-app-dev/    Cloud Application Development
+│       ├── server-cloud-admin/  Server & Cloud Administration
+│       ├── cybersecurity-ops/   Cybersecurity Operations
+│       ├── github-copilot/      GitHub Copilot fluency
+│       └── whiteboarding/       Architecture & system design
+│
+├── knowledge-graph/           Queryable repo map (see its README)
 │
 └── tests/                     Integration tests
     ├── TEST_TEMPLATE.md       Template for new tests
     ├── session-flow.test.md
     ├── method-switching.test.md
-    └── compression-resilience.test.md
+    ├── compression-resilience.test.md
+    └── mentor-cad-first-project.md
 
 .profiles/
 └── profiles/
     ├── mentees/              Learner data
     │   └── {username}/
-    │       ├── profile.json           Identity + projects index
-    │       └── {project-id}.progress.json  Per-project progress
-    └── mentors/              Developer/tester profiles
+    │       ├── profile.json                  Identity + projects index
+    │       └── {project-id}.progress.json    Per-project progress
+    └── mentors/              Contributor/tester data
         └── {username}/
-            └── profile.json
+            ├── profile.json
+            └── {project-id}.progress.json
 
 docs/
-├── MENTOR_DIRECTORY.md       System map (start here)
-├── CONTRIBUTOR_GUIDE.md      How to add skills/tracks/tests
-├── TESTING_GUIDE.md          How to run and write tests
-└── ARCHITECTURE.md           Design decisions
+└── MENTOR_DIRECTORY.md       Profile system guide (for learners)
 ```
 
 ---

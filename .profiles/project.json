@@ -1,0 +1,11 @@
+{
+  "$schema_doc": "See .github/skills/learner-profile/SKILL.md → 'Shared project state' for field definitions.",
+  "project_name": "MSSA Mentor Agent",
+  "project_id": "mentor-agent-build",
+  "track": "github-copilot",
+  "active_learners": [
+    "jasteenb"
+  ],
+  "started": "2026-03-01",
+  "milestones": {}
+}

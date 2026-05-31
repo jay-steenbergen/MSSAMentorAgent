@@ -2088,9 +2088,10 @@
     {
       "id": "file:project-json-optional",
       "type": "file",
-      "label": ".profiles/project.json (optional)",
+      "label": ".profiles/project.json",
       "cluster": "data-layer",
-      "description": "Optional shared project state for advanced multi-learner coordination."
+      "file": ".profiles/project.json",
+      "description": "Shared project state for multi-learner coordination. One per repo. Schema documented in learner-profile SKILL.md."
     },
     {
       "id": "file:mentors-profiles",
@@ -3052,6 +3053,14 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/session-protocol.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:_triage-drift",
+      "type": "cli-tool",
+      "label": "_triage-drift.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/_triage-drift.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -3088,67 +3097,148 @@
       "id": "agent-core",
       "label": "Agent Core",
       "description": "Mentor agent identity and core behaviors. Holds the agent persona, the always-on rules that survive context compaction (execute-directly, stay-conversational, keyboard-discipline, humor-serves-mission), and the foundational identity that every session inherits before any skill loads.",
-      "triggers": ["mentor agent", "core behavior", "agent identity", "persona", "compression resilience"]
+      "triggers": [
+        "mentor agent",
+        "core behavior",
+        "agent identity",
+        "persona",
+        "compression resilience"
+      ]
     },
     {
       "id": "agent-rules",
       "label": "Agent Rules & Personality",
       "description": "Behavioral rules and personality traits that shape how Mentor talks, jokes, and adapts. Includes humor style (self-deprecating, mission-focused, dark-humor-about-code), dial-up/dial-down conditions, dynamic skill loading rules, and the instructor-buddy personality blend.",
-      "triggers": ["personality", "humor", "tone", "voice", "skill loading", "adaptation rules"]
+      "triggers": [
+        "personality",
+        "humor",
+        "tone",
+        "voice",
+        "skill loading",
+        "adaptation rules"
+      ]
     },
     {
       "id": "teaching-methods",
       "label": "Teaching Methods",
       "description": "The four pedagogical approaches Mentor can use in a session: ride-along (default, build together), TDD (test-first), BDD (behavior-scenarios-first), and spike-then-refactor (explore then clean). Each method defines its own move loop, pacing, and milestone shape.",
-      "triggers": ["teaching method", "pedagogy", "ride-along", "TDD", "BDD", "spike", "how to teach"]
+      "triggers": [
+        "teaching method",
+        "pedagogy",
+        "ride-along",
+        "TDD",
+        "BDD",
+        "spike",
+        "how to teach"
+      ]
     },
     {
       "id": "track-curriculum",
       "label": "Track Curriculum",
       "description": "MSSA track definitions and the project skills that live under each track. Covers cloud-app-dev, server-cloud-admin, and cybersecurity-ops — plus the per-project skill files (e.g., cad-blob-uploader, cad-cicd-pipeline) that define what to build for each curriculum step.",
-      "triggers": ["MSSA track", "curriculum", "project skill", "cloud-app-dev", "server-cloud-admin", "cybersecurity-ops"]
+      "triggers": [
+        "MSSA track",
+        "curriculum",
+        "project skill",
+        "cloud-app-dev",
+        "server-cloud-admin",
+        "cybersecurity-ops"
+      ]
     },
     {
       "id": "profile-system",
       "label": "Learner Profile System",
       "description": "Everything about who the learner is and how Mentor adapts to them: the learner-profile skill, identification protocol, first-time interview flow, returning-learner greet flow, session-start protocols, and compression-resilience patterns that re-load the profile mid-session.",
-      "triggers": ["learner profile", "identification", "first-time interview", "returning learner", "session start", "profile persistence"]
+      "triggers": [
+        "learner profile",
+        "identification",
+        "first-time interview",
+        "returning learner",
+        "session start",
+        "profile persistence"
+      ]
     },
     {
       "id": "proficiency-tracking",
       "label": "Proficiency Tracking",
       "description": "How Mentor measures and records what a learner has demonstrated. Includes the proficiency level scale (novice -> proficient), per-method proficiency rules, the proficiency-only-if-changed write rule, and the reference JSON that defines what counts as a level-up.",
-      "triggers": ["proficiency", "skill level", "novice", "competent", "proficient", "level up", "demonstrated skill"]
+      "triggers": [
+        "proficiency",
+        "skill level",
+        "novice",
+        "competent",
+        "proficient",
+        "level up",
+        "demonstrated skill"
+      ]
     },
     {
       "id": "session-protocols",
       "label": "Session Protocols",
       "description": "Procedural rules that govern session flow: session-shape default, session-start protocol, session-end updates, project count decision logic, milestone after-action review, and the handoff cadence between sessions.",
-      "triggers": ["session shape", "session start", "session end", "AAR", "after-action review", "milestone", "handoff"]
+      "triggers": [
+        "session shape",
+        "session start",
+        "session end",
+        "AAR",
+        "after-action review",
+        "milestone",
+        "handoff"
+      ]
     },
     {
       "id": "references-and-analogies",
       "label": "Military References & Analogies",
       "description": "The catalog of military-to-software analogies Mentor draws on (EOD render-safe -> debugging, network admin -> APIs, intel collection -> ETL, nuke casualty procedures -> try/catch, logistics -> databases). Tied to learner MOS lookup so analogies match the learner's actual operational experience.",
-      "triggers": ["military analogy", "MOS", "EOD", "intel", "nuke", "logistics", "branch culture", "veteran translation"]
+      "triggers": [
+        "military analogy",
+        "MOS",
+        "EOD",
+        "intel",
+        "nuke",
+        "logistics",
+        "branch culture",
+        "veteran translation"
+      ]
     },
     {
       "id": "data-layer",
       "label": "Data Layer",
       "description": "Persistent state schemas: profile.json (learner identity + projects index), {project-id}.progress.json (per-project detail), mentor profile schemas. Defines every field, its type, and which protocol writes it. Source of truth for what survives between sessions.",
-      "triggers": ["schema", "profile.json", "progress.json", "data model", "persistent state", "Git-tracked state"]
+      "triggers": [
+        "schema",
+        "profile.json",
+        "progress.json",
+        "data model",
+        "persistent state",
+        "Git-tracked state"
+      ]
     },
     {
       "id": "validation-layer",
       "label": "Validation Layer",
       "description": "PowerShell scripts that validate profile and proficiency data before writes commit. Includes validate-profile, validate-proficiency, edit-profile — the integrity gates that prevent malformed state from being persisted to Git.",
-      "triggers": ["validate", "profile validation", "proficiency validation", "data integrity", "pre-commit"]
+      "triggers": [
+        "validate",
+        "profile validation",
+        "proficiency validation",
+        "data integrity",
+        "pre-commit"
+      ]
     },
     {
       "id": "infra-layer",
       "label": "Infrastructure & Tests",
       "description": "Plumbing that supports the mentor system: behavioral test scenarios (.github/tests/*.test.md), the knowledge-graph build scripts (extract, merge, health, gap-analysis, rebuild-if-stale), and the supporting utility tooling. Not learner-facing — keeps the system itself running.",
-      "triggers": ["test", "behavioral test", "build script", "knowledge graph build", "rebuild", "gap analysis", "infrastructure"]
+      "triggers": [
+        "test",
+        "behavioral test",
+        "build script",
+        "knowledge graph build",
+        "rebuild",
+        "gap analysis",
+        "infrastructure"
+      ]
     }
   ],
   "edges": [
@@ -5792,6 +5882,18 @@
     {
       "source": "cli-tool:show-skill-impact",
       "target": "code-file:.github/knowledge-graph/cli/show-skill-impact.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:_triage-drift",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:_triage-drift",
+      "target": "code-file:.github/knowledge-graph/cli/_triage-drift.ps1",
       "type": "defined_in",
       "label": "defined in"
     }

@@ -214,6 +214,8 @@ pwsh cli/session-protocol.ps1 -Phase switch-method
 - `cloud-app-dev` - Cloud Application Development
 - `server-cloud-admin` - Server & Cloud Administration
 - `cybersecurity-ops` - Cybersecurity Operations
+- `github-copilot` - GitHub Copilot fluency
+- `whiteboarding` - Architecture & system design
 
 **Track switching:**
 ```powershell

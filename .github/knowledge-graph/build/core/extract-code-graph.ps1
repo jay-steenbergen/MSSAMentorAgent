@@ -129,14 +129,15 @@ $includePatterns = @(
     '.github/knowledge-graph/lib',      # PowerShell modules
     '.github/knowledge-graph/cli',      # CLI scripts
     '.github/knowledge-graph/queries',  # Query scripts
+    '.github/knowledge-graph/build',    # Build pipeline scripts (core/advanced/repair)
     '.profiles',
     'extensions',                       # VS Code extensions
     'docs',
     'README.md'
 )
 
-# Exclude build outputs and internal graph data, but allow lib/ and cli/
-$excludeMatch = @('\\bin\\', '\\obj\\', '\\node_modules\\', '\\.git\\', '\\knowledge-graph\\data\\', '\\knowledge-graph\\build\\', '\\knowledge-graph\\tests\\')
+# Exclude build outputs and internal graph data, but allow lib/ cli/ build/
+$excludeMatch = @('\\bin\\', '\\obj\\', '\\node_modules\\', '\\.git\\', '\\knowledge-graph\\data\\', '\\knowledge-graph\\tests\\')
 
 $allFiles = @()
 foreach ($p in $includePatterns) {
@@ -156,6 +157,12 @@ if (Test-Path $githubRoot) {
     $allFiles += Get-ChildItem $githubRoot -File -Filter *.md
 }
 
+# also grab extensionless executables in .github/hooks/ (pre-commit, etc.) that the -Include filter above skips
+$hooksRoot = Join-Path $repoRoot '.github/hooks'
+if (Test-Path $hooksRoot) {
+    $allFiles += Get-ChildItem $hooksRoot -File | Where-Object { -not $_.Extension }
+}
+
 # filter excludes
 $files = $allFiles | Where-Object {
     $p = $_.FullName
@@ -169,6 +176,7 @@ Write-Host ""
 $nodes = New-Object System.Collections.ArrayList
 $edges = New-Object System.Collections.ArrayList
 $nodeIdIndex = @{}   # guard against duplicate node IDs
+$edgeIdIndex = @{}   # dedup edges by (source|target|type) key
 
 function Add-Node($id, $type, $label, $cluster, $file = $null, $description = $null, $extra = $null) {
     # dedupe: if ID already exists, append a counter
@@ -192,6 +200,10 @@ function Add-Node($id, $type, $label, $cluster, $file = $null, $description = $n
 }
 
 function Add-Edge($source, $target, $type, $label = $null) {
+    # Dedup: skip if (source, target, type) already added
+    $key = "$source|$target|$type"
+    if ($script:edgeIdIndex.ContainsKey($key)) { return }
+    $script:edgeIdIndex[$key] = $true
     $e = [ordered]@{ source = $source; target = $target; type = $type }
     if ($label) { $e.label = $label }
     [void]$edges.Add([PSCustomObject]$e)
@@ -233,8 +245,11 @@ function Extract-PowerShell($file, $rel, $fileId) {
     # dot-sources: . ./file.ps1   or  . "$PSScriptRoot/..."
     $dotSources = [regex]::Matches($content, '(?m)^\s*\.\s+["'']?([^"''`\s\r\n]+\.ps1)["'']?')
     foreach ($d in $dotSources) {
-        $importId = "code-import:$rel`::dot-source::" + (Sanitize-IdPart $d.Groups[1].Value)
-        $importId = Add-Node $importId 'code-import' ('dot-source ' + $d.Groups[1].Value) 'scripts-source' $rel "Dot-source of $($d.Groups[1].Value)"
+        $path = $d.Groups[1].Value
+        # Skip paths with unresolved PowerShell variables ($PSScriptRoot, $env:..., etc.)
+        if ($path -match '\$') { continue }
+        $importId = "code-import:$rel`::dot-source::" + (Sanitize-IdPart $path)
+        $importId = Add-Node $importId 'code-import' ('dot-source ' + $path) 'scripts-source' $rel "Dot-source of $path"
         Add-Edge $fileId $importId 'imports'
     }
 
@@ -244,6 +259,8 @@ function Extract-PowerShell($file, $rel, $fileId) {
     $invokeMatches += [regex]::Matches($content, '(?m)pwsh[^\r\n]*?-File\s+["'']?([^\s"''`]+\.ps1)["'']?') | ForEach-Object { $_.Groups[1].Value }
     $invokeMatches += [regex]::Matches($content, '(?m)powershell[^\r\n]*?-File\s+["'']?([^\s"''`]+\.ps1)["'']?') | ForEach-Object { $_.Groups[1].Value }
     foreach ($iv in ($invokeMatches | Select-Object -Unique)) {
+        # Skip paths with unresolved PowerShell variables
+        if ($iv -match '\$') { continue }
         $resolved = Resolve-RepoRelative $rel $iv
         if (-not $resolved) { continue }
         Add-Edge $fileId ("code-file:$resolved") 'invokes' "invokes $iv"

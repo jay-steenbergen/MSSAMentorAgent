@@ -424,9 +424,9 @@ If the mentor detects two learners are on the same step and likely editing the s
 - Mention it: *"Heads up — Sarah is working on `Program.cs` too. You might hit a merge conflict. That's normal in team work — Git will help you resolve it."*
 - **Do not prevent conflicts** — resolving them is a learning opportunity
 
-### Shared project state (optional)
+### Shared project state
 
-For advanced coordination, you can use `.profiles/project.json`:
+Multi-learner coordination uses `.profiles/project.json` at the repo root:
 
 ```json
 {
@@ -448,7 +448,7 @@ For advanced coordination, you can use `.profiles/project.json`:
 }
 ```
 
-This is **optional**. Individual profiles are sufficient for most coordination.
+Individual profiles still carry per-learner detail — `project.json` is the shared index that lets the mentor see who's on what step without scanning every learner's progress file.
 
 ## Edge cases
 

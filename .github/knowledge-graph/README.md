@@ -20,14 +20,24 @@ Multi-layer structured map of the Mentor system. Each layer is its own JSON grap
 │   ├── recommend-next-skills.ps1 ← Learning path
 │   └── show-progress.ps1       ← Learner progress dashboard
 │
-├── build/                       ← Graph maintenance
-│   ├── merge.ps1               ← Combine all layers
-│   ├── rebuild-if-stale.ps1    ← Auto-rebuild when needed
-│   ├── health.ps1              ← Health checks
-│   ├── gap-analysis.ps1        ← Gap classification
-│   ├── fix-remaining-gaps.ps1  ← Gap repair
-│   ├── generate-call-flow-nodes.ps1 ← Pre-compute call flows
-│   └── scaffold-node-type.ps1  ← Scaffold new node types
+├── build/                       ← Graph maintenance pipeline
+│   ├── core/                   ← Always-on (extract, merge, refresh, health)
+│   │   ├── extract-code-graph.ps1   ← Walk repo → code-graph.json
+│   │   ├── merge.ps1                ← Combine all layers → merged-graph.json
+│   │   ├── rebuild-if-stale.ps1     ← Auto-rebuild when source changes
+│   │   └── health.ps1               ← Topology validation (13 checks)
+│   ├── advanced/               ← On-demand enrichment & scaffolding
+│   │   ├── add-tracks-and-skills.ps1     ← Seed track/skill nodes
+│   │   ├── audit-system-graph.ps1        ← Quality audit against thresholds
+│   │   ├── auto-discover-features.ps1    ← Infer feature nodes from code
+│   │   ├── extract-infrastructure.ps1    ← Add infra/CI nodes
+│   │   ├── gap-analysis.ps1              ← Classify health findings
+│   │   ├── generate-call-flow-nodes.ps1  ← Pre-compute call flows
+│   │   ├── scaffold-node-type.ps1        ← Scaffold new node types
+│   │   └── split-code-graph.ps1          ← Split monolithic code-graph
+│   └── repair/                 ← Idempotent fixers (run as needed)
+│       ├── fix-dangling-edges.ps1   ← Remove edges with missing endpoints
+│       └── fix-remaining-gaps.ps1   ← Heal known structural gaps
 │
 ├── tests/                       ← Validation & debugging
 │   ├── test-graph.ps1          ← Full integrity check
@@ -103,19 +113,19 @@ pwsh .github/knowledge-graph/cli/show-skill-impact.ps1 -SkillId "skill:learner-p
 pwsh .github/knowledge-graph/cli/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console"
 
 # Self-healing rebuild (auto-detects staleness)
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1
 
 # Force rebuild regardless of freshness
-pwsh .github/knowledge-graph/build/rebuild-if-stale.ps1 -Force
+pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Force
 
 # Test the graph (12 functional tests)
 pwsh .github/knowledge-graph/tests/test-graph.ps1
 
 # Health check (topology validation)
-pwsh .github/knowledge-graph/build/health.ps1 -Layer merged
+pwsh .github/knowledge-graph/build/core/health.ps1 -Layer merged
 
 # Gap analysis (triage health findings)
-pwsh .github/knowledge-graph/build/gap-analysis.ps1 -Layer merged
+pwsh .github/knowledge-graph/build/advanced/gap-analysis.ps1 -Layer merged
 ```
 
 ## Self-healing system
@@ -130,7 +140,7 @@ pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Quiet
 
 **Staleness triggers:**
 - Any `.md` or `.json` file under `.github/skills/`, `.github/agents/`, `.profiles/` modified after the graph's `last_updated` timestamp
-- Build scripts (`extract.ps1`, `merge.ps1`) modified after the graph
+- Build scripts (`build/core/extract-code-graph.ps1`, `build/core/merge.ps1`) modified after the graph
 - Graph doesn't exist or has no `last_updated` metadata
 
 **Exit codes:**
@@ -141,7 +151,7 @@ pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Quiet
 ```powershell
 # .git/hooks/pre-commit (Windows)
 #!/usr/bin/env pwsh
-pwsh -NoProfile -File .github/knowledge-graph/rebuild-if-stale.ps1 -Quiet
+pwsh -NoProfile -File .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Quiet
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Graph rebuild failed — commit blocked." -ForegroundColor Red
     exit 1
@@ -170,10 +180,10 @@ All 12 passing = graph is production-ready.
 
 | Tool | Purpose | When to use |
 |---|---|---|
-| `health.ps1` | Topology validation (13 checks) | After every rebuild; CI gate |
-| `gap-analysis.ps1` | Triage health findings into REAL GAP / EXPECTED / NEEDS REVIEW | When health.ps1 shows warnings/failures |
-| `test-graph.ps1` | Functional validation (12 tests) | Before deploying graph-dependent features |
-| `rebuild-if-stale.ps1` | Self-healing rebuild | Before any graph query; in pre-commit hooks |
+| `build/core/health.ps1` | Topology validation (13 checks) | After every rebuild; CI gate |
+| `build/advanced/gap-analysis.ps1` | Triage health findings into REAL GAP / EXPECTED / NEEDS REVIEW | When health.ps1 shows warnings/failures |
+| `tests/test-graph.ps1` | Functional validation (12 tests) | Before deploying graph-dependent features |
+| `build/core/rebuild-if-stale.ps1` | Self-healing rebuild | Before any graph query; in pre-commit hooks |
 
 **DONE definition:** `health.ps1` reports `FAIL 0`, `gap-analysis.ps1` reports `REAL GAP 0`, `test-graph.ps1` reports `12/12 passed`.
 

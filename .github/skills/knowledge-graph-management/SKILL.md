@@ -279,7 +279,7 @@ User: [Selects "Skip for now"]
 
 ## Integration Notes
 
-- This skill works with the existing build pipeline scripts
+- This skill works with the existing build pipeline scripts (see [build/README.md](.github/knowledge-graph/build/README.md) for the full maintenance guide)
 - Query scripts in `.github/knowledge-graph/queries/` handle all data retrieval and formatting
 - Does NOT modify graph files directly — delegates to existing tools
 - Safe to run repeatedly — read-only checks, write-only on explicit user action

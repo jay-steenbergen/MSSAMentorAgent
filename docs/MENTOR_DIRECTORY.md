@@ -7,25 +7,43 @@ When you work with the MSSA Mentor agent in a project, the mentor creates a `.pr
 ```
 your-project/
 ├── .profiles/
-│   ├── mentees/
-│   │   ├── your_username.json    ← Your profile and progress
-│   │   ├── teammate.json         ← Teammate's profile (if team project)
-│   │   └── ...
-│   └── project.json               ← Optional: shared project state
+│   └── profiles/
+│       ├── mentees/                              ← Learner profiles
+│       │   └── {username}/
+│       │       ├── profile.json                  ← Identity + projects index
+│       │       └── {project-id}.progress.json   ← Per-project progress
+│       └── mentors/                              ← Contributor / tester profiles
+│           └── {username}/
+│               ├── profile.json
+│               └── {project-id}.progress.json
 ├── src/                           ← Your code
 └── .git/                          ← Git repository
 ```
 
-## Your Profile (`mentees/{username}.json`)
+## Your Profile (`profiles/mentees/{username}/profile.json`)
 
-This file contains:
+This file is your identity plus a projects index:
 
-- **Learning preferences**: How you like to learn, what pace works for you, what you do when stuck
+- **Learning preferences**: How you like to learn, your pace, what you do when stuck
 - **Motivation**: What makes this feel worth doing
-- **Progress tracking**: Which project you're on, which step, what milestones you've completed
-- **Session history**: Log of your sessions for retrospectives
+- **Military background**: MOS / Rating / AFSC and operational concepts the mentor uses for analogies
+- **Projects index**: One entry per project — `last_session`, `current_step`, `status` (`in_progress` / `completed`)
 
 The mentor reads this at the start of every session and adapts its teaching to your style.
+
+## Per-Project Progress (`{project-id}.progress.json`)
+
+One file per project sits beside `profile.json`. It holds the detail:
+
+- `last_used_method` (`ride-along` / `TDD` / `BDD` / `spike-then-refactor`)
+- `current_step` and `completed_milestones`
+- `session_history` — log of each session for retrospectives
+
+The mentor updates this file after every milestone and commits it.
+
+## Mentors folder
+
+`profiles/mentors/` follows the same shape as `mentees/` and stores profiles for people building or testing the system — not learners. You'll only see it if you're contributing to this repo.
 
 ## How Progress Tracking Works
 
@@ -38,7 +56,7 @@ The mentor reads this at the start of every session and adapts its teaching to y
 
 If multiple people work in the same repo:
 
-- Each person has their own profile in `.profiles/mentees/`
+- Each person has their own folder under `.profiles/profiles/mentees/`
 - The mentor can see everyone's progress
 - When someone finishes work you depend on, the mentor will tell you
 - Git handles merge conflicts normally — that's part of learning team development
@@ -57,7 +75,7 @@ No credentials, no personal identifiable information beyond name/username.
 
 You can edit your profile anytime:
 
-1. Open `.profiles/mentees/{your-username}.json`
+1. Open `.profiles/profiles/mentees/{your-username}/profile.json`
 2. Change any field (pace preference, motivation, etc.)
 3. Commit the change
 4. Next session, the mentor will use the updated preferences
@@ -68,7 +86,7 @@ Or just tell the mentor: *"I want faster pacing now"* and it will update the fil
 
 If you want to start fresh or remove your profile:
 
-1. Delete `.profiles/mentees/{your-username}.json`
+1. Delete `.profiles/profiles/mentees/{your-username}/` (the whole folder)
 2. Commit the deletion
 3. Next session, the mentor will run the first-time interview again
 
