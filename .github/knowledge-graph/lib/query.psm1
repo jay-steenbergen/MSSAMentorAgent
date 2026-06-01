@@ -400,9 +400,11 @@ function Get-GraphQualityReport {
         }
         
         # Check 3: Broken file references
+        # $PSScriptRoot = .github/knowledge-graph/lib  →  three `..` lands at repo root.
+        # $node.file is repo-root-relative (e.g. ".github/skills/.../SKILL.md").
         if ($Category -in @('all', 'broken-refs')) {
             if ($node.file) {
-                $fullPath = Join-Path $PSScriptRoot ".." ".." $node.file
+                $fullPath = Join-Path $PSScriptRoot ".." ".." ".." $node.file
                 if (-not (Test-Path $fullPath)) {
                     $report.broken_refs += [PSCustomObject]@{
                         id = $node.id

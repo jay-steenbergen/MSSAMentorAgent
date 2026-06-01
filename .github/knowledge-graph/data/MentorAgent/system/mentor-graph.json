@@ -3159,6 +3159,33 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-clean-state-before-concluding.md",
       "section": "frontmatter",
       "description": "When a test fails after partially passing, suspect state pollution before suspecting code — hash-compare round-trip tests only work from a clean baseline"
+    },
+    {
+      "id": "experiment:2026-06-01-audit-vs-validate-reconciliation",
+      "type": "experiment",
+      "label": "audit vs validate reconciliation",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-audit-vs-validate-reconciliation.md",
+      "section": "frontmatter",
+      "description": "Reconciled audit's 57-broken-refs claim against mentor.ps1 validate's clean result. Found audit path bug; validate was correct; tools are complementary."
+    },
+    {
+      "id": "decision:2026-06-01-audit-path-bug",
+      "type": "decision",
+      "label": "audit path bug (off-by-one)",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-audit-path-bug.md",
+      "section": "frontmatter",
+      "description": "query.psm1 Get-GraphQualityReport broken-refs check used Join-Path with two .. levels; should be three. PSScriptRoot=lib/, node.file is repo-root-relative. Fixed by adding one more '..'. Caused 57 false-positive broken refs."
+    },
+    {
+      "id": "decision:2026-06-01-audit-and-validate-are-complementary",
+      "type": "decision",
+      "label": "audit and validate are complementary",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-audit-and-validate-are-complementary.md",
+      "section": "frontmatter",
+      "description": "mentor.ps1 validate checks STRUCTURAL health (dangling edges, duplicate IDs, stub nodes); audit-quality.ps1 checks SEMANTIC health (orphans, broken refs, untested). Both should run; neither replaces the other. They do not contradict — they answer different questions."
     }
   ],
   "metadata": {
@@ -6061,6 +6088,31 @@
       "source": "cli-tool:mentor",
       "target": "decision:2026-06-01-log-as-graph-nodes",
       "type": "implements"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "experiment:2026-06-01-audit-vs-validate-reconciliation",
+      "type": "has_experiment"
+    },
+    {
+      "source": "experiment:2026-06-01-audit-vs-validate-reconciliation",
+      "target": "decision:2026-06-01-audit-path-bug",
+      "type": "concluded_with"
+    },
+    {
+      "source": "experiment:2026-06-01-audit-vs-validate-reconciliation",
+      "target": "decision:2026-06-01-audit-and-validate-are-complementary",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-audit-path-bug",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-audit-and-validate-are-complementary",
+      "type": "has_decision"
     }
   ]
 }
