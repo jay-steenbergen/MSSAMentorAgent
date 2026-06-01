@@ -113,6 +113,12 @@ foreach ($node in $systemGraph.nodes) {
             if ($candidate -match '^https?:' -or $candidate -match '^@') { continue }
             # Skip non-file references (e.g. "skill:foo", "agent:mentor")
             if ($candidate -match '^[a-z-]+:[^/]') { continue }
+            # Must look file-like: either a dot-anchored repo path (.github/, .profiles/, .copilot/)
+            # OR end with a recognized file extension. Rejects prose like "Given/When/Then",
+            # "Army/Navy/AF", "method/track" — they have slashes but aren't paths.
+            $looksLikePath = ($candidate -match '^\.[A-Za-z]') -or
+                             ($candidate -match '\.(md|ps1|psm1|json|ts|tsx|cs|yaml|yml|toml|txt|html|css|js)$')
+            if (-not $looksLikePath) { continue }
             # PathPrefix filter
             if ($PathPrefix -and -not $candidate.StartsWith($PathPrefix)) { continue }
 

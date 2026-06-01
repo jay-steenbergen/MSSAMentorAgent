@@ -283,6 +283,50 @@ try {
         # Don't block commit on health check errors, just warn
 }
 
+# Step 5b: Graph-first authoring checks (Phase 2)
+#   - Orphan markdown (BLOCKING): every artifact .md must have a graph node first
+#   - Path drift (ADVISORY):     documented paths should resolve to real files
+Write-Header "🧭 Graph-first authoring checks..."
+try {
+    $orphanScript = Join-Path $graphDir 'cli' 'find-orphan-markdown.ps1'
+    $orphanOutput = & pwsh -NoProfile -File $orphanScript -Quiet 2>&1 | Out-String
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Orphan markdown files found (graph-first violation)"
+        Write-Host ""
+        & pwsh -NoProfile -File $orphanScript 2>&1 | Write-Host
+        Write-Host ""
+        Write-Host "Phase 2 rule: every artifact .md must be registered in the graph FIRST." -ForegroundColor Yellow
+        Write-Host "Register the node, then commit." -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+        exit 1
+    }
+    Write-Success "No orphan markdown files"
+} catch {
+    Write-Warning "Orphan check encountered an error: $_"
+    # Hard fail on errors here — silent failure would defeat the gate
+    exit 1
+}
+
+try {
+    $driftScript = Join-Path $graphDir 'cli' 'find-drift.ps1'
+    $driftOutput = & pwsh -NoProfile -File $driftScript -Quiet 2>&1 | Out-String
+    if ($LASTEXITCODE -ne 0) {
+        if ($driftOutput -match 'Drift findings:\s*(\d+)') {
+            $driftCount = [int]$matches[1]
+            Write-Warning "Found $driftCount drifted path reference(s) in graph text"
+            Write-Info "Advisory only. Run: pwsh .github/knowledge-graph/cli/find-drift.ps1"
+        } else {
+            Write-Warning "Drift check reported issues (advisory)"
+        }
+    } else {
+        Write-Success "No path drift in graph text"
+    }
+} catch {
+    Write-Warning "Drift check encountered an error: $_"
+    # Advisory check — don't block commit
+}
+
 # Step 6: Stage updated graph files (if any changed)
 if ($graphChanged) {
     Write-Header "➕ Staging graph updates..."

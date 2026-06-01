@@ -39,6 +39,7 @@ param(
     [string]$Label,
     [string]$Description = '_TODO: describe this._',
     [string]$Cluster = 'agent-core',
+    [string]$File,
     [switch]$NoStub,
     [switch]$NoValidate,
     [switch]$NoBackup
@@ -137,16 +138,22 @@ function Cmd-Add {
     $id = Build-NodeId -Type $Type -Slug $Slug
     $labelEff = if ($Label) { $Label } else { $Slug }
 
-    # Determine file path the node will reference (matches scaffold layout).
-    $file = switch ($Type) {
-        'agent'      { ".github/agents/$labelEff.agent.md" }
-        'skill'      { ".github/skills/$Slug/SKILL.md" }
-        'method'     { ".github/skills/methods/$Slug/SKILL.md" }
-        'track'      { ".github/skills/tracks/$Slug/SKILL.md" }
-        'test'       { ".github/tests/$Slug.test.md" }
-        'session'    { ".github/knowledge-graph/log/sessions/$Slug.md" }
-        'experiment' { ".github/knowledge-graph/log/experiments/$Slug.md" }
-        'decision'   { ".github/knowledge-graph/log/decisions/$Slug.md" }
+    # Determine file path the node will reference.
+    # If -File was provided, use it as-is (caller knows where the artifact lives).
+    # Otherwise compute the default scaffold layout for this type.
+    $file = if ($File) {
+        $File -replace '\\', '/'
+    } else {
+        switch ($Type) {
+            'agent'      { ".github/agents/$labelEff.agent.md" }
+            'skill'      { ".github/skills/$Slug/SKILL.md" }
+            'method'     { ".github/skills/methods/$Slug/SKILL.md" }
+            'track'      { ".github/skills/tracks/$Slug/SKILL.md" }
+            'test'       { ".github/tests/$Slug.test.md" }
+            'session'    { ".github/knowledge-graph/log/sessions/$Slug.md" }
+            'experiment' { ".github/knowledge-graph/log/experiments/$Slug.md" }
+            'decision'   { ".github/knowledge-graph/log/decisions/$Slug.md" }
+        }
     }
 
     Write-Host ""

@@ -3186,6 +3186,50 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-audit-and-validate-are-complementary.md",
       "section": "frontmatter",
       "description": "mentor.ps1 validate checks STRUCTURAL health (dangling edges, duplicate IDs, stub nodes); audit-quality.ps1 checks SEMANTIC health (orphans, broken refs, untested). Both should run; neither replaces the other. They do not contradict — they answer different questions."
+    },
+    {
+      "id": "test:tdd-red-phase",
+      "type": "test",
+      "label": "TDD Red Phase Test",
+      "cluster": "validation-layer",
+      "file": ".github/skills/methods/TDD/tests/red-phase.test.md",
+      "section": "frontmatter",
+      "description": "Integration test verifying TDD method's Red phase produces failing tests before any implementation code is written."
+    },
+    {
+      "id": "cli-tool:find-orphan-markdown",
+      "type": "cli-tool",
+      "label": "find-orphan-markdown.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/find-orphan-markdown.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "experiment:2026-06-01-phase-2-graph-first-enforcement",
+      "type": "experiment",
+      "label": "Phase 2: Graph-First Authoring Enforcement",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-phase-2-graph-first-enforcement.md",
+      "section": "frontmatter",
+      "description": "Make the graph the only valid entry point for new artifacts. Orphan markdown blocks commits; drift warns. Surfaced two improvements: tightened drift regex and CLI -File override."
+    },
+    {
+      "id": "decision:2026-06-01-phase-2-gate-policy",
+      "type": "decision",
+      "label": "Phase 2 gate policy: orphan blocks, drift warns",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-2-gate-policy.md",
+      "section": "frontmatter",
+      "description": "Pre-commit hook hard-fails on orphan markdown but only warns on path drift. Orphans are unambiguous contract violations; drift findings are often deferred-fix items."
+    },
+    {
+      "id": "decision:2026-06-01-mentor-add-file-override",
+      "type": "decision",
+      "label": "mentor.ps1 add -File parameter for path override",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-mentor-add-file-override.md",
+      "section": "frontmatter",
+      "description": "Added -File parameter to mentor.ps1 so artifacts in non-default locations (e.g. method tests under skills/methods/X/tests/) can be registered through the standard CLI without hand-editing the graph JSON."
     }
   ],
   "metadata": {
@@ -6112,6 +6156,48 @@
     {
       "source": "session:2026-06-01-graph-driven-setup",
       "target": "decision:2026-06-01-audit-and-validate-are-complementary",
+      "type": "has_decision"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:find-orphan-markdown",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:find-orphan-markdown",
+      "target": "code-file:.github/knowledge-graph/cli/find-orphan-markdown.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "test:tdd-red-phase",
+      "target": "tdd:phase-red",
+      "type": "tests"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "experiment:2026-06-01-phase-2-graph-first-enforcement",
+      "type": "has_experiment"
+    },
+    {
+      "source": "experiment:2026-06-01-phase-2-graph-first-enforcement",
+      "target": "decision:2026-06-01-phase-2-gate-policy",
+      "type": "concluded_with"
+    },
+    {
+      "source": "experiment:2026-06-01-phase-2-graph-first-enforcement",
+      "target": "decision:2026-06-01-mentor-add-file-override",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-phase-2-gate-policy",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-mentor-add-file-override",
       "type": "has_decision"
     }
   ]
