@@ -283,9 +283,13 @@ try {
         # Don't block commit on health check errors, just warn
 }
 
-# Step 5b: Graph-first authoring checks (Phase 2)
-#   - Orphan markdown (BLOCKING): every artifact .md must have a graph node first
-#   - Path drift (ADVISORY):     documented paths should resolve to real files
+# Step 5b: Graph-first authoring checks
+#   Phase 2:
+#     - Orphan markdown (BLOCKING):  every artifact .md must have a graph node first
+#   Phase 3:
+#     - Missing files (BLOCKING):    every graph file ref must resolve on disk
+#   Always:
+#     - Path drift (ADVISORY):       documented paths should resolve to real files
 Write-Header "🧭 Graph-first authoring checks..."
 try {
     $orphanScript = Join-Path $graphDir 'cli' 'find-orphan-markdown.ps1'
@@ -304,6 +308,27 @@ try {
     Write-Success "No orphan markdown files"
 } catch {
     Write-Warning "Orphan check encountered an error: $_"
+    # Hard fail on errors here — silent failure would defeat the gate
+    exit 1
+}
+
+try {
+    $missingScript = Join-Path $graphDir 'cli' 'find-missing-files.ps1'
+    $missingOutput = & pwsh -NoProfile -File $missingScript -Quiet 2>&1 | Out-String
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Graph nodes reference missing files on disk (graph integrity violation)"
+        Write-Host ""
+        & pwsh -NoProfile -File $missingScript 2>&1 | Write-Host
+        Write-Host ""
+        Write-Host "Phase 3 rule: every node.file in the graph must resolve to a real file." -ForegroundColor Yellow
+        Write-Host "Fix the path, restore the file, or remove the node — then commit." -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+        exit 1
+    }
+    Write-Success "All graph file refs resolve on disk"
+} catch {
+    Write-Warning "Missing-files check encountered an error: $_"
     # Hard fail on errors here — silent failure would defeat the gate
     exit 1
 }

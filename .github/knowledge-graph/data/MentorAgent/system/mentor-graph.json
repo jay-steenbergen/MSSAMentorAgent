@@ -3230,6 +3230,32 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-mentor-add-file-override.md",
       "section": "frontmatter",
       "description": "Added -File parameter to mentor.ps1 so artifacts in non-default locations (e.g. method tests under skills/methods/X/tests/) can be registered through the standard CLI without hand-editing the graph JSON."
+    },
+    {
+      "id": "experiment:2026-06-01-phase-3-graph-integrity-gate",
+      "type": "experiment",
+      "label": "Phase 3: Graph Integrity Gate",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-phase-3-graph-integrity-gate.md",
+      "section": "frontmatter",
+      "description": "Pre-commit gate that verifies every graph node.file resolves to a real file on disk. Inverse of Phase 2 orphan check. Together they make node.file a bidirectional contract."
+    },
+    {
+      "id": "decision:2026-06-01-phase-3-integrity-gate-policy",
+      "type": "decision",
+      "label": "Phase 3 integrity gate policy",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-3-integrity-gate-policy.md",
+      "section": "frontmatter",
+      "description": "Chose: pre-commit blocking gate that verifies every node.file resolves on disk. Over: out-of-band CI check, runtime filter in Get-AgentLoadList, narrower scope. Because: file resolution is binary and cheap; together with Phase 2 it makes node.file a verified bidirectional contract."
+    },
+    {
+      "id": "cli-tool:find-missing-files",
+      "type": "cli-tool",
+      "label": "find-missing-files.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/find-missing-files.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -6199,6 +6225,33 @@
       "source": "session:2026-06-01-graph-driven-setup",
       "target": "decision:2026-06-01-mentor-add-file-override",
       "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "experiment:2026-06-01-phase-3-graph-integrity-gate",
+      "type": "has_experiment"
+    },
+    {
+      "source": "experiment:2026-06-01-phase-3-graph-integrity-gate",
+      "target": "decision:2026-06-01-phase-3-integrity-gate-policy",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-phase-3-integrity-gate-policy",
+      "type": "has_decision"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:find-missing-files",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:find-missing-files",
+      "target": "code-file:.github/knowledge-graph/cli/find-missing-files.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }
