@@ -235,6 +235,15 @@
       "description": "For any non-trivial build, follow the workflow in the ride-along skill."
     },
     {
+      "id": "behavior:11-ask-as-clickable",
+      "type": "rule",
+      "label": "11. Render learner questions as clickable cards",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How you behave #11",
+      "description": "When a skill or session step presents one or more questions that expect an answer, render them via vscode_askQuestions so the learner clicks a card instead of reading numbered text. Stack related questions into a single call. Use options[] for 2-5 discrete picks; omit for free-text."
+    },
+    {
       "id": "antipattern:no-code-dumps",
       "type": "rule",
       "label": "Do not dump finished code",
@@ -3061,6 +3070,23 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/_triage-drift.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:mentor",
+      "type": "cli-tool",
+      "label": "mentor.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/mentor.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "method:whiteboard",
+      "type": "method",
+      "label": "whiteboard",
+      "cluster": "agent-core",
+      "file": ".github/skills/methods/whiteboard/SKILL.md",
+      "section": "frontmatter",
+      "description": "Sketch the design on a whiteboard before writing any code. Mermaid first, code second."
     }
   ],
   "metadata": {
@@ -3413,6 +3439,11 @@
     {
       "source": "agent:mentor",
       "target": "behavior:10-full-pedagogy",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:11-ask-as-clickable",
       "type": "follows"
     },
     {
@@ -5896,6 +5927,23 @@
       "target": "code-file:.github/knowledge-graph/cli/_triage-drift.ps1",
       "type": "defined_in",
       "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:mentor",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "method:whiteboard",
+      "type": "composes"
     }
   ]
 }

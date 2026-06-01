@@ -149,6 +149,24 @@ $behaviors = @{
             'Close with celebration + one sentence practice'
         )
     }
+    'ask-as-clickable' = @{
+        Summary = 'Render learner-facing questions as clickable cards, not plain numbered text'
+        Steps = @(
+            'WHEN to use vscode_askQuestions:'
+            '  • Any time a skill or session step presents a question the learner is expected to answer'
+            '  • Multi-choice picks (which project, which method, which track)'
+            '  • Open-ended prompts that benefit from a structured input box (e.g. whiteboard §2: confusing? rename? missing?)'
+            '  • End-of-session continue/stop prompts'
+            'WHEN to use plain text:'
+            '  • Statements, explanations, AAR debriefs (not questions)'
+            '  • One-liner clarifications mid-move ("What does this return right now?")'
+            'HOW:'
+            '  • Stack related questions into ONE askQuestions call (one card per question)'
+            '  • Use options[] for 2-5 discrete picks; omit options[] for free text'
+            '  • Each question gets a unique short header so answers map back cleanly'
+            '  • allowFreeformInput defaults true — let the learner type if no option fits'
+        )
+    }
 }
 
 if (-not $behaviors.ContainsKey($Behavior)) {
