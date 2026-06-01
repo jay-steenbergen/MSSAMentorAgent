@@ -50,6 +50,30 @@ try {
         Write-Host "    stub dir removed: OK" -ForegroundColor Green
     }
 
+    # Round-trip the three log node types (session, experiment, decision).
+    # Each: add -> remove -> delete stub file. Graph must end byte-identical.
+    $logTypes = @(
+        @{ type='session';    slug='_e2e-throwaway-session';    file='.github/knowledge-graph/log/sessions/_e2e-throwaway-session.md' }
+        @{ type='experiment'; slug='_e2e-throwaway-experiment'; file='.github/knowledge-graph/log/experiments/_e2e-throwaway-experiment.md' }
+        @{ type='decision';   slug='_e2e-throwaway-decision';   file='.github/knowledge-graph/log/decisions/_e2e-throwaway-decision.md' }
+    )
+    foreach ($t in $logTypes) {
+        Write-Host ""
+        Write-Host "[log] add $($t.type) $($t.slug)" -ForegroundColor Cyan
+        & pwsh -NoProfile -File $cli add $t.type $t.slug -Description "e2e throwaway $($t.type)" -NoValidate
+        if ($LASTEXITCODE -ne 0) { throw "add $($t.type) failed" }
+
+        Write-Host "[log] remove $($t.type):$($t.slug)" -ForegroundColor Cyan
+        & pwsh -NoProfile -File $cli remove "$($t.type):$($t.slug)" -NoValidate
+        if ($LASTEXITCODE -ne 0) { throw "remove $($t.type) failed" }
+
+        $stubFile = Join-Path $repoRoot $t.file
+        if (Test-Path $stubFile) {
+            Remove-Item $stubFile -Force
+            Write-Host "    stub file removed: $($t.file)" -ForegroundColor Green
+        }
+    }
+
     Write-Host ""
     Write-Host "Round-trip hashes:" -ForegroundColor Cyan
     $hashG1 = (Get-FileHash $graphPath).Hash

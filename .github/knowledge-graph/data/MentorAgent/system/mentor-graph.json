@@ -3087,6 +3087,78 @@
       "file": ".github/skills/methods/whiteboard/SKILL.md",
       "section": "frontmatter",
       "description": "Sketch the design on a whiteboard before writing any code. Mermaid first, code second."
+    },
+    {
+      "id": "session:2026-06-01-graph-driven-setup",
+      "type": "session",
+      "label": "2026-06-01-graph-driven-setup",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/sessions/2026-06-01-graph-driven-setup.md",
+      "section": "frontmatter",
+      "description": "Verify mentor agent setup is sound and codify graph-driven build workflow"
+    },
+    {
+      "id": "experiment:2026-06-01-state-pollution-red-herring",
+      "type": "experiment",
+      "label": "2026-06-01-state-pollution-red-herring",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-state-pollution-red-herring.md",
+      "section": "frontmatter",
+      "description": "Test failure during Move 3 GREEN turned out to be orphan stub nodes from prior debug runs, not a code bug"
+    },
+    {
+      "id": "decision:2026-06-01-log-as-graph-nodes",
+      "type": "decision",
+      "label": "2026-06-01-log-as-graph-nodes",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-log-as-graph-nodes.md",
+      "section": "frontmatter",
+      "description": "Session/experiment/decision logs are first-class graph nodes with .md body files, not standalone markdown sidecars"
+    },
+    {
+      "id": "decision:2026-06-01-three-log-node-types",
+      "type": "decision",
+      "label": "2026-06-01-three-log-node-types",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-three-log-node-types.md",
+      "section": "frontmatter",
+      "description": "Use 3 specific types (session, experiment, decision) instead of one generic log-entry type — typed queries are worth the schema cost"
+    },
+    {
+      "id": "decision:2026-06-01-markdown-body-files-ok",
+      "type": "decision",
+      "label": "2026-06-01-markdown-body-files-ok",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-markdown-body-files-ok.md",
+      "section": "frontmatter",
+      "description": "Graph-owned markdown body files (one per node, attached via 'file' field) are consistent with existing agent/skill/track pattern and don't count as 'extra markdown'"
+    },
+    {
+      "id": "decision:2026-06-01-named-phase-field",
+      "type": "decision",
+      "label": "2026-06-01-named-phase-field",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-named-phase-field.md",
+      "section": "frontmatter",
+      "description": "Session 'phase' field is a free-form named string (option beta), not numeric or edge-based — easier to read in body frontmatter"
+    },
+    {
+      "id": "decision:2026-06-01-phase-tracking-infrastructure",
+      "type": "decision",
+      "label": "2026-06-01-phase-tracking-infrastructure",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-tracking-infrastructure.md",
+      "section": "frontmatter",
+      "description": "This session's phase value is 'tracking-infrastructure' — Phase 0 of the 5-phase plan"
+    },
+    {
+      "id": "decision:2026-06-01-clean-state-before-concluding",
+      "type": "decision",
+      "label": "2026-06-01-clean-state-before-concluding",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-clean-state-before-concluding.md",
+      "section": "frontmatter",
+      "description": "When a test fails after partially passing, suspect state pollution before suspecting code — hash-compare round-trip tests only work from a clean baseline"
     }
   ],
   "metadata": {
@@ -5944,6 +6016,51 @@
       "source": "agent:mentor",
       "target": "method:whiteboard",
       "type": "composes"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "experiment:2026-06-01-state-pollution-red-herring",
+      "type": "has_experiment"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-log-as-graph-nodes",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-three-log-node-types",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-markdown-body-files-ok",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-named-phase-field",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-phase-tracking-infrastructure",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-clean-state-before-concluding",
+      "type": "has_decision"
+    },
+    {
+      "source": "experiment:2026-06-01-state-pollution-red-herring",
+      "target": "decision:2026-06-01-clean-state-before-concluding",
+      "type": "concluded_with"
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "decision:2026-06-01-log-as-graph-nodes",
+      "type": "implements"
     }
   ]
 }

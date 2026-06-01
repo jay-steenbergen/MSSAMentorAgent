@@ -6,11 +6,14 @@
 #       Returns a hashtable: @{ Path = '...'; Existed = $true/$false }
 #
 # Layout conventions (from copilot-instructions.md):
-#   agent  -> .github/agents/{Name}.agent.md
-#   skill  -> .github/skills/{name}/SKILL.md
-#   method -> .github/skills/methods/{name}/SKILL.md
-#   track  -> .github/skills/tracks/{name}/SKILL.md
-#   test   -> .github/tests/{name}.test.md
+#   agent      -> .github/agents/{Name}.agent.md
+#   skill      -> .github/skills/{name}/SKILL.md
+#   method     -> .github/skills/methods/{name}/SKILL.md
+#   track      -> .github/skills/tracks/{name}/SKILL.md
+#   test       -> .github/tests/{name}.test.md
+#   session    -> .github/knowledge-graph/log/sessions/{name}.md
+#   experiment -> .github/knowledge-graph/log/experiments/{name}.md
+#   decision   -> .github/knowledge-graph/log/decisions/{name}.md
 #
 # All stubs include the `_TODO: ask Mentor to help write this._` marker so the
 # Mentor agent's stub-completion mode can find them.
@@ -26,17 +29,20 @@ function _Slug-FromId {
 
 function _Stub-Path {
     param(
-        [Parameter(Mandatory)][ValidateSet('agent','skill','method','track','test')][string]$Type,
+        [Parameter(Mandatory)][ValidateSet('agent','skill','method','track','test','session','experiment','decision')][string]$Type,
         [Parameter(Mandatory)][string]$Id,
         [string]$Label
     )
     $slug = _Slug-FromId $Id
     switch ($Type) {
-        'agent'  { return ".github/agents/$($Label).agent.md" }
-        'skill'  { return ".github/skills/$slug/SKILL.md" }
-        'method' { return ".github/skills/methods/$slug/SKILL.md" }
-        'track'  { return ".github/skills/tracks/$slug/SKILL.md" }
-        'test'   { return ".github/tests/$slug.test.md" }
+        'agent'      { return ".github/agents/$($Label).agent.md" }
+        'skill'      { return ".github/skills/$slug/SKILL.md" }
+        'method'     { return ".github/skills/methods/$slug/SKILL.md" }
+        'track'      { return ".github/skills/tracks/$slug/SKILL.md" }
+        'test'       { return ".github/tests/$slug.test.md" }
+        'session'    { return ".github/knowledge-graph/log/sessions/$slug.md" }
+        'experiment' { return ".github/knowledge-graph/log/experiments/$slug.md" }
+        'decision'   { return ".github/knowledge-graph/log/decisions/$slug.md" }
     }
 }
 
@@ -152,12 +158,115 @@ $todo
 _Not yet run._
 "@
         }
+        'session' {
+@"
+---
+id: $(_Slug-FromId $Label)
+type: session
+description: "$Description"
+started_at: _TODO_
+ended_at: _TODO_
+goal: _TODO_
+phase: _TODO_
+---
+
+# Session: $Label
+
+$todo
+
+## Goal
+
+$todo
+
+## Scope
+
+- **In:** $todo
+- **Out:** $todo
+- **Done when:** $todo
+
+## Outcome
+
+$todo
+"@
+        }
+        'experiment' {
+@"
+---
+id: $(_Slug-FromId $Label)
+type: experiment
+description: "$Description"
+run_at: _TODO_
+result: _TODO_  # worked | didnt_work | partial
+---
+
+# Experiment: $Label
+
+$todo
+
+## Hypothesis
+
+$todo
+
+## Operations
+
+```powershell
+# Commands run, in order
+$todo
+```
+
+## What worked
+
+$todo
+
+## What didn't
+
+$todo
+
+## Decision / next move
+
+$todo
+"@
+        }
+        'decision' {
+@"
+---
+id: $(_Slug-FromId $Label)
+type: decision
+description: "$Description"
+decided_at: _TODO_
+---
+
+# Decision: $Label
+
+$todo
+
+## Chose
+
+$todo
+
+## Over
+
+$todo
+
+## Because
+
+$todo
+
+## Affects
+
+- $todo
+
+## Revisit if
+
+$todo
+"@
+        }
     }
 }
 
 function New-StubFile {
     param(
-        [Parameter(Mandatory)][ValidateSet('agent','skill','method','track','test')][string]$Type,
+        [Parameter(Mandatory)][ValidateSet('agent','skill','method','track','test','session','experiment','decision')][string]$Type,
         [Parameter(Mandatory)][string]$Id,
         [Parameter(Mandatory)][string]$Label,
         [string]$Description = '_TODO: describe this._'

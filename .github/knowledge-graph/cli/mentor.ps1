@@ -130,7 +130,7 @@ function Cmd-Add {
     if (-not $Type -or -not $Slug) {
         throw "Usage: add <type> <slug>"
     }
-    $validTypes = 'agent','skill','method','track','test'
+    $validTypes = 'agent','skill','method','track','test','session','experiment','decision'
     if ($Type -notin $validTypes) {
         throw "Invalid type '$Type'. Must be one of: $($validTypes -join ', ')"
     }
@@ -139,11 +139,14 @@ function Cmd-Add {
 
     # Determine file path the node will reference (matches scaffold layout).
     $file = switch ($Type) {
-        'agent'  { ".github/agents/$labelEff.agent.md" }
-        'skill'  { ".github/skills/$Slug/SKILL.md" }
-        'method' { ".github/skills/methods/$Slug/SKILL.md" }
-        'track'  { ".github/skills/tracks/$Slug/SKILL.md" }
-        'test'   { ".github/tests/$Slug.test.md" }
+        'agent'      { ".github/agents/$labelEff.agent.md" }
+        'skill'      { ".github/skills/$Slug/SKILL.md" }
+        'method'     { ".github/skills/methods/$Slug/SKILL.md" }
+        'track'      { ".github/skills/tracks/$Slug/SKILL.md" }
+        'test'       { ".github/tests/$Slug.test.md" }
+        'session'    { ".github/knowledge-graph/log/sessions/$Slug.md" }
+        'experiment' { ".github/knowledge-graph/log/experiments/$Slug.md" }
+        'decision'   { ".github/knowledge-graph/log/decisions/$Slug.md" }
     }
 
     Write-Host ""

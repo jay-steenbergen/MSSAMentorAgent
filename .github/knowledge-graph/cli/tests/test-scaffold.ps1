@@ -3,14 +3,17 @@
 $ErrorActionPreference = 'Stop'
 Import-Module "$PSScriptRoot/../lib/scaffold.psm1" -Force
 
-# We'll generate all five types into a sandbox prefix so we don't pollute real dirs.
+# We'll generate all eight types into a sandbox prefix so we don't pollute real dirs.
 # Trick: pass a slug that begins with `_test-stub-` and we'll grep+delete that pattern after.
 $cases = @(
-    @{ Type='agent';  Id='agent:_test-stub-agent';   Label='_TestStubAgent';   Desc='throwaway agent' },
-    @{ Type='skill';  Id='skill:_test-stub-skill';   Label='_test-stub-skill'; Desc='throwaway skill' },
-    @{ Type='method'; Id='method:_test-stub-method'; Label='_test-stub-method';Desc='throwaway method' },
-    @{ Type='track';  Id='track:_test-stub-track';   Label='_test-stub-track'; Desc='throwaway track' },
-    @{ Type='test';   Id='test:_test-stub-test';     Label='_test-stub-test';  Desc='throwaway test' }
+    @{ Type='agent';      Id='agent:_test-stub-agent';           Label='_TestStubAgent';        Desc='throwaway agent' },
+    @{ Type='skill';      Id='skill:_test-stub-skill';           Label='_test-stub-skill';      Desc='throwaway skill' },
+    @{ Type='method';     Id='method:_test-stub-method';         Label='_test-stub-method';     Desc='throwaway method' },
+    @{ Type='track';      Id='track:_test-stub-track';           Label='_test-stub-track';      Desc='throwaway track' },
+    @{ Type='test';       Id='test:_test-stub-test';             Label='_test-stub-test';       Desc='throwaway test' },
+    @{ Type='session';    Id='session:_test-stub-session';       Label='_test-stub-session';    Desc='throwaway session' },
+    @{ Type='experiment'; Id='experiment:_test-stub-experiment'; Label='_test-stub-experiment'; Desc='throwaway experiment' },
+    @{ Type='decision';   Id='decision:_test-stub-decision';     Label='_test-stub-decision';   Desc='throwaway decision' }
 )
 
 $repoRoot = (Resolve-Path "$PSScriptRoot/../../../..").Path
