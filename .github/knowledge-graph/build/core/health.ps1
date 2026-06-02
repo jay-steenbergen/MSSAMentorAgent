@@ -376,9 +376,10 @@ if ($gitAvailable) {
             'knowledge-graph[/\\][A-Z][A-Z0-9_-]+\.md$'   # top-level KG docs (README, AUTO-DISCOVERY, etc.)
         )
 
-        # Graph code-file nodes
-        $graphFilePaths = @($nodes | Where-Object { $_.type -eq 'code-file' } |
-            ForEach-Object { $_.file -replace '\\', '/' })
+        # Graph file paths — any node whose `file` field points at a tracked repo file
+        # (covers code-file nodes AND log nodes like session/experiment/decision that own .md bodies)
+        $graphFilePaths = @($nodes | Where-Object { $_.file } |
+            ForEach-Object { $_.file -replace '\\', '/' }) | Sort-Object -Unique
 
         $coverageStats.total = $trackedFiles.Count
 
