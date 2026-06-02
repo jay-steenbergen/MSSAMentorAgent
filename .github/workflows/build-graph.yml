@@ -1,13 +1,17 @@
-name: Build knowledge graph
+name: Build knowledge graph & curriculum manifest
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - '.github/agents/**'
       - '.github/skills/**'
+      - '.github/copilot-instructions.md'
       - '.github/knowledge-graph/data/**'
       - '.github/knowledge-graph/build/**'
+      - '.github/knowledge-graph/cli/**'
+      - '.github/knowledge-graph/lib/**'
+      - 'scripts/generate-curriculum-manifest.ps1'
   workflow_dispatch:
 
 permissions:
@@ -25,14 +29,20 @@ jobs:
           pwsh .github/knowledge-graph/build/core/extract-code-graph.ps1
           pwsh .github/knowledge-graph/build/core/merge.ps1
 
+      - name: Regenerate curriculum manifest
+        shell: pwsh
+        run: |
+          pwsh ./scripts/generate-curriculum-manifest.ps1
+
       - name: Commit if changed
         run: |
           git config user.name 'mssa-mentor-bot'
           git config user.email 'bot@users.noreply.github.com'
-          git add .github/knowledge-graph/output/merged-graph.json
+          git add .github/knowledge-graph/data/MentorAgent/code/code-graph.json
+          git add .github/curriculum-manifest.json
           if git diff --cached --quiet; then
-            echo "No graph changes to commit."
+            echo "No changes to commit."
           else
-            git commit -m 'chore(graph): rebuild on main [skip ci]'
+            git commit -m 'chore: rebuild graph + curriculum manifest [skip ci]'
             git push
           fi

@@ -112,10 +112,12 @@ function Add-Pattern {
 foreach ($p in $patterns) { Add-Pattern -Pattern $p }
 
 $sorted = $files | Sort-Object
+# Deterministic output: no timestamp, no nondeterministic fields.
+# CI re-runs this on every push to master; if the file list didn't change,
+# the diff must be empty so we don't churn commits.
 $manifest = [ordered]@{
-  version   = '1'
-  generated = (Get-Date).ToUniversalTime().ToString('o')
-  files     = $sorted
+  version = '1'
+  files   = $sorted
 }
 
 $manifestPath = Join-Path $RepoRoot '.github/curriculum-manifest.json'
