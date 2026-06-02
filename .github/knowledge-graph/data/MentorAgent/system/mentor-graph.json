@@ -2234,6 +2234,54 @@
       "description": "Template for writing new integration tests."
     },
     {
+      "id": "test:extension-activation",
+      "type": "test",
+      "label": "extension-activation.test.md",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/tests/extension-activation.test.md",
+      "description": "VSIX install → activation → status bar + @Mentor + commands + LM tool all register."
+    },
+    {
+      "id": "test:status-bar-flow",
+      "type": "test",
+      "label": "status-bar-flow.test.md",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/tests/status-bar-flow.test.md",
+      "description": "Status bar click routes to welcome (no profile) or resumeOrStart (profile exists)."
+    },
+    {
+      "id": "test:scaffold-tool-end-to-end",
+      "type": "test",
+      "label": "scaffold-tool-end-to-end.test.md",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/tests/scaffold-tool-end-to-end.test.md",
+      "description": "@Mentor invokes mssa.scaffoldAndOpen → writes progress.json, updates profile.json, opens folder."
+    },
+    {
+      "id": "test:curriculum-auto-fetch",
+      "type": "test",
+      "label": "curriculum-auto-fetch.test.md",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/tests/curriculum-auto-fetch.test.md",
+      "description": "First activation downloads curriculum into the mentor home cache; offline + cold cache shows friendly warning."
+    },
+    {
+      "id": "test:welcome-on-first-run",
+      "type": "test",
+      "label": "welcome-on-first-run.test.md",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/tests/welcome-on-first-run.test.md",
+      "description": "Fresh install with no profile triggers @Mentor first-time interview via welcome command."
+    },
+    {
+      "id": "test:powershell-precheck",
+      "type": "test",
+      "label": "powershell-precheck.test.md",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/tests/powershell-precheck.test.md",
+      "description": "pwsh 7+ present → silent pass; missing → modal with winget install command; never blocks activation."
+    },
+    {
       "id": "ref:mos-mappings",
       "type": "reference",
       "label": "military-mos-mappings.md",
@@ -7027,6 +7075,42 @@
       "target": "extension:mssa-mentor",
       "type": "validates",
       "label": "validates profile load on session start"
+    },
+    {
+      "source": "test:extension-activation",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates VSIX install + activation surface"
+    },
+    {
+      "source": "test:status-bar-flow",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates status bar click routing"
+    },
+    {
+      "source": "test:scaffold-tool-end-to-end",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates mssa.scaffoldAndOpen end-to-end"
+    },
+    {
+      "source": "test:curriculum-auto-fetch",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates curriculum auto-fetch + offline fallback"
+    },
+    {
+      "source": "test:welcome-on-first-run",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates first-run welcome UX"
+    },
+    {
+      "source": "test:powershell-precheck",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates pwsh 7+ precheck modal"
     }
   ]
 }
