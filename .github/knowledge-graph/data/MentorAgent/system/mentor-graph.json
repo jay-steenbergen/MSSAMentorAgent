@@ -3369,6 +3369,60 @@
       "file": ".github/knowledge-graph/cli/tests/test-agent-sync.ps1",
       "section": "frontmatter",
       "description": "Isolation test for agent-sync.psm1: round-trips an agent file through Add-SkillToAgent + Remove-SkillFromAgent, asserts byte-identical to start."
+    },
+    {
+      "id": "session:2026-06-01-gate-hardening",
+      "type": "session",
+      "label": "Gate hardening",
+      "cluster": "session-protocols",
+      "file": ".github/knowledge-graph/log/sessions/2026-06-01-gate-hardening.md",
+      "section": "frontmatter",
+      "description": "Make pre-commit gate strict (block islands + drift), fix Mentor opener bug, close coverage check gap"
+    },
+    {
+      "id": "experiment:2026-06-01-strict-island-drift-gate",
+      "type": "experiment",
+      "label": "Strict island+drift gate",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-strict-island-drift-gate.md",
+      "section": "frontmatter",
+      "description": "Convert pre-commit islands and drift checks from advisory WARN to blocking; required wiring 7 islands and fixing 1 drift before commit could land"
+    },
+    {
+      "id": "experiment:2026-06-01-coverage-counts-log-nodes",
+      "type": "experiment",
+      "label": "Coverage counts log nodes",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-coverage-counts-log-nodes.md",
+      "section": "frontmatter",
+      "description": "Health code-coverage check was filtering on type=code-file only, undercounting 21 session/experiment/decision nodes that own .md body files"
+    },
+    {
+      "id": "decision:2026-06-01-mentor-opener-no-workspace-scan",
+      "type": "decision",
+      "label": "Mentor opener: idea-or-helloworld in chosen track",
+      "cluster": "agent-rules",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-mentor-opener-no-workspace-scan.md",
+      "section": "frontmatter",
+      "description": "Mentor opens with two-option choice (your idea or hello world in the chosen track) and never says 'I'll scan the workspace'"
+    },
+    {
+      "id": "decision:2026-06-01-gate-blocks-islands-and-drift",
+      "type": "decision",
+      "label": "Gate blocks islands and drift",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-gate-blocks-islands-and-drift.md",
+      "section": "frontmatter",
+      "description": "Pre-commit hook converts islands and drift from advisory WARN to blocking errors that exit 1"
+    },
+    {
+      "id": "decision:2026-06-01-coverage-counts-any-file-node",
+      "type": "decision",
+      "label": "Coverage counts any file-owning node",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-coverage-counts-any-file-node.md",
+      "section": "frontmatter",
+      "description": "Health code-coverage check counts any graph node with a .file field, not only type=code-file"
     }
   ],
   "metadata": {
@@ -6485,6 +6539,51 @@
       "target": "code-file:.github/knowledge-graph/cli/tests/test-agent-sync.ps1",
       "type": "tests",
       "description": "Test file for agent-sync module."
+    },
+    {
+      "source": "session:2026-06-01-gate-hardening",
+      "target": "experiment:2026-06-01-strict-island-drift-gate",
+      "type": "has_experiment"
+    },
+    {
+      "source": "session:2026-06-01-gate-hardening",
+      "target": "experiment:2026-06-01-coverage-counts-log-nodes",
+      "type": "has_experiment"
+    },
+    {
+      "source": "session:2026-06-01-gate-hardening",
+      "target": "decision:2026-06-01-mentor-opener-no-workspace-scan",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-gate-hardening",
+      "target": "decision:2026-06-01-gate-blocks-islands-and-drift",
+      "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-gate-hardening",
+      "target": "decision:2026-06-01-coverage-counts-any-file-node",
+      "type": "has_decision"
+    },
+    {
+      "source": "experiment:2026-06-01-strict-island-drift-gate",
+      "target": "decision:2026-06-01-gate-blocks-islands-and-drift",
+      "type": "concluded_with"
+    },
+    {
+      "source": "experiment:2026-06-01-coverage-counts-log-nodes",
+      "target": "decision:2026-06-01-coverage-counts-any-file-node",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "session:2026-06-01-gate-hardening",
+      "type": "next"
+    },
+    {
+      "source": "decision:2026-06-01-mentor-opener-no-workspace-scan",
+      "target": "agent:mentor",
+      "type": "updates"
     }
   ]
 }

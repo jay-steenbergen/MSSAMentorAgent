@@ -161,7 +161,7 @@ _Not yet run._
         'session' {
 @"
 ---
-id: $(_Slug-FromId $Label)
+id: $(_Slug-FromId $Id)
 type: session
 description: "$Description"
 started_at: _TODO_
@@ -192,7 +192,7 @@ $todo
         'experiment' {
 @"
 ---
-id: $(_Slug-FromId $Label)
+id: $(_Slug-FromId $Id)
 type: experiment
 description: "$Description"
 run_at: _TODO_
@@ -230,7 +230,7 @@ $todo
         'decision' {
 @"
 ---
-id: $(_Slug-FromId $Label)
+id: $(_Slug-FromId $Id)
 type: decision
 description: "$Description"
 decided_at: _TODO_
