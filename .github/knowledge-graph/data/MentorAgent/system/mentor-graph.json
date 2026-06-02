@@ -3309,6 +3309,33 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-5-graph-as-source-of-truth.md",
       "section": "frontmatter",
       "description": "Render Outcome via mentor.ps1 session-status (read-only CLI); markdown keeps Goal/Scope/Done-when/Notes only. Rejected: auto-rewriting markdown, leaving doc as truth, merged-graph reads, generic node-status renderer."
+    },
+    {
+      "id": "test:e2e",
+      "type": "test",
+      "label": "test-e2e.ps1",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/cli/tests/test-e2e.ps1",
+      "section": "frontmatter",
+      "description": "End-to-end test for mentor.ps1 CLI: adds throwaway skill, links to agent, undoes both, asserts graph + agent files byte-identical to start."
+    },
+    {
+      "id": "test:graph-writer",
+      "type": "test",
+      "label": "test-graph-writer.ps1",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/cli/tests/test-graph-writer.ps1",
+      "section": "frontmatter",
+      "description": "Isolation test for graph-writer.psm1: mutates in-memory graph copy; file on disk untouched."
+    },
+    {
+      "id": "test:scaffold",
+      "type": "test",
+      "label": "test-scaffold.ps1",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/cli/tests/test-scaffold.ps1",
+      "section": "frontmatter",
+      "description": "Isolation test for scaffold.psm1: scaffolds one stub per type to sandbox dir, asserts shape, cleans up."
     }
   ],
   "metadata": {
@@ -6357,6 +6384,11 @@
       "source": "cli-tool:mentor",
       "target": "decision:2026-06-01-phase-5-graph-as-source-of-truth",
       "type": "implements"
+    },
+    {
+      "source": "test:e2e",
+      "target": "cli-tool:mentor",
+      "type": "tests"
     }
   ]
 }

@@ -253,7 +253,8 @@ function Extract-PowerShell($file, $rel, $fileId) {
         Add-Edge $fileId $importId 'imports'
     }
 
-    # script invocations: & ./script.ps1  or  pwsh -File script.ps1  or  Invoke-Pester path
+    # script invocations: & ./<script>  or  pwsh -File <script>  or  Invoke-Pester <test>
+    # (comment uses placeholders so the extractor doesn't parse itself into phantom code-file nodes)
     $invokeMatches = @()
     $invokeMatches += [regex]::Matches($content, '(?m)&\s*["'']?([^\s"''`]+\.ps1)["'']?') | ForEach-Object { $_.Groups[1].Value }
     $invokeMatches += [regex]::Matches($content, '(?m)pwsh[^\r\n]*?-File\s+["'']?([^\s"''`]+\.ps1)["'']?') | ForEach-Object { $_.Groups[1].Value }
@@ -442,8 +443,9 @@ function Extract-Markdown($file, $rel, $fileId) {
         Add-Edge $fileId $tid 'references' $target
     }
 
-    # script invocations inside markdown code blocks (pwsh -File ..., & ./x.ps1, Invoke-Pester path)
+    # script invocations inside markdown code blocks (pwsh -File <script>, & ./<script>, Invoke-Pester <test>)
     # require .ps1 extension to avoid catching directories or generic prose
+    # (comment uses placeholders so the extractor doesn't parse itself into phantom code-file nodes)
     $mdInvokes = @()
     $mdInvokes += [regex]::Matches($content, '(?m)pwsh[^\r\n]*?(?:-File\s+|\s+)["'']?((?:\.github|\.profiles|docs|\.\.?\/)[^\s"''`]*?\.ps1)["'']?') | ForEach-Object { $_.Groups[1].Value }
     $mdInvokes += [regex]::Matches($content, '(?m)Invoke-Pester\s+["'']?((?:\.github|\.profiles|docs)[^\s"''`]*?\.ps1)["'']?') | ForEach-Object { $_.Groups[1].Value }
