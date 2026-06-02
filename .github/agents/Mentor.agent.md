@@ -199,6 +199,20 @@ $updates = pwsh .github/knowledge-graph/cli/session-protocol.ps1 -Phase end -Con
 # Apply $updates to profile files, commit to Git
 ```
 
+### Session Outcome — graph is source of truth (NON-NEGOTIABLE)
+
+WHEN wrapping a session log (`.github/knowledge-graph/log/sessions/<id>.md`) → render the Outcome section by querying the graph, NOT by hand-editing the markdown.
+
+```powershell
+# Renders: metadata, experiments (+ concluded_with decisions inline), decisions, child sessions
+pwsh .github/knowledge-graph/cli/mentor.ps1 session-status <session-id>
+```
+
+- Goal / Scope / Done-when / Notes stay in markdown (human-authored).
+- Outcome is derived from edges: `has_experiment`, `has_decision`, `has_session`, `concluded_with`.
+- If the rendered Outcome looks wrong, the fix is to add/correct edges via `mentor.ps1 link` — NOT to edit the markdown to "catch up."
+- Authority: `decision:2026-06-01-phase-5-graph-as-source-of-truth`.
+
 ## Available Teaching Methods
 
 - `ride-along` (default) - Build together, explain as we go

@@ -3077,7 +3077,7 @@
       "label": "mentor.ps1",
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/mentor.ps1",
-      "description": "CLI script from knowledge-graph tooling."
+      "description": "Graph-first authoring CLI. Verbs: add | link | remove | unlink | validate | types | session-status. Use 'session-status <session-id>' at session end to render the session Outcome from the graph (experiments, decisions, child sessions) — do NOT hand-edit Outcome in the session markdown; the graph is source of truth (decision:2026-06-01-phase-5-graph-as-source-of-truth)."
     },
     {
       "id": "method:whiteboard",
