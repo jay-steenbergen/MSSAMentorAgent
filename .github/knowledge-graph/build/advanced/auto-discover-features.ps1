@@ -148,7 +148,7 @@ if (Test-Path $extDir) {
         # never an island and its sub-files never get tagged "UNWIRED".
         # Strategy: walk the whole extension folder, skip build outputs and
         # vendor dirs, emit one `contains` edge per real source/config file.
-        $excludeDirs = @('node_modules', 'out', 'dist', '.vsix-temp')
+        $excludeDirs = @('node_modules', 'out', 'dist', '.vsix-temp', 'coverage', '.vscode-test', '.nyc_output', 'tmp', '.git')
         $excludeExt  = @('.vsix', '.log')
         $allFiles = Get-ChildItem $ext.FullName -Recurse -File | Where-Object {
             $relParts = $_.FullName.Substring($ext.FullName.Length).TrimStart('\','/') -split '[\\/]'

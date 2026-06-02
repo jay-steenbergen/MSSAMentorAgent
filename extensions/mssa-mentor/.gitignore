@@ -11,3 +11,8 @@ out/
 _t.js
 _t.cjs
 _t.mjs
+
+# Test harness artifacts
+.vscode-test/
+coverage/
+.nyc_output/

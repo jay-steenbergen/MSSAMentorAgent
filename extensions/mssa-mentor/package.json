@@ -127,16 +127,25 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "coverage": "c8 --reporter=text --reporter=lcov --reporter=html --include='out/**/*.js' --exclude='out/test/**' --exclude='out/**/*.test.js' npm test",
     "package": "vsce package --no-dependencies",
     "publish": "vsce publish --no-dependencies"
   },
   "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^20.x",
     "@types/vscode": "^1.95.0",
     "@typescript-eslint/eslint-plugin": "^6.x",
     "@typescript-eslint/parser": "^6.x",
+    "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.9.1",
+    "c8": "^10.1.3",
     "eslint": "^8.x",
+    "glob": "^11.1.0",
+    "mocha": "^10.8.2",
     "typescript": "^5.x"
   }
 }

@@ -13,3 +13,7 @@ _t.js
 *.vsix
 .git/**
 SETUP.md
+tests/**
+out/test/**
+coverage/**
+.nyc_output/**

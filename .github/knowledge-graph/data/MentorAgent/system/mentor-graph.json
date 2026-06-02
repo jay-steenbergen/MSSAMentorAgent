@@ -2282,6 +2282,102 @@
       "description": "pwsh 7+ present → silent pass; missing → modal with winget install command; never blocks activation."
     },
     {
+      "id": "harness:mssa-mentor",
+      "type": "harness",
+      "label": "scripts/test.ps1",
+      "cluster": "infra-layer",
+      "file": "scripts/test.ps1",
+      "description": "Unified test orchestrator. Runs graph, profiles, extension, behavioral suites. Switches: -Suite, -Quick, -Coverage, -ShowDetails. Exit 0 if no FAIL. Last full run: PASS 130.2s, 68.1% line coverage."
+    },
+    {
+      "id": "test-suite:graph",
+      "type": "test-suite",
+      "label": "graph.ps1",
+      "cluster": "infra-layer",
+      "file": "scripts/test-suites/graph.ps1",
+      "description": "Wraps .github/knowledge-graph/build/health.ps1. Parses 'Summary: PASS N | WARN N | FAIL N'. Returns FAIL if exit≠0 or FAIL count>0."
+    },
+    {
+      "id": "test-suite:profiles",
+      "type": "test-suite",
+      "label": "profiles.ps1",
+      "cluster": "infra-layer",
+      "file": "scripts/test-suites/profiles.ps1",
+      "description": "Runs dotnet test for the ProfileTests xUnit project + validate-profile.ps1 for every mentee. Parses 'Passed: N' / 'Failed: N'."
+    },
+    {
+      "id": "test-suite:extension",
+      "type": "test-suite",
+      "label": "extension.ps1",
+      "cluster": "infra-layer",
+      "file": "scripts/test-suites/extension.ps1",
+      "description": "Installs node_modules if missing, runs npm run test (or coverage with -Coverage). Parses 'N passing' / 'N failing' + 'All files | NN.NN' lines."
+    },
+    {
+      "id": "test-suite:behavioral",
+      "type": "test-suite",
+      "label": "behavioral.ps1",
+      "cluster": "infra-layer",
+      "file": "scripts/test-suites/behavioral.ps1",
+      "description": "Surveys .test.md specs. Resolves covered files via validates/tests edges + contains expansion. Compares spec Date-run vs git mtime of each covered file. Classifies fresh / stale / never-run. INFO only — never fails build."
+    },
+    {
+      "id": "test:activation",
+      "type": "test",
+      "label": "activation.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/activation.test.ts",
+      "description": "Mocha unit: extension present, activates, all 4 commands registered, MSSA_MENTOR_HOME env set (4 tests)."
+    },
+    {
+      "id": "test:paths",
+      "type": "test",
+      "label": "paths.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/paths.test.ts",
+      "description": "Mocha unit: getMentorHome/MenteesDir/CurriculumDir/PendingGreetingsPath, ensureMentorHome idempotent (7 tests)."
+    },
+    {
+      "id": "test:envSetup",
+      "type": "test",
+      "label": "envSetup.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/envSetup.test.ts",
+      "description": "Mocha unit: sets MSSA_MENTOR_HOME when unset, honors pre-existing, idempotent (3 tests)."
+    },
+    {
+      "id": "test:statusBarState",
+      "type": "test",
+      "label": "statusBarState.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/statusBarState.test.ts",
+      "description": "Mocha unit: null→Welcome, 0 projects→OpenChat, 1+ projects→Resume, every state non-empty (5 tests)."
+    },
+    {
+      "id": "test:pendingGreetings",
+      "type": "test",
+      "label": "pendingGreetings.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/pendingGreetings.test.ts",
+      "description": "Mocha unit: write/consume round-trip, stale 24h discard, workspaceFolder scope, corrupt JSON recovery (5 tests)."
+    },
+    {
+      "id": "test:skillLoader",
+      "type": "test",
+      "label": "skillLoader.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/skillLoader.test.ts",
+      "description": "Mocha unit: loads learner-profile + method, falls back to ride-along when missing, loads track README, readSkillFile success/fail (6 tests)."
+    },
+    {
+      "id": "test:profileReader",
+      "type": "test",
+      "label": "profileReader.test.ts",
+      "cluster": "validation-layer",
+      "file": "extensions/mssa-mentor/src/test/suite/profileReader.test.ts",
+      "description": "Mocha unit: null when no dir, explicit identifier, single-user fallback, active project counting + lastUsedMethod from progress.json, corrupt JSON (7 tests)."
+    },
+    {
       "id": "ref:mos-mappings",
       "type": "reference",
       "label": "military-mos-mappings.md",
@@ -7111,6 +7207,204 @@
       "target": "extension:mssa-mentor",
       "type": "validates",
       "label": "validates pwsh 7+ precheck modal"
+    },
+    {
+      "source": "harness:mssa-mentor",
+      "target": "test-suite:graph",
+      "type": "contains",
+      "label": "orchestrator runs graph suite"
+    },
+    {
+      "source": "harness:mssa-mentor",
+      "target": "test-suite:profiles",
+      "type": "contains",
+      "label": "orchestrator runs profiles suite"
+    },
+    {
+      "source": "harness:mssa-mentor",
+      "target": "test-suite:extension",
+      "type": "contains",
+      "label": "orchestrator runs extension suite"
+    },
+    {
+      "source": "harness:mssa-mentor",
+      "target": "test-suite:behavioral",
+      "type": "contains",
+      "label": "orchestrator runs behavioral suite"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:activation",
+      "type": "runs",
+      "label": "Mocha discovers activation.test.js"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:paths",
+      "type": "runs",
+      "label": "Mocha discovers paths.test.js"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:envSetup",
+      "type": "runs",
+      "label": "Mocha discovers envSetup.test.js"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:statusBarState",
+      "type": "runs",
+      "label": "Mocha discovers statusBarState.test.js"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:pendingGreetings",
+      "type": "runs",
+      "label": "Mocha discovers pendingGreetings.test.js"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:skillLoader",
+      "type": "runs",
+      "label": "Mocha discovers skillLoader.test.js"
+    },
+    {
+      "source": "test-suite:extension",
+      "target": "test:profileReader",
+      "type": "runs",
+      "label": "Mocha discovers profileReader.test.js"
+    },
+    {
+      "source": "test:activation",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates activation + command registration"
+    },
+    {
+      "source": "test:paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "validates",
+      "label": "validates mentor home path resolution"
+    },
+    {
+      "source": "test:envSetup",
+      "target": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "type": "validates",
+      "label": "validates MSSA_MENTOR_HOME env setup"
+    },
+    {
+      "source": "test:statusBarState",
+      "target": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "type": "validates",
+      "label": "validates status bar state machine"
+    },
+    {
+      "source": "test:pendingGreetings",
+      "target": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "type": "validates",
+      "label": "validates greeting persistence + stale discard"
+    },
+    {
+      "source": "test:skillLoader",
+      "target": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "validates",
+      "label": "validates skill loading + ride-along fallback"
+    },
+    {
+      "source": "test:profileReader",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "validates",
+      "label": "validates profile reader + active project counting"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/runTest.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/activation.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/envSetup.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/index.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/paths.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/pendingGreetings.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/profileReader.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/skillLoader.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/test/suite/statusBarState.test.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tests/curriculum-auto-fetch.test.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tests/extension-activation.test.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tests/powershell-precheck.test.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tests/scaffold-tool-end-to-end.test.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tests/status-bar-flow.test.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tests/welcome-on-first-run.test.md",
+      "type": "contains",
+      "label": "contains file"
     }
   ]
 }
