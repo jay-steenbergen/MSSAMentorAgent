@@ -1,4 +1,4 @@
-# Test: `mssa.scaffoldAndOpen` Tool — End-to-End Project Creation
+# Test: `mssa_scaffoldAndOpen` Tool — End-to-End Project Creation
 
 **Type:** Integration
 **Tests:** `tools/scaffoldAndOpen.ts` + `profileReader.ts` + project on-disk state
@@ -23,7 +23,7 @@
 @Mentor start a new Cloud App Dev project. Method: ride-along. Track: cloud-app-dev. Call it "weather-api".
 ```
 
-The `@Mentor` agent should select `#mssa.scaffoldAndOpen` and invoke it with input matching the tool schema (username, projectId, projectName, track, method).
+The `@Mentor` agent should select `#mssa_scaffoldAndOpen` and invoke it with input matching the tool schema (username, projectId, projectName, track, method).
 
 ---
 

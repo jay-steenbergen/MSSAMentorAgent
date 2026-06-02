@@ -2255,7 +2255,7 @@
       "label": "scaffold-tool-end-to-end.test.md",
       "cluster": "validation-layer",
       "file": "extensions/mssa-mentor/tests/scaffold-tool-end-to-end.test.md",
-      "description": "@Mentor invokes mssa.scaffoldAndOpen → writes progress.json, updates profile.json, opens folder."
+      "description": "@Mentor invokes mssa_scaffoldAndOpen → writes progress.json, updates profile.json, opens folder."
     },
     {
       "id": "test:curriculum-auto-fetch",
@@ -7188,7 +7188,7 @@
       "source": "test:scaffold-tool-end-to-end",
       "target": "extension:mssa-mentor",
       "type": "validates",
-      "label": "validates mssa.scaffoldAndOpen end-to-end"
+      "label": "validates mssa_scaffoldAndOpen end-to-end"
     },
     {
       "source": "test:curriculum-auto-fetch",

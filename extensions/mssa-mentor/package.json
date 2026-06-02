@@ -70,7 +70,7 @@
     ],
     "languageModelTools": [
       {
-        "name": "mssa.scaffoldAndOpen",
+        "name": "mssa_scaffoldAndOpen",
         "displayName": "Scaffold MSSA Project",
         "modelDescription": "Create a new MSSA project folder in the current workspace, write a stub README, update the learner's profile and progress files, and open the README. Call this AFTER you have collected the learner's chosen project id, display name, track, and teaching method. Tracks: cloud-app-dev, server-cloud-admin, cybersecurity-ops. Methods: ride-along, TDD, BDD, spike-then-refactor.",
         "userDescription": "Scaffold a new MSSA project on disk and record it in your profile.",

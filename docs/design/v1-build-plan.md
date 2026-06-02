@@ -259,7 +259,7 @@ export async function newProjectCommand(): Promise<void>;
 //   5. NEW WINDOW activates -> takeGreetingForFolder -> openMentorChat fires.
 ```
 
-> **Note on 4a-c:** The agent already calls extension-side tools via the chat participant API. The new pieces are `mkdir`, `queueGreeting`, and `openFolder`. We expose these as a **single tool** the agent invokes: `mssa.scaffoldAndOpen({ projectId, attachSkills })`. Build step 17 wires this tool.
+> **Note on 4a-c:** The agent already calls extension-side tools via the chat participant API. The new pieces are `mkdir`, `queueGreeting`, and `openFolder`. We expose these as a **single tool** the agent invokes: `mssa_scaffoldAndOpen({ projectId, attachSkills })`. Build step 17 wires this tool.
 
 ### `commands/resumeOrStart.ts` (THIN)
 ```ts
@@ -432,7 +432,7 @@ Each step is a separate "go" gate. I do not move to step N+1 without verifying s
 | 14 | Add `statusBar.ts` | Profile with/without active project → correct text | statusBar.ts, extension.ts |
 | 15 | Add `commands/welcome.ts` + webview HTML | Fresh install (delete `~/.mssa-mentor/`) shows welcome on activate | welcome.ts, welcome.html |
 | 16 | Add `commands/resumeOrStart.ts` | Profile present + active project → chat opens with right prompt | resumeOrStart.ts |
-| 17 | Add `commands/newProject.ts` + agent-callable tool `mssa.scaffoldAndOpen` | Pick track → pick project (via agent) → folder picker (first time) → new window opens → Mentor greets | newProject.ts |
+| 17 | Add `commands/newProject.ts` + agent-callable tool `mssa_scaffoldAndOpen` | Pick track → pick project (via agent) → folder picker (first time) → new window opens → Mentor greets | newProject.ts |
 | 18 | Marketplace `vsce package` dry run | `.vsix` builds; install locally; run smoke test from step 17 | none |
 
 ---
@@ -456,7 +456,7 @@ Each step is a separate "go" gate. I do not move to step N+1 without verifying s
 
 ## Open items the build will surface (escalate to Jay when reached)
 
-- **`mssa.scaffoldAndOpen` tool surface.** This is a new chat tool the agent calls. Need to design its exact JSON-RPC contract (what fields the agent passes back from picker output). Reach this at step 17.
+- **`mssa_scaffoldAndOpen` tool surface.** This is a new chat tool the agent calls. Need to design its exact JSON-RPC contract (what fields the agent passes back from picker output). Reach this at step 17.
 - **Caching + versioning policy.** Currently "always `main`, persistent disk cache, no TTL, manual `clearCache` command." Need to decide: pin to tags for production rollouts? Per-mentee version override (`MSSA_MENTOR_REF` env var)? How to roll out breaking curriculum changes without re-installs?
 - **Welcome webview copy.** Need the actual 3 track descriptions, the PS7 install pitch, and the "start session" CTA written out before step 15.
 - **Marketplace publisher account.** Natural alignment: `mssa-mentor` (same as org). Confirm before step 18.

@@ -39,7 +39,7 @@ Then run **Developer: Reload Window** from the command palette (`Ctrl+Shift+P`).
    - `MSSA Mentor: Welcome / Get Started`
    - `MSSA Mentor: Resume or Start`
    - `MSSA Mentor: New Project`
-6. Register language model tool `mssa.scaffoldAndOpen` (visible in chat tool list)
+6. Register language model tool `mssa_scaffoldAndOpen` (visible in chat tool list)
 7. Set `MSSA_MENTOR_HOME` env var for the VS Code process (default `~/.mssa-mentor/`)
 
 **VS Code should NOT:**

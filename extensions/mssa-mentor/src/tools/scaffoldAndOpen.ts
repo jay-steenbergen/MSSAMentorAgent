@@ -5,8 +5,9 @@ import { getMenteesDir } from '../paths';
 import { getCurrentUsername } from '../profileReader';
 import { refreshStatusBar } from '../statusBar';
 
-/** Tool id — must match the `name` declared in package.json languageModelTools contribution. */
-export const SCAFFOLD_AND_OPEN_TOOL = 'mssa.scaffoldAndOpen';
+/** Tool id — must match the `name` declared in package.json languageModelTools contribution.
+ *  VS Code requires tool ids match /^[\w-]+$/, so no '.' separators. */
+export const SCAFFOLD_AND_OPEN_TOOL = 'mssa_scaffoldAndOpen';
 
 export interface ScaffoldInputs {
   /** Stable folder-safe id, e.g. `todo-api`. */

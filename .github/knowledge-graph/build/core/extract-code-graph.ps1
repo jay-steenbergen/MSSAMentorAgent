@@ -137,7 +137,13 @@ $includePatterns = @(
 )
 
 # Exclude build outputs and internal graph data, but allow lib/ cli/ build/
-$excludeMatch = @('\\bin\\', '\\obj\\', '\\node_modules\\', '\\.git\\', '\\knowledge-graph\\data\\', '\\knowledge-graph\\tests\\')
+# Note: .vscode-test/, coverage/, .nyc_output/, tmp/ are test-harness scratch dirs that
+# pull in bundled VS Code extensions; scanning them creates hundreds of disconnected islands.
+$excludeMatch = @(
+    '\\bin\\', '\\obj\\', '\\node_modules\\', '\\.git\\',
+    '\\knowledge-graph\\data\\', '\\knowledge-graph\\tests\\',
+    '\\.vscode-test\\', '\\coverage\\', '\\.nyc_output\\', '\\tmp\\', '\\out\\', '\\dist\\', '\\.vsix-temp\\'
+)
 
 $allFiles = @()
 foreach ($p in $includePatterns) {

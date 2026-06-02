@@ -14,6 +14,6 @@ All notable changes to the MSSA Mentor extension are documented in this file.
   - Welcome / Get Started
   - Resume or Start
   - New Project
-- `mssa.scaffoldAndOpen` language model tool — the agent invokes this to create a project folder, stub README, profile entry, and progress file in one step.
+- `mssa_scaffoldAndOpen` language model tool — the agent invokes this to create a project folder, stub README, profile entry, and progress file in one step.
 - Auto-fetches the MSSA curriculum (skills, tracks, methods) into `~/.mssa-mentor/curriculum/` so the agent always has the latest content without reinstalling the extension.
 - PowerShell 7+ check at activation (required by the knowledge-graph CLIs).
