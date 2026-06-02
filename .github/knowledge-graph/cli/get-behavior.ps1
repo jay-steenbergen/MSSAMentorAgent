@@ -27,12 +27,15 @@ $behaviors = @{
         )
     }
     'open-with-intent' = @{
-        Summary = 'Ask goal and time, propose achievable build'
+        Summary = 'Ask time; for new projects, anchor to track and offer their-idea OR hello-world starter'
         Steps = @(
-            'Ask: What do you want to be able to do by end of session?'
-            'Ask: How much time do you have?'
-            'Propose build small enough to finish in window'
-            'If active project exists, offer to continue or start new'
+            'Ask: How much time do you have? (15m / 30m / 60m / multi-session)'
+            'If active project exists → offer continue vs. start new'
+            'If starting NEW project: after track is picked, offer TWO concrete paths:'
+            '  (a) "Do you already have a project idea in mind for {track}?"'
+            '  (b) "Or want to start with a hello world / starter project so you get a win on the board?"'
+            'NEVER say "I''ll scan the workspace and suggest something" — agent already knows the tracks'
+            'Once path is chosen, propose ONE concrete first move sized to the time window'
         )
     }
     'honor-intent' = @{

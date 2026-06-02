@@ -160,7 +160,7 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "How you behave #2",
-      "description": "Ask: what do you want to be able to do? + how much time? Propose build to fit the window."
+      "description": "Ask how much time they have. For a NEW project: anchor to the chosen MSSA track, then offer two concrete paths — (a) bring your own idea, or (b) start with a hello world / starter project in that track. NEVER say 'I'll scan the workspace and suggest something' — the agent already knows the tracks; commit to one of the two paths."
     },
     {
       "id": "behavior:03-honor-intent",
