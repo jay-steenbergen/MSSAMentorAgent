@@ -736,7 +736,7 @@
       "cluster": "profile-system",
       "file": ".github/skills/learner-profile/SKILL.md",
       "section": "Session start #2",
-      "description": "Look for .profiles/profiles/mentees/{username}/profile.json or mentors/{username}/profile.json."
+      "description": "Look for .profiles/profiles/mentees/{username}/profile.json or .profiles/profiles/mentors/{username}/profile.json."
     },
     {
       "id": "decision:multi-project",
@@ -3336,6 +3336,39 @@
       "file": ".github/knowledge-graph/cli/tests/test-scaffold.ps1",
       "section": "frontmatter",
       "description": "Isolation test for scaffold.psm1: scaffolds one stub per type to sandbox dir, asserts shape, cleans up."
+    },
+    {
+      "id": "module:graph-writer",
+      "type": "script",
+      "label": "graph-writer.psm1",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/cli/lib/graph-writer.psm1",
+      "description": "PowerShell module: in-memory graph CRUD (Add/Remove-MentorNode, Add/Remove-MentorEdge, Get/Save-MentorGraph). Used by mentor.ps1 CLI to mutate the system graph safely."
+    },
+    {
+      "id": "module:scaffold",
+      "type": "script",
+      "label": "scaffold.psm1",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/cli/lib/scaffold.psm1",
+      "description": "PowerShell module: creates body-file stubs for new graph nodes (skill, behavior, decision, etc.) with the _TODO marker so Mentor can help the author fill them in."
+    },
+    {
+      "id": "module:agent-sync",
+      "type": "script",
+      "label": "agent-sync.psm1",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/cli/lib/agent-sync.psm1",
+      "description": "PowerShell module: edits the skills: block in an .agent.md file. Used by mentor.ps1 link/unlink-skill verbs to keep agent frontmatter in sync with the graph."
+    },
+    {
+      "id": "test:agent-sync",
+      "type": "test",
+      "label": "test-agent-sync.ps1",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/cli/tests/test-agent-sync.ps1",
+      "section": "frontmatter",
+      "description": "Isolation test for agent-sync.psm1: round-trips an agent file through Add-SkillToAgent + Remove-SkillFromAgent, asserts byte-identical to start."
     }
   ],
   "metadata": {
@@ -6389,6 +6422,69 @@
       "source": "test:e2e",
       "target": "cli-tool:mentor",
       "type": "tests"
+    },
+    {
+      "source": "module:graph-writer",
+      "target": "code-file:.github/knowledge-graph/cli/lib/graph-writer.psm1",
+      "type": "related_to",
+      "description": "Module's source file."
+    },
+    {
+      "source": "module:scaffold",
+      "target": "code-file:.github/knowledge-graph/cli/lib/scaffold.psm1",
+      "type": "related_to",
+      "description": "Module's source file."
+    },
+    {
+      "source": "module:agent-sync",
+      "target": "code-file:.github/knowledge-graph/cli/lib/agent-sync.psm1",
+      "type": "related_to",
+      "description": "Module's source file."
+    },
+    {
+      "source": "module:graph-writer",
+      "target": "test:graph-writer",
+      "type": "tested_by"
+    },
+    {
+      "source": "module:scaffold",
+      "target": "test:scaffold",
+      "type": "tested_by"
+    },
+    {
+      "source": "module:agent-sync",
+      "target": "test:agent-sync",
+      "type": "tested_by"
+    },
+    {
+      "source": "cli-tool:test-load-list",
+      "target": "code-file:.github/knowledge-graph/cli/test-load-list.goldens.json",
+      "type": "uses",
+      "description": "Pinned golden baselines for Get-AgentLoadList."
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "module:graph-writer",
+      "type": "uses",
+      "description": "mentor.ps1 dot-sources graph-writer.psm1 for in-memory graph CRUD."
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "module:scaffold",
+      "type": "uses",
+      "description": "mentor.ps1 dot-sources scaffold.psm1 for stub-body creation."
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "module:agent-sync",
+      "type": "uses",
+      "description": "mentor.ps1 dot-sources agent-sync.psm1 for .agent.md frontmatter edits."
+    },
+    {
+      "source": "test:agent-sync",
+      "target": "code-file:.github/knowledge-graph/cli/tests/test-agent-sync.ps1",
+      "type": "tests",
+      "description": "Test file for agent-sync module."
     }
   ]
 }

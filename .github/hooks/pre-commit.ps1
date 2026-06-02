@@ -256,10 +256,17 @@ try {
             Write-Info "  pwsh .github/knowledge-graph/build/health.ps1 -Layer merged | Select-String orphan -Context 5"
         }
         
-        # REPORT: Islands (disconnected components)
+        # REPORT: Islands (disconnected components) — BLOCKING
         if ($hasIslands) {
-            Write-Warning "Found $islandCount island nodes (disconnected components)"
-            Write-Info "Normal for growing graphs. Will connect over time."
+            Write-Error "Found $islandCount island node(s) (disconnected components)"
+            Write-Host ""
+            Write-Host "Islands are real wiring gaps. Connect them with edges before committing." -ForegroundColor Yellow
+            Write-Host ""
+            Write-Host "See the islands:" -ForegroundColor Yellow
+            Write-Host "  pwsh .github/knowledge-graph/build/core/health.ps1 -Layer merged" -ForegroundColor Gray
+            Write-Host ""
+            Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+            exit 1
         }
         
         # Parse summary line
@@ -362,17 +369,22 @@ try {
     if ($LASTEXITCODE -ne 0) {
         if ($driftOutput -match 'Drift findings:\s*(\d+)') {
             $driftCount = [int]$matches[1]
-            Write-Warning "Found $driftCount drifted path reference(s) in graph text"
-            Write-Info "Advisory only. Run: pwsh .github/knowledge-graph/cli/find-drift.ps1"
+            Write-Error "Found $driftCount drifted path reference(s) in graph text"
         } else {
-            Write-Warning "Drift check reported issues (advisory)"
+            Write-Error "Drift check reported issues"
         }
-    } else {
-        Write-Success "No path drift in graph text"
+        Write-Host ""
+        & pwsh -NoProfile -File $driftScript 2>&1 | Write-Host
+        Write-Host ""
+        Write-Host "Fix: update the graph text to match a real path, OR create the missing file." -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+        exit 1
     }
+    Write-Success "No path drift in graph text"
 } catch {
-    Write-Warning "Drift check encountered an error: $_"
-    # Advisory check — don't block commit
+    Write-Error "Drift check encountered an error: $_"
+    exit 1
 }
 
 # Step 6: Stage updated graph files (if any changed)
