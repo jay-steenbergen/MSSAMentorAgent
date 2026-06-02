@@ -6654,36 +6654,6 @@
       "type": "tested_by"
     },
     {
-      "source": "module:graph-writer",
-      "target": "test:graph-writer",
-      "type": "tested_by"
-    },
-    {
-      "source": "module:scaffold",
-      "target": "test:scaffold",
-      "type": "tested_by"
-    },
-    {
-      "source": "tdd:phase-red",
-      "target": "test:tdd-red-phase",
-      "type": "tested_by"
-    },
-    {
-      "source": "cli-tool:mentor",
-      "target": "test:e2e",
-      "type": "tested_by"
-    },
-    {
-      "source": "module:graph-writer",
-      "target": "test:graph-writer",
-      "type": "tested_by"
-    },
-    {
-      "source": "module:scaffold",
-      "target": "test:scaffold",
-      "type": "tested_by"
-    },
-    {
       "source": "tdd:phase-red",
       "target": "test:tdd-red-phase",
       "type": "tested_by"

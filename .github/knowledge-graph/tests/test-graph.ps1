@@ -22,15 +22,17 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$root = (Resolve-Path "$PSScriptRoot\..\..").Path
+$kgRoot = (Resolve-Path "$PSScriptRoot\..").Path
+$repoRoot = (Resolve-Path "$PSScriptRoot\..\..\..").Path
 
-# Load graph
-$graphPath = Join-Path $root ".github/knowledge-graph/$Layer-graph.json"
-if (-not (Test-Path $graphPath)) {
-    $graphPath = Join-Path $root ".github/knowledge-graph/$Layer/$Layer-graph.json"
+# Load graph (paths mirror build/core/health.ps1)
+$graphPath = switch ($Layer) {
+    'code'   { Join-Path $kgRoot 'data\MentorAgent\code\code-graph.json' }
+    'system' { Join-Path $kgRoot 'data\MentorAgent\system\mentor-graph.json' }
+    'merged' { Join-Path $kgRoot 'output\merged-graph.json' }
 }
 if (-not (Test-Path $graphPath)) {
-    Write-Error "Graph not found: $graphPath"
+    Write-Error "Graph not found: $graphPath`nHint: run build/core/merge.ps1 first if -Layer merged."
 }
 
 Write-Host "========================================" -ForegroundColor Cyan
@@ -213,7 +215,7 @@ $fileNodes = $graph.nodes | Where-Object { $_.type -in @('file', 'skill', 'track
 $validFiles = 0
 $invalidFiles = @()
 foreach ($fn in $fileNodes) {
-    $fullPath = Join-Path $root $fn.file
+    $fullPath = Join-Path $repoRoot $fn.file
     if (Test-Path $fullPath) {
         $validFiles++
     } else {
