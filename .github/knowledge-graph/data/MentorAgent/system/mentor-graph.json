@@ -7009,6 +7009,24 @@
       "target": "code-file:docs/design/v1-distribution-and-scaffolding.md",
       "type": "documented_in",
       "label": "documented in"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "skill:learner-profile",
+      "type": "uses",
+      "label": "loads + reads profile"
+    },
+    {
+      "source": "test:session-flow",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates session start"
+    },
+    {
+      "source": "test:profile-load",
+      "target": "extension:mssa-mentor",
+      "type": "validates",
+      "label": "validates profile load on session start"
     }
   ]
 }
