@@ -210,7 +210,10 @@ try {
         
         $hasIslands = $healthOutput -match '\[WARN\]\s+islands\s+\((\d+)\)'
         $islandCount = if ($hasIslands) { [int]$matches[1] } else { 0 }
-        
+
+        $hasCoverage = $healthOutput -match '\[WARN\]\s+code-coverage\s+\((\d+)\)'
+        $coverageCount = if ($hasCoverage) { [int]$matches[1] } else { 0 }
+
         # CRITICAL: Block commit on connectivity issues
         if ($hasDanglingEdges -or $hasDuplicateIds) {
             Write-Error "Graph has CRITICAL failures (connectivity issues)"
@@ -264,6 +267,28 @@ try {
             Write-Host ""
             Write-Host "See the islands:" -ForegroundColor Yellow
             Write-Host "  pwsh .github/knowledge-graph/build/core/health.ps1 -Layer merged" -ForegroundColor Gray
+            Write-Host ""
+            Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+            exit 1
+        }
+
+        # BLOCKING: Code coverage gap — repo files not in graph
+        # Every committed file must be wired (system node) or excluded (intentional).
+        # Silent drift here is how the graph rots. If a file is non-capability surface
+        # (generated artifact, README, etc.), add it to $intentionalExcludes in
+        # .github/knowledge-graph/build/core/health.ps1.
+        if ($hasCoverage) {
+            Write-Error "Found $coverageCount repo file(s) not in the knowledge graph"
+            Write-Host ""
+            Write-Host "Every code file must be wired (system node) or explicitly excluded." -ForegroundColor Yellow
+            Write-Host "Silent drift here is how the graph rots." -ForegroundColor Yellow
+            Write-Host ""
+            Write-Host "See the missing files:" -ForegroundColor Yellow
+            Write-Host "  pwsh .github/knowledge-graph/build/core/health.ps1 -Layer merged" -ForegroundColor Gray
+            Write-Host ""
+            Write-Host "Two ways to fix:" -ForegroundColor Yellow
+            Write-Host "  1. Wire it: add a node + edge in .github/knowledge-graph/data/MentorAgent/system/mentor-graph.json" -ForegroundColor Gray
+            Write-Host "  2. Exclude it: add a regex to `$intentionalExcludes in build/core/health.ps1 (only for non-capability surface)" -ForegroundColor Gray
             Write-Host ""
             Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
             exit 1
