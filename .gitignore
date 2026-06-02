@@ -22,6 +22,11 @@ yarn-error.log*
 *.tmp
 *.temp
 
+# .NET build artifacts (xUnit ProfileTests, any future .NET projects)
+# These regenerate on every `dotnet test` run and pollute every commit.
+**/bin/
+**/obj/
+
 # Build artifacts (knowledge graph)
 .github/knowledge-graph/output/
 

@@ -4,7 +4,9 @@
     Graph suite: knowledge-graph health gate.
 
 .DESCRIPTION
-    Wraps .github/knowledge-graph/build/health.ps1 with structured output.
+    Wraps the health checker via the thin forwarder at
+    .github/knowledge-graph/build/health.ps1, which delegates to
+    .github/knowledge-graph/build/core/health.ps1 (single source of truth).
     PASS when health.ps1 exits 0 AND no FAIL category is reported.
 
 .OUTPUTS
