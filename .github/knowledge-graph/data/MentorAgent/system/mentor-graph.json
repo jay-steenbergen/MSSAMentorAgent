@@ -3256,6 +3256,41 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/find-missing-files.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "decision:2026-06-01-phase-c-agent-conformance-deferred",
+      "type": "decision",
+      "label": "DEFERRED: Phase C agent conformance check",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-c-agent-conformance-deferred.md",
+      "section": "frontmatter",
+      "description": "Future runtime check: agent writes actual load list to session artifact; check compares against what Get-AgentLoadList would return. Deferred because no telemetry exists yet. Requires Phase 4 baseline + extension instrumentation + session-artifact convention. Captured so it isn't lost."
+    },
+    {
+      "id": "cli-tool:test-load-list",
+      "type": "cli-tool",
+      "label": "test-load-list.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/test-load-list.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "experiment:2026-06-01-phase-4-load-list-goldens",
+      "type": "experiment",
+      "label": "Phase 4: Get-AgentLoadList golden tests",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-phase-4-load-list-goldens.md",
+      "section": "frontmatter",
+      "description": "Pin load-list output for 5 canonical (intent,method,track) tuples; verify gate catches regressions."
+    },
+    {
+      "id": "decision:2026-06-01-phase-4-golden-tests-policy",
+      "type": "decision",
+      "label": "Phase 4: order-sensitive golden tests + blocking hook",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-4-golden-tests-policy.md",
+      "section": "frontmatter",
+      "description": "Pin Get-AgentLoadList with sibling-JSON goldens, exact ordered match, blocking pre-commit, -UpdateBaseline escape hatch."
     }
   ],
   "metadata": {
@@ -6252,6 +6287,38 @@
       "target": "code-file:.github/knowledge-graph/cli/find-missing-files.ps1",
       "type": "defined_in",
       "label": "defined in"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-phase-c-agent-conformance-deferred",
+      "type": "has_decision"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:test-load-list",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:test-load-list",
+      "target": "code-file:.github/knowledge-graph/cli/test-load-list.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "experiment:2026-06-01-phase-4-load-list-goldens",
+      "type": "has_experiment"
+    },
+    {
+      "source": "experiment:2026-06-01-phase-4-load-list-goldens",
+      "target": "decision:2026-06-01-phase-4-golden-tests-policy",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-phase-4-golden-tests-policy",
+      "type": "has_decision"
     }
   ]
 }

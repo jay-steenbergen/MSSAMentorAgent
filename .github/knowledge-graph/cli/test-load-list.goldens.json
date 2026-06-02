@@ -1,0 +1,79 @@
+{
+  "_doc": "Phase 4 golden assertions for Get-AgentLoadList. Each entry pins the (intent, method, track, skipEssentials) -> expected file list mapping. The pre-commit gate runs test-load-list.ps1 which calls Get-AgentLoadList for each tuple and compares against `expected`. ANY change (add/remove/reorder) fails the test. If the change is intentional, update the JSON.",
+  "_baseline_date": "2026-06-01",
+  "_baseline_commit": "captured before commit",
+  "cases": [
+    {
+      "name": "ride-along default (no track)",
+      "inputs": {
+        "intent": "start learning session",
+        "method": "ride-along"
+      },
+      "expected": [
+        ".github/skills/learner-profile/SKILL.md",
+        ".github/skills/methods/ride-along/SKILL.md"
+      ]
+    },
+    {
+      "name": "TDD cloud-app-dev REST API",
+      "inputs": {
+        "intent": "build a REST API",
+        "method": "TDD",
+        "track": "cloud-app-dev"
+      },
+      "expected": [
+        ".github/skills/learner-profile/SKILL.md",
+        ".github/skills/methods/TDD/SKILL.md",
+        ".github/skills/tracks/cloud-app-dev/cad-blob-uploader/SKILL.md",
+        ".github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/SKILL.md",
+        ".github/skills/tracks/cloud-app-dev/cad-deploy-app-service/SKILL.md",
+        ".github/skills/tracks/cloud-app-dev/README.md"
+      ]
+    },
+    {
+      "name": "BDD cybersecurity intrusion detection",
+      "inputs": {
+        "intent": "detect intrusion",
+        "method": "BDD",
+        "track": "cybersecurity-ops"
+      },
+      "expected": [
+        ".github/skills/learner-profile/SKILL.md",
+        ".github/skills/methods/BDD/SKILL.md",
+        ".github/skills/tracks/cybersecurity-ops/cso-detection-rule/SKILL.md",
+        ".github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/SKILL.md",
+        ".github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/SKILL.md",
+        ".github/skills/tracks/cybersecurity-ops/README.md"
+      ]
+    },
+    {
+      "name": "spike-then-refactor server-cloud-admin (note: method skill missing — pinning current behavior)",
+      "inputs": {
+        "intent": "explore a deployment",
+        "method": "spike-then-refactor",
+        "track": "server-cloud-admin"
+      },
+      "expected": [
+        ".github/skills/learner-profile/SKILL.md",
+        ".github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/SKILL.md",
+        ".github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/SKILL.md",
+        ".github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/SKILL.md",
+        ".github/skills/tracks/server-cloud-admin/README.md"
+      ]
+    },
+    {
+      "name": "SkipEssentials github-copilot test generation",
+      "inputs": {
+        "intent": "test generation with copilot",
+        "method": "ride-along",
+        "track": "github-copilot",
+        "skipEssentials": true
+      },
+      "expected": [
+        ".github/skills/tracks/github-copilot/ghc-test-generation/SKILL.md",
+        ".github/skills/tracks/github-copilot/ghc-chat-driven-debugging/SKILL.md",
+        ".github/skills/tracks/github-copilot/ghc-code-review-with-copilot/SKILL.md"
+      ]
+    }
+  ]
+}

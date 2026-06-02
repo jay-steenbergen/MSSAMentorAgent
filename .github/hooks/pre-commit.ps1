@@ -288,6 +288,8 @@ try {
 #     - Orphan markdown (BLOCKING):  every artifact .md must have a graph node first
 #   Phase 3:
 #     - Missing files (BLOCKING):    every graph file ref must resolve on disk
+#   Phase 4:
+#     - Load-list goldens (BLOCKING): Get-AgentLoadList output must match pinned baselines
 #   Always:
 #     - Path drift (ADVISORY):       documented paths should resolve to real files
 Write-Header "🧭 Graph-first authoring checks..."
@@ -329,6 +331,27 @@ try {
     Write-Success "All graph file refs resolve on disk"
 } catch {
     Write-Warning "Missing-files check encountered an error: $_"
+    # Hard fail on errors here — silent failure would defeat the gate
+    exit 1
+}
+
+try {
+    $loadListScript = Join-Path $graphDir 'cli' 'test-load-list.ps1'
+    $loadListOutput = & pwsh -NoProfile -File $loadListScript -Quiet 2>&1 | Out-String
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Get-AgentLoadList golden tests failed (load-list regression)"
+        Write-Host ""
+        & pwsh -NoProfile -File $loadListScript 2>&1 | Write-Host
+        Write-Host ""
+        Write-Host "Phase 4 rule: pinned (intent, method, track) -> load list mappings must not change silently." -ForegroundColor Yellow
+        Write-Host "If the change is intentional: pwsh .github/knowledge-graph/cli/test-load-list.ps1 -UpdateBaseline" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+        exit 1
+    }
+    Write-Success "Load-list goldens pass"
+} catch {
+    Write-Warning "Load-list test encountered an error: $_"
     # Hard fail on errors here — silent failure would defeat the gate
     exit 1
 }
