@@ -24,6 +24,12 @@
 #   types
 #       Print the edge-type vocabulary currently in use (typo guard).
 #
+#   session-status <session-id>
+#       Render a session's Outcome from the graph: experiments wired via
+#       has_experiment, decisions via has_decision, child sessions via
+#       has_session. Makes the graph the source of truth for session state
+#       instead of hand-maintained markdown.
+#
 # All write operations:
 #   - print a dry-run summary before mutating
 #   - back up mentor-graph.json to mentor-graph.json.bak
@@ -66,6 +72,7 @@ Usage:
   mentor.ps1 unlink <source-id> <target-id> <edge-type>
   mentor.ps1 validate
   mentor.ps1 types
+  mentor.ps1 session-status <session-id>
 
 Types: agent | skill | method | track | test
 
@@ -288,6 +295,59 @@ function Cmd-Remove {
     Invoke-Rebuild
 }
 
+function Cmd-SessionStatus {
+    param([string]$Id)
+    if (-not $Id) { throw "Usage: session-status <session-id>" }
+    if ($Id -notmatch '^session:') { $Id = "session:$Id" }
+
+    $g = Get-MentorGraph
+    $session = $g.nodes | Where-Object { $_.id -eq $Id }
+    if (-not $session) { throw "Session '$Id' not found in graph." }
+
+    $outgoing = $g.edges | Where-Object { $_.source -eq $Id }
+    $experiments  = @($outgoing | Where-Object { $_.type -eq 'has_experiment' } | Sort-Object target)
+    $decisions    = @($outgoing | Where-Object { $_.type -eq 'has_decision'  } | Sort-Object target)
+    $childSessions = @($outgoing | Where-Object { $_.type -eq 'has_session'   } | Sort-Object target)
+
+    Write-Host ""
+    Write-Host "Session: $Id" -ForegroundColor Cyan
+    if ($session.description) { Write-Host "  $($session.description)" -ForegroundColor DarkGray }
+    if ($session.file)        { Write-Host "  file: $($session.file)"  -ForegroundColor DarkGray }
+    Write-Host ""
+
+    Write-Host ("Experiments ({0}):" -f $experiments.Count) -ForegroundColor Cyan
+    foreach ($e in $experiments) {
+        $node = $g.nodes | Where-Object { $_.id -eq $e.target } | Select-Object -First 1
+        Write-Host "  - $($e.target)"
+        if ($node -and $node.description) { Write-Host "      $($node.description)" -ForegroundColor DarkGray }
+        $concluded = $g.edges | Where-Object { $_.source -eq $e.target -and $_.type -eq 'concluded_with' }
+        foreach ($c in $concluded) {
+            Write-Host "      -> concluded_with $($c.target)" -ForegroundColor DarkGray
+        }
+    }
+    if ($experiments.Count -eq 0) { Write-Host "  (none)" -ForegroundColor DarkGray }
+    Write-Host ""
+
+    Write-Host ("Decisions ({0}):" -f $decisions.Count) -ForegroundColor Cyan
+    foreach ($d in $decisions) {
+        $node = $g.nodes | Where-Object { $_.id -eq $d.target } | Select-Object -First 1
+        Write-Host "  - $($d.target)"
+        if ($node -and $node.description) { Write-Host "      $($node.description)" -ForegroundColor DarkGray }
+    }
+    if ($decisions.Count -eq 0) { Write-Host "  (none)" -ForegroundColor DarkGray }
+    Write-Host ""
+
+    if ($childSessions.Count -gt 0) {
+        Write-Host ("Child sessions ({0}):" -f $childSessions.Count) -ForegroundColor Cyan
+        foreach ($s in $childSessions) {
+            Write-Host "  - $($s.target)"
+        }
+        Write-Host ""
+    }
+
+    Write-Host "OK" -ForegroundColor Green
+}
+
 # --- main ---
 if (-not $Verb -or $Verb -in @('-h','--help','help')) {
     Show-Usage; exit 0
@@ -295,13 +355,14 @@ if (-not $Verb -or $Verb -in @('-h','--help','help')) {
 
 try {
     switch ($Verb) {
-        'add'      { Cmd-Add      -Type $Arg1 -Slug $Arg2 }
-        'link'     { Cmd-Link     -Source $Arg1 -Target $Arg2 -EdgeType $Arg3 }
-        'unlink'   { Cmd-Unlink   -Source $Arg1 -Target $Arg2 -EdgeType $Arg3 }
-        'remove'   { Cmd-Remove   -Id $Arg1 }
-        'validate' { Cmd-Validate }
-        'types'    { Cmd-Types }
-        default    { Show-Usage; exit 1 }
+        'add'            { Cmd-Add           -Type $Arg1 -Slug $Arg2 }
+        'link'           { Cmd-Link          -Source $Arg1 -Target $Arg2 -EdgeType $Arg3 }
+        'unlink'         { Cmd-Unlink        -Source $Arg1 -Target $Arg2 -EdgeType $Arg3 }
+        'remove'         { Cmd-Remove        -Id $Arg1 }
+        'validate'       { Cmd-Validate }
+        'types'          { Cmd-Types }
+        'session-status' { Cmd-SessionStatus -Id $Arg1 }
+        default          { Show-Usage; exit 1 }
     }
 } catch {
     Write-Host ""

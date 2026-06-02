@@ -3291,6 +3291,24 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-4-golden-tests-policy.md",
       "section": "frontmatter",
       "description": "Pin Get-AgentLoadList with sibling-JSON goldens, exact ordered match, blocking pre-commit, -UpdateBaseline escape hatch."
+    },
+    {
+      "id": "experiment:2026-06-01-phase-5-session-status",
+      "type": "experiment",
+      "label": "Phase 5: mentor.ps1 session-status renders Outcome from graph",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-phase-5-session-status.md",
+      "section": "frontmatter",
+      "description": "Pure-read CLI verb that queries has_experiment + has_decision + concluded_with edges. Eliminates the hand-edit step that this very session needed to keep its Outcome in sync."
+    },
+    {
+      "id": "decision:2026-06-01-phase-5-graph-as-source-of-truth",
+      "type": "decision",
+      "label": "Phase 5: graph is the source of truth for session Outcome",
+      "cluster": "agent-core",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-phase-5-graph-as-source-of-truth.md",
+      "section": "frontmatter",
+      "description": "Render Outcome via mentor.ps1 session-status (read-only CLI); markdown keeps Goal/Scope/Done-when/Notes only. Rejected: auto-rewriting markdown, leaving doc as truth, merged-graph reads, generic node-status renderer."
     }
   ],
   "metadata": {
@@ -6319,6 +6337,26 @@
       "source": "session:2026-06-01-graph-driven-setup",
       "target": "decision:2026-06-01-phase-4-golden-tests-policy",
       "type": "has_decision"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "experiment:2026-06-01-phase-5-session-status",
+      "type": "has_experiment"
+    },
+    {
+      "source": "experiment:2026-06-01-phase-5-session-status",
+      "target": "decision:2026-06-01-phase-5-graph-as-source-of-truth",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-graph-driven-setup",
+      "target": "decision:2026-06-01-phase-5-graph-as-source-of-truth",
+      "type": "has_decision"
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "decision:2026-06-01-phase-5-graph-as-source-of-truth",
+      "type": "implements"
     }
   ]
 }
