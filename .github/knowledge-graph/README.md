@@ -4,9 +4,12 @@ Multi-layer structured map of the Mentor system. Each layer is its own JSON grap
 
 ## Layout
 
+> **Editing graph data, build scripts, or tests?** Read [CONTRIBUTING.md](CONTRIBUTING.md) first — it covers the edge wiring gotcha, path resolution rules in `tests/`, pre-commit gate behavior, the test gauntlet, and commit message handling.
+
 ```
 .github/knowledge-graph/
 ├── README.md                    ← you are here
+├── CONTRIBUTING.md              ← read before editing
 ├── INTEGRATION_SUMMARY.md
 │
 ├── output/                      ← Generated artifacts (gitignored)
