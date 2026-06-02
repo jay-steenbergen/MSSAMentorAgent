@@ -3423,6 +3423,14 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-coverage-counts-any-file-node.md",
       "section": "frontmatter",
       "description": "Health code-coverage check counts any graph node with a .file field, not only type=code-file"
+    },
+    {
+      "id": "test:graph",
+      "type": "test",
+      "label": "test-graph.ps1",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/tests/test-graph.ps1",
+      "description": "10+ test suite validating graph query operations, relationships, path finding, and real-world use cases against query.psm1"
     }
   ],
   "metadata": {
@@ -4119,45 +4127,45 @@
     {
       "source": "adapt:pace-fast",
       "target": "field:profile.learning_style.pace_preference",
-      "type": "reads",
+      "type": "reads_from",
       "label": "value: fast"
     },
     {
       "source": "adapt:pace-steady",
       "target": "field:profile.learning_style.pace_preference",
-      "type": "reads",
+      "type": "reads_from",
       "label": "value: steady"
     },
     {
       "source": "adapt:pace-slow",
       "target": "field:profile.learning_style.pace_preference",
-      "type": "reads",
+      "type": "reads_from",
       "label": "value: slow"
     },
     {
       "source": "adapt:stuck-tries-first",
       "target": "field:profile.learning_style.when_stuck",
-      "type": "reads"
+      "type": "reads_from"
     },
     {
       "source": "adapt:stuck-asks-immediately",
       "target": "field:profile.learning_style.when_stuck",
-      "type": "reads"
+      "type": "reads_from"
     },
     {
       "source": "adapt:mot-real-thing",
       "target": "field:profile.personality.motivation",
-      "type": "reads"
+      "type": "reads_from"
     },
     {
       "source": "adapt:mot-puzzles",
       "target": "field:profile.personality.motivation",
-      "type": "reads"
+      "type": "reads_from"
     },
     {
       "source": "adapt:mot-teammates",
       "target": "field:profile.personality.motivation",
-      "type": "reads"
+      "type": "reads_from"
     },
     {
       "source": "behavior:07-connect-mental-models",
@@ -5878,7 +5886,7 @@
     },
     {
       "source": "feature:progress-dashboard",
-      "type": "reads-from",
+      "type": "reads_from",
       "label": "reads profiles and progress files",
       "target": "skill:learner-profile"
     },
@@ -5926,7 +5934,7 @@
     },
     {
       "source": "extension:context-loader",
-      "type": "reads-from",
+      "type": "reads_from",
       "label": "reads profile for method/track",
       "target": "skill:learner-profile"
     },
@@ -6028,7 +6036,7 @@
     },
     {
       "description": "Reads merged graph for call flow data",
-      "type": "reads",
+      "type": "reads_from",
       "target": "build-script:merge",
       "source": "build-script:generate-call-flow-nodes"
     },
@@ -6040,7 +6048,7 @@
     },
     {
       "description": "Uses health output to find gaps",
-      "type": "reads",
+      "type": "reads_from",
       "target": "build-script:health",
       "source": "build-script:fix-remaining-gaps"
     },
@@ -6584,6 +6592,101 @@
       "source": "decision:2026-06-01-mentor-opener-no-workspace-scan",
       "target": "agent:mentor",
       "type": "updates"
+    },
+    {
+      "source": "module:query",
+      "target": "test:graph",
+      "type": "tested_by"
+    },
+    {
+      "source": "interview:q1-name",
+      "target": "interview:q2-style",
+      "type": "next"
+    },
+    {
+      "source": "interview:q2-style",
+      "target": "interview:q3-learning",
+      "type": "next"
+    },
+    {
+      "source": "interview:q3-learning",
+      "target": "interview:q4-stuck",
+      "type": "next"
+    },
+    {
+      "source": "interview:q4-stuck",
+      "target": "interview:q5-fun",
+      "type": "next"
+    },
+    {
+      "source": "interview:q5-fun",
+      "target": "interview:q6-branch",
+      "type": "next"
+    },
+    {
+      "source": "interview:q6-branch",
+      "target": "interview:q7-rank",
+      "type": "next"
+    },
+    {
+      "source": "interview:q7-rank",
+      "target": "interview:q8-mos",
+      "type": "next"
+    },
+    {
+      "source": "interview:q8-mos",
+      "target": "interview:q9-job",
+      "type": "next"
+    },
+    {
+      "source": "interview:q9-job",
+      "target": "interview:q10-fallback",
+      "type": "next"
+    },
+    {
+      "source": "interview:q10-fallback",
+      "target": "interview:summary-confirm",
+      "type": "next"
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "test:e2e",
+      "type": "tested_by"
+    },
+    {
+      "source": "module:graph-writer",
+      "target": "test:graph-writer",
+      "type": "tested_by"
+    },
+    {
+      "source": "module:scaffold",
+      "target": "test:scaffold",
+      "type": "tested_by"
+    },
+    {
+      "source": "tdd:phase-red",
+      "target": "test:tdd-red-phase",
+      "type": "tested_by"
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "test:e2e",
+      "type": "tested_by"
+    },
+    {
+      "source": "module:graph-writer",
+      "target": "test:graph-writer",
+      "type": "tested_by"
+    },
+    {
+      "source": "module:scaffold",
+      "target": "test:scaffold",
+      "type": "tested_by"
+    },
+    {
+      "source": "tdd:phase-red",
+      "target": "test:tdd-red-phase",
+      "type": "tested_by"
     }
   ]
 }
