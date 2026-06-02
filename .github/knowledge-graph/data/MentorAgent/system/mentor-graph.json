@@ -205,7 +205,7 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "How you behave #7",
-      "description": "Read military background from profile. Use their actual operational experience for analogies."
+      "description": "DEFAULT TONE. Lead EVERY new-concept introduction with an MOS-mapped analogy from profile. Reach for analogies mid-explanation too. Match branch-culture phrasing (Army/Marines/Navy/AF/CG/SF) in tone, structure, and rhythm. Persist useful mappings to profile.military.translation_to_code. Skip only when learner is in deep flow."
     },
     {
       "id": "behavior:08-aar-at-milestones",
@@ -242,6 +242,42 @@
       "file": ".github/agents/Mentor.agent.md",
       "section": "How you behave #11",
       "description": "When a skill or session step presents one or more questions that expect an answer, render them via vscode_askQuestions so the learner clicks a card instead of reading numbered text. Stack related questions into a single call. Use options[] for 2-5 discrete picks; omit for free-text."
+    },
+    {
+      "id": "behavior:12-discovery-trace",
+      "type": "rule",
+      "label": "12. Tag every discovery op; log filesystem bypasses to JSONL",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before ANY discovery operation (list_dir, grep_search, file_search, semantic_search, read_file for lookup), output one-line tag [Discovery: graph] or [Discovery: filesystem — reason: forgot|gap|distrust]. When filesystem, append a JSONL entry to the discovery-gaps log with {ts, query, tool, reason, suggested_node, suggested_fix}. Reasons gated to exactly three values so the log is groupable. Closes the loop between graph bypasses and graph node creation. See get-behavior.ps1 discovery-trace for the log path and append command."
+    },
+    {
+      "id": "behavior:13-stub-completion",
+      "type": "rule",
+      "label": "13. Help learner complete graph stubs one section at a time",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "Stub-completion mode",
+      "description": "When a graph node references a body file containing the marker '_TODO: ask Mentor to help write this._', the file is a stub. Read node spec + edges, read stub skeleton, enter ride-along mode, walk learner through one section at a time. Save and ask continue/close after each section. Never write the whole file yourself. Stub files are created by New-StubFile in scaffold.psm1."
+    },
+    {
+      "id": "behavior:14-no-unprompted-audits",
+      "type": "rule",
+      "label": "14. No unprompted audits or batch fixes — surface and stop",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before running any audit, gap analysis, completeness check, or batch of >=3 fixes the user did not explicitly request: surface the idea as one sentence ('I noticed X — want me to look?') and STOP. If executing a batch, verify the first fix against source before making the next two; abort batch on failure. If you grade your own work as 'real/muddled/wrong' in the same turn you produced it, that work was busywork — revert by default, do not propose new edits to fix the bad edits. Smell-test phrases: 'let me also check', 'while I'm here', 'I noticed a gap', 'found N issues fixing them now'. See get-behavior.ps1 no-unprompted-audits for the full protocol."
+    },
+    {
+      "id": "concept:discovery-log",
+      "type": "concept",
+      "label": "Discovery-gaps JSONL log",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Append-only JSONL log of filesystem-first discovery operations. Written by behavior:12-discovery-trace whenever Mentor bypasses the graph. Each entry: {ts, query, tool, reason: forgot|gap|distrust, suggested_node, suggested_fix}. First line is _meta sentinel with schema and the analyze command. Source for periodic graph absorption — the gaps the graph doesn't yet cover."
     },
     {
       "id": "antipattern:no-code-dumps",
@@ -2776,22 +2812,6 @@
       "id": "cli-tool:show-progress"
     },
     {
-      "label": "Hybrid Runtime Integration",
-      "description": "Two-phase skill loading: extension pre-loads 3 essentials, agent dynamically loads 2-3 intent-specific. Reduces context 70%.",
-      "cluster": "session-protocols",
-      "file": "extensions/mentor-context-loader/package.json",
-      "type": "feature",
-      "id": "feature:hybrid-loading"
-    },
-    {
-      "label": "mentor-context-loader",
-      "description": "VS Code extension that pre-loads learner profile, last-used method, and active track before @Mentor session starts.",
-      "cluster": "session-protocols",
-      "file": "extensions/mentor-context-loader/package.json",
-      "type": "extension",
-      "id": "extension:context-loader"
-    },
-    {
       "id": "cli-tool:audit-quality",
       "type": "cli-tool",
       "label": "audit-quality.ps1",
@@ -2830,16 +2850,6 @@
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/lib/query.psm1",
       "description": "PowerShell function exported by query.psm1."
-    },
-    {
-      "type": "extension",
-      "label": "MSSA Mentor Context Loader",
-      "version": "0.1.0",
-      "publisher": "mssa",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Pre-loads relevant skills into @Mentor agent context based on learner profile",
-      "id": "extension:mentor-context-loader",
-      "cluster": "infra-layer"
     },
     {
       "type": "hook",
@@ -3458,6 +3468,38 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-orphan-md-edge-rule.md",
       "section": "frontmatter",
       "description": "A markdown file in a scanned KG directory (agents, skills, tests, knowledge-graph) is needed iff its node has at least one edge (in OR out); README.md and CONTRIBUTING.md are implicit entrypoints exempt by basename. Enforced by find-orphan-markdown.ps1 with NO-NODE / NO-EDGES reasons; mirrored in health.ps1 code-coverage check."
+    },
+    {
+      "id": "cli-tool:_mentor-gaps2",
+      "type": "cli-tool",
+      "label": "_mentor-gaps2.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "extension:mssa-mentor",
+      "type": "extension",
+      "label": "mssa-mentor",
+      "cluster": "session-protocols",
+      "file": "extensions/mssa-mentor/",
+      "description": "Mentor for veterans in the Microsoft Software & Systems Academy. Scaffolds projects, tracks progress, and pre-loads skills into the @Mentor chat agent."
+    },
+    {
+      "id": "decision:v1-build-plan",
+      "type": "decision",
+      "label": "V1 build plan",
+      "cluster": "session-protocols",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Step-by-step plan for MSSA Mentor v1 extension delivery."
+    },
+    {
+      "id": "decision:v1-distribution-and-scaffolding",
+      "type": "decision",
+      "label": "V1 distribution + scaffolding shape",
+      "cluster": "session-protocols",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Spike conclusion on how learners install the extension and how scaffolding works."
     }
   ],
   "metadata": {
@@ -3668,8 +3710,8 @@
     {
       "source": "agent:mentor",
       "target": "skill:knowledge-graph-management",
-      "type": "uses",
-      "label": "uses for graph health monitoring"
+      "type": "composes",
+      "evidence": "frontmatter.skills[]"
     },
     {
       "source": "agent:mentor",
@@ -3815,6 +3857,11 @@
     {
       "source": "agent:mentor",
       "target": "behavior:11-ask-as-clickable",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:12-discovery-trace",
       "type": "follows"
     },
     {
@@ -5948,24 +5995,6 @@
       "target": "module:query"
     },
     {
-      "source": "feature:hybrid-loading",
-      "type": "optimizes",
-      "label": "optimizes context loading",
-      "target": "rule:dynamic-skill-loading"
-    },
-    {
-      "source": "extension:context-loader",
-      "type": "implements",
-      "label": "implements Phase 1",
-      "target": "feature:hybrid-loading"
-    },
-    {
-      "source": "extension:context-loader",
-      "type": "reads_from",
-      "label": "reads profile for method/track",
-      "target": "skill:learner-profile"
-    },
-    {
       "source": "agent:mentor",
       "target": "cli-tool:audit-quality",
       "type": "uses",
@@ -5988,12 +6017,6 @@
       "target": "cli-tool:show-skill-impact",
       "type": "uses",
       "label": "uses tool"
-    },
-    {
-      "source": "extension:mentor-context-loader",
-      "target": "agent:mentor",
-      "type": "extends",
-      "label": "extends agent"
     },
     {
       "description": "Validates Mentor agent behavior",
@@ -6102,24 +6125,6 @@
       "type": "tested_by",
       "target": "code-file:.github/skills/methods/TDD/tests/red-phase.test.md",
       "source": "skill:tdd"
-    },
-    {
-      "description": "Extension documentation",
-      "type": "documented_in",
-      "target": "code-file:extensions/mentor-context-loader/README.md",
-      "source": "extension:mentor-context-loader"
-    },
-    {
-      "description": "Extension setup guide",
-      "type": "documented_in",
-      "target": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "source": "extension:mentor-context-loader"
-    },
-    {
-      "description": "TypeScript configuration",
-      "type": "contains",
-      "target": "code-file:extensions/mentor-context-loader/tsconfig.json",
-      "source": "extension:mentor-context-loader"
     },
     {
       "description": "CAD first project integration test",
@@ -6704,6 +6709,306 @@
       "source": "session:2026-06-01-gate-hardening",
       "target": "session:2026-06-01-orphan-md-edge-rule",
       "type": "next"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:13-stub-completion",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:14-no-unprompted-audits",
+      "type": "follows"
+    },
+    {
+      "source": "behavior:13-stub-completion",
+      "target": "code-func:.github/knowledge-graph/cli/lib/scaffold.psm1::New-StubFile",
+      "type": "implemented_by"
+    },
+    {
+      "source": "behavior:12-discovery-trace",
+      "target": "concept:discovery-log",
+      "type": "writes_to"
+    },
+    {
+      "source": "test:compression-resilience",
+      "target": "agent:mentor",
+      "type": "tests"
+    },
+    {
+      "source": "test:method-switching",
+      "target": "agent:mentor",
+      "type": "tests"
+    },
+    {
+      "source": "test:profile-load",
+      "target": "agent:mentor",
+      "type": "tests"
+    },
+    {
+      "source": "test:proficiency-tracking",
+      "target": "agent:mentor",
+      "type": "tests"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-whiteboard-foundations",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-box-and-arrow-diagrams",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-mermaid-as-code",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-sequence-diagrams",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-state-machines-and-flowcharts",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-entity-relationship-diagrams",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-drawio-for-polished-diagrams",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-system-design-interview",
+      "type": "teaches"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "skill:wbd-capstone-present-a-system",
+      "type": "teaches"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
+      "type": "uses"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:_mentor-gaps2",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "agent:mentor",
+      "type": "extends",
+      "label": "extends agent"
+    },
+    {
+      "source": "cli-tool:_mentor-gaps2",
+      "target": "code-file:.github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/package.json",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/README.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/SETUP.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/CHANGELOG.md",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/tsconfig.json",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/chatOpener.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/powershellCheck.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/package-lock.json",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/.vscode/launch.json",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "code-file:extensions/mssa-mentor/.vscode/tasks.json",
+      "type": "contains",
+      "label": "contains file"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "decision:v1-build-plan",
+      "type": "implements",
+      "label": "implements plan"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "decision:v1-distribution-and-scaffolding",
+      "type": "implements",
+      "label": "implements decision"
+    },
+    {
+      "source": "decision:v1-build-plan",
+      "target": "code-file:docs/design/v1-build-plan.md",
+      "type": "documented_in",
+      "label": "documented in"
+    },
+    {
+      "source": "decision:v1-distribution-and-scaffolding",
+      "target": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "type": "documented_in",
+      "label": "documented in"
     }
   ]
 }

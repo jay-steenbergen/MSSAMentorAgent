@@ -49,7 +49,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$scriptDir = (Resolve-Path "$PSScriptRoot\..\..").Path
+$scriptDir = (Resolve-Path "$PSScriptRoot\..").Path
 
 # ---------- locate graph ----------
 $graphPath = switch ($Layer) {
@@ -373,16 +373,12 @@ if ($gitAvailable) {
             '[/\\](bin|obj|node_modules)[/\\]',
             'knowledge-graph[/\\](build|data|tests|output|demos)[/\\]',
             'knowledge-graph[/\\](build|data|tests|output|demos)$',
-            # Implicit entrypoint landing-page docs — same exemption as find-orphan-markdown.ps1.
-            # These don't need graph nodes (they're navigation, not artifacts).
-            '(^|[/\\])README\.md$',
-            '(^|[/\\])CONTRIBUTING\.md$'
+            'knowledge-graph[/\\][A-Z][A-Z0-9_-]+\.md$'   # top-level KG docs (README, AUTO-DISCOVERY, etc.)
         )
 
-        # Graph file paths — any node whose `file` field points at a tracked repo file
-        # (covers code-file nodes AND log nodes like session/experiment/decision that own .md bodies)
-        $graphFilePaths = @($nodes | Where-Object { $_.file } |
-            ForEach-Object { $_.file -replace '\\', '/' }) | Sort-Object -Unique
+        # Graph code-file nodes
+        $graphFilePaths = @($nodes | Where-Object { $_.type -eq 'code-file' } |
+            ForEach-Object { $_.file -replace '\\', '/' })
 
         $coverageStats.total = $trackedFiles.Count
 

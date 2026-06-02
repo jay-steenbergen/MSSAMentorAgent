@@ -31,6 +31,14 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# Profile root: honor MSSA_MENTOR_HOME (mentee install via extension),
+# fall back to repo-relative .profiles/ for dev/authoring workflow.
+$ProfileRoot = if ($env:MSSA_MENTOR_HOME) {
+    $env:MSSA_MENTOR_HOME
+} else {
+    Join-Path $PSScriptRoot '../../../.profiles'
+}
+
 switch ($Phase) {
     'start' {
         if (-not $ProfilePath -or -not (Test-Path $ProfilePath)) {
@@ -99,7 +107,7 @@ switch ($Phase) {
             Action = 'UPDATE_FILES'
             Updates = @(
                 @{
-                    File = ".profiles/profiles/mentees/$($Context.Username)/$($Context.ProjectId).progress.json"
+                    File = (Join-Path $ProfileRoot "profiles/mentees/$($Context.Username)/$($Context.ProjectId).progress.json")
                     Fields = @{
                         last_session = (Get-Date).ToString('yyyy-MM-dd')
                         last_used_method = $Context.Method
@@ -107,7 +115,7 @@ switch ($Phase) {
                     }
                 }
                 @{
-                    File = ".profiles/profiles/mentees/$($Context.Username)/profile.json"
+                    File = (Join-Path $ProfileRoot "profiles/mentees/$($Context.Username)/profile.json")
                     Path = "projects.$($Context.ProjectId)"
                     Fields = @{
                         last_session = (Get-Date).ToString('yyyy-MM-dd')
@@ -116,7 +124,11 @@ switch ($Phase) {
                     }
                 }
             )
-            GitCommand = "git add .profiles/profiles/mentees/$($Context.Username)/ && git commit -m 'Update $($Context.Username) progress: $($Context.ProjectName)'"
+            GitCommand = if ($env:MSSA_MENTOR_HOME) {
+                $null
+            } else {
+                "git add .profiles/profiles/mentees/$($Context.Username)/ && git commit -m 'Update $($Context.Username) progress: $($Context.ProjectName)'"
+            }
         }
     }
     

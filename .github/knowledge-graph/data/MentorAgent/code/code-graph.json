@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-06-01T20:46:31-07:00",
+    "generated": "2026-06-02T08:38:55-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,22 +19,22 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 151,
+      "files": 171,
       "stub_files": 0,
-      "functions": 106,
-      "sections": 587,
-      "schemas": 11,
-      "fields": 94,
+      "functions": 134,
+      "sections": 604,
+      "schemas": 13,
+      "fields": 103,
       "yaml_fields": 67,
       "tests": 6,
       "scenarios": 29,
       "classes": 7,
-      "imports": 14,
-      "total_nodes": 1108,
-      "total_edges": 1182,
-      "bridges": 307,
+      "imports": 42,
+      "total_nodes": 1212,
+      "total_edges": 1338,
+      "bridges": 311,
       "dangling_edges": 0,
-      "orphan_nodes": 9
+      "orphan_nodes": 11
     }
   },
   "clusters": [
@@ -78,7 +78,7 @@
       "file": ".github/agents/Mentor.agent.md",
       "description": "File: .github/agents/Mentor.agent.md",
       "extension": ".md",
-      "size_bytes": 15869
+      "size_bytes": 17260
     },
     {
       "id": "code-yaml-field:.github/agents/Mentor.agent.md::name",
@@ -660,7 +660,7 @@
       "file": ".github/knowledge-graph/build/advanced/auto-discover-features.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/auto-discover-features.ps1",
       "extension": ".ps1",
-      "size_bytes": 9785
+      "size_bytes": 11656
     },
     {
       "id": "code-param:.github/knowledge-graph/build/advanced/auto-discover-features.ps1::script::DryRun",
@@ -962,7 +962,7 @@
       "file": ".github/knowledge-graph/build/core/health.ps1",
       "description": "File: .github/knowledge-graph/build/core/health.ps1",
       "extension": ".ps1",
-      "size_bytes": 30866
+      "size_bytes": 30846
     },
     {
       "id": "code-func:.github/knowledge-graph/build/core/health.ps1::Find-Root",
@@ -1047,6 +1047,32 @@
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "description": "PowerShell function Write-Detail in .github/knowledge-graph/build/core/rebuild-if-stale.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/build/health.ps1",
+      "type": "code-file",
+      "label": "health.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/health.ps1",
+      "description": "File: .github/knowledge-graph/build/health.ps1",
+      "extension": ".ps1",
+      "size_bytes": 30526
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/build/health.ps1::Find-Root",
+      "type": "code-func",
+      "label": "Find-Root",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/health.ps1",
+      "description": "PowerShell function Find-Root in .github/knowledge-graph/build/health.ps1"
+    },
+    {
+      "id": "code-func:.github/knowledge-graph/build/health.ps1::Write-Section",
+      "type": "code-func",
+      "label": "Write-Section",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/build/health.ps1",
+      "description": "PowerShell function Write-Section in .github/knowledge-graph/build/health.ps1"
     },
     {
       "id": "code-file:.github/knowledge-graph/build/README.md",
@@ -1157,6 +1183,16 @@
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/build/repair/fix-remaining-gaps.ps1",
       "description": "Script parameter -DryRun"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "type": "code-file",
+      "label": "_mentor-gaps2.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "description": "File: .github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "extension": ".ps1",
+      "size_bytes": 1660
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/_triage-drift.ps1",
@@ -1288,7 +1324,7 @@
       "file": ".github/knowledge-graph/cli/get-behavior.ps1",
       "description": "File: .github/knowledge-graph/cli/get-behavior.ps1",
       "extension": ".ps1",
-      "size_bytes": 8090
+      "size_bytes": 13566
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/get-behavior.ps1::script::true",
@@ -1614,7 +1650,7 @@
       "file": ".github/knowledge-graph/cli/session-protocol.ps1",
       "description": "File: .github/knowledge-graph/cli/session-protocol.ps1",
       "extension": ".ps1",
-      "size_bytes": 5742
+      "size_bytes": 6156
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/session-protocol.ps1::script::true",
@@ -5746,7 +5782,7 @@
       "file": ".github/skills/tracks/README.md",
       "description": "File: .github/skills/tracks/README.md",
       "extension": ".md",
-      "size_bytes": 1791
+      "size_bytes": 2022
     },
     {
       "id": "code-section:.github/skills/tracks/README.md::MSSA_tracks__official__3_total_",
@@ -5757,12 +5793,12 @@
       "description": "Section 'MSSA tracks (official, 3 total)' in .github/skills/tracks/README.md"
     },
     {
-      "id": "code-section:.github/skills/tracks/README.md::Bonus_tracks__not_MSSA-official_",
+      "id": "code-section:.github/skills/tracks/README.md::Bonus_tracks__coming_soon___not_yet_selectable_",
       "type": "code-section",
-      "label": "Bonus tracks (not MSSA-official)",
+      "label": "Bonus tracks (coming soon — not yet selectable)",
       "cluster": "skills-source",
       "file": ".github/skills/tracks/README.md",
-      "description": "Section 'Bonus tracks (not MSSA-official)' in .github/skills/tracks/README.md"
+      "description": "Section 'Bonus tracks (coming soon — not yet selectable)' in .github/skills/tracks/README.md"
     },
     {
       "id": "code-section:.github/skills/tracks/README.md::When_you_add_a_track_skill",
@@ -8843,6 +8879,170 @@
       "description": "Script parameter -Username"
     },
     {
+      "id": "code-file:docs/design/v1-build-plan.md",
+      "type": "code-file",
+      "label": "v1-build-plan.md",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "File: docs/design/v1-build-plan.md",
+      "extension": ".md",
+      "size_bytes": 23979
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::What_changed_from_draft_v1__read_this_first_",
+      "type": "code-section",
+      "label": "What changed from draft v1 (read this first)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'What changed from draft v1 (read this first)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Final_layout__after_the_build_",
+      "type": "code-section",
+      "label": "Final layout (after the build)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Final layout (after the build)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Type_signatures__the_contracts_",
+      "type": "code-section",
+      "label": "Type signatures (the contracts)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Type signatures (the contracts)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::CLI_patches_required__separate_gate_before_extension_build_",
+      "type": "code-section",
+      "label": "CLI patches required (separate gate before extension build)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'CLI patches required (separate gate before extension build)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Pre-build_step_0__CLI_audit_",
+      "type": "code-section",
+      "label": "Pre-build step 0 (CLI audit)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Pre-build step 0 (CLI audit)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Pre-build_step_1__CI_for_graph_",
+      "type": "code-section",
+      "label": "Pre-build step 1 (CI for graph)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Pre-build step 1 (CI for graph)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Build_order__each_step_must_verify_before_next_",
+      "type": "code-section",
+      "label": "Build order (each step must verify before next)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Build order (each step must verify before next)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Tests__smallest-first_",
+      "type": "code-section",
+      "label": "Tests (smallest-first)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Tests (smallest-first)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::Open_items_the_build_will_surface__escalate_to_Jay_when_reached_",
+      "type": "code-section",
+      "label": "Open items the build will surface (escalate to Jay when reached)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'Open items the build will surface (escalate to Jay when reached)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-build-plan.md::What_this_plan_does_NOT_do__v1_boundary_",
+      "type": "code-section",
+      "label": "What this plan does NOT do (v1 boundary)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-build-plan.md",
+      "description": "Section 'What this plan does NOT do (v1 boundary)' in docs/design/v1-build-plan.md"
+    },
+    {
+      "id": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "type": "code-file",
+      "label": "v1-distribution-and-scaffolding.md",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "File: docs/design/v1-distribution-and-scaffolding.md",
+      "extension": ".md",
+      "size_bytes": 7552
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::Spike_result__2026-06-01_",
+      "type": "code-section",
+      "label": "Spike result (2026-06-01)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'Spike result (2026-06-01)' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::The_Shape",
+      "type": "code-section",
+      "label": "The Shape",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'The Shape' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::Decisions__Locked_",
+      "type": "code-section",
+      "label": "Decisions (Locked)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'Decisions (Locked)' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::Flows",
+      "type": "code-section",
+      "label": "Flows",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'Flows' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::File_Layout__Mentee_s_Machine_",
+      "type": "code-section",
+      "label": "File Layout (Mentee's Machine)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'File Layout (Mentee's Machine)' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::What_This_Repo_Becomes",
+      "type": "code-section",
+      "label": "What This Repo Becomes",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'What This Repo Becomes' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::Open_Questions__Defer_to_Build_Plan_",
+      "type": "code-section",
+      "label": "Open Questions (Defer to Build Plan)",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'Open Questions (Defer to Build Plan)' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
+      "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::What_V1_Explicitly_Does_NOT_Do",
+      "type": "code-section",
+      "label": "What V1 Explicitly Does NOT Do",
+      "cluster": "docs-source",
+      "file": "docs/design/v1-distribution-and-scaffolding.md",
+      "description": "Section 'What V1 Explicitly Does NOT Do' in docs/design/v1-distribution-and-scaffolding.md"
+    },
+    {
       "id": "code-file:docs/MENTOR_DIRECTORY.md",
       "type": "code-file",
       "label": "MENTOR_DIRECTORY.md",
@@ -8933,433 +9133,1116 @@
       "description": "Section 'Questions?' in docs/MENTOR_DIRECTORY.md"
     },
     {
-      "id": "code-file:extensions/mentor-context-loader/package.json",
+      "id": "code-file:extensions/mssa-mentor/.vscode/launch.json",
       "type": "code-file",
-      "label": "package.json",
+      "label": "launch.json",
       "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "File: extensions/mentor-context-loader/package.json",
+      "file": "extensions/mssa-mentor/.vscode/launch.json",
+      "description": "File: extensions/mssa-mentor/.vscode/launch.json",
       "extension": ".json",
-      "size_bytes": 1061
+      "size_bytes": 359
     },
     {
-      "id": "code-schema:extensions/mentor-context-loader/package.json",
+      "id": "code-schema:extensions/mssa-mentor/.vscode/launch.json",
       "type": "code-schema",
-      "label": "package.json",
+      "label": "launch.json",
       "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
+      "file": "extensions/mssa-mentor/.vscode/launch.json",
       "description": "JSON shape: object",
       "shape": "object"
     },
     {
-      "id": "code-field:extensions/mentor-context-loader/package.json::name",
-      "type": "code-field",
-      "label": "name",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'name' (type=string)",
-      "value_type": "string"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::displayName",
-      "type": "code-field",
-      "label": "displayName",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'displayName' (type=string)",
-      "value_type": "string"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::description",
-      "type": "code-field",
-      "label": "description",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'description' (type=string)",
-      "value_type": "string"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::version",
+      "id": "code-field:extensions/mssa-mentor/.vscode/launch.json::version",
       "type": "code-field",
       "label": "version",
       "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
+      "file": "extensions/mssa-mentor/.vscode/launch.json",
       "description": "Field 'version' (type=string)",
       "value_type": "string"
     },
     {
-      "id": "code-field:extensions/mentor-context-loader/package.json::publisher",
+      "id": "code-field:extensions/mssa-mentor/.vscode/launch.json::configurations",
       "type": "code-field",
-      "label": "publisher",
+      "label": "configurations",
       "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'publisher' (type=string)",
-      "value_type": "string"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::engines",
-      "type": "code-field",
-      "label": "engines",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'engines' (type=object)",
-      "value_type": "object"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::categories",
-      "type": "code-field",
-      "label": "categories",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'categories' (type=array)",
+      "file": "extensions/mssa-mentor/.vscode/launch.json",
+      "description": "Field 'configurations' (type=array)",
       "value_type": "array"
     },
     {
-      "id": "code-field:extensions/mentor-context-loader/package.json::activationEvents",
-      "type": "code-field",
-      "label": "activationEvents",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'activationEvents' (type=array)",
-      "value_type": "array"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::main",
-      "type": "code-field",
-      "label": "main",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'main' (type=string)",
-      "value_type": "string"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::contributes",
-      "type": "code-field",
-      "label": "contributes",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'contributes' (type=object)",
-      "value_type": "object"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::scripts",
-      "type": "code-field",
-      "label": "scripts",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'scripts' (type=object)",
-      "value_type": "object"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::devDependencies",
-      "type": "code-field",
-      "label": "devDependencies",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'devDependencies' (type=object)",
-      "value_type": "object"
-    },
-    {
-      "id": "code-field:extensions/mentor-context-loader/package.json::dependencies",
-      "type": "code-field",
-      "label": "dependencies",
-      "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/package.json",
-      "description": "Field 'dependencies' (type=object)",
-      "value_type": "object"
-    },
-    {
-      "id": "code-file:extensions/mentor-context-loader/README.md",
+      "id": "code-file:extensions/mssa-mentor/.vscode/tasks.json",
       "type": "code-file",
-      "label": "README.md",
+      "label": "tasks.json",
       "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "File: extensions/mentor-context-loader/README.md",
-      "extension": ".md",
-      "size_bytes": 3953
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::What_it_does",
-      "type": "code-section",
-      "label": "What it does",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'What it does' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Installation",
-      "type": "code-section",
-      "label": "Installation",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Installation' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::How_it_works",
-      "type": "code-section",
-      "label": "How it works",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'How it works' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Requirements",
-      "type": "code-section",
-      "label": "Requirements",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Requirements' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Debugging",
-      "type": "code-section",
-      "label": "Debugging",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Debugging' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Configuration",
-      "type": "code-section",
-      "label": "Configuration",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Configuration' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Architecture",
-      "type": "code-section",
-      "label": "Architecture",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Architecture' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Limitations",
-      "type": "code-section",
-      "label": "Limitations",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Limitations' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::Roadmap",
-      "type": "code-section",
-      "label": "Roadmap",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'Roadmap' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/README.md::License",
-      "type": "code-section",
-      "label": "License",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/README.md",
-      "description": "Section 'License' in extensions/mentor-context-loader/README.md"
-    },
-    {
-      "id": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "type": "code-file",
-      "label": "SETUP.md",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "File: extensions/mentor-context-loader/SETUP.md",
-      "extension": ".md",
-      "size_bytes": 7971
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Overview",
-      "type": "code-section",
-      "label": "Overview",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Overview' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Installation_Steps",
-      "type": "code-section",
-      "label": "Installation Steps",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Installation Steps' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Verification",
-      "type": "code-section",
-      "label": "Verification",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Verification' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Troubleshooting",
-      "type": "code-section",
-      "label": "Troubleshooting",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Troubleshooting' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Architecture",
-      "type": "code-section",
-      "label": "Architecture",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Architecture' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Next_Steps",
-      "type": "code-section",
-      "label": "Next Steps",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Next Steps' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Files_Created",
-      "type": "code-section",
-      "label": "Files Created",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Files Created' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Development_Workflow",
-      "type": "code-section",
-      "label": "Development Workflow",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Development Workflow' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-section:extensions/mentor-context-loader/SETUP.md::Status",
-      "type": "code-section",
-      "label": "Status",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/SETUP.md",
-      "description": "Section 'Status' in extensions/mentor-context-loader/SETUP.md"
-    },
-    {
-      "id": "code-file:extensions/mentor-context-loader/src/extension.ts",
-      "type": "code-file",
-      "label": "extension.ts",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/extension.ts",
-      "description": "File: extensions/mentor-context-loader/src/extension.ts",
-      "extension": ".ts",
-      "size_bytes": 4245
-    },
-    {
-      "id": "code-func:extensions/mentor-context-loader/src/extension.ts::activate",
-      "type": "code-func",
-      "label": "activate",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/extension.ts",
-      "description": "TypeScript function activate in extensions/mentor-context-loader/src/extension.ts"
-    },
-    {
-      "id": "code-func:extensions/mentor-context-loader/src/extension.ts::deactivate",
-      "type": "code-func",
-      "label": "deactivate",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/extension.ts",
-      "description": "TypeScript function deactivate in extensions/mentor-context-loader/src/extension.ts"
-    },
-    {
-      "id": "code-import:extensions/mentor-context-loader/src/extension.ts::./profileReader",
-      "type": "code-import",
-      "label": "import from ./profileReader",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/extension.ts",
-      "description": "Import from ./profileReader"
-    },
-    {
-      "id": "code-import:extensions/mentor-context-loader/src/extension.ts::./skillLoader",
-      "type": "code-import",
-      "label": "import from ./skillLoader",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/extension.ts",
-      "description": "Import from ./skillLoader"
-    },
-    {
-      "id": "code-file:extensions/mentor-context-loader/src/profileReader.ts",
-      "type": "code-file",
-      "label": "profileReader.ts",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/profileReader.ts",
-      "description": "File: extensions/mentor-context-loader/src/profileReader.ts",
-      "extension": ".ts",
-      "size_bytes": 3173
-    },
-    {
-      "id": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
-      "type": "code-file",
-      "label": "skillLoader.ts",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/skillLoader.ts",
-      "description": "File: extensions/mentor-context-loader/src/skillLoader.ts",
-      "extension": ".ts",
-      "size_bytes": 2665
-    },
-    {
-      "id": "code-func:extensions/mentor-context-loader/src/skillLoader.ts::getSkillsToPreload",
-      "type": "code-func",
-      "label": "getSkillsToPreload",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/skillLoader.ts",
-      "description": "TypeScript function getSkillsToPreload in extensions/mentor-context-loader/src/skillLoader.ts"
-    },
-    {
-      "id": "code-func:extensions/mentor-context-loader/src/skillLoader.ts::readSkillFile",
-      "type": "code-func",
-      "label": "readSkillFile",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/skillLoader.ts",
-      "description": "TypeScript function readSkillFile in extensions/mentor-context-loader/src/skillLoader.ts"
-    },
-    {
-      "id": "code-import:extensions/mentor-context-loader/src/skillLoader.ts::./profileReader",
-      "type": "code-import",
-      "label": "import from ./profileReader",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/src/skillLoader.ts",
-      "description": "Import from ./profileReader"
-    },
-    {
-      "id": "code-file:extensions/mentor-context-loader/tsconfig.json",
-      "type": "code-file",
-      "label": "tsconfig.json",
-      "cluster": "scripts-source",
-      "file": "extensions/mentor-context-loader/tsconfig.json",
-      "description": "File: extensions/mentor-context-loader/tsconfig.json",
+      "file": "extensions/mssa-mentor/.vscode/tasks.json",
+      "description": "File: extensions/mssa-mentor/.vscode/tasks.json",
       "extension": ".json",
-      "size_bytes": 384
+      "size_bytes": 601
     },
     {
-      "id": "code-schema:extensions/mentor-context-loader/tsconfig.json",
+      "id": "code-schema:extensions/mssa-mentor/.vscode/tasks.json",
       "type": "code-schema",
-      "label": "tsconfig.json",
+      "label": "tasks.json",
       "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/tsconfig.json",
+      "file": "extensions/mssa-mentor/.vscode/tasks.json",
       "description": "JSON shape: object",
       "shape": "object"
     },
     {
-      "id": "code-field:extensions/mentor-context-loader/tsconfig.json::compilerOptions",
+      "id": "code-field:extensions/mssa-mentor/.vscode/tasks.json::version",
+      "type": "code-field",
+      "label": "version",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/.vscode/tasks.json",
+      "description": "Field 'version' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/.vscode/tasks.json::tasks",
+      "type": "code-field",
+      "label": "tasks",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/.vscode/tasks.json",
+      "description": "Field 'tasks' (type=array)",
+      "value_type": "array"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/CHANGELOG.md",
+      "type": "code-file",
+      "label": "CHANGELOG.md",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/CHANGELOG.md",
+      "description": "File: extensions/mssa-mentor/CHANGELOG.md",
+      "extension": ".md",
+      "size_bytes": 1161
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/CHANGELOG.md::_0.1.0____Initial_release",
+      "type": "code-section",
+      "label": "[0.1.0] — Initial release",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/CHANGELOG.md",
+      "description": "Section '[0.1.0] — Initial release' in extensions/mssa-mentor/CHANGELOG.md"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/package-lock.json",
+      "type": "code-file",
+      "label": "package-lock.json",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/package-lock.json",
+      "description": "File: extensions/mssa-mentor/package-lock.json",
+      "extension": ".json",
+      "size_bytes": 164447
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/package.json",
+      "type": "code-file",
+      "label": "package.json",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "File: extensions/mssa-mentor/package.json",
+      "extension": ".json",
+      "size_bytes": 4473
+    },
+    {
+      "id": "code-schema:extensions/mssa-mentor/package.json",
+      "type": "code-schema",
+      "label": "package.json",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "JSON shape: object",
+      "shape": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::name",
+      "type": "code-field",
+      "label": "name",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'name' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::displayName",
+      "type": "code-field",
+      "label": "displayName",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'displayName' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::description",
+      "type": "code-field",
+      "label": "description",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'description' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::version",
+      "type": "code-field",
+      "label": "version",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'version' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::publisher",
+      "type": "code-field",
+      "label": "publisher",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'publisher' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::author",
+      "type": "code-field",
+      "label": "author",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'author' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::repository",
+      "type": "code-field",
+      "label": "repository",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'repository' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::bugs",
+      "type": "code-field",
+      "label": "bugs",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'bugs' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::homepage",
+      "type": "code-field",
+      "label": "homepage",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'homepage' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::keywords",
+      "type": "code-field",
+      "label": "keywords",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'keywords' (type=array)",
+      "value_type": "array"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::galleryBanner",
+      "type": "code-field",
+      "label": "galleryBanner",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'galleryBanner' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::engines",
+      "type": "code-field",
+      "label": "engines",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'engines' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::categories",
+      "type": "code-field",
+      "label": "categories",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'categories' (type=array)",
+      "value_type": "array"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::activationEvents",
+      "type": "code-field",
+      "label": "activationEvents",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'activationEvents' (type=array)",
+      "value_type": "array"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::main",
+      "type": "code-field",
+      "label": "main",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'main' (type=string)",
+      "value_type": "string"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::contributes",
+      "type": "code-field",
+      "label": "contributes",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'contributes' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::scripts",
+      "type": "code-field",
+      "label": "scripts",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'scripts' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/package.json::devDependencies",
+      "type": "code-field",
+      "label": "devDependencies",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/package.json",
+      "description": "Field 'devDependencies' (type=object)",
+      "value_type": "object"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/README.md",
+      "type": "code-file",
+      "label": "README.md",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "File: extensions/mssa-mentor/README.md",
+      "extension": ".md",
+      "size_bytes": 5368
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::What_you_get",
+      "type": "code-section",
+      "label": "What you get",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'What you get' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Available_tracks",
+      "type": "code-section",
+      "label": "Available tracks",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Available tracks' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Teaching_methods",
+      "type": "code-section",
+      "label": "Teaching methods",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Teaching methods' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Getting_started",
+      "type": "code-section",
+      "label": "Getting started",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Getting started' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Requirements",
+      "type": "code-section",
+      "label": "Requirements",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Requirements' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Commands",
+      "type": "code-section",
+      "label": "Commands",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Commands' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Where_your_data_lives",
+      "type": "code-section",
+      "label": "Where your data lives",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Where your data lives' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/README.md::Contributing",
+      "type": "code-section",
+      "label": "Contributing",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/README.md",
+      "description": "Section 'Contributing' in extensions/mssa-mentor/README.md"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/SETUP.md",
+      "type": "code-file",
+      "label": "SETUP.md",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "File: extensions/mssa-mentor/SETUP.md",
+      "extension": ".md",
+      "size_bytes": 7941
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Overview",
+      "type": "code-section",
+      "label": "Overview",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Overview' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Installation_Steps",
+      "type": "code-section",
+      "label": "Installation Steps",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Installation Steps' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Verification",
+      "type": "code-section",
+      "label": "Verification",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Verification' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Troubleshooting",
+      "type": "code-section",
+      "label": "Troubleshooting",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Troubleshooting' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Architecture",
+      "type": "code-section",
+      "label": "Architecture",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Architecture' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Next_Steps",
+      "type": "code-section",
+      "label": "Next Steps",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Next Steps' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Files_Created",
+      "type": "code-section",
+      "label": "Files Created",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Files Created' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Development_Workflow",
+      "type": "code-section",
+      "label": "Development Workflow",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Development Workflow' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-section:extensions/mssa-mentor/SETUP.md::Status",
+      "type": "code-section",
+      "label": "Status",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/SETUP.md",
+      "description": "Section 'Status' in extensions/mssa-mentor/SETUP.md"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/chatOpener.ts",
+      "type": "code-file",
+      "label": "chatOpener.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/chatOpener.ts",
+      "description": "File: extensions/mssa-mentor/src/chatOpener.ts",
+      "extension": ".ts",
+      "size_bytes": 1212
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
+      "type": "code-file",
+      "label": "newProject.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/newProject.ts",
+      "description": "File: extensions/mssa-mentor/src/commands/newProject.ts",
+      "extension": ".ts",
+      "size_bytes": 1160
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/commands/newProject.ts::registerNewProjectCommand",
+      "type": "code-func",
+      "label": "registerNewProjectCommand",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/newProject.ts",
+      "description": "TypeScript function registerNewProjectCommand in extensions/mssa-mentor/src/commands/newProject.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/newProject.ts::../chatOpener",
+      "type": "code-import",
+      "label": "import from ../chatOpener",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/newProject.ts",
+      "description": "Import from ../chatOpener"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/newProject.ts::../statusBar",
+      "type": "code-import",
+      "label": "import from ../statusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/newProject.ts",
+      "description": "Import from ../statusBar"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "type": "code-file",
+      "label": "resumeOrStart.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "description": "File: extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "extension": ".ts",
+      "size_bytes": 2249
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::pickResumePrompt",
+      "type": "code-func",
+      "label": "pickResumePrompt",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "description": "TypeScript function pickResumePrompt in extensions/mssa-mentor/src/commands/resumeOrStart.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::registerResumeOrStartCommand",
+      "type": "code-func",
+      "label": "registerResumeOrStartCommand",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "description": "TypeScript function registerResumeOrStartCommand in extensions/mssa-mentor/src/commands/resumeOrStart.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../chatOpener",
+      "type": "code-import",
+      "label": "import from ../chatOpener",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "description": "Import from ../chatOpener"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../profileReader",
+      "type": "code-import",
+      "label": "import from ../profileReader",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "description": "Import from ../profileReader"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../statusBar",
+      "type": "code-import",
+      "label": "import from ../statusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "description": "Import from ../statusBar"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "type": "code-file",
+      "label": "welcome.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/welcome.ts",
+      "description": "File: extensions/mssa-mentor/src/commands/welcome.ts",
+      "extension": ".ts",
+      "size_bytes": 1314
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/commands/welcome.ts::registerWelcomeCommands",
+      "type": "code-func",
+      "label": "registerWelcomeCommands",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/welcome.ts",
+      "description": "TypeScript function registerWelcomeCommands in extensions/mssa-mentor/src/commands/welcome.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/welcome.ts::../chatOpener",
+      "type": "code-import",
+      "label": "import from ../chatOpener",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/welcome.ts",
+      "description": "Import from ../chatOpener"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/commands/welcome.ts::../statusBar",
+      "type": "code-import",
+      "label": "import from ../statusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/commands/welcome.ts",
+      "description": "Import from ../statusBar"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "code-file",
+      "label": "curriculumFetch.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "File: extensions/mssa-mentor/src/curriculumFetch.ts",
+      "extension": ".ts",
+      "size_bytes": 6278
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::isStale",
+      "type": "code-func",
+      "label": "isStale",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "TypeScript function isStale in extensions/mssa-mentor/src/curriculumFetch.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::hasUsableCache",
+      "type": "code-func",
+      "label": "hasUsableCache",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "TypeScript function hasUsableCache in extensions/mssa-mentor/src/curriculumFetch.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::rawUrl",
+      "type": "code-func",
+      "label": "rawUrl",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "TypeScript function rawUrl in extensions/mssa-mentor/src/curriculumFetch.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::manifestUrl",
+      "type": "code-func",
+      "label": "manifestUrl",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "TypeScript function manifestUrl in extensions/mssa-mentor/src/curriculumFetch.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::lastFetchSentinelPath",
+      "type": "code-func",
+      "label": "lastFetchSentinelPath",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "TypeScript function lastFetchSentinelPath in extensions/mssa-mentor/src/curriculumFetch.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::writeSentinel",
+      "type": "code-func",
+      "label": "writeSentinel",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "TypeScript function writeSentinel in extensions/mssa-mentor/src/curriculumFetch.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/curriculumFetch.ts::./paths",
+      "type": "code-import",
+      "label": "import from ./paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
+      "description": "Import from ./paths"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "type": "code-file",
+      "label": "envSetup.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/envSetup.ts",
+      "description": "File: extensions/mssa-mentor/src/envSetup.ts",
+      "extension": ".ts",
+      "size_bytes": 780
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/envSetup.ts::setMentorHomeEnv",
+      "type": "code-func",
+      "label": "setMentorHomeEnv",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/envSetup.ts",
+      "description": "TypeScript function setMentorHomeEnv in extensions/mssa-mentor/src/envSetup.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/envSetup.ts::./paths",
+      "type": "code-import",
+      "label": "import from ./paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/envSetup.ts",
+      "description": "Import from ./paths"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "type": "code-file",
+      "label": "extension.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "File: extensions/mssa-mentor/src/extension.ts",
+      "extension": ".ts",
+      "size_bytes": 6645
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/extension.ts::activate",
+      "type": "code-func",
+      "label": "activate",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "TypeScript function activate in extensions/mssa-mentor/src/extension.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/extension.ts::deactivate",
+      "type": "code-func",
+      "label": "deactivate",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "TypeScript function deactivate in extensions/mssa-mentor/src/extension.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./profileReader",
+      "type": "code-import",
+      "label": "import from ./profileReader",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./profileReader"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./skillLoader",
+      "type": "code-import",
+      "label": "import from ./skillLoader",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./skillLoader"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./paths",
+      "type": "code-import",
+      "label": "import from ./paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./paths"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./envSetup",
+      "type": "code-import",
+      "label": "import from ./envSetup",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./envSetup"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./powershellCheck",
+      "type": "code-import",
+      "label": "import from ./powershellCheck",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./powershellCheck"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./curriculumFetch",
+      "type": "code-import",
+      "label": "import from ./curriculumFetch",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./curriculumFetch"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./statusBar",
+      "type": "code-import",
+      "label": "import from ./statusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./statusBar"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/welcome",
+      "type": "code-import",
+      "label": "import from ./commands/welcome",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./commands/welcome"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/resumeOrStart",
+      "type": "code-import",
+      "label": "import from ./commands/resumeOrStart",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./commands/resumeOrStart"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/newProject",
+      "type": "code-import",
+      "label": "import from ./commands/newProject",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./commands/newProject"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/extension.ts::./tools/scaffoldAndOpen",
+      "type": "code-import",
+      "label": "import from ./tools/scaffoldAndOpen",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/extension.ts",
+      "description": "Import from ./tools/scaffoldAndOpen"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "code-file",
+      "label": "paths.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/paths.ts",
+      "description": "File: extensions/mssa-mentor/src/paths.ts",
+      "extension": ".ts",
+      "size_bytes": 1919
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/paths.ts::getMentorHome",
+      "type": "code-func",
+      "label": "getMentorHome",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/paths.ts",
+      "description": "TypeScript function getMentorHome in extensions/mssa-mentor/src/paths.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/paths.ts::getMenteesDir",
+      "type": "code-func",
+      "label": "getMenteesDir",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/paths.ts",
+      "description": "TypeScript function getMenteesDir in extensions/mssa-mentor/src/paths.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/paths.ts::getCurriculumDir",
+      "type": "code-func",
+      "label": "getCurriculumDir",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/paths.ts",
+      "description": "TypeScript function getCurriculumDir in extensions/mssa-mentor/src/paths.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/paths.ts::getPendingGreetingsPath",
+      "type": "code-func",
+      "label": "getPendingGreetingsPath",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/paths.ts",
+      "description": "TypeScript function getPendingGreetingsPath in extensions/mssa-mentor/src/paths.ts"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "type": "code-file",
+      "label": "pendingGreetings.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/pendingGreetings.ts",
+      "description": "File: extensions/mssa-mentor/src/pendingGreetings.ts",
+      "extension": ".ts",
+      "size_bytes": 2972
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::writePendingGreeting",
+      "type": "code-func",
+      "label": "writePendingGreeting",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/pendingGreetings.ts",
+      "description": "TypeScript function writePendingGreeting in extensions/mssa-mentor/src/pendingGreetings.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::consumePendingGreeting",
+      "type": "code-func",
+      "label": "consumePendingGreeting",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/pendingGreetings.ts",
+      "description": "TypeScript function consumePendingGreeting in extensions/mssa-mentor/src/pendingGreetings.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/pendingGreetings.ts::./paths",
+      "type": "code-import",
+      "label": "import from ./paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/pendingGreetings.ts",
+      "description": "Import from ./paths"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/powershellCheck.ts",
+      "type": "code-file",
+      "label": "powershellCheck.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/powershellCheck.ts",
+      "description": "File: extensions/mssa-mentor/src/powershellCheck.ts",
+      "extension": ".ts",
+      "size_bytes": 2478
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "code-file",
+      "label": "profileReader.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/profileReader.ts",
+      "description": "File: extensions/mssa-mentor/src/profileReader.ts",
+      "extension": ".ts",
+      "size_bytes": 4678
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/profileReader.ts::getCurrentUsername",
+      "type": "code-func",
+      "label": "getCurrentUsername",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/profileReader.ts",
+      "description": "TypeScript function getCurrentUsername in extensions/mssa-mentor/src/profileReader.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/profileReader.ts::sanitizeUsername",
+      "type": "code-func",
+      "label": "sanitizeUsername",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/profileReader.ts",
+      "description": "TypeScript function sanitizeUsername in extensions/mssa-mentor/src/profileReader.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/profileReader.ts::./paths",
+      "type": "code-import",
+      "label": "import from ./paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/profileReader.ts",
+      "description": "Import from ./paths"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "code-file",
+      "label": "skillLoader.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/skillLoader.ts",
+      "description": "File: extensions/mssa-mentor/src/skillLoader.ts",
+      "extension": ".ts",
+      "size_bytes": 2622
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/skillLoader.ts::getSkillsToPreload",
+      "type": "code-func",
+      "label": "getSkillsToPreload",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/skillLoader.ts",
+      "description": "TypeScript function getSkillsToPreload in extensions/mssa-mentor/src/skillLoader.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/skillLoader.ts::readSkillFile",
+      "type": "code-func",
+      "label": "readSkillFile",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/skillLoader.ts",
+      "description": "TypeScript function readSkillFile in extensions/mssa-mentor/src/skillLoader.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/skillLoader.ts::./profileReader",
+      "type": "code-import",
+      "label": "import from ./profileReader",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/skillLoader.ts",
+      "description": "Import from ./profileReader"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/skillLoader.ts::./paths",
+      "type": "code-import",
+      "label": "import from ./paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/skillLoader.ts",
+      "description": "Import from ./paths"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "code-file",
+      "label": "statusBar.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBar.ts",
+      "description": "File: extensions/mssa-mentor/src/statusBar.ts",
+      "extension": ".ts",
+      "size_bytes": 2388
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/statusBar.ts::createStatusBar",
+      "type": "code-func",
+      "label": "createStatusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBar.ts",
+      "description": "TypeScript function createStatusBar in extensions/mssa-mentor/src/statusBar.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/statusBar.ts::applyConfig",
+      "type": "code-func",
+      "label": "applyConfig",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBar.ts",
+      "description": "TypeScript function applyConfig in extensions/mssa-mentor/src/statusBar.ts"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "type": "code-file",
+      "label": "statusBarState.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBarState.ts",
+      "description": "File: extensions/mssa-mentor/src/statusBarState.ts",
+      "extension": ".ts",
+      "size_bytes": 2411
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/statusBarState.ts::computeStatusBarState",
+      "type": "code-func",
+      "label": "computeStatusBarState",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBarState.ts",
+      "description": "TypeScript function computeStatusBarState in extensions/mssa-mentor/src/statusBarState.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./profileReader",
+      "type": "code-import",
+      "label": "import from ./profileReader",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBarState.ts",
+      "description": "Import from ./profileReader"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./statusBar",
+      "type": "code-import",
+      "label": "import from ./statusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBarState.ts",
+      "description": "Import from ./statusBar"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./commands/welcome",
+      "type": "code-import",
+      "label": "import from ./commands/welcome",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBarState.ts",
+      "description": "Import from ./commands/welcome"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./commands/resumeOrStart",
+      "type": "code-import",
+      "label": "import from ./commands/resumeOrStart",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/statusBarState.ts",
+      "description": "Import from ./commands/resumeOrStart"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "code-file",
+      "label": "scaffoldAndOpen.ts",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "File: extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "extension": ".ts",
+      "size_bytes": 6616
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::performScaffold",
+      "type": "code-func",
+      "label": "performScaffold",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "TypeScript function performScaffold in extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::registerScaffoldAndOpenTool",
+      "type": "code-func",
+      "label": "registerScaffoldAndOpenTool",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "TypeScript function registerScaffoldAndOpenTool in extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::sanitizeId",
+      "type": "code-func",
+      "label": "sanitizeId",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "TypeScript function sanitizeId in extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts"
+    },
+    {
+      "id": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::validateInputs",
+      "type": "code-func",
+      "label": "validateInputs",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "TypeScript function validateInputs in extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../paths",
+      "type": "code-import",
+      "label": "import from ../paths",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "Import from ../paths"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../profileReader",
+      "type": "code-import",
+      "label": "import from ../profileReader",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "Import from ../profileReader"
+    },
+    {
+      "id": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../statusBar",
+      "type": "code-import",
+      "label": "import from ../statusBar",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "description": "Import from ../statusBar"
+    },
+    {
+      "id": "code-file:extensions/mssa-mentor/tsconfig.json",
+      "type": "code-file",
+      "label": "tsconfig.json",
+      "cluster": "scripts-source",
+      "file": "extensions/mssa-mentor/tsconfig.json",
+      "description": "File: extensions/mssa-mentor/tsconfig.json",
+      "extension": ".json",
+      "size_bytes": 384
+    },
+    {
+      "id": "code-schema:extensions/mssa-mentor/tsconfig.json",
+      "type": "code-schema",
+      "label": "tsconfig.json",
+      "cluster": "schemas-source",
+      "file": "extensions/mssa-mentor/tsconfig.json",
+      "description": "JSON shape: object",
+      "shape": "object"
+    },
+    {
+      "id": "code-field:extensions/mssa-mentor/tsconfig.json::compilerOptions",
       "type": "code-field",
       "label": "compilerOptions",
       "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/tsconfig.json",
+      "file": "extensions/mssa-mentor/tsconfig.json",
       "description": "Field 'compilerOptions' (type=object)",
       "value_type": "object"
     },
     {
-      "id": "code-field:extensions/mentor-context-loader/tsconfig.json::exclude",
+      "id": "code-field:extensions/mssa-mentor/tsconfig.json::exclude",
       "type": "code-field",
       "label": "exclude",
       "cluster": "schemas-source",
-      "file": "extensions/mentor-context-loader/tsconfig.json",
+      "file": "extensions/mssa-mentor/tsconfig.json",
       "description": "Field 'exclude' (type=array)",
       "value_type": "array"
     },
@@ -10173,6 +11056,26 @@
     {
       "source": "code-func:.github/knowledge-graph/build/core/rebuild-if-stale.ps1::Write-Detail",
       "target": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/health.ps1",
+      "target": "code-func:.github/knowledge-graph/build/health.ps1::Find-Root",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/build/health.ps1::Find-Root",
+      "target": "code-file:.github/knowledge-graph/build/health.ps1",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/health.ps1",
+      "target": "code-func:.github/knowledge-graph/build/health.ps1::Write-Section",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:.github/knowledge-graph/build/health.ps1::Write-Section",
+      "target": "code-file:.github/knowledge-graph/build/health.ps1",
       "type": "defined_in"
     },
     {
@@ -12909,7 +13812,7 @@
     },
     {
       "source": "code-file:.github/skills/tracks/README.md",
-      "target": "code-section:.github/skills/tracks/README.md::Bonus_tracks__not_MSSA-official_",
+      "target": "code-section:.github/skills/tracks/README.md::Bonus_tracks__coming_soon___not_yet_selectable_",
       "type": "contains"
     },
     {
@@ -14606,6 +15509,108 @@
       "type": "contains"
     },
     {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::What_changed_from_draft_v1__read_this_first_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Final_layout__after_the_build_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Type_signatures__the_contracts_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::CLI_patches_required__separate_gate_before_extension_build_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Pre-build_step_0__CLI_audit_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Pre-build_step_1__CI_for_graph_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Build_order__each_step_must_verify_before_next_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Tests__smallest-first_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::Open_items_the_build_will_surface__escalate_to_Jay_when_reached_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-section:docs/design/v1-build-plan.md::What_this_plan_does_NOT_do__v1_boundary_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/core/extract-code-graph.ps1"
+    },
+    {
+      "source": "code-file:docs/design/v1-build-plan.md",
+      "target": "code-file:.github/knowledge-graph/build/core/merge.ps1",
+      "type": "invokes",
+      "label": "invokes .github/knowledge-graph/build/core/merge.ps1"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::Spike_result__2026-06-01_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::The_Shape",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::Decisions__Locked_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::Flows",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::File_Layout__Mentee_s_Machine_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::What_This_Repo_Becomes",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::Open_Questions__Defer_to_Build_Plan_",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "target": "code-section:docs/design/v1-distribution-and-scaffolding.md::What_V1_Explicitly_Does_NOT_Do",
+      "type": "contains"
+    },
+    {
       "source": "code-file:docs/MENTOR_DIRECTORY.md",
       "target": "code-section:docs/MENTOR_DIRECTORY.md::Directory_Structure",
       "type": "contains"
@@ -14656,253 +15661,843 @@
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/package.json",
-      "target": "code-schema:extensions/mentor-context-loader/package.json",
+      "source": "code-file:extensions/mssa-mentor/.vscode/launch.json",
+      "target": "code-schema:extensions/mssa-mentor/.vscode/launch.json",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::name",
+      "source": "code-schema:extensions/mssa-mentor/.vscode/launch.json",
+      "target": "code-field:extensions/mssa-mentor/.vscode/launch.json::version",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::displayName",
+      "source": "code-schema:extensions/mssa-mentor/.vscode/launch.json",
+      "target": "code-field:extensions/mssa-mentor/.vscode/launch.json::configurations",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::description",
+      "source": "code-file:extensions/mssa-mentor/.vscode/tasks.json",
+      "target": "code-schema:extensions/mssa-mentor/.vscode/tasks.json",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::version",
+      "source": "code-schema:extensions/mssa-mentor/.vscode/tasks.json",
+      "target": "code-field:extensions/mssa-mentor/.vscode/tasks.json::version",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::publisher",
+      "source": "code-schema:extensions/mssa-mentor/.vscode/tasks.json",
+      "target": "code-field:extensions/mssa-mentor/.vscode/tasks.json::tasks",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::engines",
+      "source": "code-file:extensions/mssa-mentor/CHANGELOG.md",
+      "target": "code-section:extensions/mssa-mentor/CHANGELOG.md::_0.1.0____Initial_release",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::categories",
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-schema:extensions/mssa-mentor/package.json",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::activationEvents",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::name",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::main",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::displayName",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::contributes",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::description",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::scripts",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::version",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::devDependencies",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::publisher",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/package.json",
-      "target": "code-field:extensions/mentor-context-loader/package.json::dependencies",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::author",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::What_it_does",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::repository",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Installation",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::bugs",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::How_it_works",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::homepage",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Requirements",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::keywords",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Debugging",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::galleryBanner",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Configuration",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::engines",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Architecture",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::categories",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Limitations",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::activationEvents",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::Roadmap",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::main",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/README.md",
-      "target": "code-section:extensions/mentor-context-loader/README.md::License",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::contributes",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Overview",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::scripts",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Installation_Steps",
+      "source": "code-schema:extensions/mssa-mentor/package.json",
+      "target": "code-field:extensions/mssa-mentor/package.json::devDependencies",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Verification",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::What_you_get",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Troubleshooting",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Available_tracks",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Architecture",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Teaching_methods",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Next_Steps",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Getting_started",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Files_Created",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Requirements",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Development_Workflow",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Commands",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/SETUP.md",
-      "target": "code-section:extensions/mentor-context-loader/SETUP.md::Status",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Where_your_data_lives",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/src/extension.ts",
-      "target": "code-func:extensions/mentor-context-loader/src/extension.ts::activate",
+      "source": "code-file:extensions/mssa-mentor/README.md",
+      "target": "code-section:extensions/mssa-mentor/README.md::Contributing",
       "type": "contains"
     },
     {
-      "source": "code-func:extensions/mentor-context-loader/src/extension.ts::activate",
-      "target": "code-file:extensions/mentor-context-loader/src/extension.ts",
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Overview",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Installation_Steps",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Verification",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Troubleshooting",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Architecture",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Next_Steps",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Files_Created",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Development_Workflow",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/SETUP.md",
+      "target": "code-section:extensions/mssa-mentor/SETUP.md::Status",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
+      "target": "code-func:extensions/mssa-mentor/src/commands/newProject.ts::registerNewProjectCommand",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/commands/newProject.ts::registerNewProjectCommand",
+      "target": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
       "type": "defined_in"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/src/extension.ts",
-      "target": "code-func:extensions/mentor-context-loader/src/extension.ts::deactivate",
-      "type": "contains"
-    },
-    {
-      "source": "code-func:extensions/mentor-context-loader/src/extension.ts::deactivate",
-      "target": "code-file:extensions/mentor-context-loader/src/extension.ts",
-      "type": "defined_in"
-    },
-    {
-      "source": "code-file:extensions/mentor-context-loader/src/extension.ts",
-      "target": "code-import:extensions/mentor-context-loader/src/extension.ts::./profileReader",
+      "source": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/newProject.ts::../chatOpener",
       "type": "imports"
     },
     {
-      "source": "code-import:extensions/mentor-context-loader/src/extension.ts::./profileReader",
-      "target": "code-file:extensions/mentor-context-loader/src/profileReader.ts",
+      "source": "code-import:extensions/mssa-mentor/src/commands/newProject.ts::../chatOpener",
+      "target": "code-file:extensions/mssa-mentor/src/chatOpener.ts",
       "type": "references"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/src/extension.ts",
-      "target": "code-import:extensions/mentor-context-loader/src/extension.ts::./skillLoader",
+      "source": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/newProject.ts::../statusBar",
       "type": "imports"
     },
     {
-      "source": "code-import:extensions/mentor-context-loader/src/extension.ts::./skillLoader",
-      "target": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
+      "source": "code-import:extensions/mssa-mentor/src/commands/newProject.ts::../statusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
       "type": "references"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
-      "target": "code-func:extensions/mentor-context-loader/src/skillLoader.ts::getSkillsToPreload",
+      "source": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "target": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::pickResumePrompt",
       "type": "contains"
     },
     {
-      "source": "code-func:extensions/mentor-context-loader/src/skillLoader.ts::getSkillsToPreload",
-      "target": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
+      "source": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::pickResumePrompt",
+      "target": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
       "type": "defined_in"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
-      "target": "code-func:extensions/mentor-context-loader/src/skillLoader.ts::readSkillFile",
+      "source": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "target": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::registerResumeOrStartCommand",
       "type": "contains"
     },
     {
-      "source": "code-func:extensions/mentor-context-loader/src/skillLoader.ts::readSkillFile",
-      "target": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
+      "source": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::registerResumeOrStartCommand",
+      "target": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
       "type": "defined_in"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
-      "target": "code-import:extensions/mentor-context-loader/src/skillLoader.ts::./profileReader",
+      "source": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../chatOpener",
       "type": "imports"
     },
     {
-      "source": "code-import:extensions/mentor-context-loader/src/skillLoader.ts::./profileReader",
-      "target": "code-file:extensions/mentor-context-loader/src/profileReader.ts",
+      "source": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../chatOpener",
+      "target": "code-file:extensions/mssa-mentor/src/chatOpener.ts",
       "type": "references"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/tsconfig.json",
-      "target": "code-schema:extensions/mentor-context-loader/tsconfig.json",
+      "source": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../profileReader",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../profileReader",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../statusBar",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/commands/resumeOrStart.ts::../statusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "target": "code-func:extensions/mssa-mentor/src/commands/welcome.ts::registerWelcomeCommands",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/tsconfig.json",
-      "target": "code-field:extensions/mentor-context-loader/tsconfig.json::compilerOptions",
+      "source": "code-func:extensions/mssa-mentor/src/commands/welcome.ts::registerWelcomeCommands",
+      "target": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/welcome.ts::../chatOpener",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/commands/welcome.ts::../chatOpener",
+      "target": "code-file:extensions/mssa-mentor/src/chatOpener.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "target": "code-import:extensions/mssa-mentor/src/commands/welcome.ts::../statusBar",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/commands/welcome.ts::../statusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::isStale",
       "type": "contains"
     },
     {
-      "source": "code-schema:extensions/mentor-context-loader/tsconfig.json",
-      "target": "code-field:extensions/mentor-context-loader/tsconfig.json::exclude",
+      "source": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::isStale",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::hasUsableCache",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::hasUsableCache",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::rawUrl",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::rawUrl",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::manifestUrl",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::manifestUrl",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::lastFetchSentinelPath",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::lastFetchSentinelPath",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::writeSentinel",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::writeSentinel",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "target": "code-import:extensions/mssa-mentor/src/curriculumFetch.ts::./paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/curriculumFetch.ts::./paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "target": "code-func:extensions/mssa-mentor/src/envSetup.ts::setMentorHomeEnv",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/envSetup.ts::setMentorHomeEnv",
+      "target": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "target": "code-import:extensions/mssa-mentor/src/envSetup.ts::./paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/envSetup.ts::./paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-func:extensions/mssa-mentor/src/extension.ts::activate",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/extension.ts::activate",
+      "target": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-func:extensions/mssa-mentor/src/extension.ts::deactivate",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/extension.ts::deactivate",
+      "target": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./profileReader",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./profileReader",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./skillLoader",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./skillLoader",
+      "target": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./envSetup",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./envSetup",
+      "target": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./powershellCheck",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./powershellCheck",
+      "target": "code-file:extensions/mssa-mentor/src/powershellCheck.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./curriculumFetch",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./curriculumFetch",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./statusBar",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./statusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/welcome",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/welcome",
+      "target": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/resumeOrStart",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/resumeOrStart",
+      "target": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/newProject",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./commands/newProject",
+      "target": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "target": "code-import:extensions/mssa-mentor/src/extension.ts::./tools/scaffoldAndOpen",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/extension.ts::./tools/scaffoldAndOpen",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "target": "code-func:extensions/mssa-mentor/src/paths.ts::getMentorHome",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/paths.ts::getMentorHome",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "target": "code-func:extensions/mssa-mentor/src/paths.ts::getMenteesDir",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/paths.ts::getMenteesDir",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "target": "code-func:extensions/mssa-mentor/src/paths.ts::getCurriculumDir",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/paths.ts::getCurriculumDir",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "target": "code-func:extensions/mssa-mentor/src/paths.ts::getPendingGreetingsPath",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/paths.ts::getPendingGreetingsPath",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "target": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::writePendingGreeting",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::writePendingGreeting",
+      "target": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "target": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::consumePendingGreeting",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::consumePendingGreeting",
+      "target": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "target": "code-import:extensions/mssa-mentor/src/pendingGreetings.ts::./paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/pendingGreetings.ts::./paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "target": "code-func:extensions/mssa-mentor/src/profileReader.ts::getCurrentUsername",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/profileReader.ts::getCurrentUsername",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "target": "code-func:extensions/mssa-mentor/src/profileReader.ts::sanitizeUsername",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/profileReader.ts::sanitizeUsername",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "target": "code-import:extensions/mssa-mentor/src/profileReader.ts::./paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/profileReader.ts::./paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "target": "code-func:extensions/mssa-mentor/src/skillLoader.ts::getSkillsToPreload",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/skillLoader.ts::getSkillsToPreload",
+      "target": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "target": "code-func:extensions/mssa-mentor/src/skillLoader.ts::readSkillFile",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/skillLoader.ts::readSkillFile",
+      "target": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "target": "code-import:extensions/mssa-mentor/src/skillLoader.ts::./profileReader",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/skillLoader.ts::./profileReader",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "target": "code-import:extensions/mssa-mentor/src/skillLoader.ts::./paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/skillLoader.ts::./paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "target": "code-func:extensions/mssa-mentor/src/statusBar.ts::createStatusBar",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/statusBar.ts::createStatusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "target": "code-func:extensions/mssa-mentor/src/statusBar.ts::applyConfig",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/statusBar.ts::applyConfig",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "target": "code-func:extensions/mssa-mentor/src/statusBarState.ts::computeStatusBarState",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/statusBarState.ts::computeStatusBarState",
+      "target": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "target": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./profileReader",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./profileReader",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "target": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./statusBar",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./statusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "target": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./commands/welcome",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./commands/welcome",
+      "target": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
+      "target": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./commands/resumeOrStart",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/statusBarState.ts::./commands/resumeOrStart",
+      "target": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::performScaffold",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::performScaffold",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::registerScaffoldAndOpenTool",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::registerScaffoldAndOpenTool",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::sanitizeId",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::sanitizeId",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::validateInputs",
+      "type": "contains"
+    },
+    {
+      "source": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::validateInputs",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "defined_in"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../paths",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../paths",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../profileReader",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../profileReader",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "target": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../statusBar",
+      "type": "imports"
+    },
+    {
+      "source": "code-import:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::../statusBar",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "references"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/tsconfig.json",
+      "target": "code-schema:extensions/mssa-mentor/tsconfig.json",
+      "type": "contains"
+    },
+    {
+      "source": "code-schema:extensions/mssa-mentor/tsconfig.json",
+      "target": "code-field:extensions/mssa-mentor/tsconfig.json::compilerOptions",
+      "type": "contains"
+    },
+    {
+      "source": "code-schema:extensions/mssa-mentor/tsconfig.json",
+      "target": "code-field:extensions/mssa-mentor/tsconfig.json::exclude",
       "type": "contains"
     },
     {
@@ -14942,18 +16537,78 @@
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/package.json",
-      "target": "code-file:extensions/mentor-context-loader/src/extension.ts",
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/commands/newProject.ts",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/package.json",
-      "target": "code-file:extensions/mentor-context-loader/src/profileReader.ts",
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/commands/resumeOrStart.ts",
       "type": "contains"
     },
     {
-      "source": "code-file:extensions/mentor-context-loader/package.json",
-      "target": "code-file:extensions/mentor-context-loader/src/skillLoader.ts",
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/commands/welcome.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/chatOpener.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/curriculumFetch.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/envSetup.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/extension.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/paths.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/pendingGreetings.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/powershellCheck.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/profileReader.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/skillLoader.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/statusBar.ts",
+      "type": "contains"
+    },
+    {
+      "source": "code-file:extensions/mssa-mentor/package.json",
+      "target": "code-file:extensions/mssa-mentor/src/statusBarState.ts",
       "type": "contains"
     },
     {
@@ -14964,21 +16619,9 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
-      "type": "calls",
-      "label": "calls Write-Header"
-    },
-    {
-      "source": "code-file:.github/hooks/pre-commit.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
       "type": "calls",
       "label": "calls Write-Warning"
-    },
-    {
-      "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
-      "type": "calls",
-      "label": "calls Write-Success"
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
@@ -14988,9 +16631,21 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
+      "type": "calls",
+      "label": "calls Write-Success"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
       "type": "calls",
       "label": "calls Write-Info"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
+      "type": "calls",
+      "label": "calls Write-Header"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
@@ -15000,15 +16655,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Fail",
-      "type": "calls",
-      "label": "calls Report-Fail"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Warn",
       "type": "calls",
       "label": "calls Report-Warn"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Fail",
+      "type": "calls",
+      "label": "calls Report-Fail"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
@@ -15030,15 +16685,21 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Write-Verdict",
+      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Is-TestScaffold",
       "type": "calls",
-      "label": "calls Write-Verdict"
+      "label": "calls Is-TestScaffold"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::New-AlwaysGapResult",
       "type": "calls",
       "label": "calls New-AlwaysGapResult"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Write-Verdict",
+      "type": "calls",
+      "label": "calls Write-Verdict"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
@@ -15053,16 +16714,40 @@
       "label": "calls Get-NodeType"
     },
     {
-      "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Is-TestScaffold",
-      "type": "calls",
-      "label": "calls Is-TestScaffold"
-    },
-    {
       "source": "code-file:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1::Get-Dependencies",
       "type": "calls",
       "label": "calls Get-Dependencies"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Edge",
+      "type": "calls",
+      "label": "calls Add-Edge"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::To-CodeId",
+      "type": "calls",
+      "label": "calls To-CodeId"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Sanitize-IdPart",
+      "type": "calls",
+      "label": "calls Sanitize-IdPart"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-Markdown",
+      "type": "calls",
+      "label": "calls Extract-Markdown"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::To-RepoRelative",
+      "type": "calls",
+      "label": "calls To-RepoRelative"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
@@ -15078,51 +16763,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Edge",
-      "type": "calls",
-      "label": "calls Add-Edge"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Sanitize-IdPart",
-      "type": "calls",
-      "label": "calls Sanitize-IdPart"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Classify-FileCluster",
-      "type": "calls",
-      "label": "calls Classify-FileCluster"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
       "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-TypeScript",
       "type": "calls",
       "label": "calls Extract-TypeScript"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-Json",
-      "type": "calls",
-      "label": "calls Extract-Json"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::To-CodeId",
-      "type": "calls",
-      "label": "calls To-CodeId"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::To-RepoRelative",
-      "type": "calls",
-      "label": "calls To-RepoRelative"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Node",
-      "type": "calls",
-      "label": "calls Add-Node"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
@@ -15132,21 +16775,33 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-Markdown",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-Json",
       "type": "calls",
-      "label": "calls Extract-Markdown"
+      "label": "calls Extract-Json"
     },
     {
-      "source": "code-file:.github/knowledge-graph/build/core/health.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/health.ps1::Write-Section",
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Node",
       "type": "calls",
-      "label": "calls Write-Section"
+      "label": "calls Add-Node"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Classify-FileCluster",
+      "type": "calls",
+      "label": "calls Classify-FileCluster"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/health.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Find-Root",
       "type": "calls",
       "label": "calls Find-Root"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/health.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/health.ps1::Write-Section",
+      "type": "calls",
+      "label": "calls Write-Section"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
@@ -15161,13 +16816,19 @@
       "label": "calls Write-Progress"
     },
     {
-      "source": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "source": "code-file:.github/knowledge-graph/build/health.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Find-Root",
       "type": "calls",
-      "label": "calls Write-Error"
+      "label": "calls Find-Root"
     },
     {
-      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "source": "code-file:.github/knowledge-graph/build/health.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/health.ps1::Write-Section",
+      "type": "calls",
+      "label": "calls Write-Section"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
@@ -15177,6 +16838,12 @@
       "target": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
       "type": "calls",
       "label": "calls Get-StringFields"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/find-missing-files.ps1",
@@ -15198,33 +16865,21 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Remove",
+      "type": "calls",
+      "label": "calls Cmd-Remove"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
       "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Build-NodeId",
       "type": "calls",
       "label": "calls Build-NodeId"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Resolve-NodeType",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Unlink",
       "type": "calls",
-      "label": "calls Resolve-NodeType"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Add",
-      "type": "calls",
-      "label": "calls Cmd-Add"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Validate",
-      "type": "calls",
-      "label": "calls Cmd-Validate"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Types",
-      "type": "calls",
-      "label": "calls Cmd-Types"
+      "label": "calls Cmd-Unlink"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
@@ -15240,6 +16895,18 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Validate",
+      "type": "calls",
+      "label": "calls Cmd-Validate"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Types",
+      "type": "calls",
+      "label": "calls Cmd-Types"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
       "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-SessionStatus",
       "type": "calls",
       "label": "calls Cmd-SessionStatus"
@@ -15252,15 +16919,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Remove",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Resolve-NodeType",
       "type": "calls",
-      "label": "calls Cmd-Remove"
+      "label": "calls Resolve-NodeType"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Unlink",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Add",
       "type": "calls",
-      "label": "calls Cmd-Unlink"
+      "label": "calls Cmd-Add"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
@@ -15294,9 +16961,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
-      "label": "calls Write-GraphHeader"
+      "label": "calls Write-GraphSuggestions"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
@@ -15306,15 +16973,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
-      "type": "calls",
-      "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
@@ -15324,9 +16991,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
-      "label": "calls Write-GraphSuggestions"
+      "label": "calls Write-GraphHeader"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
@@ -15336,9 +17003,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
-      "label": "calls Write-GraphHeader"
+      "label": "calls Write-GraphSuggestions"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
@@ -15348,15 +17015,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
-      "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Normalize-Path",
-      "type": "calls",
-      "label": "calls Normalize-Path"
+      "label": "calls Write-GraphHeader"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
@@ -15366,15 +17027,21 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-NodeContent",
-      "type": "calls",
-      "label": "calls Get-NodeContent"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
       "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Resolve-Seed",
       "type": "calls",
       "label": "calls Resolve-Seed"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Normalize-Path",
+      "type": "calls",
+      "label": "calls Normalize-Path"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-NodeContent",
+      "type": "calls",
+      "label": "calls Get-NodeContent"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
@@ -15396,15 +17063,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphPath",
-      "type": "calls",
-      "label": "calls Write-GraphPath"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphPath",
+      "type": "calls",
+      "label": "calls Write-GraphPath"
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
@@ -15426,6 +17093,12 @@
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
+      "type": "calls",
+      "label": "calls Get-ProgressFiles"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
@@ -15435,12 +17108,6 @@
       "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
       "type": "calls",
       "label": "calls Test-ProficiencyEntry"
-    },
-    {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
-      "type": "calls",
-      "label": "calls Get-ProgressFiles"
     }
   ],
   "bridges": [
@@ -15576,6 +17243,26 @@
     },
     {
       "system": "behavior:11-ask-as-clickable",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:12-discovery-trace",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:13-stub-completion",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:14-no-unprompted-audits",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "concept:discovery-log",
       "code": "code-file:.github/agents/Mentor.agent.md",
       "type": "implemented_by"
     },
@@ -16720,16 +18407,6 @@
       "type": "implemented_by"
     },
     {
-      "system": "feature:hybrid-loading",
-      "code": "code-file:extensions/mentor-context-loader/package.json",
-      "type": "implemented_by"
-    },
-    {
-      "system": "extension:context-loader",
-      "code": "code-file:extensions/mentor-context-loader/package.json",
-      "type": "implemented_by"
-    },
-    {
       "system": "cli-tool:audit-quality",
       "code": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
       "type": "implemented_by"
@@ -16752,11 +18429,6 @@
     {
       "system": "code-func:@(",
       "code": "code-file:.github/knowledge-graph/lib/query.psm1",
-      "type": "implemented_by"
-    },
-    {
-      "system": "extension:mentor-context-loader",
-      "code": "code-file:extensions/mentor-context-loader/package.json",
       "type": "implemented_by"
     },
     {
@@ -16947,6 +18619,21 @@
     {
       "system": "test:agent-sync",
       "code": "code-file:.github/knowledge-graph/cli/tests/test-agent-sync.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:_mentor-gaps2",
+      "code": "code-file:.github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:v1-build-plan",
+      "code": "code-file:docs/design/v1-build-plan.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "decision:v1-distribution-and-scaffolding",
+      "code": "code-file:docs/design/v1-distribution-and-scaffolding.md",
       "type": "implemented_by"
     },
     {

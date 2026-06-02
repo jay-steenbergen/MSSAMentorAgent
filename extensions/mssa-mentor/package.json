@@ -1,0 +1,142 @@
+{
+  "name": "mssa-mentor",
+  "displayName": "MSSA Mentor",
+  "description": "Mentor for veterans in the Microsoft Software & Systems Academy. Scaffolds projects, tracks progress, and pre-loads skills into the @Mentor chat agent.",
+  "version": "0.1.0",
+  "publisher": "mssa-mentor",
+  "author": "Jay Steenbergen <jasteenb@microsoft.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jay-steenbergen/MSSAMentorAgent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jay-steenbergen/MSSAMentorAgent/issues"
+  },
+  "homepage": "https://github.com/jay-steenbergen/MSSAMentorAgent#readme",
+  "keywords": [
+    "mssa",
+    "veterans",
+    "mentor",
+    "copilot",
+    "education",
+    "chat",
+    "agent"
+  ],
+  "galleryBanner": {
+    "color": "#0E2A47",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "AI",
+    "Education"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onChatParticipant:Mentor"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "Mentor",
+        "name": "mssa-mentor",
+        "description": "MSSA Mentor with smart context loading"
+      }
+    ],
+    "commands": [
+      {
+        "command": "mssa-mentor.openChat",
+        "title": "Open Chat",
+        "category": "MSSA Mentor"
+      },
+      {
+        "command": "mssa-mentor.welcome",
+        "title": "Welcome / Get Started",
+        "category": "MSSA Mentor"
+      },
+      {
+        "command": "mssa-mentor.resumeOrStart",
+        "title": "Resume or Start",
+        "category": "MSSA Mentor"
+      },
+      {
+        "command": "mssa-mentor.newProject",
+        "title": "New Project",
+        "category": "MSSA Mentor"
+      }
+    ],
+    "languageModelTools": [
+      {
+        "name": "mssa.scaffoldAndOpen",
+        "displayName": "Scaffold MSSA Project",
+        "modelDescription": "Create a new MSSA project folder in the current workspace, write a stub README, update the learner's profile and progress files, and open the README. Call this AFTER you have collected the learner's chosen project id, display name, track, and teaching method. Tracks: cloud-app-dev, server-cloud-admin, cybersecurity-ops. Methods: ride-along, TDD, BDD, spike-then-refactor.",
+        "userDescription": "Scaffold a new MSSA project on disk and record it in your profile.",
+        "canBeReferencedInPrompt": true,
+        "toolReferenceName": "scaffoldAndOpen",
+        "icon": "$(mortar-board)",
+        "inputSchema": {
+          "type": "object",
+          "required": [
+            "projectId",
+            "displayName",
+            "track",
+            "method"
+          ],
+          "properties": {
+            "projectId": {
+              "type": "string",
+              "description": "Folder-safe project id, lowercase with dashes (e.g. 'todo-api')."
+            },
+            "displayName": {
+              "type": "string",
+              "description": "Human-readable label shown in pickers (e.g. 'Todo API')."
+            },
+            "track": {
+              "type": "string",
+              "enum": [
+                "cloud-app-dev",
+                "server-cloud-admin",
+                "cybersecurity-ops"
+              ],
+              "description": "MSSA curriculum track."
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "ride-along",
+                "TDD",
+                "BDD",
+                "spike-then-refactor"
+              ],
+              "description": "Teaching method for this project."
+            },
+            "username": {
+              "type": "string",
+              "description": "Optional override for the profile username. Omit to use the current user."
+            }
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package --no-dependencies",
+    "publish": "vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.95.0",
+    "@typescript-eslint/eslint-plugin": "^6.x",
+    "@typescript-eslint/parser": "^6.x",
+    "@vscode/vsce": "^3.9.1",
+    "eslint": "^8.x",
+    "typescript": "^5.x"
+  }
+}

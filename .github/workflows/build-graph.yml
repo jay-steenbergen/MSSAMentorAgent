@@ -1,0 +1,38 @@
+name: Build knowledge graph
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/agents/**'
+      - '.github/skills/**'
+      - '.github/knowledge-graph/data/**'
+      - '.github/knowledge-graph/build/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild graph
+        shell: pwsh
+        run: |
+          pwsh .github/knowledge-graph/build/core/extract-code-graph.ps1
+          pwsh .github/knowledge-graph/build/core/merge.ps1
+
+      - name: Commit if changed
+        run: |
+          git config user.name 'mssa-mentor-bot'
+          git config user.email 'bot@users.noreply.github.com'
+          git add .github/knowledge-graph/output/merged-graph.json
+          if git diff --cached --quiet; then
+            echo "No graph changes to commit."
+          else
+            git commit -m 'chore(graph): rebuild on main [skip ci]'
+            git push
+          fi

@@ -12,14 +12,14 @@ A **track skill** scaffolds the build progression for one MSSA learning path —
 
 Source: [military.microsoft.com/mssa/choose-your-learning-path](https://military.microsoft.com/mssa/choose-your-learning-path) (verified 2026-05-29).
 
-## Bonus tracks (not MSSA-official)
+## Bonus tracks (coming soon — not yet selectable)
 
-| Code | Track | Stack | Why it's here |
-|---|---|---|---|
-| GHC  | GitHub Copilot mastery | VS Code, GitHub Copilot, MCP | Force-multiplier on top of any MSSA track; targets the GH-300 cert |
-| WBD  | Whiteboarding          | Whiteboard / Excalidraw, Mermaid, Draw.io | Communication craft — transfers to every MSSA track and every engineering role |
+| Code | Track | Stack | Why it's here | Status |
+|---|---|---|---|---|
+| GHC  | GitHub Copilot mastery | VS Code, GitHub Copilot, MCP | Force-multiplier on top of any MSSA track; targets the GH-300 cert | Planned — no projects yet |
+| WBD  | Whiteboarding          | Whiteboard / Excalidraw, Mermaid, Draw.io | Communication craft — transfers to every MSSA track and every engineering role | Planned — no projects yet |
 
-Bonus tracks use the same `ride-along` method as MSSA tracks. They are not part of the MSSA curriculum; they exist because the skills transfer to every role MSSA prepares learners for.
+Bonus tracks will use the same `ride-along` method as MSSA tracks. They are not part of the MSSA curriculum; they exist because the skills transfer to every role MSSA prepares learners for. **Currently the agent's track picker only offers the 3 MSSA tracks above** — bonus tracks will appear once their first projects ship.
 
 ## When you add a track skill
 

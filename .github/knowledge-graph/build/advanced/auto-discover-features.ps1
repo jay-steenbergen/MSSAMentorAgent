@@ -121,6 +121,7 @@ if (Test-Path $libDir) {
 }
 
 # 3. VS Code extensions
+$extEdges = @()
 if (Test-Path $extDir) {
     $extensions = Get-ChildItem $extDir -Directory
     foreach ($ext in $extensions) {
@@ -130,14 +131,39 @@ if (Test-Path $extDir) {
         $pkg = Get-Content $packageJson -Raw | ConvertFrom-Json -Depth 32
         $extName = $pkg.name
         $extDesc = $pkg.description
+        $extId = "extension:$extName"
         
         $plan += [pscustomobject]@{
             Kind = 'extension'
-            Id = "extension:$extName"
+            Id = $extId
             Label = $extName
             File = "extensions/$extName/"
             Description = $extDesc
             Cluster = 'session-protocols'  # extensions manage session behavior
+        }
+        
+        # Discover all files the extension contains and emit `contains` edges
+        # to the corresponding code-file nodes (created by extract-code-graph).
+        # This bridges the system layer to the code layer so the extension is
+        # never an island and its sub-files never get tagged "UNWIRED".
+        # Strategy: walk the whole extension folder, skip build outputs and
+        # vendor dirs, emit one `contains` edge per real source/config file.
+        $excludeDirs = @('node_modules', 'out', 'dist', '.vsix-temp')
+        $excludeExt  = @('.vsix', '.log')
+        $allFiles = Get-ChildItem $ext.FullName -Recurse -File | Where-Object {
+            $relParts = $_.FullName.Substring($ext.FullName.Length).TrimStart('\','/') -split '[\\/]'
+            -not ($excludeDirs | Where-Object { $relParts -contains $_ }) -and
+            -not ($excludeExt -contains $_.Extension.ToLower()) -and
+            -not ($_.Name.StartsWith('.'))   # skip bare dotfiles (.gitignore etc.); extract-code-graph doesn't node them
+        }
+        foreach ($f in $allFiles) {
+            $rel = ($f.FullName.Substring($repoRoot.Length).TrimStart('\','/')) -replace '\\','/'
+            $extEdges += [pscustomobject]@{
+                Source = $extId
+                Target = "code-file:$rel"
+                Type = 'contains'
+                Label = 'contains file'
+            }
         }
     }
 }
@@ -210,6 +236,19 @@ foreach ($edge in $cliEdges) {
     
     # Only add edge if target exists (or will be created)
     # For now, add all — dangling edges will be caught by health check
+    $newEdges += [pscustomobject][ordered]@{
+        source = $edge.Source
+        target = $edge.Target
+        type = $edge.Type
+        label = $edge.Label
+    }
+}
+
+# Add extension contains-edges (bridges extension node to its code-file nodes)
+foreach ($edge in $extEdges) {
+    $ek = "$($edge.Source)|$($edge.Target)|$($edge.Type)"
+    if ($existingEdgeKeys.ContainsKey($ek)) { continue }
+    
     $newEdges += [pscustomobject][ordered]@{
         source = $edge.Source
         target = $edge.Target

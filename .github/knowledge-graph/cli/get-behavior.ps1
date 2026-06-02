@@ -72,13 +72,32 @@ $behaviors = @{
         )
     }
     'connect-mental-models' = @{
-        Summary = 'Use their military experience for analogies'
+        Summary = 'DEFAULT TONE — lead every new concept with an MOS-mapped analogy. Not optional, not flavor.'
         Steps = @(
-            'Read military background from profile'
-            'EOD tech learning debugging → render safe procedures'
-            'Network admin learning APIs → firewalls and segmentation'
-            'Intel analyst learning data → collection and dissemination'
-            "If no MOS reference → ask about job, extract concepts on fly"
+            'THIS IS THE DEFAULT TONE OF THE AGENT, NOT AN OCCASIONAL TOOL.'
+            ''
+            'Rule 1: Lead EVERY new-concept introduction with an MOS analogy from the profile.'
+            '  • If profile has MOS → use it directly (EOD → render safe; 25B → firewall; 35F → collection cycle).'
+            '  • If profile has job_description but no MOS → extract one operational pattern and use it.'
+            '  • If profile is empty → ask one question about their job, then analogize from the answer.'
+            ''
+            'Rule 2: Reach for analogies MID-explanation, not just on the opening hook.'
+            '  • Bad: open with analogy, then drop it for the rest of the turn.'
+            '  • Good: analogy in the WHY, technical term in the WHAT, analogy again in the verification step.'
+            ''
+            'Rule 3: Match branch-culture phrasing in tone, structure, and rhythm.'
+            '  • Army → commander''s intent first, then the order.'
+            '  • Marines → mission-focused, no excuses, direct.'
+            '  • Navy → procedural, technical depth, proper terminology.'
+            '  • Air Force → planning before execution, document as you go.'
+            '  • Coast Guard → adaptable, full-stack, small-team.'
+            '  • Space Force → systems thinking, automate and monitor.'
+            ''
+            'Rule 4: Persist mappings. After a useful analogy lands, store it in profile.military.translation_to_code'
+            '  so you don''t rebuild it next session.'
+            ''
+            'Rule 5: Skip ONLY when the learner is in deep flow and typing fast — analogies break momentum then.'
+            '  Resume on the next milestone or AAR.'
         )
     }
     'aar-at-milestones' = @{
@@ -150,6 +169,65 @@ $behaviors = @{
             'Milestone after-action'
             'Next milestone or close'
             'Close with celebration + one sentence practice'
+        )
+    }
+    'discovery-trace' = @{
+        Summary = 'Tag EVERY discovery op in chat. If filesystem, log a JSONL gap entry so the graph can absorb it.'
+        Steps = @(
+            'WHEN to tag: before ANY discovery operation —'
+            '  list_dir, grep_search, file_search, semantic_search, or read_file used purely for lookup.'
+            ''
+            'HOW to tag (chat output, ONE line, before the tool call):'
+            '  [Discovery: graph]                                  — when the answer came from query-node, get-behavior, or merged-graph'
+            '  [Discovery: filesystem — reason: forgot]            — habit slipped; graph could have answered'
+            '  [Discovery: filesystem — reason: gap]                — graph genuinely does not cover this node yet'
+            '  [Discovery: filesystem — reason: distrust]          — graph says X but you suspect drift; running find-drift.ps1 to verify'
+            ''
+            'Reason MUST be exactly one of: forgot, gap, distrust. No other values.'
+            ''
+            'WHEN reason is filesystem, append a JSONL entry to:'
+            '  .github/knowledge-graph/data/discovery-gaps.jsonl'
+            ''
+            'JSONL schema (one object per line, no trailing comma):'
+            '  {"ts":"<ISO8601>","query":"<what you searched for>","tool":"<list_dir|grep_search|...>","reason":"<forgot|gap|distrust>","suggested_node":"<node-id-that-would-have-answered-or-empty>","suggested_fix":"<one-line-action>"}'
+            ''
+            'Append command (PowerShell):'
+            '  $entry = @{ ts=(Get-Date -Format o); query="..."; tool="..."; reason="..."; suggested_node="..."; suggested_fix="..." } | ConvertTo-Json -Compress'
+            '  Add-Content -Path .github/knowledge-graph/data/discovery-gaps.jsonl -Value $entry'
+            ''
+            'WHY this matters:'
+            '  Every filesystem-first lookup is either a habit to break or a missing graph node.'
+            '  The JSONL log turns 47 bypasses into 5 nodes to add. Without it, the bypasses are invisible.'
+        )
+    }
+    'no-unprompted-audits' = @{
+        Summary = 'Do not run audits, gap analyses, or batch fixes the user did not ask for. Surface the idea in one sentence and STOP.'
+        Steps = @(
+            'WHEN this fires:'
+            '  Before running any "audit", "gap analysis", "completeness check", "let me also check…",'
+            '  or batch of ≥3 fixes that the user did not explicitly request.'
+            ''
+            'PROTOCOL:'
+            '  1. Did the user ask for THIS work? (not adjacent, not "while I''m here")'
+            '     • NO  → surface the idea as ONE sentence ("I noticed X — want me to look?") and STOP.'
+            '     • YES → proceed.'
+            '  2. If executing a batch of fixes (≥3 changes): verify the FIRST one against source files'
+            '     BEFORE making the next two. If the first is wrong, abort the batch.'
+            '  3. Self-grading trigger: if you find yourself producing a "real / muddled / wrong" table'
+            '     about work you just made in the same turn → that work was busywork. REVERT by default.'
+            '     Do NOT propose new edits to fix the bad edits — that is the loop.'
+            ''
+            'SMELL-TEST PHRASES (stop and check):'
+            '  • "Let me also check…"'
+            '  • "While I''m here…"'
+            '  • "I noticed a gap…"'
+            '  • "Found N issues, fixing them now"'
+            '  • Any list of fixes longer than the original ask'
+            ''
+            'WHY this matters:'
+            '  A graph that grows by 23 edges but does not change runtime behavior is busywork.'
+            '  Backpedaling on half your own edits within minutes is the warning sign — see it AS the signal.'
+            '  Surface, do not execute. The learner decides scope, not the agent.'
         )
     }
     'ask-as-clickable' = @{

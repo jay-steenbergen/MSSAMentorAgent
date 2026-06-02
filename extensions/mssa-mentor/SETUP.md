@@ -15,7 +15,7 @@ Two-phase skill loading for faster @Mentor sessions:
 ### 1. Install Extension Dependencies
 
 ```powershell
-cd extensions/mentor-context-loader
+cd extensions/mssa-mentor
 npm install
 ```
 
@@ -46,7 +46,7 @@ npm run vscode:prepublish
 vsce package
 
 # Install in your main VS Code
-code --install-extension mentor-context-loader-0.1.0.vsix
+code --install-extension mssa-mentor-0.1.0.vsix
 ```
 
 ---
@@ -152,7 +152,7 @@ Disable extension and test that agent still works:
              │
              ▼
 ┌─────────────────────────────────────┐
-│  mentor-context-loader Extension    │
+│  mssa-mentor Extension              │
 │  (Phase 1: Pre-Load Essentials)     │
 │                                     │
 │  1. Read learner profile            │
@@ -243,7 +243,7 @@ vsce package
 ### Distribute
 ```powershell
 # Install locally
-code --install-extension mentor-context-loader-0.1.0.vsix
+code --install-extension mssa-mentor-0.1.0.vsix
 
 # Publish to marketplace (future)
 vsce publish
