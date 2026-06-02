@@ -3431,6 +3431,33 @@
       "cluster": "validation-layer",
       "file": ".github/knowledge-graph/tests/test-graph.ps1",
       "description": "10+ test suite validating graph query operations, relationships, path finding, and real-world use cases against query.psm1"
+    },
+    {
+      "id": "session:2026-06-01-orphan-md-edge-rule",
+      "type": "session",
+      "label": "2026-06-01 Orphan-md edge rule",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/sessions/2026-06-01-orphan-md-edge-rule.md",
+      "section": "frontmatter",
+      "description": "Make the orphan-markdown gate graph-driven: a .md file is needed iff its node has at least one edge (in or out); README.md and CONTRIBUTING.md exempt as implicit entrypoints."
+    },
+    {
+      "id": "experiment:2026-06-01-orphan-md-edge-rule",
+      "type": "experiment",
+      "label": "Orphan-md edge-degree rule",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/experiments/2026-06-01-orphan-md-edge-rule.md",
+      "section": "frontmatter",
+      "description": "Hypothesis: edge degree (in+out) is a reliable signal for whether a markdown file earns its place in the system; tested against KG-tree .md files with 4 orphans, all log nodes pass, README/CONTRIBUTING exempt by basename."
+    },
+    {
+      "id": "decision:2026-06-01-orphan-md-edge-rule",
+      "type": "decision",
+      "label": "Markdown is needed when its node has edges",
+      "cluster": "validation-layer",
+      "file": ".github/knowledge-graph/log/decisions/2026-06-01-orphan-md-edge-rule.md",
+      "section": "frontmatter",
+      "description": "A markdown file in a scanned KG directory (agents, skills, tests, knowledge-graph) is needed iff its node has at least one edge (in OR out); README.md and CONTRIBUTING.md are implicit entrypoints exempt by basename. Enforced by find-orphan-markdown.ps1 with NO-NODE / NO-EDGES reasons; mirrored in health.ps1 code-coverage check."
     }
   ],
   "metadata": {
@@ -6657,6 +6684,26 @@
       "source": "tdd:phase-red",
       "target": "test:tdd-red-phase",
       "type": "tested_by"
+    },
+    {
+      "source": "session:2026-06-01-orphan-md-edge-rule",
+      "target": "experiment:2026-06-01-orphan-md-edge-rule",
+      "type": "has_experiment"
+    },
+    {
+      "source": "session:2026-06-01-orphan-md-edge-rule",
+      "target": "decision:2026-06-01-orphan-md-edge-rule",
+      "type": "has_decision"
+    },
+    {
+      "source": "experiment:2026-06-01-orphan-md-edge-rule",
+      "target": "decision:2026-06-01-orphan-md-edge-rule",
+      "type": "concluded_with"
+    },
+    {
+      "source": "session:2026-06-01-gate-hardening",
+      "target": "session:2026-06-01-orphan-md-edge-rule",
+      "type": "next"
     }
   ]
 }

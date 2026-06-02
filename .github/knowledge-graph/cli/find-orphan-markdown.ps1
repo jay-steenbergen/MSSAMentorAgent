@@ -45,22 +45,39 @@ if (-not (Test-Path $systemFile)) {
 
 $systemGraph = Get-Content $systemFile -Raw | ConvertFrom-Json
 
-# Build set of graph-tracked .md file paths (repo-relative, forward slashes)
-$graphFiles = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+# Map: repo-relative file path (forward slashes) -> node id
+$fileToNodeId = @{}
 foreach ($n in $systemGraph.nodes) {
     if ($n.PSObject.Properties.Match('file').Count -gt 0 -and $n.file -and $n.file -match '\.md$') {
-        [void]$graphFiles.Add(($n.file -replace '\\', '/'))
+        $fileToNodeId[($n.file -replace '\\', '/')] = $n.id
+    }
+}
+
+# Count degree (in + out) per node id
+$nodeDegree = @{}
+foreach ($e in $systemGraph.edges) {
+    if ($e.source) {
+        if (-not $nodeDegree.ContainsKey($e.source)) { $nodeDegree[$e.source] = 0 }
+        $nodeDegree[$e.source]++
+    }
+    if ($e.target) {
+        if (-not $nodeDegree.ContainsKey($e.target)) { $nodeDegree[$e.target] = 0 }
+        $nodeDegree[$e.target]++
     }
 }
 
 # Scan filesystem for artifact .md files
 # Pattern → expected node type (kept here purely for the user-facing report)
 $patterns = @(
-    @{ Path = '.github/agents';  Filter = '*.agent.md'; Type = 'agent' }
-    @{ Path = '.github/skills';  Filter = 'SKILL.md';   Type = 'skill / method / track' }
-    @{ Path = '.github/skills';  Filter = '*.test.md';  Type = 'test' }
-    @{ Path = '.github/tests';   Filter = '*.test.md';  Type = 'test' }
+    @{ Path = '.github/agents';           Filter = '*.agent.md'; Type = 'agent' }
+    @{ Path = '.github/skills';           Filter = 'SKILL.md';   Type = 'skill / method / track' }
+    @{ Path = '.github/skills';           Filter = '*.test.md';  Type = 'test' }
+    @{ Path = '.github/tests';            Filter = '*.test.md';  Type = 'test' }
+    @{ Path = '.github/knowledge-graph';  Filter = '*.md';       Type = 'kg-doc' }
 )
+
+# Files exempt by basename: implicit entrypoints (landing-page docs)
+$implicitEntrypoints = @('README.md', 'CONTRIBUTING.md')
 
 $found = [System.Collections.Generic.List[object]]::new()
 foreach ($p in $patterns) {
@@ -72,12 +89,39 @@ foreach ($p in $patterns) {
             $found.Add([pscustomobject]@{
                 File = $rel
                 ExpectedType = $p.Type
+                BaseName = $_.Name
             })
         }
 }
 
-# Find orphans (file on disk, no graph node)
-$orphans = $found | Where-Object { -not $graphFiles.Contains($_.File) } | Sort-Object File -Unique
+# Classify each file. Two failure modes:
+#   1. ORPHAN — no graph node
+#   2. STALE  — node exists but has zero edges (in+out) → nothing in the system points at or from it
+# Implicit entrypoints (README.md, CONTRIBUTING.md) are exempt: they're landing pages.
+$orphans = [System.Collections.Generic.List[object]]::new()
+$uniqueFiles = $found | Sort-Object File -Unique
+foreach ($f in $uniqueFiles) {
+    if ($implicitEntrypoints -contains $f.BaseName) { continue }
+    $nid = $fileToNodeId[$f.File]
+    if (-not $nid) {
+        $orphans.Add([pscustomobject]@{
+            File = $f.File
+            ExpectedType = $f.ExpectedType
+            Reason = 'NO-NODE'
+            Detail = 'File on disk but not registered in graph'
+        })
+        continue
+    }
+    $deg = if ($nodeDegree.ContainsKey($nid)) { $nodeDegree[$nid] } else { 0 }
+    if ($deg -eq 0) {
+        $orphans.Add([pscustomobject]@{
+            File = $f.File
+            ExpectedType = $f.ExpectedType
+            Reason = 'NO-EDGES'
+            Detail = "Node $nid has zero edges (in + out) — disconnected from the system"
+        })
+    }
+}
 
 if ($Quiet) {
     Write-Host "Orphan markdown files: $($orphans.Count)"
@@ -86,28 +130,35 @@ if ($Quiet) {
 
 Write-Host "`n=== Orphan Markdown Report ===" -ForegroundColor Cyan
 Write-Host "System graph:  $systemFile"
-Write-Host "Scanned:       $($found.Count) artifact .md files in .github/agents, .github/skills, .github/tests"
-Write-Host "Graph-tracked: $($graphFiles.Count) .md file references"
+Write-Host "Scanned:       $($uniqueFiles.Count) artifact .md files in .github/agents, .github/skills, .github/tests, .github/knowledge-graph"
+Write-Host "Graph-tracked: $($fileToNodeId.Count) .md file references"
+Write-Host "Exempt:        README.md, CONTRIBUTING.md (implicit entrypoints)"
 Write-Host ""
 
 if ($orphans.Count -eq 0) {
-    Write-Host "[OK] No orphan markdown files. Every artifact is registered in the graph." -ForegroundColor Green
+    Write-Host "[OK] Every artifact .md is either an implicit entrypoint OR has a graph node with >=1 edge." -ForegroundColor Green
     exit 0
 }
 
-Write-Host "Found $($orphans.Count) orphan markdown file(s) — on disk but missing from graph:" -ForegroundColor Yellow
+$noNodeCount  = @($orphans | Where-Object { $_.Reason -eq 'NO-NODE'  }).Count
+$noEdgesCount = @($orphans | Where-Object { $_.Reason -eq 'NO-EDGES' }).Count
+
+Write-Host "Found $($orphans.Count) orphan markdown file(s):" -ForegroundColor Yellow
+Write-Host "  $noNodeCount  with NO graph node (never registered)" -ForegroundColor Yellow
+Write-Host "  $noEdgesCount with a node but ZERO edges (disconnected from system)" -ForegroundColor Yellow
 Write-Host ""
 
 foreach ($o in $orphans) {
-    Write-Host "  [$($o.ExpectedType)]  $($o.File)" -ForegroundColor Yellow
+    Write-Host "  [$($o.Reason)] [$($o.ExpectedType)]  $($o.File)" -ForegroundColor Yellow
+    Write-Host "             $($o.Detail)" -ForegroundColor DarkGray
 }
 
 Write-Host ""
-Write-Host "How to fix (graph-first authoring):" -ForegroundColor Cyan
-Write-Host "  1. Pick the right type: agent | skill | method | track | test"
-Write-Host "  2. Register the node FIRST:"
-Write-Host "       pwsh .github/knowledge-graph/cli/mentor.ps1 add <type> <slug> -Label '...' -Description '...'"
-Write-Host "  3. Re-run the .md file's content as needed (mentor.ps1 will scaffold a stub if no file exists)"
+Write-Host "How to fix:" -ForegroundColor Cyan
+Write-Host "  NO-NODE  → register the artifact in the graph:" -ForegroundColor White
+Write-Host "             pwsh .github/knowledge-graph/cli/mentor.ps1 add <type> <slug> -Label '...' -Description '...'" -ForegroundColor Gray
+Write-Host "  NO-EDGES → either add an edge connecting the node to the system, OR delete the file" -ForegroundColor White
+Write-Host "             (a node nothing references and that references nothing isn't earning its keep)" -ForegroundColor Gray
 Write-Host ""
 Write-Host "Or, if the .md file should be removed: delete it and re-run this check." -ForegroundColor Gray
 Write-Host ""

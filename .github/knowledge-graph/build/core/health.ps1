@@ -373,7 +373,10 @@ if ($gitAvailable) {
             '[/\\](bin|obj|node_modules)[/\\]',
             'knowledge-graph[/\\](build|data|tests|output|demos)[/\\]',
             'knowledge-graph[/\\](build|data|tests|output|demos)$',
-            'knowledge-graph[/\\][A-Z][A-Z0-9_-]+\.md$'   # top-level KG docs (README, AUTO-DISCOVERY, etc.)
+            # Implicit entrypoint landing-page docs — same exemption as find-orphan-markdown.ps1.
+            # These don't need graph nodes (they're navigation, not artifacts).
+            '(^|[/\\])README\.md$',
+            '(^|[/\\])CONTRIBUTING\.md$'
         )
 
         # Graph file paths — any node whose `file` field points at a tracked repo file

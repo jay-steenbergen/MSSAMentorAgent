@@ -10,7 +10,6 @@ Multi-layer structured map of the Mentor system. Each layer is its own JSON grap
 .github/knowledge-graph/
 ├── README.md                    ← you are here
 ├── CONTRIBUTING.md              ← read before editing
-├── INTEGRATION_SUMMARY.md
 │
 ├── output/                      ← Generated artifacts (gitignored)
 │   ├── merged-graph.json       ← Combined graph from all layers
