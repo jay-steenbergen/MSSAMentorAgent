@@ -3878,6 +3878,22 @@
       "cluster": "session-protocols",
       "file": "docs/design/v1-distribution-and-scaffolding.md",
       "description": "Spike conclusion on how learners install the extension and how scaffolding works."
+    },
+    {
+      "id": "cli-tool:preflight",
+      "type": "cli-tool",
+      "label": "preflight.ps1",
+      "cluster": "infra-layer",
+      "file": ".github/knowledge-graph/cli/preflight.ps1",
+      "description": "Runs the full pre-commit graph chain locally (auto-discover, extract, merge, fix-dangling, health, drift) and reports every issue in one pass instead of failing one-at-a-time. Use before staging any knowledge-graph edit."
+    },
+    {
+      "id": "reference:graph-authoring-conventions",
+      "type": "reference",
+      "label": "AUTHORING.md",
+      "cluster": "infra-layer",
+      "file": ".github/knowledge-graph/AUTHORING.md",
+      "description": "Per-node-type conventions for hand-editing the system graph (field nodes omit file:, cli-tool files must exist before the graph references them, etc.) and the recovery workflow when the pre-commit hook rejects a commit."
     }
   ],
   "metadata": {
@@ -7877,6 +7893,24 @@
       "target": "code-file:.github/knowledge-graph/cli/propose-concept.ps1",
       "type": "defined_in",
       "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:preflight",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:preflight",
+      "target": "code-file:.github/knowledge-graph/cli/preflight.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:preflight",
+      "target": "reference:graph-authoring-conventions",
+      "type": "documented_in",
+      "label": "conventions documented in"
     }
   ]
 }

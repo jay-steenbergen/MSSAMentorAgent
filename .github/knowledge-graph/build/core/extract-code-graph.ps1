@@ -130,6 +130,7 @@ $includePatterns = @(
     '.github/knowledge-graph/cli',      # CLI scripts
     '.github/knowledge-graph/queries',  # Query scripts
     '.github/knowledge-graph/build',    # Build pipeline scripts (core/advanced/repair)
+    '.github/knowledge-graph/AUTHORING.md',  # Authoring conventions doc
     '.profiles',
     'extensions',                       # VS Code extensions
     'docs',

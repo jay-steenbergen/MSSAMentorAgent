@@ -134,6 +134,18 @@ foreach ($node in $systemGraph.nodes) {
                 if ($cf -match $pattern) { $hit = $true; break }
             }
 
+            # Fallback for paths the extractor intentionally excludes (e.g. knowledge-graph/data/,
+            # knowledge-graph/tests/). These files will never appear as code-file nodes, but the
+            # documented path is still accurate if the file exists on disk. Templates (containing
+            # `{...}`) cannot be disk-checked.
+            if (-not $hit -and -not $hasTemplate) {
+                $excludedFromExtraction = $candidate -match '^\.github/knowledge-graph/(data|tests)/'
+                if ($excludedFromExtraction) {
+                    $diskPath = Join-Path $repoRoot $candidate
+                    if (Test-Path $diskPath) { $hit = $true }
+                }
+            }
+
             if (-not $hit) {
                 $findings.Add([pscustomobject]@{
                     NodeId      = $nodeId
