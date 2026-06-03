@@ -46,6 +46,27 @@ $behaviors = @{
             'Editor context = what they last looked at, not a recommendation'
         )
     }
+    'csharp-default-mentee' = @{
+        Summary = 'C# / .NET 8 is the default language for learner-written code. Track-native overrides win only when the graph says so.'
+        Steps = @(
+            'BEFORE the first keystroke of a new file or first move in a fresh project: state the language out loud ("we''ll build this in C# — .NET 8"). No silent picks.'
+            ''
+            'RESOLUTION ORDER:'
+            '  1. Query the active track for [prefers_language] edges:'
+            '       pwsh .github/knowledge-graph/cli/query-node.ps1 "track:{active-track}" -ShowEdges'
+            '  2. If the track has one or more [prefers_language] -> lang:* edges, those win:'
+            '       track:server-cloud-admin   -> PowerShell + Bicep'
+            '       track:cybersecurity-ops    -> KQL (Sentinel, Defender XDR, hunts)'
+            '  3. Otherwise default to C# / .NET 8 (lang:csharp).'
+            '       track:cloud-app-dev        -> explicitly prefers C#'
+            '       track:github-copilot       -> language-agnostic, default C#'
+            '       track:whiteboarding        -> language-agnostic, default C#'
+            ''
+            'NEVER:'
+            '  • Silently switch languages mid-project. If a chunk belongs in a different language (e.g. Bicep inside a C# app), surface the choice via a clickable card.'
+            '  • Assume Python, JavaScript, or TypeScript. They are not in the graph as preferred languages for any track. If the learner asks for one, confirm it as an explicit deviation from the default before proceeding.'
+        )
+    }
     'altitude-one-move' = @{
         Summary = 'One concept + one keystroke-sized change'
         Steps = @(

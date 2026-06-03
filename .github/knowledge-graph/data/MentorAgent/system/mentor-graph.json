@@ -4327,6 +4327,47 @@
       "file": ".github/tests/quiz-cadence.test.md",
       "section": "frontmatter",
       "description": "Behavioral test: cadence cold-pull quiz fires at most once per session between milestones with opt-out."
+    },
+    {
+      "id": "behavior:27-csharp-default-mentee",
+      "type": "rule",
+      "label": "27. C# is the default language for learner-written code",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Default to C# / .NET 8 for any code the learner writes. Before the first keystroke of a new file or first move in a fresh project, state the language out loud ('we'll build this in C# — .NET 8'). Track-native overrides win when the active track has one or more [prefers_language] edges to lang:* nodes (server-cloud-admin -> PowerShell + Bicep, cybersecurity-ops -> KQL). For language-agnostic tracks (github-copilot, whiteboarding) and for cloud-app-dev (which prefers C# explicitly), C# is the answer. NEVER silently switch languages mid-project; surface the choice and let the learner click. See get-behavior.ps1 csharp-default-mentee for the resolution protocol."
+    },
+    {
+      "id": "lang:csharp",
+      "type": "language",
+      "label": "C# / .NET 8",
+      "cluster": "track-curriculum",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "C# on .NET 8. Default language for learner-written code per behavior:27-csharp-default-mentee. Preferred by track:cloud-app-dev."
+    },
+    {
+      "id": "lang:powershell",
+      "type": "language",
+      "label": "PowerShell 7+",
+      "cluster": "track-curriculum",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "PowerShell 7+. Track-native for server-cloud-admin (admin scripting, automation)."
+    },
+    {
+      "id": "lang:bicep",
+      "type": "language",
+      "label": "Bicep / ARM",
+      "cluster": "track-curriculum",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "Bicep (and ARM templates where required). Track-native for server-cloud-admin (infrastructure as code)."
+    },
+    {
+      "id": "lang:kql",
+      "type": "language",
+      "label": "KQL (Kusto Query Language)",
+      "cluster": "track-curriculum",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "Kusto Query Language for Sentinel hunts, detections, and Defender XDR queries. Track-native for cybersecurity-ops."
     }
   ],
   "metadata": {
@@ -8910,6 +8951,36 @@
       "source": "agent:mentor",
       "target": "picker:continuation",
       "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:27-csharp-default-mentee",
+      "type": "follows",
+      "label": "C# is the default for learner code"
+    },
+    {
+      "source": "track:cloud-app-dev",
+      "target": "lang:csharp",
+      "type": "prefers_language",
+      "label": "native language"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "lang:powershell",
+      "type": "prefers_language",
+      "label": "admin scripting"
+    },
+    {
+      "source": "track:server-cloud-admin",
+      "target": "lang:bicep",
+      "type": "prefers_language",
+      "label": "infrastructure as code"
+    },
+    {
+      "source": "track:cybersecurity-ops",
+      "target": "lang:kql",
+      "type": "prefers_language",
+      "label": "hunts and detections"
     }
   ]
 }
