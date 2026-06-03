@@ -73,12 +73,15 @@ export function getCurrentUsername(): string {
 /**
  * Load a learner profile by username.
  *
- * Falls back to the only profile in ~/.mssa-mentor/profiles/mentees/
- * when an explicit lookup misses — handy when git user.name doesn't
- * match the folder name but the machine only has one learner.
+ * Strict identity match: the sanitized identifier (or the current
+ * user's git/OS name) MUST match an existing folder under
+ * ~/.mssa-mentor/profiles/mentees/. No fallback to "the only profile
+ * on the machine" — that silently adopts whoever's folder happens to
+ * be there (e.g. a stray test_user fixture) and is exactly what we
+ * do NOT want.
  *
- * Returns null when no profile exists (signals first-time learner —
- * caller should trigger the interview).
+ * Returns null when no matching profile exists (signals first-time
+ * learner — caller MUST trigger the interview, not pick a stranger).
  */
 export async function findLearnerProfile(
   identifier?: string
@@ -98,15 +101,9 @@ export async function findLearnerProfile(
     return null;
   }
 
-  // Resolve which folder to load.
+  // Resolve which folder to load — strict match only.
   const lookup = identifier ?? getCurrentUsername();
-  let username: string | undefined;
-  if (userDirs.includes(lookup)) {
-    username = lookup;
-  } else if (userDirs.length === 1) {
-    // Single-user-on-machine fallback.
-    username = userDirs[0];
-  }
+  const username = userDirs.includes(lookup) ? lookup : undefined;
 
   if (!username) {
     return null;

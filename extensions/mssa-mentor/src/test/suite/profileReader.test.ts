@@ -69,7 +69,10 @@ suite('profileReader.ts', () => {
     assert.strictEqual(ctx!.lastUsedMethod, 'ride-along');
   });
 
-  test('single-user-on-machine fallback when identifier does not match', async () => {
+  test('returns null rather than adopting the only profile on the machine', async () => {
+    // Regression: previously a single-profile machine would silently
+    // adopt that profile for any caller (e.g. a fresh user inherited
+    // a stray test_user folder). Identity must be strict.
     seedProfile(tmp, 'only_user', {
       name: 'Only',
       preferred_name: 'Only',
@@ -77,8 +80,11 @@ suite('profileReader.ts', () => {
       projects: {}
     });
     const ctx = await findLearnerProfile('nonexistent-name');
-    assert.ok(ctx, 'expected single-user fallback to find the only profile');
-    assert.strictEqual(ctx!.username, 'only');
+    assert.strictEqual(
+      ctx,
+      null,
+      'must NOT silently adopt the only profile — caller has to run the interview'
+    );
   });
 
   test('returns null when multiple users and identifier matches none', async () => {
