@@ -18,7 +18,6 @@ $ErrorActionPreference = "Stop"
 
 # ---------- bootstrap ----------
 $scriptDir = $PSScriptRoot
-$graphPath = Join-Path $scriptDir "mentor-graph.json"
 
 # Find repo root (walk up looking for .github)
 $repoRoot = $scriptDir
@@ -30,6 +29,8 @@ if (-not $repoRoot) {
     exit 1
 }
 
+# Graph lives under data/MentorAgent/system/, not next to this script.
+$graphPath = Join-Path $repoRoot ".github/knowledge-graph/data/MentorAgent/system/mentor-graph.json"
 if (-not (Test-Path $graphPath)) {
     Write-Host "ERROR: mentor-graph.json not found at $graphPath" -ForegroundColor Red
     exit 1

@@ -4255,6 +4255,78 @@
       "cluster": "concept-proficiency",
       "section": "profile.json",
       "description": "Append-only array of quiz records. Each record: { ts (ISO8601), concept_id (canonical or minted slug), project_id (current project context), trigger ('pre-teach' | 'reappearance' | 'cadence' | 'recall-open'), form ('mc' | 'code-fill' | 'open' | 'self-report'), question (text), answer (text or option index), correct (bool or null for self-report), tier_before, tier_after (null until AAR rollup). Read by behavior:15-track-concept-proficiency and behavior:08-aar-at-milestones as the ground-truth ledger for tier rollups per rule:proficiency-derived-from-quiz-history. Never mutated — only appended; corrections become new entries with notes referencing the prior ts."
+    },
+    {
+      "id": "test:picker-project",
+      "type": "test",
+      "label": "picker-project",
+      "cluster": "validation-layer",
+      "file": ".github/tests/picker-project.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: project picker shows clickable options sorted by last_session with Start new project always present."
+    },
+    {
+      "id": "test:picker-method",
+      "type": "test",
+      "label": "picker-method",
+      "cluster": "validation-layer",
+      "file": ".github/tests/picker-method.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: method picker shows 4 methods with ride-along default and validates skill exists before load."
+    },
+    {
+      "id": "test:picker-track",
+      "type": "test",
+      "label": "picker-track",
+      "cluster": "validation-layer",
+      "file": ".github/tests/picker-track.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: track picker shows all 5 MSSA tracks and validates track folder before load."
+    },
+    {
+      "id": "test:picker-continuation",
+      "type": "test",
+      "label": "picker-continuation",
+      "cluster": "validation-layer",
+      "file": ".github/tests/picker-continuation.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: continuation picker shows Continue/Switch method/Switch track with method+track named in Continue option."
+    },
+    {
+      "id": "test:interview-first-time",
+      "type": "test",
+      "label": "interview-first-time",
+      "cluster": "validation-layer",
+      "file": ".github/tests/interview-first-time.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: first-time learner interview runs one question per turn with summary confirmation before profile write."
+    },
+    {
+      "id": "test:quiz-pre-teach",
+      "type": "test",
+      "label": "quiz-pre-teach",
+      "cluster": "validation-layer",
+      "file": ".github/tests/quiz-pre-teach.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: pre-teach calibration card fires before introducing a new concept and skips at tier independent."
+    },
+    {
+      "id": "test:quiz-reappearance",
+      "type": "test",
+      "label": "quiz-reappearance",
+      "cluster": "validation-layer",
+      "file": ".github/tests/quiz-reappearance.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: reappearance quiz fires before conversational callback and gates it on outcome."
+    },
+    {
+      "id": "test:quiz-cadence",
+      "type": "test",
+      "label": "quiz-cadence",
+      "cluster": "validation-layer",
+      "file": ".github/tests/quiz-cadence.test.md",
+      "section": "frontmatter",
+      "description": "Behavioral test: cadence cold-pull quiz fires at most once per session between milestones with opt-out."
     }
   ],
   "metadata": {
@@ -8621,23 +8693,208 @@
       "type": "defined_in",
       "label": "defined in"
     },
-    { "source": "agent:mentor", "target": "behavior:24-pre-teach-quiz", "type": "follows", "label": "pre-teach calibration quiz" },
-    { "source": "agent:mentor", "target": "behavior:25-reappearance-quiz", "type": "follows", "label": "quiz on concept reappearance" },
-    { "source": "agent:mentor", "target": "behavior:26-cadence-quiz", "type": "follows", "label": "occasional cadence quiz" },
-    { "source": "behavior:24-pre-teach-quiz", "target": "field:profile.quiz_history", "type": "writes_to", "label": "logs pre-teach outcome" },
-    { "source": "behavior:24-pre-teach-quiz", "target": "field:profile.concept_proficiency", "type": "reads_from", "label": "skip if tier >= independent" },
-    { "source": "behavior:24-pre-teach-quiz", "target": "rule:quiz-form-by-concept-type", "type": "has_rule", "label": "form selection" },
-    { "source": "behavior:24-pre-teach-quiz", "target": "rule:concept-canonical-or-mint", "type": "has_rule", "label": "concept-id resolution" },
-    { "source": "behavior:25-reappearance-quiz", "target": "field:profile.quiz_history", "type": "writes_to", "label": "logs reappearance outcome" },
-    { "source": "behavior:25-reappearance-quiz", "target": "field:profile.concept_proficiency", "type": "reads_from", "label": "fires only for exposed/guided" },
-    { "source": "behavior:25-reappearance-quiz", "target": "rule:quiz-form-by-concept-type", "type": "has_rule", "label": "form selection" },
-    { "source": "behavior:25-reappearance-quiz", "target": "behavior:17-callback-prior-concept", "type": "feeds", "label": "quiz outcome gates the callback" },
-    { "source": "behavior:26-cadence-quiz", "target": "field:profile.quiz_history", "type": "writes_to", "label": "logs cadence outcome" },
-    { "source": "behavior:26-cadence-quiz", "target": "field:profile.quiz_history", "type": "reads_from", "label": "checks last-quiz dates per concept" },
-    { "source": "behavior:26-cadence-quiz", "target": "rule:quiz-form-by-concept-type", "type": "has_rule", "label": "form selection" },
-    { "source": "behavior:15-track-concept-proficiency", "target": "field:profile.quiz_history", "type": "reads_from", "label": "ingests quiz outcomes as grading signal" },
-    { "source": "behavior:08-aar-at-milestones", "target": "field:profile.quiz_history", "type": "reads_from", "label": "rolls up quiz outcomes into tier bumps" },
-    { "source": "rule:proficiency-derived-from-quiz-history", "target": "field:profile.quiz_history", "type": "reads_from", "label": "ground-truth ledger" },
-    { "source": "rule:proficiency-derived-from-quiz-history", "target": "field:profile.concept_proficiency", "type": "writes_to", "label": "snapshot recomputed from ledger" }
+    {
+      "source": "agent:mentor",
+      "target": "behavior:24-pre-teach-quiz",
+      "type": "follows",
+      "label": "pre-teach calibration quiz"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:25-reappearance-quiz",
+      "type": "follows",
+      "label": "quiz on concept reappearance"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:26-cadence-quiz",
+      "type": "follows",
+      "label": "occasional cadence quiz"
+    },
+    {
+      "source": "behavior:24-pre-teach-quiz",
+      "target": "field:profile.quiz_history",
+      "type": "writes_to",
+      "label": "logs pre-teach outcome"
+    },
+    {
+      "source": "behavior:24-pre-teach-quiz",
+      "target": "field:profile.concept_proficiency",
+      "type": "reads_from",
+      "label": "skip if tier >= independent"
+    },
+    {
+      "source": "behavior:24-pre-teach-quiz",
+      "target": "rule:quiz-form-by-concept-type",
+      "type": "has_rule",
+      "label": "form selection"
+    },
+    {
+      "source": "behavior:24-pre-teach-quiz",
+      "target": "rule:concept-canonical-or-mint",
+      "type": "has_rule",
+      "label": "concept-id resolution"
+    },
+    {
+      "source": "behavior:25-reappearance-quiz",
+      "target": "field:profile.quiz_history",
+      "type": "writes_to",
+      "label": "logs reappearance outcome"
+    },
+    {
+      "source": "behavior:25-reappearance-quiz",
+      "target": "field:profile.concept_proficiency",
+      "type": "reads_from",
+      "label": "fires only for exposed/guided"
+    },
+    {
+      "source": "behavior:25-reappearance-quiz",
+      "target": "rule:quiz-form-by-concept-type",
+      "type": "has_rule",
+      "label": "form selection"
+    },
+    {
+      "source": "behavior:25-reappearance-quiz",
+      "target": "behavior:17-callback-prior-concept",
+      "type": "feeds",
+      "label": "quiz outcome gates the callback"
+    },
+    {
+      "source": "behavior:26-cadence-quiz",
+      "target": "field:profile.quiz_history",
+      "type": "writes_to",
+      "label": "logs cadence outcome"
+    },
+    {
+      "source": "behavior:26-cadence-quiz",
+      "target": "field:profile.quiz_history",
+      "type": "reads_from",
+      "label": "checks last-quiz dates per concept"
+    },
+    {
+      "source": "behavior:26-cadence-quiz",
+      "target": "rule:quiz-form-by-concept-type",
+      "type": "has_rule",
+      "label": "form selection"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "field:profile.quiz_history",
+      "type": "reads_from",
+      "label": "ingests quiz outcomes as grading signal"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "field:profile.quiz_history",
+      "type": "reads_from",
+      "label": "rolls up quiz outcomes into tier bumps"
+    },
+    {
+      "source": "rule:proficiency-derived-from-quiz-history",
+      "target": "field:profile.quiz_history",
+      "type": "reads_from",
+      "label": "ground-truth ledger"
+    },
+    {
+      "source": "rule:proficiency-derived-from-quiz-history",
+      "target": "field:profile.concept_proficiency",
+      "type": "writes_to",
+      "label": "snapshot recomputed from ledger"
+    },
+    {
+      "source": "test:picker-project",
+      "target": "picker:project",
+      "type": "tests"
+    },
+    {
+      "source": "test:picker-method",
+      "target": "picker:method",
+      "type": "tests"
+    },
+    {
+      "source": "test:picker-track",
+      "target": "picker:track",
+      "type": "tests"
+    },
+    {
+      "source": "test:picker-continuation",
+      "target": "picker:continuation",
+      "type": "tests"
+    },
+    {
+      "source": "test:interview-first-time",
+      "target": "protocol:interview",
+      "type": "tests"
+    },
+    {
+      "source": "test:interview-first-time",
+      "target": "protocol:followup-interview",
+      "type": "tests"
+    },
+    {
+      "source": "test:quiz-pre-teach",
+      "target": "behavior:24-pre-teach-quiz",
+      "type": "tests"
+    },
+    {
+      "source": "test:quiz-pre-teach",
+      "target": "rule:quiz-form-by-concept-type",
+      "type": "tests"
+    },
+    {
+      "source": "test:quiz-reappearance",
+      "target": "behavior:25-reappearance-quiz",
+      "type": "tests"
+    },
+    {
+      "source": "test:quiz-reappearance",
+      "target": "behavior:17-callback-prior-concept",
+      "type": "tests"
+    },
+    {
+      "source": "test:quiz-cadence",
+      "target": "behavior:26-cadence-quiz",
+      "type": "tests"
+    },
+    {
+      "source": "test:template",
+      "target": "test:picker-project",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:picker-method",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:picker-track",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:picker-continuation",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:interview-first-time",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:quiz-pre-teach",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:quiz-reappearance",
+      "type": "template_for"
+    },
+    {
+      "source": "test:template",
+      "target": "test:quiz-cadence",
+      "type": "template_for"
+    }
   ]
 }
