@@ -324,6 +324,7 @@ When validation detects missing, empty, or "N/A" fields, run targeted follow-ups
 | `progress.current_step` | Integer — which step they're on |
 | `progress.last_used_method` | `"ride-along"`, `"TDD"`, `"BDD"`, `"spike-then-refactor"` — teaching method from last session |
 | `progress.completed_milestones` | Array of milestone IDs they've finished |
+| `quiz_history` | Append-only ledger of in-session calibration quiz outcomes. Each entry: `{ ts, concept_id, project_id, trigger ("pre-teach"\|"reappearance"\|"cadence"\|"recall-open"), form ("mc"\|"code-fill"\|"open"\|"self-report"), question, answer, correct, tier_before, tier_after }`. Read by mentor behaviors `track-concept-proficiency` and `aar-at-milestones` to recompute `concept_proficiency.tier` at AAR — `tier` is a snapshot, `quiz_history` is the source of truth. See behaviors `pre-teach-quiz`, `reappearance-quiz`, `cadence-quiz` in `.github/agents/Mentor.agent.md`. |
 | `session_history` | Log of sessions for retrospectives |
 
 **Note:** The `military.extracted_concepts` and `translation_to_code` fields are built by the mentor during the interview. When the learner describes their job, the mentor listens for operational concepts (render safe procedures, mission planning, troubleshooting under pressure) and stores them here. The mentor persona (not this skill) uses these mappings to pick analogies during teaching.

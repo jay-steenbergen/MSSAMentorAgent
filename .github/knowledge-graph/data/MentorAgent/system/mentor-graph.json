@@ -4202,6 +4202,59 @@
       "cluster": "longitudinal-goals",
       "file": ".github/knowledge-graph/cli/validate-goal.ps1",
       "description": "Stub validator for a single goal record from field:profile.goals. Checks goal_id slug shape, type enum membership, target schema matching type, deadline ISO8601 parse, and related_concepts referencing real concept:* nodes (warn-only). Called by behavior:21-elicit-goal before persisting a goal record. Mirrors cli-tool:propose-mistake and cli-tool:propose-analogy stub pattern — full implementation lands once goal records are actually being written in practice."
+    },
+    {
+      "id": "behavior:24-pre-teach-quiz",
+      "type": "rule",
+      "label": "24. Pre-teach calibration quiz before introducing a concept",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before introducing a concept the learner has not seen in this session, calibrate prior exposure with ONE clickable card: 'Have you seen <concept>? [used it / heard of it / brand new]'. If 'used it' → fire ONE form-appropriate calibration question per rule:quiz-form-by-concept-type and log to field:profile.quiz_history. If 'heard of it' or 'brand new' → skip the calibration question, proceed to teach, log a quiz_history entry with form='self-report' and correct=null. Resolves concept-id via rule:concept-canonical-or-mint. Skip entirely when field:profile.concept_proficiency already has the concept at tier >= 'independent' (calibration is redundant). This is the FIRST trigger of the three-layer quiz system (pre-teach + reappearance + cadence) referenced by behavior:15-track-concept-proficiency as ground-truth grading input. See get-behavior.ps1 pre-teach-quiz for the full protocol."
+    },
+    {
+      "id": "behavior:25-reappearance-quiz",
+      "type": "rule",
+      "label": "25. Reappearance quiz gates the mid-build callback",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Mid-build, when about-to-write code touches a concept-id already in field:profile.concept_proficiency at tier 'exposed' or 'guided', fire ONE form-appropriate quiz per rule:quiz-form-by-concept-type BEFORE proceeding to behavior:17-callback-prior-concept. On correct answer → log {correct: true} to field:profile.quiz_history and let behavior:17 fire its conversational callback naming the prior project. On incorrect answer → log {correct: false}, skip the callback (no 'recognize it?' sentence — they don't), offer a 30-second refresher, and proceed. Skip entirely when tier >= 'independent' (callback is enough — no quiz needed). One reappearance quiz per concept per session. Failed quiz never downgrades tier per rule:callback-counts-as-grading-signal symmetry. See get-behavior.ps1 reappearance-quiz for the full protocol."
+    },
+    {
+      "id": "behavior:26-cadence-quiz",
+      "type": "rule",
+      "label": "26. Occasional cold-pull quiz at natural session pauses",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "At a natural pause BETWEEN milestones (never mid-move), pull ONE concept from the current track that the learner has touched but has NOT been quizzed on in 5+ sessions (read field:profile.quiz_history to find the gap). Fire ONE form-appropriate question per rule:quiz-form-by-concept-type, log outcome to field:profile.quiz_history. Cap: ONE cadence quiz per session, never on top of a recall-check (behavior:16) or reappearance-quiz (behavior:25) in the same session. Skip for new learners (empty quiz_history). Skip if the only candidates are tier 'teaching' (no benefit). This is the cold-pull safety net for concepts that never naturally reappear in current code. See get-behavior.ps1 cadence-quiz for the full protocol."
+    },
+    {
+      "id": "rule:quiz-form-by-concept-type",
+      "type": "rule",
+      "label": "Quiz form chosen by concept type",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Quiz form is picked per concept, not per trigger. Definition concepts (variable, conditional, dictionary) → multiple-choice clickable card with 3-4 options. Skill concepts (for-loop, try-catch, git-commit) → code-completion micro-challenge: a 3-5 line snippet with a single hole, learner fills the hole in chat. Conceptual depth (test, function boundaries, dependency direction) → open-ended one-sentence answer, Mentor judges depth qualitatively and logs {correct: bool, notes}. The concept:* registry SHOULD carry a 'quiz_form' hint per node; absent that hint, default to multiple-choice for safety. Never use code-completion for a concept the learner has not yet typed once — that's a guessing test, not a recall test."
+    },
+    {
+      "id": "rule:proficiency-derived-from-quiz-history",
+      "type": "rule",
+      "label": "concept_proficiency.tier derived from quiz_history at AAR",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "field:profile.concept_proficiency.tier is a snapshot, NOT the source of truth — mirrors rule:goal-progress-derived-not-stored. behavior:15-track-concept-proficiency at every AAR MUST recompute tier from field:profile.quiz_history + callback_success log + learner self-confirmation, then write the snapshot back. Rollup rules: 3+ correct quiz answers within the same tier over 2+ sessions = evidence to bump up one tier; 1 callback_success unprompted = evidence to bump guided -> independent (already captured by rule:callback-counts-as-grading-signal). Incorrect quiz answers never downgrade — they just delay the next bump. Trusting the stored tier without recomputing would compound errors across sessions and silently drift proficiency away from reality."
+    },
+    {
+      "id": "field:profile.quiz_history",
+      "type": "field",
+      "label": "profile.quiz_history (array)",
+      "cluster": "concept-proficiency",
+      "section": "profile.json",
+      "description": "Append-only array of quiz records. Each record: { ts (ISO8601), concept_id (canonical or minted slug), project_id (current project context), trigger ('pre-teach' | 'reappearance' | 'cadence' | 'recall-open'), form ('mc' | 'code-fill' | 'open' | 'self-report'), question (text), answer (text or option index), correct (bool or null for self-report), tier_before, tier_after (null until AAR rollup). Read by behavior:15-track-concept-proficiency and behavior:08-aar-at-milestones as the ground-truth ledger for tier rollups per rule:proficiency-derived-from-quiz-history. Never mutated — only appended; corrections become new entries with notes referencing the prior ts."
     }
   ],
   "metadata": {
@@ -8567,6 +8620,24 @@
       "target": "code-file:.github/knowledge-graph/cli/validate-goal.ps1",
       "type": "defined_in",
       "label": "defined in"
-    }
+    },
+    { "source": "agent:mentor", "target": "behavior:24-pre-teach-quiz", "type": "follows", "label": "pre-teach calibration quiz" },
+    { "source": "agent:mentor", "target": "behavior:25-reappearance-quiz", "type": "follows", "label": "quiz on concept reappearance" },
+    { "source": "agent:mentor", "target": "behavior:26-cadence-quiz", "type": "follows", "label": "occasional cadence quiz" },
+    { "source": "behavior:24-pre-teach-quiz", "target": "field:profile.quiz_history", "type": "writes_to", "label": "logs pre-teach outcome" },
+    { "source": "behavior:24-pre-teach-quiz", "target": "field:profile.concept_proficiency", "type": "reads_from", "label": "skip if tier >= independent" },
+    { "source": "behavior:24-pre-teach-quiz", "target": "rule:quiz-form-by-concept-type", "type": "has_rule", "label": "form selection" },
+    { "source": "behavior:24-pre-teach-quiz", "target": "rule:concept-canonical-or-mint", "type": "has_rule", "label": "concept-id resolution" },
+    { "source": "behavior:25-reappearance-quiz", "target": "field:profile.quiz_history", "type": "writes_to", "label": "logs reappearance outcome" },
+    { "source": "behavior:25-reappearance-quiz", "target": "field:profile.concept_proficiency", "type": "reads_from", "label": "fires only for exposed/guided" },
+    { "source": "behavior:25-reappearance-quiz", "target": "rule:quiz-form-by-concept-type", "type": "has_rule", "label": "form selection" },
+    { "source": "behavior:25-reappearance-quiz", "target": "behavior:17-callback-prior-concept", "type": "feeds", "label": "quiz outcome gates the callback" },
+    { "source": "behavior:26-cadence-quiz", "target": "field:profile.quiz_history", "type": "writes_to", "label": "logs cadence outcome" },
+    { "source": "behavior:26-cadence-quiz", "target": "field:profile.quiz_history", "type": "reads_from", "label": "checks last-quiz dates per concept" },
+    { "source": "behavior:26-cadence-quiz", "target": "rule:quiz-form-by-concept-type", "type": "has_rule", "label": "form selection" },
+    { "source": "behavior:15-track-concept-proficiency", "target": "field:profile.quiz_history", "type": "reads_from", "label": "ingests quiz outcomes as grading signal" },
+    { "source": "behavior:08-aar-at-milestones", "target": "field:profile.quiz_history", "type": "reads_from", "label": "rolls up quiz outcomes into tier bumps" },
+    { "source": "rule:proficiency-derived-from-quiz-history", "target": "field:profile.quiz_history", "type": "reads_from", "label": "ground-truth ledger" },
+    { "source": "rule:proficiency-derived-from-quiz-history", "target": "field:profile.concept_proficiency", "type": "writes_to", "label": "snapshot recomputed from ledger" }
   ]
 }

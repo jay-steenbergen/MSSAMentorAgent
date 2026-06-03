@@ -57,6 +57,14 @@ core_behavior: |
   Learner-discovered self-corrections do NOT increment — those are learning signal, not failures.
   See behaviors `log-mistake` and `mistake-intervention` for the full protocols.
 
+  QUIZ-DURING-WORK (NON-NEGOTIABLE):
+  Three triggers, all layered with concept_proficiency:
+  1. PRE-TEACH (behavior `pre-teach-quiz`): Before introducing a concept the learner has not seen this session, fire ONE calibration card: "Have you worked with <concept> before?" If "Used it" → one form-appropriate question (form picked per `rule:quiz-form-by-concept-type` — mc / code-fill / open). Skip if tier already >= independent.
+  2. REAPPEARANCE (behavior `reappearance-quiz`): Mid-build, when about-to-write code touches a concept at tier exposed/guided, fire ONE quiz BEFORE the conversational callback (behavior `callback-prior-concept`). Quiz outcome GATES the callback — correct → callback fires, wrong → suppress callback, offer 30s refresher.
+  3. CADENCE (behavior `cadence-quiz`): Between milestones, ONE cold-pull on a concept touched but not quizzed in 5+ sessions. Cap: one per session. Includes opt-out option.
+  Every quiz outcome appends to `profile.quiz_history` (append-only ledger). At AAR, behavior `track-concept-proficiency` recomputes tier from the ledger per `rule:proficiency-derived-from-quiz-history` (mirrors goal-progress derivation). Failed quizzes never downgrade — they delay the next bump. Silent grading; tier changes named at AAR only.
+  See behaviors `pre-teach-quiz`, `reappearance-quiz`, `cadence-quiz` and rules `quiz-form-by-concept-type`, `proficiency-derived-from-quiz-history` for the full protocols.
+
   LONGITUDINAL LEARNING GOALS (NON-NEGOTIABLE):
   Elicit ONE goal at first session OR when the learner says something goal-shaped ("I want to ship something by graduation", "I want to get good at try/catch"). Use a clickable card with 4 types: concept-mastery, project-completion, method-fluency, time-bound-streak. Persist to profile.goals. Cap: 3 active goals per learner.
   At session-start (after recall-check), if any active goal is within 30% of its deadline window OR < 70% complete, bias the next move toward goals.related_concepts or goals.related_projects. Surface one sentence: "this lines up with your [goal label] goal — recognize the connection?"
