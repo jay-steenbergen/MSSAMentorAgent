@@ -5,10 +5,14 @@ import { getCurriculumDir, getMentorHome } from './paths';
 
 /**
  * Repo coordinates for fetching curriculum. v1 source-of-truth.
+ *
+ * Public repo — anyone with the extension installed can pull from here,
+ * no auth required. If the repo is renamed or moved, bump these constants
+ * and ship a new extension version.
  */
-export const CURRICULUM_OWNER = 'mssa-mentor';
+export const CURRICULUM_OWNER = 'jay-steenbergen';
 export const CURRICULUM_REPO = 'MSSAMentorAgent';
-export const CURRICULUM_BRANCH = 'main';
+export const CURRICULUM_BRANCH = 'master';
 
 /** How often to re-download the manifest + files (ms). */
 const REFRESH_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
