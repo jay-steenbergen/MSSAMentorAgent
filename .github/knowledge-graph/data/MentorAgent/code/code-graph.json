@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-06-02T22:59:42-07:00",
+    "generated": "2026-06-03T05:42:26-07:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,7 +19,7 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 189,
+      "files": 190,
       "stub_files": 0,
       "functions": 136,
       "sections": 640,
@@ -30,9 +30,9 @@
       "scenarios": 58,
       "classes": 7,
       "imports": 54,
-      "total_nodes": 1318,
-      "total_edges": 1445,
-      "bridges": 344,
+      "total_nodes": 1320,
+      "total_edges": 1446,
+      "bridges": 348,
       "dangling_edges": 0,
       "orphan_nodes": 11
     }
@@ -78,7 +78,7 @@
       "file": ".github/agents/Mentor.agent.md",
       "description": "File: .github/agents/Mentor.agent.md",
       "extension": ".md",
-      "size_bytes": 17771
+      "size_bytes": 18335
     },
     {
       "id": "code-yaml-field:.github/agents/Mentor.agent.md::name",
@@ -1374,7 +1374,7 @@
       "file": ".github/knowledge-graph/cli/get-behavior.ps1",
       "description": "File: .github/knowledge-graph/cli/get-behavior.ps1",
       "extension": ".ps1",
-      "size_bytes": 16177
+      "size_bytes": 19372
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/get-behavior.ps1::script::true",
@@ -1697,6 +1697,24 @@
       "cluster": "scripts-source",
       "file": ".github/knowledge-graph/cli/preflight.ps1",
       "description": "PowerShell function Write-Step in .github/knowledge-graph/cli/preflight.ps1"
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/propose-analogy.ps1",
+      "type": "code-file",
+      "label": "propose-analogy.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/propose-analogy.ps1",
+      "description": "File: .github/knowledge-graph/cli/propose-analogy.ps1",
+      "extension": ".ps1",
+      "size_bytes": 1734
+    },
+    {
+      "id": "code-param:.github/knowledge-graph/cli/propose-analogy.ps1::script::MinMentions",
+      "type": "code-param",
+      "label": "MinMentions",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/propose-analogy.ps1",
+      "description": "Script parameter -MinMentions"
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/propose-concept.ps1",
@@ -12379,6 +12397,11 @@
       "type": "defined_in"
     },
     {
+      "source": "code-file:.github/knowledge-graph/cli/propose-analogy.ps1",
+      "target": "code-param:.github/knowledge-graph/cli/propose-analogy.ps1::script::MinMentions",
+      "type": "contains"
+    },
+    {
       "source": "code-file:.github/knowledge-graph/cli/propose-concept.ps1",
       "target": "code-param:.github/knowledge-graph/cli/propose-concept.ps1::script::MinMentions",
       "type": "contains"
@@ -18040,9 +18063,9 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
       "type": "calls",
-      "label": "calls Write-Info"
+      "label": "calls Write-Warning"
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
@@ -18052,21 +18075,21 @@
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
-      "type": "calls",
-      "label": "calls Write-Success"
-    },
-    {
-      "source": "code-file:.github/hooks/pre-commit.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
     },
     {
       "source": "code-file:.github/hooks/pre-commit.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Info",
       "type": "calls",
-      "label": "calls Write-Warning"
+      "label": "calls Write-Info"
+    },
+    {
+      "source": "code-file:.github/hooks/pre-commit.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Success",
+      "type": "calls",
+      "label": "calls Write-Success"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
@@ -18076,21 +18099,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Pass",
-      "type": "calls",
-      "label": "calls Report-Pass"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Warn",
       "type": "calls",
       "label": "calls Report-Warn"
     },
     {
-      "source": "code-file:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Edge",
+      "source": "code-file:.github/knowledge-graph/build/advanced/audit-system-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Pass",
       "type": "calls",
-      "label": "calls Add-Edge"
+      "label": "calls Report-Pass"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
@@ -18099,22 +18116,16 @@
       "label": "calls Add-Node"
     },
     {
+      "source": "code-file:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Edge",
+      "type": "calls",
+      "label": "calls Add-Edge"
+    },
+    {
       "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Is-TestScaffold",
       "type": "calls",
       "label": "calls Is-TestScaffold"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Get-NodeLabel",
-      "type": "calls",
-      "label": "calls Get-NodeLabel"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::New-AlwaysGapResult",
-      "type": "calls",
-      "label": "calls New-AlwaysGapResult"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
@@ -18130,9 +18141,21 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Get-NodeLabel",
+      "type": "calls",
+      "label": "calls Get-NodeLabel"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Get-NodeType",
       "type": "calls",
       "label": "calls Get-NodeType"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/advanced/gap-analysis.ps1",
+      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::New-AlwaysGapResult",
+      "type": "calls",
+      "label": "calls New-AlwaysGapResult"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
@@ -18142,33 +18165,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::To-RepoRelative",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Resolve-RepoRelative",
       "type": "calls",
-      "label": "calls To-RepoRelative"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Edge",
-      "type": "calls",
-      "label": "calls Add-Edge"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Sanitize-IdPart",
-      "type": "calls",
-      "label": "calls Sanitize-IdPart"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-CSharp",
-      "type": "calls",
-      "label": "calls Extract-CSharp"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Node",
-      "type": "calls",
-      "label": "calls Add-Node"
+      "label": "calls Resolve-RepoRelative"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
@@ -18178,15 +18177,21 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Classify-FileCluster",
+      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Node",
       "type": "calls",
-      "label": "calls Classify-FileCluster"
+      "label": "calls Add-Node"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-Json",
+      "target": "code-func:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::Add-Edge",
       "type": "calls",
-      "label": "calls Extract-Json"
+      "label": "calls Add-Edge"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::To-RepoRelative",
+      "type": "calls",
+      "label": "calls To-RepoRelative"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
@@ -18196,9 +18201,27 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-Json",
+      "type": "calls",
+      "label": "calls Extract-Json"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Classify-FileCluster",
+      "type": "calls",
+      "label": "calls Classify-FileCluster"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
       "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-PowerShell",
       "type": "calls",
       "label": "calls Extract-PowerShell"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Extract-CSharp",
+      "type": "calls",
+      "label": "calls Extract-CSharp"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
@@ -18208,9 +18231,9 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
-      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Resolve-RepoRelative",
+      "target": "code-func:.github/knowledge-graph/build/core/extract-code-graph.ps1::Sanitize-IdPart",
       "type": "calls",
-      "label": "calls Resolve-RepoRelative"
+      "label": "calls Sanitize-IdPart"
     },
     {
       "source": "code-file:.github/knowledge-graph/build/core/health.ps1",
@@ -18250,15 +18273,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
-      "type": "calls",
-      "label": "calls Get-StringFields"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/find-drift.ps1::Get-StringFields",
+      "type": "calls",
+      "label": "calls Get-StringFields"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/find-missing-files.ps1",
@@ -18280,57 +18303,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Unlink",
-      "type": "calls",
-      "label": "calls Cmd-Unlink"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Remove",
-      "type": "calls",
-      "label": "calls Cmd-Remove"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Add",
-      "type": "calls",
-      "label": "calls Cmd-Add"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Invoke-Rebuild",
-      "type": "calls",
-      "label": "calls Invoke-Rebuild"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
       "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Link",
       "type": "calls",
       "label": "calls Cmd-Link"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Build-NodeId",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Remove",
       "type": "calls",
-      "label": "calls Build-NodeId"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Types",
-      "type": "calls",
-      "label": "calls Cmd-Types"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Resolve-NodeType",
-      "type": "calls",
-      "label": "calls Resolve-NodeType"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-SessionStatus",
-      "type": "calls",
-      "label": "calls Cmd-SessionStatus"
+      "label": "calls Cmd-Remove"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
@@ -18345,10 +18326,46 @@
       "label": "calls Show-Usage"
     },
     {
-      "source": "code-file:.github/knowledge-graph/cli/preflight.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/preflight.ps1::Add-Result",
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Unlink",
       "type": "calls",
-      "label": "calls Add-Result"
+      "label": "calls Cmd-Unlink"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Invoke-Rebuild",
+      "type": "calls",
+      "label": "calls Invoke-Rebuild"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Types",
+      "type": "calls",
+      "label": "calls Cmd-Types"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-SessionStatus",
+      "type": "calls",
+      "label": "calls Cmd-SessionStatus"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Build-NodeId",
+      "type": "calls",
+      "label": "calls Build-NodeId"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Resolve-NodeType",
+      "type": "calls",
+      "label": "calls Resolve-NodeType"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/mentor.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/mentor.ps1::Cmd-Add",
+      "type": "calls",
+      "label": "calls Cmd-Add"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/preflight.ps1",
@@ -18357,16 +18374,22 @@
       "label": "calls Write-Step"
     },
     {
-      "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "source": "code-file:.github/knowledge-graph/cli/preflight.ps1",
+      "target": "code-func:.github/knowledge-graph/cli/preflight.ps1::Add-Result",
       "type": "calls",
-      "label": "calls Write-Error"
+      "label": "calls Add-Result"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Warning",
       "type": "calls",
       "label": "calls Write-Warning"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/query-node.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
@@ -18388,12 +18411,6 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
-      "type": "calls",
-      "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
       "type": "calls",
       "label": "calls Write-GraphSection"
@@ -18403,6 +18420,18 @@
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
@@ -18412,24 +18441,12 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
-      "type": "calls",
-      "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
-      "type": "calls",
-      "label": "calls Write-GraphSection"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
@@ -18445,6 +18462,30 @@
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
+      "type": "calls",
+      "label": "calls Write-Error"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-NodeContent",
+      "type": "calls",
+      "label": "calls Get-NodeContent"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Estimate-Tokens",
+      "type": "calls",
+      "label": "calls Estimate-Tokens"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
@@ -18460,33 +18501,15 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Resolve-Seed",
-      "type": "calls",
-      "label": "calls Resolve-Seed"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Estimate-Tokens",
-      "type": "calls",
-      "label": "calls Estimate-Tokens"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
-      "type": "calls",
-      "label": "calls Write-Error"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
       "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-FileIndex",
       "type": "calls",
       "label": "calls Get-FileIndex"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-NodeContent",
+      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Resolve-Seed",
       "type": "calls",
-      "label": "calls Get-NodeContent"
+      "label": "calls Resolve-Seed"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
@@ -18502,9 +18525,9 @@
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
-      "target": "code-func:.profiles/edit-profile.ps1::Show-Menu",
+      "target": "code-func:.profiles/edit-profile.ps1::Validate-Profile",
       "type": "calls",
-      "label": "calls Show-Menu"
+      "label": "calls Validate-Profile"
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
@@ -18514,15 +18537,9 @@
     },
     {
       "source": "code-file:.profiles/edit-profile.ps1",
-      "target": "code-func:.profiles/edit-profile.ps1::Validate-Profile",
+      "target": "code-func:.profiles/edit-profile.ps1::Show-Menu",
       "type": "calls",
-      "label": "calls Validate-Profile"
-    },
-    {
-      "source": "code-file:.profiles/validate-proficiency.ps1",
-      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
-      "type": "calls",
-      "label": "calls Get-ProgressFiles"
+      "label": "calls Show-Menu"
     },
     {
       "source": "code-file:.profiles/validate-proficiency.ps1",
@@ -18535,6 +18552,12 @@
       "target": "code-func:.profiles/validate-proficiency.ps1::Test-ProficiencyEntry",
       "type": "calls",
       "label": "calls Test-ProficiencyEntry"
+    },
+    {
+      "source": "code-file:.profiles/validate-proficiency.ps1",
+      "target": "code-func:.profiles/validate-proficiency.ps1::Get-ProgressFiles",
+      "type": "calls",
+      "label": "calls Get-ProgressFiles"
     }
   ],
   "bridges": [
@@ -18690,6 +18713,11 @@
     },
     {
       "system": "behavior:15-track-concept-proficiency",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "behavior:19-mint-analogy-on-demand",
       "code": "code-file:.github/agents/Mentor.agent.md",
       "type": "implemented_by"
     },
@@ -19001,6 +19029,21 @@
     {
       "system": "analogy:fallback-extract",
       "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:analogy-canonical-or-mint",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "rule:analogy-promotion-threshold",
+      "code": "code-file:.github/agents/Mentor.agent.md",
+      "type": "implemented_by"
+    },
+    {
+      "system": "cli-tool:propose-analogy",
+      "code": "code-file:.github/knowledge-graph/cli/propose-analogy.ps1",
       "type": "implemented_by"
     },
     {

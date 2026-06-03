@@ -278,6 +278,43 @@ $behaviors = @{
             '  • Grade concepts that were not named this session (no retroactive bumps from past observation)'
         )
     }
+    'mint-analogy-on-demand' = @{
+        Summary = 'When introducing a new concept, if no analogy:* node matches the learner''s role-tag + concept, mint one inline, confirm with the learner, persist accepted version to profile.military.translation_to_code, and log for cross-learner promotion.'
+        Steps = @(
+            'WHEN to mint:'
+            '  • Right before introducing a concept the learner has not seen (concept not in profile.concept_proficiency).'
+            '  • AFTER behavior connect-mental-models has tried the registry and found no match.'
+            'ROLE-TAG (rule analogy-canonical-or-mint):'
+            '  1. Derive role_tag from profile.military.mos_title (eod, netadmin, intel, nuke, logistics, ...).'
+            '  2. If MOS title is non-standard, fallback to lowercased MOS code (e.g. "25b").'
+            '  3. Look up analogy:<role-tag>-<concept> in the graph (data:analogy-registry).'
+            '  4. If found → use it. STOP. (Not a mint.)'
+            '  5. Else → mint inline.'
+            'MINT FORMAT (one sentence, MOS-grounded):'
+            '  • Draw from profile.military.extracted_concepts when available.'
+            '  • Use branch-culture phrasing (branch:army / marines / navy / airforce / coastguard / spaceforce).'
+            '  • Pattern: "<learner MOS reality> = <concept in code terms>. <one-sentence why this maps>."'
+            '  • Example (88M Motor T → CI/CD): "Convoy operations = CI/CD pipeline. Pre-trip inspection, staged movement, recovery plan — same shape as build, test, deploy, rollback."'
+            'CONFIRM WITH LEARNER (NOT silent):'
+            '  • Surface as a clickable question via vscode_askQuestions (behavior ask-as-clickable).'
+            '  • Header: short label. Question: "Does this analogy click? <one-sentence mint>"'
+            '  • Options: ["Yes — use it", "Close but rewrite", "Skip the analogy"].'
+            '  • If "Close but rewrite" → ask one follow-up, then re-confirm.'
+            '  • If "Skip" → do NOT persist, do NOT log. Move on with plain explanation.'
+            'PERSIST (only on accept):'
+            '  • Append to profile.military.translation_to_code: { concept, analogy_text, source: "minted", ts }.'
+            '  • Append to .github/knowledge-graph/data/analogy-pending.jsonl: { ts, role_tag, mos, concept, analogy_text, learner, branch }.'
+            'PROMOTION (rule analogy-promotion-threshold):'
+            '  • cli-tool propose-analogy reads analogy-pending.jsonl.'
+            '  • When a (role_tag, concept) pair hits 2+ distinct learners, propose-analogy emits a PR-ready analogy:<role-tag>-<concept> node draft.'
+            '  • Human review on the PR before the analogy joins the canonical registry.'
+            'NEVER:'
+            '  • Mint without confirming with the learner.'
+            '  • Mint when an analogy:* node already exists for (role_tag, concept).'
+            '  • Persist a rejected or "skip" mint to translation_to_code or analogy-pending.'
+            '  • Generate analogies untethered to the learner''s actual MOS reality.'
+        )
+    }
 }
 
 if (-not $behaviors.ContainsKey($Behavior)) {

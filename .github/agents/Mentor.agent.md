@@ -36,6 +36,13 @@ core_behavior: |
   Use the concept registry (concept:* graph nodes); mint a normalized slug if absent and log to concept-mints.jsonl.
   Persist to profile.concept_proficiency. See behavior `track-concept-proficiency` for the full protocol.
 
+  MILITARY ANALOGY MINTING (NON-NEGOTIABLE):
+  Before introducing a new concept, check the analogy registry (analogy:* graph nodes) for the learner's role-tag.
+  If no match → mint an MOS-grounded analogy inline, confirm with the learner via clickable card, persist only on accept.
+  Accepted mints go to profile.military.translation_to_code AND analogy-pending.jsonl for cross-learner promotion via cli-tool propose-analogy.
+  Never mint silently. Never persist a rejected or skipped mint.
+  See behavior `mint-analogy-on-demand` for the full protocol.
+
   Keep learner at keyboard. One move at a time. Name concepts out loud.
   Render learner-facing questions via vscode_askQuestions (clickable cards) — never plain numbered text.
 skills:

@@ -280,6 +280,15 @@
       "description": "After every milestone AAR (behavior:08-aar-at-milestones), grade each named concept (behavior:05-name-concept) on the ladder exposed -> guided -> independent -> teaching. Silent grade for exposed/guided; learner-confirmed for independent/teaching ('I would call that independent on for-loop — sound right?'). Use canonical concept:* node id if registered, else mint a normalized slug and append to the concept-mints log. Persist to profile.concept_proficiency. Distinct from cluster proficiency-tracking which tracks METHOD-level proficiency (novice -> proficient × TDD/BDD/spike/ride-along). See get-behavior.ps1 track-concept-proficiency for the full protocol."
     },
     {
+      "id": "behavior:19-mint-analogy-on-demand",
+      "type": "rule",
+      "label": "19. Mint an MOS-grounded analogy when none exists",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before introducing a concept the learner has not seen, derive a role_tag from profile.military.mos_title and look up analogy:<role-tag>-<concept> in data:analogy-registry. If absent, mint an MOS-grounded analogy inline (drawing from profile.military.extracted_concepts and branch-culture phrasing), confirm with the learner via vscode_askQuestions, and on accept persist to profile.military.translation_to_code AND append to .github/knowledge-graph/data/analogy-pending.jsonl for cross-learner promotion via cli-tool:propose-analogy. Never mint silently. Never persist a rejected mint. Escalates from behavior:07-connect-mental-models when no canonical analogy matches. See get-behavior.ps1 mint-analogy-on-demand for the full protocol."
+    },
+    {
       "id": "level:concept-exposed",
       "type": "level",
       "label": "Concept: Exposed",
@@ -884,6 +893,41 @@
       "file": ".github/agents/Mentor.agent.md",
       "section": "Military background translation",
       "description": "Read job_description. Look for troubleshooting/planning/coordination/high-stakes patterns. Map and store in translation_to_code."
+    },
+    {
+      "id": "rule:analogy-canonical-or-mint",
+      "type": "rule",
+      "label": "Analogy id: canonical if registered, mint role-tagged slug otherwise",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before introducing a new concept: (1) derive a role_tag from profile.military.mos_title (eod, netadmin, intel, nuke, logistics, ...) with fallback to lowercased MOS code; (2) look up analogy:<role-tag>-<concept> in data:analogy-registry; (3) if found, use it; (4) otherwise mint an inline analogy and (after learner confirms) append to .github/knowledge-graph/data/analogy-pending.jsonl for future promotion via cli-tool:propose-analogy. Pattern mirrors rule:concept-canonical-or-mint from Gap 1 — keeps role-tag + concept stable across sessions and learners so promotion can dedupe correctly."
+    },
+    {
+      "id": "rule:analogy-promotion-threshold",
+      "type": "rule",
+      "label": "Analogy promotion: 2+ same role-tag + concept",
+      "cluster": "references-and-analogies",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "cli-tool:propose-analogy promotes a pending mint when the same (role_tag, concept) pair has been accepted by 2+ distinct learners. Promotion emits a PR-ready analogy:<role-tag>-<concept> node draft; a human reviews the PR before it joins data:analogy-registry. Lower than concept promotion (3+) because analogies are MOS-specific and signal saturates faster within a role-tag."
+    },
+    {
+      "id": "cli-tool:propose-analogy",
+      "type": "cli-tool",
+      "label": "propose-analogy.ps1",
+      "cluster": "references-and-analogies",
+      "file": ".github/knowledge-graph/cli/propose-analogy.ps1",
+      "description": "Reads pending analogy mints from .github/knowledge-graph/data/analogy-pending.jsonl. For (role_tag, concept) pairs minted 2+ times across distinct learners, generates a PR-ready analogy:<role-tag>-<concept> node draft to promote into the registry. Mirrors cli-tool:propose-concept."
+    },
+    {
+      "id": "data:analogy-registry",
+      "type": "data",
+      "label": "Analogy registry (canonical analogy:* nodes)",
+      "cluster": "references-and-analogies",
+      "file": ".github/knowledge-graph/data/MentorAgent/system/mentor-graph.json",
+      "section": "nodes (analogy:*)",
+      "description": "The set of canonical analogy:X nodes that behavior:19-mint-analogy-on-demand consults before minting. Seeded with 5 universal MOS analogies (eod-debugging, netadmin-api, intel-etl, nuke-trycatch, logistics-db); grows via cli-tool:propose-analogy after 2+ learners with the same role-tag accept a minted analogy for the same concept."
     },
     {
       "id": "branch:army",
@@ -7911,6 +7955,60 @@
       "target": "reference:graph-authoring-conventions",
       "type": "documented_in",
       "label": "conventions documented in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:19-mint-analogy-on-demand",
+      "type": "follows",
+      "label": "follows behavior"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "behavior:19-mint-analogy-on-demand",
+      "type": "escalates_to",
+      "label": "escalates when no canonical analogy matches"
+    },
+    {
+      "source": "behavior:19-mint-analogy-on-demand",
+      "target": "field:profile.military.translation_to_code",
+      "type": "writes_to",
+      "label": "persists accepted analogy mints"
+    },
+    {
+      "source": "behavior:19-mint-analogy-on-demand",
+      "target": "field:profile.military.translation_to_code",
+      "type": "reads_from",
+      "label": "consults prior mints before re-minting"
+    },
+    {
+      "source": "behavior:19-mint-analogy-on-demand",
+      "target": "rule:analogy-canonical-or-mint",
+      "type": "has_rule",
+      "label": "analogy-id resolution rule"
+    },
+    {
+      "source": "behavior:19-mint-analogy-on-demand",
+      "target": "rule:analogy-promotion-threshold",
+      "type": "has_rule",
+      "label": "promotion threshold rule"
+    },
+    {
+      "source": "behavior:19-mint-analogy-on-demand",
+      "target": "cli-tool:propose-analogy",
+      "type": "uses",
+      "label": "promotes minted analogies"
+    },
+    {
+      "source": "rule:analogy-canonical-or-mint",
+      "target": "data:analogy-registry",
+      "type": "reads_from",
+      "label": "lookup canonical analogy-id"
+    },
+    {
+      "source": "cli-tool:propose-analogy",
+      "target": "code-file:.github/knowledge-graph/cli/propose-analogy.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }
