@@ -315,6 +315,61 @@ $behaviors = @{
             '  • Generate analogies untethered to the learner''s actual MOS reality.'
         )
     }
+    'recall-check-at-open' = @{
+        Summary = 'At session start, query concept_proficiency for ONE concept stuck in tier "guided" with last_seen 3+ sessions ago. Open with a 30-second recall question (clickable card) BEFORE the new build.'
+        Steps = @(
+            'WHEN to run:'
+            '  • After identify-learner + open-with-intent, BEFORE proposing the first move.'
+            '  • Skip if profile.concept_proficiency is empty (new learner — nothing to recall yet).'
+            '  • Skip if last session was within 24 hours (recall too soon to be useful).'
+            'PICK CANDIDATE (rule recall-staleness-threshold):'
+            '  1. Filter concept_proficiency entries where tier == "guided".'
+            '  2. Filter to entries where last_seen is 3+ sessions ago (use sessions_count delta or date).'
+            '  3. Sort by sessions_count DESC (most stalled first), then last_seen ASC (most stale first).'
+            '  4. Pick the top ONE. If none match, skip recall this session.'
+            '  5. Do NOT pick from exposed (too early), independent, or teaching (already strong).'
+            'ASK (behavior ask-as-clickable):'
+            '  • Header: short concept name (e.g. "try-catch").'
+            '  • Question: "Quick recall before we dive in: <one-sentence prompt about the concept>?"'
+            '  • Options: ["Yes — I remember", "Half-remember", "No — walk me through it"].'
+            'GRADE THE ANSWER (silent, do not announce tier change):'
+            '  • "Yes — I remember" + correct one-line explanation → bump tier guided -> independent at NEXT AAR (not now).'
+            '  • "Half-remember" → tier unchanged; offer a 30-second refresher; increment sessions_count.'
+            '  • "No — walk me through it" → tier unchanged; full refresher; increment sessions_count.'
+            'NEVER:'
+            '  • Run recall on every session — only when a stalled-guided concept exists.'
+            '  • Block the actual build for more than ~30 seconds on the recall question.'
+            '  • Announce tier changes mid-recall — grading happens at AAR.'
+            '  • Pick more than one concept per session — one recall per session, max.'
+        )
+    }
+    'callback-prior-concept' = @{
+        Summary = 'Mid-build, when current code touches a concept the learner has graded before, NAME it as a callback to promote recognition into recall.'
+        Steps = @(
+            'WHEN to trigger:'
+            '  • Mid-build, when about to write or read code that exercises a concept-id present in profile.concept_proficiency.'
+            '  • Concept-id lookup uses the same canonical-or-mint resolution as behavior track-concept-proficiency.'
+            '  • Skip if this is the first time the concept appears in this session (handled by name-concept instead).'
+            '  • Skip if the concept is already tier == "teaching" (no benefit from callback).'
+            'NAME THE CALLBACK (one sentence, in flow):'
+            '  • Pattern: "This is the same <concept-name> shape you used in <prior project / prior session> — recognize it?"'
+            '  • Anchor to a SPECIFIC prior context the learner will remember (project name, last week''s build, the bug we fixed).'
+            '  • Keep it conversational — do NOT pause the build.'
+            'OBSERVE THE RESPONSE (rule callback-counts-as-grading-signal):'
+            '  • If learner reproduces the concept unprompted in the next ~5 minutes → log as "callback_success" in the AAR grading queue.'
+            '  • Successful callback is sufficient evidence to bump guided -> independent at the next AAR (no separate learner confirmation needed for THIS tier transition).'
+            '  • If learner asks for a refresher or stumbles → tier unchanged. Failed callback does NOT downgrade.'
+            'PERSIST:'
+            '  • Increment profile.concept_proficiency[concept_id].sessions_count.'
+            '  • Update last_seen to now.'
+            '  • Tier change (if any) deferred to AAR per behavior track-concept-proficiency.'
+            'NEVER:'
+            '  • Fabricate prior context — only callback to projects/sessions actually in profile.projects or session_history.'
+            '  • Callback the same concept twice in one session (one callback per concept per session, max).'
+            '  • Downgrade tier on a failed callback — failure is signal, not evidence of regression.'
+            '  • Halt the build to lecture about the concept — callback is in-flow recognition, not re-teaching.'
+        )
+    }
 }
 
 if (-not $behaviors.ContainsKey($Behavior)) {

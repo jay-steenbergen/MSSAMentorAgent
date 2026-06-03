@@ -289,6 +289,24 @@
       "description": "Before introducing a concept the learner has not seen, derive a role_tag from profile.military.mos_title and look up analogy:<role-tag>-<concept> in data:analogy-registry. If absent, mint an MOS-grounded analogy inline (drawing from profile.military.extracted_concepts and branch-culture phrasing), confirm with the learner via vscode_askQuestions, and on accept persist to profile.military.translation_to_code AND append to .github/knowledge-graph/data/analogy-pending.jsonl for cross-learner promotion via cli-tool:propose-analogy. Never mint silently. Never persist a rejected mint. Escalates from behavior:07-connect-mental-models when no canonical analogy matches. See get-behavior.ps1 mint-analogy-on-demand for the full protocol."
     },
     {
+      "id": "behavior:16-recall-check-at-open",
+      "type": "rule",
+      "label": "16. Spaced recall check at session open",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "After identify-learner + open-with-intent and BEFORE the first move, query profile.concept_proficiency for entries where tier == 'guided' AND last_seen is 3+ sessions ago (rule:recall-staleness-threshold). Pick ONE most-stalled concept and open with a 30-second recall question rendered via vscode_askQuestions (behavior:11-ask-as-clickable). Skip entirely for new learners (empty concept_proficiency) or when last session was within 24 hours. Successful recall is queued for AAR tier-bump per behavior:15-track-concept-proficiency; failed recall offers a refresher and never downgrades. One recall per session, max. See get-behavior.ps1 recall-check-at-open for the full protocol."
+    },
+    {
+      "id": "behavior:17-callback-prior-concept",
+      "type": "rule",
+      "label": "17. Callback a prior concept mid-build",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Mid-build, when current code touches a concept-id already in profile.concept_proficiency (and not yet at tier 'teaching'), NAME it as a callback in one conversational sentence anchored to a SPECIFIC prior project or session ('this is the same try-catch shape you used in [project] — recognize it?'). Per rule:callback-counts-as-grading-signal, a successful callback (learner reproduces unprompted within ~5 minutes) is sufficient evidence to bump guided -> independent at the next AAR with no separate learner confirmation. Failed callback never downgrades. One callback per concept per session. See get-behavior.ps1 callback-prior-concept for the full protocol."
+    },
+    {
       "id": "level:concept-exposed",
       "type": "level",
       "label": "Concept: Exposed",
@@ -341,6 +359,24 @@
       "file": ".github/agents/Mentor.agent.md",
       "section": "core_behavior (frontmatter)",
       "description": "When grading concept tier: (1) silent grade for transitions to/within exposed and guided — Mentor records, learner never sees the tier change; (2) learner-confirmed grade for transitions to independent or teaching ('I would call that independent on for-loop — sound right? You can bump up or down'). Independent and teaching are the milestones that should feel earned, not assigned."
+    },
+    {
+      "id": "rule:recall-staleness-threshold",
+      "type": "rule",
+      "label": "Recall trigger: tier='guided' AND last_seen 3+ sessions ago",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "behavior:16-recall-check-at-open picks ONE candidate from profile.concept_proficiency. Criteria: tier == 'guided' (not exposed — too early; not independent/teaching — already strong) AND last_seen is 3+ sessions ago (use sessions_count or date delta). Sort by sessions_count DESC then last_seen ASC; pick the top one. If no candidates match, skip recall this session. One recall per session, max — avoid quiz-show fatigue."
+    },
+    {
+      "id": "rule:callback-counts-as-grading-signal",
+      "type": "rule",
+      "label": "Successful callback = grading signal for AAR",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Per behavior:17-callback-prior-concept: when a callback succeeds (learner reproduces the concept unprompted within ~5 minutes of being prompted), log as 'callback_success' for the next AAR. This is sufficient evidence to bump guided -> independent at the next AAR per behavior:15-track-concept-proficiency, with NO separate learner confirmation needed (the unprompted reproduction IS the confirmation). A failed callback (refresher requested, stumble) is signal but never grounds for downgrade — failure means the concept stayed where it was, not that it regressed."
     },
     {
       "id": "cli-tool:propose-concept",
@@ -8009,6 +8045,48 @@
       "target": "code-file:.github/knowledge-graph/cli/propose-analogy.ps1",
       "type": "defined_in",
       "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:16-recall-check-at-open",
+      "type": "follows",
+      "label": "follows behavior"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:17-callback-prior-concept",
+      "type": "follows",
+      "label": "follows behavior"
+    },
+    {
+      "source": "behavior:16-recall-check-at-open",
+      "target": "field:profile.concept_proficiency",
+      "type": "reads_from",
+      "label": "picks stalled guided concept"
+    },
+    {
+      "source": "behavior:17-callback-prior-concept",
+      "target": "field:profile.concept_proficiency",
+      "type": "reads_from",
+      "label": "matches concept-id to recall callback"
+    },
+    {
+      "source": "behavior:16-recall-check-at-open",
+      "target": "rule:recall-staleness-threshold",
+      "type": "has_rule",
+      "label": "staleness selection rule"
+    },
+    {
+      "source": "behavior:17-callback-prior-concept",
+      "target": "rule:callback-counts-as-grading-signal",
+      "type": "has_rule",
+      "label": "grading-signal rule"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "behavior:17-callback-prior-concept",
+      "type": "reads_from",
+      "label": "ingests callback_success signals for tier-bump"
     }
   ]
 }
