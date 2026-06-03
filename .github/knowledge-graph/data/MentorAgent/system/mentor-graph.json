@@ -271,6 +271,216 @@
       "description": "Before running any audit, gap analysis, completeness check, or batch of >=3 fixes the user did not explicitly request: surface the idea as one sentence ('I noticed X — want me to look?') and STOP. If executing a batch, verify the first fix against source before making the next two; abort batch on failure. If you grade your own work as 'real/muddled/wrong' in the same turn you produced it, that work was busywork — revert by default, do not propose new edits to fix the bad edits. Smell-test phrases: 'let me also check', 'while I'm here', 'I noticed a gap', 'found N issues fixing them now'. See get-behavior.ps1 no-unprompted-audits for the full protocol."
     },
     {
+      "id": "behavior:15-track-concept-proficiency",
+      "type": "rule",
+      "label": "15. Track concept proficiency on a 4-tier Bloom-style ladder",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "After every milestone AAR (behavior:08-aar-at-milestones), grade each named concept (behavior:05-name-concept) on the ladder exposed -> guided -> independent -> teaching. Silent grade for exposed/guided; learner-confirmed for independent/teaching ('I would call that independent on for-loop — sound right?'). Use canonical concept:* node id if registered, else mint a normalized slug and append to the concept-mints log. Persist to profile.concept_proficiency. Distinct from cluster proficiency-tracking which tracks METHOD-level proficiency (novice -> proficient × TDD/BDD/spike/ride-along). See get-behavior.ps1 track-concept-proficiency for the full protocol."
+    },
+    {
+      "id": "level:concept-exposed",
+      "type": "level",
+      "label": "Concept: Exposed",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Learner has seen this concept demonstrated by Mentor. Did not type it themselves yet. Recognition only."
+    },
+    {
+      "id": "level:concept-guided",
+      "type": "level",
+      "label": "Concept: Guided",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Learner typed it with prompts at each step. Cannot reproduce unprompted. Active use under instruction."
+    },
+    {
+      "id": "level:concept-independent",
+      "type": "level",
+      "label": "Concept: Independent",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Learner reached for this concept unprompted in current session. Can write it without Mentor naming it first."
+    },
+    {
+      "id": "level:concept-teaching",
+      "type": "level",
+      "label": "Concept: Teaching",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Learner explained this concept back to Mentor or to a peer (in AAR or pair). Ownership confirmed."
+    },
+    {
+      "id": "rule:concept-canonical-or-mint",
+      "type": "rule",
+      "label": "Concept id: canonical if registered, mint slug otherwise",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before writing to profile.concept_proficiency: (1) if a concept:X node exists in the graph (data:concept-registry) for the concept being named, use that exact id; (2) otherwise mint a normalized slug (lowercase, hyphens, no spaces) and append {ts, slug, learner, context} to the concept-mints log for future promotion via cli-tool:propose-concept. Prevents 'for-loop' vs 'for_loop' vs 'forloop' fragmentation across sessions and learners."
+    },
+    {
+      "id": "rule:concept-grading-hybrid",
+      "type": "rule",
+      "label": "Concept grading: silent for low tiers, confirmed for milestones",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "When grading concept tier: (1) silent grade for transitions to/within exposed and guided — Mentor records, learner never sees the tier change; (2) learner-confirmed grade for transitions to independent or teaching ('I would call that independent on for-loop — sound right? You can bump up or down'). Independent and teaching are the milestones that should feel earned, not assigned."
+    },
+    {
+      "id": "cli-tool:propose-concept",
+      "type": "cli-tool",
+      "label": "propose-concept.ps1",
+      "cluster": "concept-proficiency",
+      "file": ".github/knowledge-graph/cli/propose-concept.ps1",
+      "description": "Reads pending concept mints from the concept-mints log. For concepts minted 3+ times across distinct learners, generates a PR-ready concept:{slug} node draft to promote into the registry. Mirrors the propose-analogy pattern (Gap 4)."
+    },
+    {
+      "id": "field:profile.concept_proficiency",
+      "type": "field",
+      "label": "profile.concept_proficiency (object)",
+      "cluster": "concept-proficiency",
+      "section": "profile.json",
+      "description": "Map of concept-id -> proficiency record. Concept-id is canonical (matches a concept:X node) or a minted slug (logged to concept-mints.jsonl). Distinct from progress.method_proficiency which lives per-project and tracks method-level mastery."
+    },
+    {
+      "id": "field:profile.concept_proficiency.tier",
+      "type": "field",
+      "label": "concept_proficiency.{id}.tier",
+      "cluster": "concept-proficiency",
+      "section": "profile.json",
+      "description": "One of: 'exposed', 'guided', 'independent', 'teaching'. Updated at AAR per behavior:15-track-concept-proficiency. Bump only forward unless learner downgrades in confirmation."
+    },
+    {
+      "id": "field:profile.concept_proficiency.last_seen",
+      "type": "field",
+      "label": "concept_proficiency.{id}.last_seen",
+      "cluster": "concept-proficiency",
+      "section": "profile.json",
+      "description": "ISO8601 timestamp of the most recent session that exercised this concept. Drives recall-check (Gap 2) and stale-concept selection."
+    },
+    {
+      "id": "field:profile.concept_proficiency.sessions_count",
+      "type": "field",
+      "label": "concept_proficiency.{id}.sessions_count",
+      "cluster": "concept-proficiency",
+      "section": "profile.json",
+      "description": "Count of distinct sessions that exercised this concept. Used to detect stalled concepts (high count, still guided)."
+    },
+    {
+      "id": "field:profile.concept_proficiency.last_method",
+      "type": "field",
+      "label": "concept_proficiency.{id}.last_method",
+      "cluster": "concept-proficiency",
+      "section": "profile.json",
+      "description": "Teaching method active when this concept was last graded (ride-along, TDD, BDD, spike-then-refactor). Helps spot whether method choice affects retention."
+    },
+    {
+      "id": "data:concept-registry",
+      "type": "data",
+      "label": "Concept registry (canonical concept:* nodes)",
+      "cluster": "concept-proficiency",
+      "file": ".github/knowledge-graph/data/MentorAgent/system/mentor-graph.json",
+      "section": "nodes (concept:*)",
+      "description": "The set of canonical concept:X nodes that behavior:15-track-concept-proficiency consults before writing to profile.concept_proficiency. Concepts not in the registry are minted as normalized slugs and logged for promotion. Seeded with 10 universal concepts (variable, function, conditional, for-loop, while-loop, array, dictionary, try-catch, test, git-commit); grows via cli-tool:propose-concept."
+    },
+    {
+      "id": "concept:variable",
+      "type": "concept",
+      "label": "variable",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Named storage for a value. Foundation of every program. Cross-track: CAD, SCA (PowerShell), cybersecurity-ops (scripting)."
+    },
+    {
+      "id": "concept:function",
+      "type": "concept",
+      "label": "function",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Named, callable, reusable block of code. May take parameters, may return a value. Universal across all MSSA tracks."
+    },
+    {
+      "id": "concept:conditional",
+      "type": "concept",
+      "label": "conditional (if/else)",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Branch execution based on a boolean expression. Foundation of decision-making in code."
+    },
+    {
+      "id": "concept:for-loop",
+      "type": "concept",
+      "label": "for-loop",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Bounded iteration over a known range or collection. Distinguish from while-loop (unbounded condition)."
+    },
+    {
+      "id": "concept:while-loop",
+      "type": "concept",
+      "label": "while-loop",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Unbounded iteration controlled by a condition. Risk: infinite loop if condition never goes false."
+    },
+    {
+      "id": "concept:array",
+      "type": "concept",
+      "label": "array / list",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Ordered, indexed collection of values. Track terminology: array (C#, JS), list (Python), array (PowerShell)."
+    },
+    {
+      "id": "concept:dictionary",
+      "type": "concept",
+      "label": "dictionary / map / hashtable",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Key-value collection with O(1) lookup. Track terminology: Dictionary (C#), dict (Python), hashtable (PowerShell), object/Map (JS)."
+    },
+    {
+      "id": "concept:try-catch",
+      "type": "concept",
+      "label": "try-catch / exception handling",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Detect runtime errors, contain them, decide how to recover. The casualty procedures of code. Pair with named exception types when possible."
+    },
+    {
+      "id": "concept:test",
+      "type": "concept",
+      "label": "test (unit test)",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "A small program that exercises a piece of production code and asserts an expected outcome. Foundation of TDD/BDD methods."
+    },
+    {
+      "id": "concept:git-commit",
+      "type": "concept",
+      "label": "git commit",
+      "cluster": "concept-proficiency",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "A named snapshot of repo state. Should be atomic (one logical change), have a clear message, and reference work items when relevant."
+    },
+    {
       "id": "concept:discovery-log",
       "type": "concept",
       "label": "Discovery-gaps JSONL log",
@@ -3845,6 +4055,22 @@
         "rebuild",
         "gap analysis",
         "infrastructure"
+      ]
+    },
+    {
+      "id": "concept-proficiency",
+      "label": "Concept Proficiency",
+      "description": "Tracks what specific code/CS concepts (variable, for-loop, try-catch, etc.) the learner has internalized on a 4-tier Bloom-style ladder: exposed -> guided -> independent -> teaching. Distinct from cluster proficiency-tracking which tracks METHOD-level mastery (novice -> proficient × TDD/BDD/spike/ride-along). Concept proficiency is the foundation for spaced recall (Gap 2), callbacks, recurring-mistake interventions (Gap 3), and stretch-vs-consolidate decisions (Gap 5).",
+      "triggers": [
+        "concept proficiency",
+        "concept tracking",
+        "exposed",
+        "guided",
+        "independent",
+        "teaching",
+        "concept registry",
+        "concept mint",
+        "concept ladder"
       ]
     }
   ],
@@ -7453,6 +7679,204 @@
       "target": "code-file:extensions/mssa-mentor/tests/welcome-on-first-run.test.md",
       "type": "contains",
       "label": "contains file"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:15-track-concept-proficiency",
+      "type": "follows",
+      "label": "follows behavior"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "field:profile.concept_proficiency",
+      "type": "writes_to",
+      "label": "persists tier updates"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "field:profile.concept_proficiency",
+      "type": "reads_from",
+      "label": "consults prior tier before grading"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "rule:concept-canonical-or-mint",
+      "type": "has_rule",
+      "label": "concept-id resolution rule"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "rule:concept-grading-hybrid",
+      "type": "has_rule",
+      "label": "grading visibility rule"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "cli-tool:propose-concept",
+      "type": "uses",
+      "label": "promotes minted concepts"
+    },
+    {
+      "source": "rule:concept-canonical-or-mint",
+      "target": "data:concept-registry",
+      "type": "reads_from",
+      "label": "lookup canonical concept-id"
+    },
+    {
+      "source": "field:profile.concept_proficiency",
+      "target": "field:profile.concept_proficiency.tier",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.concept_proficiency",
+      "target": "field:profile.concept_proficiency.last_seen",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.concept_proficiency",
+      "target": "field:profile.concept_proficiency.sessions_count",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.concept_proficiency",
+      "target": "field:profile.concept_proficiency.last_method",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.concept_proficiency.tier",
+      "target": "level:concept-exposed",
+      "type": "references",
+      "label": "valid tier value"
+    },
+    {
+      "source": "field:profile.concept_proficiency.tier",
+      "target": "level:concept-guided",
+      "type": "references",
+      "label": "valid tier value"
+    },
+    {
+      "source": "field:profile.concept_proficiency.tier",
+      "target": "level:concept-independent",
+      "type": "references",
+      "label": "valid tier value"
+    },
+    {
+      "source": "field:profile.concept_proficiency.tier",
+      "target": "level:concept-teaching",
+      "type": "references",
+      "label": "valid tier value"
+    },
+    {
+      "source": "level:concept-exposed",
+      "target": "level:concept-guided",
+      "type": "next",
+      "label": "next tier"
+    },
+    {
+      "source": "level:concept-guided",
+      "target": "level:concept-independent",
+      "type": "next",
+      "label": "next tier"
+    },
+    {
+      "source": "level:concept-independent",
+      "target": "level:concept-teaching",
+      "type": "next",
+      "label": "next tier"
+    },
+    {
+      "source": "behavior:05-name-concept",
+      "target": "behavior:15-track-concept-proficiency",
+      "type": "feeds",
+      "label": "supplies concept-id to grade"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "behavior:15-track-concept-proficiency",
+      "type": "feeds",
+      "label": "AAR is the grading moment"
+    },
+    {
+      "source": "session-end:update-progress",
+      "target": "field:profile.concept_proficiency",
+      "type": "writes_to",
+      "label": "persists at session end"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:variable",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:function",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:conditional",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:for-loop",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:while-loop",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:array",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:dictionary",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:try-catch",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:test",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "data:concept-registry",
+      "target": "concept:git-commit",
+      "type": "contains",
+      "label": "registry member"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:propose-concept",
+      "type": "uses",
+      "label": "promotes minted concepts"
+    },
+    {
+      "source": "cli-tool:propose-concept",
+      "target": "code-file:.github/knowledge-graph/cli/propose-concept.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }

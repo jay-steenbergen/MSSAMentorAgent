@@ -248,6 +248,36 @@ $behaviors = @{
             '  • allowFreeformInput defaults true — let the learner type if no option fits'
         )
     }
+    'track-concept-proficiency' = @{
+        Summary = 'Grade each named concept on a 4-tier ladder (exposed -> guided -> independent -> teaching) at AAR time, not mid-move. Silent for low tiers, learner-confirmed for high.'
+        Steps = @(
+            'WHEN to grade:'
+            '  • At each milestone AAR (behavior aar-at-milestones), NOT mid-move'
+            '  • For each concept named via behavior name-concept this session'
+            'TIERS (Bloom-style ladder, distinct from method-proficiency novice->proficient):'
+            '  • exposed     — Mentor demonstrated, learner watched. Recognition only.'
+            '  • guided      — Learner typed it with prompts at each step. Cannot reproduce unprompted.'
+            '  • independent — Learner reached for the concept unprompted in this session.'
+            '  • teaching    — Learner explained the concept back to Mentor or a peer.'
+            'CONCEPT ID (rule concept-canonical-or-mint):'
+            '  1. Check profile.concept_proficiency for an existing key match.'
+            '  2. Else check concept:* nodes in the graph (data:concept-registry) for a canonical id.'
+            '  3. Else mint a normalized slug (lowercase, hyphens, no spaces).'
+            '  4. If minted, append {ts, slug, learner_username, context} to .github/knowledge-graph/data/concept-mints.jsonl for future promotion via cli-tool propose-concept.'
+            'GRADING VISIBILITY (rule concept-grading-hybrid):'
+            '  • Silent grade for transitions TO or WITHIN exposed and guided. Mentor records, learner never sees the tier change.'
+            '  • Learner-confirmed grade for transitions TO independent or teaching. Ask: "I would call that ''independent'' on for-loop — sound right? You can bump up or down."'
+            '  • Independent and teaching should feel earned, not assigned.'
+            'PERSIST:'
+            '  • profile.concept_proficiency[concept_id] = { tier, last_seen, sessions_count, last_method }'
+            '  • ONLY update if tier changed (mirror rule proficiency-only-if-changed)'
+            '  • Increment sessions_count even if tier unchanged (drives stale-concept detection: high count + still guided = stalled)'
+            'NEVER:'
+            '  • Skip ahead more than one tier in a single AAR (no exposed -> independent jumps)'
+            '  • Downgrade silently — if learner regressed, ask before lowering'
+            '  • Grade concepts that were not named this session (no retroactive bumps from past observation)'
+        )
+    }
 }
 
 if (-not $behaviors.ContainsKey($Behavior)) {
