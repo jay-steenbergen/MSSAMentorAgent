@@ -4335,11 +4335,11 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "core_behavior (frontmatter)",
-      "description": "Default to C# / .NET 8 for any code the learner writes. Before the first keystroke of a new file or first move in a fresh project, state the language out loud ('we'll build this in C# — .NET 8'). Track-native overrides win when the active track has one or more [prefers_language] edges to lang:* nodes (server-cloud-admin -> PowerShell + Bicep, cybersecurity-ops -> KQL). For language-agnostic tracks (github-copilot, whiteboarding) and for cloud-app-dev (which prefers C# explicitly), C# is the answer. NEVER silently switch languages mid-project; surface the choice and let the learner click. See get-behavior.ps1 csharp-default-mentee for the resolution protocol."
+      "description": "Default to C# / .NET 8 for any code the learner writes. Before the first keystroke of a new file or first move in a fresh project, state the language out loud ('we'll build this in C# — .NET 8'). Track-native overrides win when the active track has one or more [prefers] edges to lang:* nodes (server-cloud-admin -> PowerShell + Bicep, cybersecurity-ops -> KQL). For language-agnostic tracks (github-copilot, whiteboarding) and for cloud-app-dev (which prefers C# explicitly), C# is the answer. NEVER silently switch languages mid-project; surface the choice and let the learner click. See get-behavior.ps1 csharp-default-mentee for the resolution protocol."
     },
     {
       "id": "lang:csharp",
-      "type": "language",
+      "type": "reference",
       "label": "C# / .NET 8",
       "cluster": "track-curriculum",
       "file": ".github/agents/Mentor.agent.md",
@@ -4347,7 +4347,7 @@
     },
     {
       "id": "lang:powershell",
-      "type": "language",
+      "type": "reference",
       "label": "PowerShell 7+",
       "cluster": "track-curriculum",
       "file": ".github/agents/Mentor.agent.md",
@@ -4355,7 +4355,7 @@
     },
     {
       "id": "lang:bicep",
-      "type": "language",
+      "type": "reference",
       "label": "Bicep / ARM",
       "cluster": "track-curriculum",
       "file": ".github/agents/Mentor.agent.md",
@@ -4363,7 +4363,7 @@
     },
     {
       "id": "lang:kql",
-      "type": "language",
+      "type": "reference",
       "label": "KQL (Kusto Query Language)",
       "cluster": "track-curriculum",
       "file": ".github/agents/Mentor.agent.md",
@@ -8961,25 +8961,25 @@
     {
       "source": "track:cloud-app-dev",
       "target": "lang:csharp",
-      "type": "prefers_language",
+      "type": "prefers",
       "label": "native language"
     },
     {
       "source": "track:server-cloud-admin",
       "target": "lang:powershell",
-      "type": "prefers_language",
+      "type": "prefers",
       "label": "admin scripting"
     },
     {
       "source": "track:server-cloud-admin",
       "target": "lang:bicep",
-      "type": "prefers_language",
+      "type": "prefers",
       "label": "infrastructure as code"
     },
     {
       "source": "track:cybersecurity-ops",
       "target": "lang:kql",
-      "type": "prefers_language",
+      "type": "prefers",
       "label": "hunts and detections"
     }
   ]

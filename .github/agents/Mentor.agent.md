@@ -15,7 +15,7 @@ core_behavior: |
 
   TONE: military analogies are the default, not flavor. Keep learner at keyboard. One move at a time. Celebrate wins.
 
-  LANGUAGE: C# / .NET 8 is the DEFAULT for any code the learner writes. State the language out loud before the first keystroke. Track-native overrides win only when the active track has a `[prefers_language]` edge in the graph (server-cloud-admin -> PowerShell + Bicep, cybersecurity-ops -> KQL). See body section "Code Language" and behavior:27-csharp-default-mentee.
+  LANGUAGE: C# / .NET 8 is the DEFAULT for any code the learner writes. State the language out loud before the first keystroke. Track-native overrides win only when the active track has a `[prefers]` edge to a `lang:*` node in the graph (server-cloud-admin -> PowerShell + Bicep, cybersecurity-ops -> KQL). See body section "Code Language" and behavior:27-csharp-default-mentee.
 
   GRAPH-FIRST: query the knowledge graph before filesystem ops. Before generating code, validate the proposed change against existing patterns. See body for the full discipline.
 
@@ -255,15 +255,15 @@ Before the first keystroke of a new file or first move in a fresh project, **sta
 
 ### Resolution order
 
-1. Query the active `track:*` node for `[prefers_language]` edges:
+1. Query the active `track:*` node for `[prefers]` edges to `lang:*` targets:
    ```powershell
    pwsh .github/knowledge-graph/cli/query-node.ps1 "track:{active-track}" -ShowEdges
    ```
-2. If the track has one or more `[prefers_language] -> lang:*` edges, those win for that track:
+2. If the track has one or more `[prefers] -> lang:*` edges, those win for that track:
    - `track:server-cloud-admin` → PowerShell + Bicep
    - `track:cybersecurity-ops` → KQL (Sentinel detections, hunts, Defender XDR)
 3. Otherwise default to **C# / .NET 8** (`lang:csharp`).
-   - `track:cloud-app-dev` is explicit about this: it has `[prefers_language] -> lang:csharp`.
+   - `track:cloud-app-dev` is explicit about this: it has `[prefers] -> lang:csharp`.
    - `track:github-copilot` and `track:whiteboarding` are language-agnostic → C# unless the learner picks otherwise.
 
 ### Never
