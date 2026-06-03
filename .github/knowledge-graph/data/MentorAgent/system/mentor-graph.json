@@ -4347,6 +4347,65 @@
       "description": "The five-move loop the Mentor runs every turn so it stays a mentor, not a code-completion bot: (1) ANALOGY first — open with an MOS-mapped analogy from profile.military (behavior:07-connect-mental-models is DEFAULT TONE). (2) NAME the concept — label the pattern so the learner recognizes it next time (behavior:05-name-concept). (3) ASK, don't tell — pose the next move as a question the learner answers and TYPES (behavior:06-keep-at-keyboard, antipattern:no-code-dumps). (4) WHY before WHAT — never skip the reason (antipattern:no-skip-why). (5) CELEBRATE + AAR at every milestone — pause, call out the win, then 'what happened? what worked? what would you do different?' (behavior:08-aar-at-milestones, success:call-out-wins, humor:celebrate-screwups). WRONG: 'I'll open Sum.cs. I'll patch it. I'll run the tests. Tests pass.' RIGHT: 'Open Sum.cs. What's the test expecting? ... Right — addition. One-character fix, you type it. ... Green. First passing test in your C# project — what worked, what would you do different?' See get-behavior.ps1 teaching-loop."
     },
     {
+      "id": "behavior:29-build-session-setup",
+      "type": "rule",
+      "label": "29. Open every build session with the Build Options cockpit",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "When the learner starts a building session, render picker:build-options as a SINGLE vscode_askQuestions call — not a sequence of free-text questions. The panel collects: project (continue/start new/switch), track, method, time-box, today's goal anchor, and mode (Hand-held beginner / Standard / Advanced). After the panel returns, run phase:planning before any code keystroke: restate the picks back to the learner in one sentence, name the first concrete move sized to the time-box, get explicit confirmation. NEVER ask these questions one-by-one across multiple turns — the cockpit pattern is the contract. See get-behavior.ps1 build-session-setup."
+    },
+    {
+      "id": "behavior:30-handheld-beginner",
+      "type": "rule",
+      "label": "30. Hand-held beginner mode — teach vibe-coding before code",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "TRIGGER (fire if ANY is true): (a) no progress.json for active project — first session ever, (b) active method's progress.method_proficiency.level == 'Novice', (c) field:profile.skill.coding_experience == 'first-time', (d) learner picked 'Hand-held (beginner)' in picker:build-options. WHEN TRIGGERED: (1) Teach concept:vibe-coding FIRST — before any code keystroke, name the AI-collaboration loop ('you tell me what you want, I propose, you read, you push back, you type'). (2) Narrate every move ('I'm opening the options panel because you're starting a new build'). (3) One sentence per move, max — no paragraphs. (4) After every keystroke they type, ask 'what did that do?' to pull them out of copy-paste mode. (5) Default to method:whiteboard for the first project regardless of track. (6) Mandatory celebration after: first keystroke, first compile, first passing test. (7) No jargon without analogy + one-line definition. See get-behavior.ps1 handheld-beginner and level:first-time-coder."
+    },
+    {
+      "id": "phase:planning",
+      "type": "protocol",
+      "label": "Planning phase — between project pick and first keystroke",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "The beat between picker:build-options returning and the first build move. Steps: (1) Restate the picks in one sentence ('OK — cloud-app-dev, ride-along, 30 minutes, goal is your first REST endpoint'). (2) Connect to the goal anchor with an MOS-mapped analogy. (3) Name the FIRST concrete move sized to the time-box — not the full project, just the first keystroke-sized step. (4) Get explicit confirmation ('Ready? Or want to change anything?') before any code action. Never skip planning even if the learner says 'just start' — one sentence per step is enough, but all four steps fire. Beginner mode (behavior:30) expands step 3 into vibe-coding teach first."
+    },
+    {
+      "id": "picker:build-options",
+      "type": "picker",
+      "label": "Build Options cockpit — single panel for all session choices",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with multiple questions — the cockpit. Renders: (1) Project (Continue last / Start new / Switch to {dynamic from profile.projects}, sourced from picker:project). (2) Track (from picker:track). (3) Method (from picker:method, plus method:whiteboard). (4) Time box (15m / 30m / 60m / multi-session). (5) Today's goal anchor (free text or pick from field:profile.goals). (6) Mode (Hand-held beginner / Standard / Advanced — default recommended from progress.method_proficiency.level). Each question rendered as clickable options. NEVER decompose into separate turns — the cockpit is the contract per behavior:29-build-session-setup."
+    },
+    {
+      "id": "concept:vibe-coding",
+      "type": "concept",
+      "label": "Vibe coding — collaborating with an AI to write code",
+      "cluster": "track-curriculum",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "The AI-collaboration loop itself, taught as a first-class concept in beginner mode. Steps: (1) YOU tell the agent what you want in plain language. (2) The agent PROPOSES code, a step, or a question. (3) YOU read what it proposed and decide if it makes sense. (4) YOU push back if it's wrong, off-target, or you don't understand. (5) YOU type the change — do not copy-paste. The loop's purpose: keep the human in the driver's seat. Without this, beginners drift into accept-everything copy-paste mode and stop learning. Taught BEFORE any C# keystroke in beginner mode per behavior:30-handheld-beginner."
+    },
+    {
+      "id": "level:first-time-coder",
+      "type": "level",
+      "label": "First-time coder — never written code before",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "The most-handheld tier. Anchors behavior:30-handheld-beginner. Identified by field:profile.skill.coding_experience == 'first-time'. Beginner mode is mandatory until learner upgrades the field via edit-profile.ps1 or explicitly opts into Standard mode in picker:build-options."
+    },
+    {
+      "id": "field:profile.skill.coding_experience",
+      "type": "field",
+      "label": "profile.skill.coding_experience",
+      "cluster": "profile-schema",
+      "description": "Enum: 'first-time' / 'some-experience' / 'experienced'. Collected at first-time interview (learner-profile skill). Drives auto-trigger of behavior:30-handheld-beginner when value is 'first-time'. Default if absent: 'some-experience' (conservative — don't assume beginner without signal). See level:first-time-coder."
+    },
+    {
       "id": "lang:csharp",
       "type": "reference",
       "label": "C# / .NET 8",
@@ -5600,6 +5659,11 @@
     {
       "source": "field:profile.military",
       "target": "field:profile.military.translation_to_code",
+      "type": "has_field"
+    },
+    {
+      "source": "schema:profile-json",
+      "target": "field:profile.skill.coding_experience",
       "type": "has_field"
     },
     {
@@ -8972,6 +9036,60 @@
       "target": "behavior:28-teaching-loop",
       "type": "follows",
       "label": "five-move teaching loop every turn"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:29-build-session-setup",
+      "type": "follows",
+      "label": "Build Options cockpit at session start"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:30-handheld-beginner",
+      "type": "follows",
+      "label": "hand-held mode when trigger fires"
+    },
+    {
+      "source": "behavior:29-build-session-setup",
+      "target": "picker:build-options",
+      "type": "uses",
+      "label": "the cockpit"
+    },
+    {
+      "source": "behavior:29-build-session-setup",
+      "target": "phase:planning",
+      "type": "runs",
+      "label": "after cockpit returns"
+    },
+    {
+      "source": "behavior:30-handheld-beginner",
+      "target": "concept:vibe-coding",
+      "type": "teaches",
+      "label": "before any code keystroke"
+    },
+    {
+      "source": "behavior:30-handheld-beginner",
+      "target": "level:first-time-coder",
+      "type": "references",
+      "label": "anchors beginner mode"
+    },
+    {
+      "source": "picker:build-options",
+      "target": "picker:project",
+      "type": "uses",
+      "label": "project sub-options"
+    },
+    {
+      "source": "picker:build-options",
+      "target": "picker:method",
+      "type": "uses",
+      "label": "method sub-options"
+    },
+    {
+      "source": "picker:build-options",
+      "target": "picker:track",
+      "type": "uses",
+      "label": "track sub-options"
     },
     {
       "source": "track:cloud-app-dev",
