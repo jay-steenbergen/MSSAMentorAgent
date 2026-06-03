@@ -325,6 +325,33 @@
       "description": "At session-start scan profile.recurring_mistakes for entries where count >= 3 (rule:mistake-intervention-threshold). For each, pick a DIFFERENT teaching tactic from the rotation (A: one-line checklist, B: tiny test that catches the failure mode, C: pair-debug from the failure mode) for the NEXT occurrence in this session. Track current_tactic on the entry so rotation is deterministic across sessions. After 3 consecutive sessions exercising the concept with no repeat, reset count and clear current_tactic. Per rule:mistake-no-shame, surface the tactic as forward-looking ('let us write a tiny test for this shape this time'), never as a tally. See get-behavior.ps1 mistake-intervention for the full protocol."
     },
     {
+      "id": "behavior:21-elicit-goal",
+      "type": "rule",
+      "label": "21. Elicit a long-arc goal on trigger",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Elicit ONE long-arc learner goal at first session (profile.goals empty) OR when the learner says something goal-shaped ('I want to ship X by Y', 'I want to get good at Z'). Per rule:goal-elicitation-cap, refuse to add a new goal when 3+ are already status == 'active' — surface the existing list and ask the learner to pause or abandon one first. Use a clickable card with 4 type options: concept-mastery, project-completion, method-fluency, time-bound-streak. After type pick, free-form follow-up fills target + deadline + label. Validate the record via cli-tool:validate-goal before writing to field:profile.goals. Never elicit on every session — only the named triggers. See get-behavior.ps1 elicit-goal for the full protocol."
+    },
+    {
+      "id": "behavior:22-goal-aware-session-pick",
+      "type": "rule",
+      "label": "22. Bias session-pick toward active goals under pressure",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "At session-start, AFTER behavior:16-recall-check-at-open and BEFORE the first build move, scan field:profile.goals for status == 'active' entries. Per rule:goal-deadline-pressure, compute pressure = (deadline_pct >= 0.70 AND completion_pct < 0.70) for goals with a deadline; for deadline-less goals, pressure = (completion_pct < 0.50). If 1+ goals have pressure, bias the next move toward goals.related_concepts or goals.related_projects. Surface one sentence connecting the move to the goal label. Never override behavior:16 or the learner's explicit project pick. One anchor per session, max. See get-behavior.ps1 goal-aware-session-pick for the full protocol."
+    },
+    {
+      "id": "behavior:23-goal-progress-at-aar",
+      "type": "rule",
+      "label": "23. Recompute goal progress at every AAR",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Called from behavior:08-aar-at-milestones. For each active goal in field:profile.goals, recompute progress.current from the ground-truth ledgers per rule:goal-progress-derived-not-stored (field:profile.concept_proficiency for concept-mastery, field:profile.projects for project-completion, progress.method_proficiency for method-fluency, session_history for time-bound-streak). Detect delta against the stored snapshot. Surface forward momentum or quiet-no-change per rule:goal-momentum-framing — never failure. Auto-promote to status 'achieved' when current >= target; this is the ONE place behavior:21-elicit-goal can re-trigger same-session. Persist the recomputed snapshot back to field:profile.goals.progress. See get-behavior.ps1 goal-progress-at-aar for the full protocol."
+    },
+    {
       "id": "level:concept-exposed",
       "type": "level",
       "label": "Concept: Exposed",
@@ -4083,6 +4110,98 @@
       "cluster": "mistake-memory",
       "file": ".github/knowledge-graph/data/mistake-taxonomy.json",
       "description": "The set of canonical mistake:* entries that behavior:18-log-mistake consults via rule:mistake-canonical-or-mint before logging to profile.recurring_mistakes. Seeded with 10 starter mistakes spanning CS-fundamentals and common Python/JS/TS/C# gotchas (forgot-null-check, swapped-args, off-by-one, missing-await, mutable-default-arg, bare-except, string-vs-int-compare, forgot-return, wrong-loop-bound, hardcoded-secret). Each entry carries an applies_to language list and a tactics_hint to inform behavior:20-mistake-intervention's rotation choice. Grows via cli-tool:propose-mistake after 3+ distinct learners mint the same mistake-id."
+    },
+    {
+      "id": "field:profile.goals",
+      "type": "field",
+      "label": "profile.goals (array)",
+      "cluster": "longitudinal-goals",
+      "section": "profile.json",
+      "description": "Array of long-arc learner goal records. Written by behavior:21-elicit-goal at first session or on goal-shaped utterance, capped at 3 status == 'active' entries per rule:goal-elicitation-cap. Read by behavior:22-goal-aware-session-pick at session-start to bias the next move when deadline-pressure or completion-pressure applies (rule:goal-deadline-pressure). Recomputed at every AAR by behavior:23-goal-progress-at-aar from ground-truth ledgers (field:profile.concept_proficiency, field:profile.projects, session_history) per rule:goal-progress-derived-not-stored — stored progress is just a snapshot for delta detection. Each record: { goal_id, label, type, target, deadline, status, progress, created, related_concepts, related_projects }. Validated by cli-tool:validate-goal before write."
+    },
+    {
+      "id": "field:profile.goals.goal_id",
+      "type": "field",
+      "label": "goals[].goal_id",
+      "cluster": "longitudinal-goals",
+      "section": "profile.json",
+      "description": "Slug derived from label (lowercase, hyphenated, prefixed 'goal:'). Stable across sessions so behavior:23-goal-progress-at-aar can find the same goal across recomputes. Validated by cli-tool:validate-goal against ^goal:[a-z0-9-]+$."
+    },
+    {
+      "id": "field:profile.goals.type",
+      "type": "field",
+      "label": "goals[].type",
+      "cluster": "longitudinal-goals",
+      "section": "profile.json",
+      "description": "One of four enum values: concept-mastery, project-completion, method-fluency, time-bound-streak. Picked by the learner via the clickable card in behavior:21-elicit-goal. Determines the schema of field:profile.goals.target and the ledger source behavior:23-goal-progress-at-aar consults during recompute."
+    },
+    {
+      "id": "field:profile.goals.target",
+      "type": "field",
+      "label": "goals[].target",
+      "cluster": "longitudinal-goals",
+      "section": "profile.json",
+      "description": "Shape varies by field:profile.goals.type. concept-mastery: { tier, count } (e.g. tier='independent', count=5). project-completion: { project_id }. method-fluency: { method, level }. time-bound-streak: { sessions, weeks }. Validated by cli-tool:validate-goal against the type-specific schema. behavior:23-goal-progress-at-aar reads this to know what 100% completion looks like."
+    },
+    {
+      "id": "field:profile.goals.deadline",
+      "type": "field",
+      "label": "goals[].deadline",
+      "cluster": "longitudinal-goals",
+      "section": "profile.json",
+      "description": "ISO8601 date (or null if open-ended). Drives rule:goal-deadline-pressure: behavior:22-goal-aware-session-pick computes deadline_pct = elapsed / window and fires goal-bias when deadline_pct >= 0.70 AND completion_pct < 0.70. Goals without a deadline use completion_pct < 0.50 instead."
+    },
+    {
+      "id": "field:profile.goals.progress",
+      "type": "field",
+      "label": "goals[].progress",
+      "cluster": "longitudinal-goals",
+      "section": "profile.json",
+      "description": "Snapshot of { current, target } most recently recomputed by behavior:23-goal-progress-at-aar. Per rule:goal-progress-derived-not-stored, NEVER trust this as truth — always recompute from ground-truth ledgers (field:profile.concept_proficiency for concept-mastery, field:profile.projects for project-completion). The snapshot exists only to detect delta since last AAR so the momentum sentence can be specific ('you bumped 2 concepts this week' vs 'no change since last session')."
+    },
+    {
+      "id": "rule:goal-elicitation-cap",
+      "type": "rule",
+      "label": "Goal elicitation capped at 3 active per learner",
+      "cluster": "longitudinal-goals",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "behavior:21-elicit-goal MUST refuse to add a new goal when field:profile.goals contains 3+ entries where status == 'active'. Instead, surface the existing active goals to the learner and ask whether any should move to status 'paused' or 'abandoned' before adding the new one. The cap exists because more than 3 long-arc goals dilutes the bias signal in behavior:22-goal-aware-session-pick — every session-pick would have to choose between competing goal anchors and the connection sentence would lose its punch."
+    },
+    {
+      "id": "rule:goal-deadline-pressure",
+      "type": "rule",
+      "label": "Goal-bias fires when deadline_pct >= 0.70 AND completion_pct < 0.70",
+      "cluster": "longitudinal-goals",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "behavior:22-goal-aware-session-pick computes deadline_pct = (now - created) / (deadline - created) and completion_pct = progress.current / progress.target for each active goal with a non-null deadline. When deadline_pct >= 0.70 AND completion_pct < 0.70, pressure == true and the session-pick MUST bias toward field:profile.goals.related_concepts or field:profile.goals.related_projects. For goals without a deadline, pressure = (completion_pct < 0.50). When multiple goals have pressure, sort by deadline_pct DESC and pick top one; tie-break by type priority (concept-mastery > project-completion > method-fluency > time-bound-streak). One anchor per session, max."
+    },
+    {
+      "id": "rule:goal-momentum-framing",
+      "type": "rule",
+      "label": "Surface goal progress as forward momentum or quiet — never as failure",
+      "cluster": "longitudinal-goals",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "behavior:23-goal-progress-at-aar MUST surface goal-progress deltas as either forward momentum ('you bumped 2 concepts to independent this week — 3 to go') or quiet ('no change since last session — let me know if it is still active'). NEVER as failure ('you are behind', 'you have not done enough'). Mirrors rule:mistake-no-shame in cluster mistake-memory — repetition produces adaptation, not guilt. Goal-tracking that becomes a guilt loop converts the AAR from a learning ritual into a stress event and the learner stops engaging with the goal system."
+    },
+    {
+      "id": "rule:goal-progress-derived-not-stored",
+      "type": "rule",
+      "label": "Goal progress is recomputed at every AAR from ground-truth ledgers",
+      "cluster": "longitudinal-goals",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "field:profile.goals.progress is a snapshot, NOT the source of truth. behavior:23-goal-progress-at-aar MUST recompute progress.current at every AAR from the appropriate ground-truth ledger: concept-mastery -> field:profile.concept_proficiency (count concepts where tier >= target.tier AND id in related_concepts); project-completion -> field:profile.projects[target.project_id].status; method-fluency -> progress.method_proficiency for target.method; time-bound-streak -> session_history within the time window. The stored snapshot exists only to detect delta since last AAR so the momentum sentence can be specific. Trusting the snapshot as truth would compound errors across sessions and silently drift the goal away from reality."
+    },
+    {
+      "id": "cli-tool:validate-goal",
+      "type": "cli-tool",
+      "label": "validate-goal.ps1",
+      "cluster": "longitudinal-goals",
+      "file": ".github/knowledge-graph/cli/validate-goal.ps1",
+      "description": "Stub validator for a single goal record from field:profile.goals. Checks goal_id slug shape, type enum membership, target schema matching type, deadline ISO8601 parse, and related_concepts referencing real concept:* nodes (warn-only). Called by behavior:21-elicit-goal before persisting a goal record. Mirrors cli-tool:propose-mistake and cli-tool:propose-analogy stub pattern — full implementation lands once goal records are actually being written in practice."
     }
   ],
   "metadata": {
@@ -4291,6 +4410,21 @@
         "no shame",
         "repeat error",
         "learner mistake"
+      ]
+    },
+    {
+      "id": "longitudinal-goals",
+      "label": "Longitudinal Learning Goals",
+      "description": "Tracks learner-stated long-arc goals across sessions and biases the next move when deadlines or completion pressure apply. Holds the profile.goals ledger (free-form label + 4 enum types: concept-mastery, project-completion, method-fluency, time-bound-streak), the elicitation cap (max 3 active), the deadline-pressure rule that triggers goal-aware session picks, the momentum-framing rule that forbids surfacing goals as failure, the derived-not-stored rule that recomputes progress from ground-truth ledgers at every AAR, and the validate-goal CLI stub. Closes the loop on Gap 5 — the learner finally sees session-by-session work connect to where they are going.",
+      "triggers": [
+        "longitudinal goal",
+        "learning goal",
+        "goal elicitation",
+        "deadline pressure",
+        "momentum framing",
+        "goal progress",
+        "AAR goals",
+        "long-arc"
       ]
     }
   ],
@@ -8313,6 +8447,126 @@
       "target": "field:profile.recurring_mistakes.streak_count",
       "type": "has_field",
       "label": "sub-field"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:21-elicit-goal",
+      "type": "follows",
+      "label": "behavior 21"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:22-goal-aware-session-pick",
+      "type": "follows",
+      "label": "behavior 22"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:23-goal-progress-at-aar",
+      "type": "follows",
+      "label": "behavior 23"
+    },
+    {
+      "source": "behavior:21-elicit-goal",
+      "target": "field:profile.goals",
+      "type": "writes_to",
+      "label": "persists new goal"
+    },
+    {
+      "source": "behavior:22-goal-aware-session-pick",
+      "target": "field:profile.goals",
+      "type": "reads_from",
+      "label": "scans active goals"
+    },
+    {
+      "source": "behavior:22-goal-aware-session-pick",
+      "target": "field:profile.concept_proficiency",
+      "type": "reads_from",
+      "label": "checks completion_pct for concept-mastery goals"
+    },
+    {
+      "source": "behavior:23-goal-progress-at-aar",
+      "target": "field:profile.goals",
+      "type": "reads_from",
+      "label": "recompute source snapshot"
+    },
+    {
+      "source": "behavior:23-goal-progress-at-aar",
+      "target": "field:profile.goals",
+      "type": "writes_to",
+      "label": "persists recomputed snapshot"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "behavior:23-goal-progress-at-aar",
+      "type": "reads_from",
+      "label": "triggers goal-progress recompute at every AAR"
+    },
+    {
+      "source": "behavior:21-elicit-goal",
+      "target": "rule:goal-elicitation-cap",
+      "type": "has_rule",
+      "label": "max 3 active"
+    },
+    {
+      "source": "behavior:22-goal-aware-session-pick",
+      "target": "rule:goal-deadline-pressure",
+      "type": "has_rule",
+      "label": "pressure threshold"
+    },
+    {
+      "source": "behavior:23-goal-progress-at-aar",
+      "target": "rule:goal-momentum-framing",
+      "type": "has_rule",
+      "label": "momentum or quiet — never failure"
+    },
+    {
+      "source": "behavior:23-goal-progress-at-aar",
+      "target": "rule:goal-progress-derived-not-stored",
+      "type": "has_rule",
+      "label": "recompute from ledgers"
+    },
+    {
+      "source": "cli-tool:validate-goal",
+      "target": "reference:graph-authoring-conventions",
+      "type": "documented_in",
+      "label": "conventions documented in"
+    },
+    {
+      "source": "field:profile.goals",
+      "target": "field:profile.goals.goal_id",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.goals",
+      "target": "field:profile.goals.type",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.goals",
+      "target": "field:profile.goals.target",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.goals",
+      "target": "field:profile.goals.deadline",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.goals",
+      "target": "field:profile.goals.progress",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "cli-tool:validate-goal",
+      "target": "code-file:.github/knowledge-graph/cli/validate-goal.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }
