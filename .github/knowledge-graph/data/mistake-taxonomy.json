@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "description": "Canonical mistake taxonomy. Seeds behavior:18-log-mistake's canonical-or-mint resolution. Grows via cli-tool:propose-mistake after 3+ distinct learners mint the same mistake-id. Mirrors data:analogy-registry and data:concept-registry patterns. Mistakes are language-agnostic CS-fundamentals where possible; language-specific mistakes are tagged with `applies_to`.",
+  "mistakes": [
+    {
+      "id": "mistake:forgot-null-check",
+      "label": "Forgot null/None/undefined check before use",
+      "applies_to": ["all"],
+      "tactics_hint": "Pattern repeats when learner thinks of happy-path first. Tactic rotation often lands on tiny test that asserts behavior on null input."
+    },
+    {
+      "id": "mistake:swapped-args",
+      "label": "Passed arguments in wrong order",
+      "applies_to": ["all"],
+      "tactics_hint": "Pattern repeats when function signature has same-type params (two strings, two ints). Tactic rotation often lands on named-args refactor or a one-line checklist of param order."
+    },
+    {
+      "id": "mistake:off-by-one",
+      "label": "Off-by-one error in loop bound or index",
+      "applies_to": ["all"],
+      "tactics_hint": "Classic. Tiny test on boundary cases (len=0, len=1, len=N) almost always catches it on the next pass."
+    },
+    {
+      "id": "mistake:missing-await",
+      "label": "Called async function without await",
+      "applies_to": ["javascript", "typescript", "python", "csharp"],
+      "tactics_hint": "Pattern repeats when async creeps in mid-build. Tactic rotation often lands on a checklist: 'any call returning a Promise/Task -> needs await OR explicit .then'."
+    },
+    {
+      "id": "mistake:mutable-default-arg",
+      "label": "Mutable default argument shared across calls",
+      "applies_to": ["python"],
+      "tactics_hint": "Python-specific gotcha. Pair-debug from the failure mode usually lands faster than a checklist — the bug is invisible without running it twice."
+    },
+    {
+      "id": "mistake:bare-except",
+      "label": "Bare except / catch-all swallows real errors",
+      "applies_to": ["python", "javascript", "typescript", "csharp"],
+      "tactics_hint": "Pattern repeats when learner is trying to make red go green. Tactic rotation often lands on writing a test that asserts the SPECIFIC exception type."
+    },
+    {
+      "id": "mistake:string-vs-int-compare",
+      "label": "Compared string to int (e.g. '5' == 5)",
+      "applies_to": ["python", "javascript", "typescript"],
+      "tactics_hint": "Common when input comes from CLI args, env vars, or JSON. Tactic rotation often lands on a one-line checklist at the input boundary."
+    },
+    {
+      "id": "mistake:forgot-return",
+      "label": "Function modifies state but forgot to return result",
+      "applies_to": ["all"],
+      "tactics_hint": "Pattern repeats when learner thinks imperatively. Tiny test asserting return value usually catches it."
+    },
+    {
+      "id": "mistake:wrong-loop-bound",
+      "label": "Used wrong collection length or range bound",
+      "applies_to": ["all"],
+      "tactics_hint": "Sibling of off-by-one but different root cause. Tactic rotation: pair-debug stepping through the iteration count helps more than a checklist."
+    },
+    {
+      "id": "mistake:hardcoded-secret",
+      "label": "Committed secret (API key, password, connection string) in source",
+      "applies_to": ["all"],
+      "tactics_hint": "Severity is high — always intervene on first occurrence, not third. Tactic: walk through env-var or secret-manager pattern immediately."
+    }
+  ]
+}

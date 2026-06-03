@@ -370,6 +370,64 @@ $behaviors = @{
             '  • Halt the build to lecture about the concept — callback is in-flow recognition, not re-teaching.'
         )
     }
+    'log-mistake' = @{
+        Summary = 'When Mentor catches a mistake mid-build, resolve mistake-id and increment profile.recurring_mistakes silently. Never reveal the count to the learner.'
+        Steps = @(
+            'WHEN to log:'
+            '  • Mentor catches a mistake mid-build BEFORE the learner self-corrects.'
+            '  • DO NOT log learner-discovered self-corrections — those are learning signal, not failures.'
+            '  • DO NOT log first-attempt experiments that get corrected within the same move.'
+            'RESOLVE mistake-id (rule mistake-canonical-or-mint):'
+            '  1. Look up the mistake in data:mistake-taxonomy (.github/knowledge-graph/data/mistake-taxonomy.json).'
+            '  2. If found → use canonical mistake:* id.'
+            '  3. If absent → mint a normalized slug (mistake:<verb-phrase>, lowercase, hyphenated).'
+            '  4. Append mint to .github/knowledge-graph/data/mistake-pending.jsonl with: { learner, mistake_id, label, sample_context, timestamp }.'
+            'WRITE to profile.recurring_mistakes:'
+            '  • Key by mistake_id. Create entry if first occurrence.'
+            '  • Fields: { mistake_id, label, count, last_seen (ISO8601), contexts: [project_id, ...] }.'
+            '  • Increment count by 1. Update last_seen to now. Append current project_id to contexts (dedupe).'
+            'SILENT (rule mistake-no-shame):'
+            '  • Never read the count back to the learner. No "you have done this 3 times."'
+            '  • Correct the mistake conversationally as you would the first time, until intervention threshold fires.'
+            '  • Log to the file — never to the chat.'
+            'SEVERITY OVERRIDE:'
+            '  • Hardcoded secrets (mistake:hardcoded-secret) intervene on FIRST occurrence, not third — security risk overrides the rotation cadence.'
+            'NEVER:'
+            '  • Log a mistake the learner caught themselves (would shame self-correction).'
+            '  • Surface the recurring_mistakes object in chat or status.'
+            '  • Increment count more than once per mistake per session — duplicate occurrences within one session count as one.'
+            '  • Skip the mint when no canonical match exists — the registry only grows if we log mints.'
+        )
+    }
+    'mistake-intervention' = @{
+        Summary = 'On the 3rd recurrence of a mistake-id, rotate teaching tactic for the NEXT occurrence. Reset after a clean streak.'
+        Steps = @(
+            'WHEN to fire (rule mistake-intervention-threshold):'
+            '  • At session-start, scan profile.recurring_mistakes for entries where count >= 3 AND not yet at "post-intervention" state.'
+            '  • The intervention applies to the NEXT occurrence of that mistake_id in this session — not retroactively to the build so far.'
+            'PICK A TACTIC (rotate):'
+            '  • Tactic A: one-line checklist Mentor states out loud right before the next likely failure point.'
+            '  • Tactic B: pause and write a tiny test that catches the failure mode, THEN write the production code.'
+            '  • Tactic C: pair-debug from the failure mode — let it fail once, walk through the stack/log together.'
+            '  • Default first rotation = A. On 4th recurrence = B. On 5th = C. On 6th = A again. Cycle.'
+            '  • Track current_tactic on the recurring_mistakes entry so rotation is deterministic across sessions.'
+            'SEVERITY OVERRIDE:'
+            '  • mistake:hardcoded-secret jumps straight to Tactic C on first occurrence (walk env-var or secret-manager pattern immediately).'
+            '  • Future high-severity mistakes can opt in by setting `intervene_on: 1` in the taxonomy entry.'
+            'SURFACE forward-looking (rule mistake-no-shame):'
+            '  • "let us write a tiny test for this shape this time" → YES.'
+            '  • "you have forgotten the null check 4 times" → NO.'
+            '  • The learner should feel the tactic is the natural next step, not punishment.'
+            'RESET the streak:'
+            '  • After 3 consecutive sessions that exercised the concept tied to this mistake WITHOUT a repeat, reset count = 0 and clear current_tactic.'
+            '  • Track via streak_count on the recurring_mistakes entry. Increment each clean session, reset to 0 if mistake repeats.'
+            'NEVER:'
+            '  • Use intervention as the first response to a mistake — first two occurrences get conversational correction only.'
+            '  • Read the count or tactic name to the learner mid-build.'
+            '  • Repeat the same tactic twice in a row for the same mistake_id — rotation is the point.'
+            '  • Treat learner-discovered self-corrections as repeats (those do not increment count per behavior log-mistake).'
+        )
+    }
 }
 
 if (-not $behaviors.ContainsKey($Behavior)) {

@@ -307,6 +307,24 @@
       "description": "Mid-build, when current code touches a concept-id already in profile.concept_proficiency (and not yet at tier 'teaching'), NAME it as a callback in one conversational sentence anchored to a SPECIFIC prior project or session ('this is the same try-catch shape you used in [project] — recognize it?'). Per rule:callback-counts-as-grading-signal, a successful callback (learner reproduces unprompted within ~5 minutes) is sufficient evidence to bump guided -> independent at the next AAR with no separate learner confirmation. Failed callback never downgrades. One callback per concept per session. See get-behavior.ps1 callback-prior-concept for the full protocol."
     },
     {
+      "id": "behavior:18-log-mistake",
+      "type": "rule",
+      "label": "18. Log recurring mistake silently",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "When Mentor catches a mistake mid-build (NOT learner-discovered self-corrections), resolve mistake-id via rule:mistake-canonical-or-mint against data:mistake-taxonomy. Increment profile.recurring_mistakes[id].count, update last_seen, append current project_id to contexts. Mints are appended to .github/knowledge-graph/data/mistake-pending.jsonl for cross-learner promotion via cli-tool:propose-mistake. Silent log per rule:mistake-no-shame — never read the count back to the learner. Severity override: mistake:hardcoded-secret intervenes on first occurrence. See get-behavior.ps1 log-mistake for the full protocol."
+    },
+    {
+      "id": "behavior:20-mistake-intervention",
+      "type": "rule",
+      "label": "20. Rotate teaching tactic on 3rd mistake recurrence",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "At session-start scan profile.recurring_mistakes for entries where count >= 3 (rule:mistake-intervention-threshold). For each, pick a DIFFERENT teaching tactic from the rotation (A: one-line checklist, B: tiny test that catches the failure mode, C: pair-debug from the failure mode) for the NEXT occurrence in this session. Track current_tactic on the entry so rotation is deterministic across sessions. After 3 consecutive sessions exercising the concept with no repeat, reset count and clear current_tactic. Per rule:mistake-no-shame, surface the tactic as forward-looking ('let us write a tiny test for this shape this time'), never as a tally. See get-behavior.ps1 mistake-intervention for the full protocol."
+    },
+    {
       "id": "level:concept-exposed",
       "type": "level",
       "label": "Concept: Exposed",
@@ -3974,6 +3992,97 @@
       "cluster": "infra-layer",
       "file": ".github/knowledge-graph/AUTHORING.md",
       "description": "Per-node-type conventions for hand-editing the system graph (field nodes omit file:, cli-tool files must exist before the graph references them, etc.) and the recovery workflow when the pre-commit hook rejects a commit."
+    },
+    {
+      "id": "field:profile.recurring_mistakes",
+      "type": "field",
+      "label": "profile.recurring_mistakes (object)",
+      "cluster": "mistake-memory",
+      "section": "profile.json",
+      "description": "Map of mistake-id -> recurrence record. Written by behavior:18-log-mistake when Mentor catches a mistake mid-build (NOT learner-discovered self-corrections). Drives behavior:20-mistake-intervention's tactic rotation. Mistake-id is canonical (matches a mistake:* entry in data:mistake-taxonomy) or a minted slug logged to mistake-pending.jsonl."
+    },
+    {
+      "id": "field:profile.recurring_mistakes.count",
+      "type": "field",
+      "label": "recurring_mistakes.{id}.count",
+      "cluster": "mistake-memory",
+      "section": "profile.json",
+      "description": "Integer count of distinct sessions in which Mentor caught this mistake. Increments at most once per session per mistake-id. Triggers behavior:20-mistake-intervention at threshold 3 per rule:mistake-intervention-threshold. Never surfaced to the learner."
+    },
+    {
+      "id": "field:profile.recurring_mistakes.last_seen",
+      "type": "field",
+      "label": "recurring_mistakes.{id}.last_seen",
+      "cluster": "mistake-memory",
+      "section": "profile.json",
+      "description": "ISO8601 timestamp of the most recent session that logged this mistake. Used with field:profile.recurring_mistakes.streak_count to decide when to reset the rotation."
+    },
+    {
+      "id": "field:profile.recurring_mistakes.contexts",
+      "type": "field",
+      "label": "recurring_mistakes.{id}.contexts",
+      "cluster": "mistake-memory",
+      "section": "profile.json",
+      "description": "Array of project-ids in which this mistake was logged. Deduped. Used by behavior:20-mistake-intervention to anchor tactic suggestions to a concrete prior context the learner remembers."
+    },
+    {
+      "id": "field:profile.recurring_mistakes.current_tactic",
+      "type": "field",
+      "label": "recurring_mistakes.{id}.current_tactic",
+      "cluster": "mistake-memory",
+      "section": "profile.json",
+      "description": "One of: 'A' (one-line checklist), 'B' (tiny test), 'C' (pair-debug from failure mode). Tracks where the rotation is for this mistake-id across sessions so behavior:20-mistake-intervention picks a DIFFERENT tactic on the next intervention."
+    },
+    {
+      "id": "field:profile.recurring_mistakes.streak_count",
+      "type": "field",
+      "label": "recurring_mistakes.{id}.streak_count",
+      "cluster": "mistake-memory",
+      "section": "profile.json",
+      "description": "Integer count of consecutive sessions exercising the related concept WITHOUT this mistake repeating. At 3 consecutive clean sessions, behavior:20-mistake-intervention resets count to 0 and clears current_tactic."
+    },
+    {
+      "id": "rule:mistake-canonical-or-mint",
+      "type": "rule",
+      "label": "Mistake id: canonical if in taxonomy, mint slug otherwise",
+      "cluster": "mistake-memory",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Before logging a mistake to profile.recurring_mistakes: (1) look up the mistake in data:mistake-taxonomy (.github/knowledge-graph/data/mistake-taxonomy.json) by matching the failure pattern; (2) if found, use the canonical mistake:* id; (3) otherwise mint a normalized slug (mistake:<verb-phrase>, lowercase, hyphenated) and append the mint to .github/knowledge-graph/data/mistake-pending.jsonl for cross-learner promotion via cli-tool:propose-mistake. Mirrors rule:concept-canonical-or-mint (Gap 1) and rule:analogy-canonical-or-mint (Gap 4) — keeps mistake-id stable across sessions and learners so promotion can dedupe correctly."
+    },
+    {
+      "id": "rule:mistake-intervention-threshold",
+      "type": "rule",
+      "label": "Mistake intervention: rotate tactic on 3rd recurrence",
+      "cluster": "mistake-memory",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "behavior:20-mistake-intervention fires when field:profile.recurring_mistakes.count reaches 3 for a given mistake-id. It picks a different tactic from the rotation (A: one-line checklist, B: tiny test, C: pair-debug) for the NEXT occurrence in the session and stores it in field:profile.recurring_mistakes.current_tactic. Rotation cycles A -> B -> C -> A on each subsequent recurrence. After 3 consecutive sessions exercising the related concept without a repeat (field:profile.recurring_mistakes.streak_count == 3), count resets to 0 and current_tactic clears. Severity override: mistake:hardcoded-secret intervenes on first occurrence with Tactic C immediately."
+    },
+    {
+      "id": "rule:mistake-no-shame",
+      "type": "rule",
+      "label": "Mistake count never surfaces to the learner",
+      "cluster": "mistake-memory",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "profile.recurring_mistakes is internal-only telemetry that drives behavior:20-mistake-intervention's tactic rotation. Both behavior:18-log-mistake and behavior:20-mistake-intervention MUST surface insight forward-looking ('let us write a tiny test for this shape this time') and never as a tally ('you have done this 4 times'). The learner should feel each tactic is the natural next step, not punishment. Reading the count to the learner converts a teaching loop into shame and violates the keyboard-discipline core_behavior."
+    },
+    {
+      "id": "cli-tool:propose-mistake",
+      "type": "cli-tool",
+      "label": "propose-mistake.ps1",
+      "cluster": "mistake-memory",
+      "file": ".github/knowledge-graph/cli/propose-mistake.ps1",
+      "description": "Reads pending mistake mints from .github/knowledge-graph/data/mistake-pending.jsonl. For mistake-ids minted 3+ times across distinct learners, generates a PR-ready entry for the mistakes[] array in .github/knowledge-graph/data/mistake-taxonomy.json. Mirrors cli-tool:propose-concept (Gap 1) and cli-tool:propose-analogy (Gap 4)."
+    },
+    {
+      "id": "data:mistake-taxonomy",
+      "type": "data",
+      "label": "Mistake taxonomy (canonical mistake:* entries)",
+      "cluster": "mistake-memory",
+      "file": ".github/knowledge-graph/data/mistake-taxonomy.json",
+      "description": "The set of canonical mistake:* entries that behavior:18-log-mistake consults via rule:mistake-canonical-or-mint before logging to profile.recurring_mistakes. Seeded with 10 starter mistakes spanning CS-fundamentals and common Python/JS/TS/C# gotchas (forgot-null-check, swapped-args, off-by-one, missing-await, mutable-default-arg, bare-except, string-vs-int-compare, forgot-return, wrong-loop-bound, hardcoded-secret). Each entry carries an applies_to language list and a tactics_hint to inform behavior:20-mistake-intervention's rotation choice. Grows via cli-tool:propose-mistake after 3+ distinct learners mint the same mistake-id."
     }
   ],
   "metadata": {
@@ -4167,6 +4276,21 @@
         "concept registry",
         "concept mint",
         "concept ladder"
+      ]
+    },
+    {
+      "id": "mistake-memory",
+      "label": "Recurring Mistake Memory",
+      "description": "Tracks recurring learner mistakes silently and rotates teaching tactic on the 3rd recurrence so repetition produces adaptation, not shame. Holds the mistake taxonomy (canonical mistake:* entries seeded with 10 common starters), the profile.recurring_mistakes ledger, the canonical-or-mint resolution rule, the intervention threshold rule, the no-shame surfacing rule, and the propose-mistake CLI tool that promotes minted mistake-ids after 3+ distinct learners hit the same pattern.",
+      "triggers": [
+        "recurring mistake",
+        "mistake memory",
+        "intervention",
+        "tactic rotation",
+        "mistake taxonomy",
+        "no shame",
+        "repeat error",
+        "learner mistake"
       ]
     }
   ],
@@ -8087,6 +8211,108 @@
       "target": "behavior:17-callback-prior-concept",
       "type": "reads_from",
       "label": "ingests callback_success signals for tier-bump"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:18-log-mistake",
+      "type": "follows",
+      "label": "follows behavior"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:20-mistake-intervention",
+      "type": "follows",
+      "label": "follows behavior"
+    },
+    {
+      "source": "behavior:18-log-mistake",
+      "target": "field:profile.recurring_mistakes",
+      "type": "writes_to",
+      "label": "logs caught mistakes silently"
+    },
+    {
+      "source": "behavior:20-mistake-intervention",
+      "target": "field:profile.recurring_mistakes",
+      "type": "reads_from",
+      "label": "scans for threshold-crossing entries"
+    },
+    {
+      "source": "behavior:18-log-mistake",
+      "target": "rule:mistake-canonical-or-mint",
+      "type": "has_rule",
+      "label": "mistake-id resolution rule"
+    },
+    {
+      "source": "behavior:20-mistake-intervention",
+      "target": "rule:mistake-intervention-threshold",
+      "type": "has_rule",
+      "label": "intervention threshold rule"
+    },
+    {
+      "source": "behavior:18-log-mistake",
+      "target": "rule:mistake-no-shame",
+      "type": "has_rule",
+      "label": "silent logging rule"
+    },
+    {
+      "source": "behavior:20-mistake-intervention",
+      "target": "rule:mistake-no-shame",
+      "type": "has_rule",
+      "label": "forward-looking surfacing rule"
+    },
+    {
+      "source": "rule:mistake-canonical-or-mint",
+      "target": "data:mistake-taxonomy",
+      "type": "reads_from",
+      "label": "lookup canonical mistake-id"
+    },
+    {
+      "source": "behavior:18-log-mistake",
+      "target": "cli-tool:propose-mistake",
+      "type": "uses",
+      "label": "promotes minted mistakes"
+    },
+    {
+      "source": "cli-tool:propose-mistake",
+      "target": "reference:graph-authoring-conventions",
+      "type": "documented_in",
+      "label": "conventions documented in"
+    },
+    {
+      "source": "cli-tool:propose-mistake",
+      "target": "code-file:.github/knowledge-graph/cli/propose-mistake.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "field:profile.recurring_mistakes",
+      "target": "field:profile.recurring_mistakes.count",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.recurring_mistakes",
+      "target": "field:profile.recurring_mistakes.last_seen",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.recurring_mistakes",
+      "target": "field:profile.recurring_mistakes.contexts",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.recurring_mistakes",
+      "target": "field:profile.recurring_mistakes.current_tactic",
+      "type": "has_field",
+      "label": "sub-field"
+    },
+    {
+      "source": "field:profile.recurring_mistakes",
+      "target": "field:profile.recurring_mistakes.streak_count",
+      "type": "has_field",
+      "label": "sub-field"
     }
   ]
 }
