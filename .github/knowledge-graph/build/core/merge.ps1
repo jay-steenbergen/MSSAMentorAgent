@@ -219,6 +219,11 @@ Write-Host ""
 
 # ---------- write output ----------
 $json = $merged | ConvertTo-Json -Depth 32
+# Ensure output dir exists — gitignored, so missing on fresh CI checkouts.
+$outDir = Split-Path $outPath -Parent
+if (-not (Test-Path $outDir)) {
+    New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+}
 Set-Content -Path $outPath -Value $json -Encoding UTF8
 
 # ---------- summary ----------

@@ -150,11 +150,14 @@ $allFiles = @()
 foreach ($p in $includePatterns) {
     $full = Join-Path $repoRoot $p
     if (-not (Test-Path $full)) { continue }
-    if ((Get-Item $full).PSIsContainer) {
-        $allFiles += Get-ChildItem $full -Recurse -File `
+    # Use -PathType + -Force for dotfile compatibility on Linux PowerShell.
+    # Get-Item on hidden directories (e.g. .profiles) without -Force throws
+    # "Could not find item" on Linux even when Test-Path succeeds.
+    if (Test-Path $full -PathType Container) {
+        $allFiles += Get-ChildItem $full -Recurse -File -Force `
             -Include *.md, *.ps1, *.psm1, *.json, *.cs, *.csproj, *.ts, *.tsx
     } else {
-        $allFiles += Get-Item $full
+        $allFiles += Get-Item $full -Force
     }
 }
 
