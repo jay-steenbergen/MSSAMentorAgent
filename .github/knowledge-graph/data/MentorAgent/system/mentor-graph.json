@@ -8895,6 +8895,21 @@
       "source": "test:template",
       "target": "test:quiz-cadence",
       "type": "template_for"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "protocol:interview",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "protocol:followup-interview",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "picker:continuation",
+      "type": "follows"
     }
   ]
 }

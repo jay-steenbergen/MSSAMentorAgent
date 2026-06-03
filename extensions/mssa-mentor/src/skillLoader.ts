@@ -77,6 +77,27 @@ export function getSkillsToPreload(learnerContext: LearnerContext): SkillFile[] 
 }
 
 /**
+ * Bootstrap case: no learner profile yet. Returns the learner-profile SKILL
+ * so the first-time interview protocol is in chat context from turn one.
+ * The agent's SESSION CONTRACT says "NO PROFILE? run the first-time interview" —
+ * but the model can only run it if the SKILL is loaded.
+ */
+export function getBootstrapSkill(): SkillFile | null {
+  const root = getCurriculumDir();
+  const relParts = ['.github', 'skills', 'learner-profile', 'SKILL.md'];
+  const abs = path.join(root, ...relParts);
+  if (!fs.existsSync(abs)) {
+    return null;
+  }
+  return {
+    path: abs,
+    relPath: relParts.join('/'),
+    type: 'core',
+    reason: 'Bootstrap - no profile yet, first-time interview protocol'
+  };
+}
+
+/**
  * Read a skill file by absolute path. Returns null on failure.
  */
 export function readSkillFile(skillPath: string): string | null {

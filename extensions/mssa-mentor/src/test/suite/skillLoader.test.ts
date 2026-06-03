@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import { getSkillsToPreload, readSkillFile } from '../../skillLoader';
+import { getBootstrapSkill, getSkillsToPreload, readSkillFile } from '../../skillLoader';
 import type { LearnerContext } from '../../profileReader';
 
 /**
@@ -99,5 +99,19 @@ suite('skillLoader.ts', () => {
 
   test('readSkillFile returns null on missing file', () => {
     assert.strictEqual(readSkillFile('/does/not/exist'), null);
+  });
+
+  test('getBootstrapSkill returns learner-profile SKILL when present', () => {
+    seedCurriculum(tmp, [], []);
+    const skill = getBootstrapSkill();
+    assert.ok(skill);
+    assert.strictEqual(skill!.type, 'core');
+    assert.ok(skill!.relPath.endsWith('learner-profile/SKILL.md'));
+  });
+
+  test('getBootstrapSkill returns null when curriculum cache is empty', () => {
+    // Note: do NOT seed curriculum.
+    const skill = getBootstrapSkill();
+    assert.strictEqual(skill, null);
   });
 });

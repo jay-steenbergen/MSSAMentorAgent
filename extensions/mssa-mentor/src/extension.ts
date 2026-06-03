@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { getCurrentLearnerContext } from './profileReader';
-import { getSkillsToPreload, readSkillFile } from './skillLoader';
+import { getBootstrapSkill, getSkillsToPreload, readSkillFile } from './skillLoader';
 import { ensureMentorHome, getMentorHome } from './paths';
 import { setMentorHomeEnv } from './envSetup';
 import { checkPowerShell } from './powershellCheck';
@@ -101,8 +101,17 @@ async function preloadSkillsForSession(
     // 1. Get learner context
     const learnerContext = await getCurrentLearnerContext();
     if (!learnerContext) {
-      outputChannel.appendLine('[MentorContext] No learner profile found - skipping pre-load');
-      stream.markdown('💡 *No learner profile found. Create one with the first-time interview.*\n\n');
+      // Bootstrap case: pre-load the learner-profile SKILL so the agent
+      // can actually run the first-time interview (its protocol lives in that file).
+      outputChannel.appendLine('[MentorContext] No learner profile found - loading bootstrap skill');
+      const bootstrap = getBootstrapSkill();
+      if (bootstrap) {
+        stream.reference(vscode.Uri.file(bootstrap.path));
+        outputChannel.appendLine(`[MentorContext] ✓ Bootstrap: ${bootstrap.relPath}`);
+      } else {
+        outputChannel.appendLine('[MentorContext] ✗ Bootstrap skill not found in curriculum cache');
+      }
+      stream.markdown('👋 **Welcome to MSSA Mentor.** No profile found — let\'s set yours up first.\n\n');
       return;
     }
 

@@ -148,12 +148,15 @@ if (Test-Path $extDir) {
         # never an island and its sub-files never get tagged "UNWIRED".
         # Strategy: walk the whole extension folder, skip build outputs and
         # vendor dirs, emit one `contains` edge per real source/config file.
+        # The includeExt allowlist MUST mirror extract-code-graph.ps1's -Include
+        # filter — otherwise we emit edges to code-file nodes that never exist
+        # (e.g. LICENSE, .gitignore) and the dangling-edges health check FAILs.
         $excludeDirs = @('node_modules', 'out', 'dist', '.vsix-temp', 'coverage', '.vscode-test', '.nyc_output', 'tmp', '.git')
-        $excludeExt  = @('.vsix', '.log')
+        $includeExt  = @('.md', '.ps1', '.psm1', '.json', '.cs', '.csproj', '.ts', '.tsx')
         $allFiles = Get-ChildItem $ext.FullName -Recurse -File | Where-Object {
             $relParts = $_.FullName.Substring($ext.FullName.Length).TrimStart('\','/') -split '[\\/]'
             -not ($excludeDirs | Where-Object { $relParts -contains $_ }) -and
-            -not ($excludeExt -contains $_.Extension.ToLower()) -and
+            ($includeExt -contains $_.Extension.ToLower()) -and
             -not ($_.Name.StartsWith('.'))   # skip bare dotfiles (.gitignore etc.); extract-code-graph doesn't node them
         }
         foreach ($f in $allFiles) {
