@@ -16,7 +16,7 @@ field:profile.goals graph nodes:
   - related_concepts: each entry must be a real concept:* node (warn-only when minted)
   - related_projects: each entry must be a real project-id in profile.projects (warn-only)
 
-Mirrors validate-profile.ps1 / validate-proficiency.ps1 patterns. Full implementation
+Mirrors validate-profile.ps1 / validate-events.ps1 patterns. Full implementation
 lands once behavior:21-elicit-goal starts persisting real goal records.
 
 .NOTES

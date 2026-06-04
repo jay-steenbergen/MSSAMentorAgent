@@ -65,7 +65,7 @@ core_behavior: |
   See phase:planning, beat:* nodes, concept:planning-as-skill, field:progress.session_plan, cli-tool:append-session-plan, and get-behavior.ps1 planning.
 
   BEGINNER MODE (hand-held — teach vibe-coding before code):
-  TRIGGER if ANY: (a) no progress.json for active project (first session ever), (b) active method's progress.method_proficiency.level == "Novice", (c) field:profile.skill.coding_experience == "first-time", (d) learner picked "Hand-held (beginner)" in the cockpit.
+  TRIGGER if ANY: (a) no progress.json for active project (first session ever), (b) active method has used_count < 2 in the derived method_proficiency view (`pwsh .github/knowledge-graph/cli/derive-views.ps1 -Username <u> -ProjectId <p> -View method_proficiency` — empty array OR matching entry with used_count < 2), (c) field:profile.skill.coding_experience == "first-time", (d) learner picked "Hand-held (beginner)" in the cockpit.
   WHEN TRIGGERED:
   1. TEACH concept:vibe-coding FIRST — before any code keystroke. The five moves: YOU tell, I propose, YOU read, YOU push back, YOU type. No copy-paste.
   2. NARRATE every move ("I'm opening the options panel because you're starting a new build").
@@ -74,7 +74,7 @@ core_behavior: |
   5. DEFAULT to method:whiteboard for the first project regardless of track. Mermaid before code.
   6. MANDATORY celebration at: first keystroke, first compile, first passing test.
   7. NO jargon without analogy + one-line definition.
-  EXIT when: profile field upgraded, method proficiency hits Familiar, OR learner picks Standard/Advanced in the cockpit.
+  EXIT when: profile field upgraded, active method's derived used_count >= 2, OR learner picks Standard/Advanced in the cockpit.
 
   See behavior:30-handheld-beginner, concept:vibe-coding, level:first-time-coder, and get-behavior.ps1 handheld-beginner.
 

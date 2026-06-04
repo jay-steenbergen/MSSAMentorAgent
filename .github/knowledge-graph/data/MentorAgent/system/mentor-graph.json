@@ -434,10 +434,11 @@
     {
       "id": "field:profile.concept_proficiency",
       "type": "field",
-      "label": "profile.concept_proficiency (object)",
+      "label": "profile.concept_proficiency (object, derived)",
       "cluster": "concept-proficiency",
       "section": "profile.json",
-      "description": "Map of concept-id -> proficiency record. Concept-id is canonical (matches a concept:X node) or a minted slug (logged to concept-mints.jsonl). Distinct from progress.method_proficiency which lives per-project and tracks method-level mastery."
+      "derived": true,
+      "description": "Map of concept-id -> proficiency record. Concept-id is canonical (matches a concept:X node) or a minted slug (logged to concept-mints.jsonl). DERIVED VIEW (Phase 2): computed at read time by cli-tool:derive-views from concept_taught / quiz_asked / quiz_answered / callback_made / concept_calibrated events in field:profile.events. Per rule:events-are-source-of-truth, this object is NEVER written by hand or by behavior protocols — any direct mutation is silently overwritten on the next derive-views call. Distinct from progress.method_proficiency (also derived) which tracks method-level mastery."
     },
     {
       "id": "field:profile.concept_proficiency.tier",
@@ -1533,10 +1534,11 @@
     {
       "id": "field:progress.method_proficiency",
       "type": "field",
-      "label": "method_proficiency (object)",
+      "label": "method_proficiency (object, derived)",
       "cluster": "data-layer",
       "section": "progress.json",
-      "description": "Keyed by method name. Each entry: level, last_updated, notes."
+      "derived": true,
+      "description": "Keyed by method name. DERIVED VIEW (Phase 2): computed at read time by cli-tool:derive-views from method_used events in field:profile.events. Each derived entry: { method, used_count, last_used }. Per rule:events-are-source-of-truth, this object is NEVER written directly — any hand-edit is silently overwritten on the next derive-views call. Mentor's beginner-mode trigger (b) reads used_count via derive-views (used_count < 2 = novice equivalent)."
     },
     {
       "id": "field:progress.method_proficiency.level",
@@ -1565,10 +1567,11 @@
     {
       "id": "field:progress.session_history",
       "type": "field",
-      "label": "session_history",
+      "label": "session_history (array, derived)",
       "cluster": "data-layer",
       "section": "progress.json",
-      "description": "Array. Each entry: date, duration_minutes, method_used, milestones_completed, notes."
+      "derived": true,
+      "description": "Array of session summaries. DERIVED VIEW (Phase 2): computed at read time by cli-tool:derive-views by pairing session_started / session_ended events in field:profile.events. Each derived entry: { session_id, started_at, ended_at, duration_minutes, methods_used, milestones_completed }. Per rule:events-are-source-of-truth, this array is NEVER appended to directly — any hand-edit is silently overwritten on the next derive-views call."
     },
     {
       "id": "protocol:progress-after-milestone",
@@ -2497,12 +2500,12 @@
       "description": "PowerShell module providing graph query functions: Get-KnowledgeGraph, Get-RelevantSkills, Get-SkillDependencies, Get-LearnerProgress, Get-AgentLoadList, Get-SkillsForIntent, Get-NodeNeighbors"
     },
     {
-      "id": "script:validate-proficiency",
+      "id": "script:validate-events",
       "type": "script",
-      "label": "validate-proficiency.ps1",
+      "label": "validate-events.ps1",
       "cluster": "validation-layer",
-      "file": ".profiles/validate-proficiency.ps1",
-      "description": "Scans all progress files. Verifies method_proficiency structure, valid levels, date format, non-empty notes."
+      "file": ".github/knowledge-graph/cli/validate-events.ps1",
+      "description": "Scans all .progress.json files. Verifies field:profile.events shape per rule:events-are-source-of-truth: ISO-8601 ts, type in 10-event enum, non-empty session_id, project_id matches filename, data is null or object, append-only ordering. Replaces the deprecated validate-proficiency.ps1 (Phase 2)."
     },
     {
       "id": "script:edit-profile",
@@ -4292,10 +4295,11 @@
     {
       "id": "field:profile.quiz_history",
       "type": "field",
-      "label": "profile.quiz_history (array)",
+      "label": "profile.quiz_history (array, derived)",
       "cluster": "concept-proficiency",
       "section": "profile.json",
-      "description": "Append-only array of quiz records. Each record: { ts (ISO8601), concept_id (canonical or minted slug), project_id (current project context), trigger ('pre-teach' | 'reappearance' | 'cadence' | 'recall-open'), form ('mc' | 'code-fill' | 'open' | 'self-report'), question (text), answer (text or option index), correct (bool or null for self-report), tier_before, tier_after (null until AAR rollup). Read by behavior:15-track-concept-proficiency and behavior:08-aar-at-milestones as the ground-truth ledger for tier rollups per rule:proficiency-derived-from-quiz-history. Never mutated — only appended; corrections become new entries with notes referencing the prior ts. PHASE 1 STATUS: field still in use; will be deprecated in Phase 2 in favor of field:profile.events of type quiz_* per decision:event-log-cutover."
+      "derived": true,
+      "description": "Array of quiz records. DERIVED VIEW (Phase 2): computed at read time by cli-tool:derive-views by pairing quiz_asked / quiz_answered events in field:profile.events. Each derived entry: { ts, concept_id, project_id, trigger, form, question, answer, correct }. Per rule:events-are-source-of-truth, this array is NEVER appended to directly — quizzes are recorded by behavior protocols emitting quiz_asked / quiz_answered events via cli-tool:append-event. Read by behavior:15-track-concept-proficiency and behavior:08-aar-at-milestones (via derive-views) for tier rollups per rule:proficiency-derived-from-quiz-history."
     },
     {
       "id": "field:profile.events",
@@ -4849,6 +4853,14 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/show-profile.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:validate-events",
+      "type": "cli-tool",
+      "label": "validate-events.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/validate-events.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -5005,7 +5017,7 @@
     {
       "id": "validation-layer",
       "label": "Validation Layer",
-      "description": "PowerShell scripts that validate profile and proficiency data before writes commit. Includes validate-profile, validate-proficiency, edit-profile — the integrity gates that prevent malformed state from being persisted to Git.",
+      "description": "PowerShell scripts that validate profile and event-log data before writes commit. Includes validate-profile, validate-events, edit-profile — the integrity gates that prevent malformed state from being persisted to Git.",
       "triggers": [
         "validate",
         "profile validation",
@@ -5951,13 +5963,13 @@
       "label": "on validation fail"
     },
     {
-      "source": "script:validate-proficiency",
+      "source": "script:validate-events",
       "target": "file:progress-json-instance",
       "type": "validates"
     },
     {
-      "source": "script:validate-proficiency",
-      "target": "field:progress.method_proficiency",
+      "source": "script:validate-events",
+      "target": "field:profile.events",
       "type": "validates"
     },
     {
@@ -6986,7 +6998,7 @@
     },
     {
       "source": "test:proficiency-tracking",
-      "target": "script:validate-proficiency",
+      "target": "script:validate-events",
       "type": "uses"
     },
     {
@@ -10475,6 +10487,18 @@
       "target": "field:profile.events.data",
       "type": "has_field",
       "label": "event record owns data"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:validate-events",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:validate-events",
+      "target": "code-file:.github/knowledge-graph/cli/validate-events.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }

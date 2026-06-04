@@ -267,11 +267,13 @@ This run did not execute multi-session interactive method switching to confirm p
 
 ## Automation Opportunities
 
-**Validation script:** `.profiles/validate-proficiency.ps1`
-- Scans all progress files
-- Checks `method_proficiency` structure
-- Reports malformed entries
-- Suggests fixes
+**Validation script:** `.github/knowledge-graph/cli/validate-events.ps1`
+- Scans all progress files for `events[]` shape per rule:events-are-source-of-truth
+- Checks each event has valid ts (ISO-8601), type (in 10-event enum), session_id, project_id, data (null or object)
+- Verifies append-only ordering (ts ASC)
+- Reports per-file errors; exits 1 on any failure
+
+Note: method_proficiency is now a *derived view* computed by `cli-tool:derive-views` from `field:profile.events`. Direct shape validation is no longer applicable.
 
 **Dashboard:** (future)
 - Visualize proficiency across all learners
