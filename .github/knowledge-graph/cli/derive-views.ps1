@@ -11,10 +11,13 @@ documented in rule:proficiency-derived-from-quiz-history (3+ correct quizzes
 across 2+ sessions bumps tier; callbacks bump guided->independent).
 
 .PARAMETER Username
-Mentee github username.
+Github username (folder name under .../profiles/mentees/ or mentors/).
 
 .PARAMETER ProjectId
 Project slug.
+
+.PARAMETER Role
+Which role folder to read from. 'mentee' (default) or 'mentor'.
 
 .PARAMETER View
 Optional. If supplied, returns only the named view. One of:
@@ -41,6 +44,9 @@ param(
     [Parameter(Mandatory)]
     [string]$ProjectId,
 
+    [ValidateSet('mentee','mentor')]
+    [string]$Role = 'mentee',
+
     [ValidateSet('all','session_history','method_proficiency','quiz_history','concept_proficiency')]
     [string]$View = 'all'
 )
@@ -48,14 +54,16 @@ param(
 $ErrorActionPreference = 'Stop'
 
 function Resolve-ProgressPath {
-    param([string]$User, [string]$Project)
+    param([string]$User, [string]$Project, [string]$RoleFolder)
+
+    $roleDir = if ($RoleFolder -eq 'mentor') { 'mentors' } else { 'mentees' }
 
     $mentorHome = $env:MSSA_MENTOR_HOME
     if (-not [string]::IsNullOrWhiteSpace($mentorHome)) {
-        $base = Join-Path $mentorHome 'profiles/mentees'
+        $base = Join-Path $mentorHome "profiles/$roleDir"
     } else {
         $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '../../..')
-        $base = Join-Path $repoRoot '.profiles/profiles/mentees'
+        $base = Join-Path $repoRoot ".profiles/profiles/$roleDir"
     }
 
     return (Join-Path (Join-Path $base $User) "$Project.progress.json")
@@ -242,7 +250,7 @@ function Get-ConceptProficiency {
 
 # --- Main ---
 
-$path   = Resolve-ProgressPath -User $Username -Project $ProjectId
+$path   = Resolve-ProgressPath -User $Username -Project $ProjectId -RoleFolder $Role
 $events = Read-Events -Path $path
 
 switch ($View) {

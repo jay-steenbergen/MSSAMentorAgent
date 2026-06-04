@@ -30,23 +30,146 @@
       "date": "2026-05-21",
       "duration_minutes": 45,
       "method_used": "ride-along",
-      "milestones_completed": ["project-setup"],
+      "milestones_completed": [
+        "project-setup"
+      ],
       "notes": "Set up ASP.NET Core project"
     },
     {
       "date": "2026-05-28",
       "duration_minutes": 60,
       "method_used": "TDD",
-      "milestones_completed": ["first-endpoint", "validation-layer"],
+      "milestones_completed": [
+        "first-endpoint",
+        "validation-layer"
+      ],
       "notes": "Wrote tests first. GET endpoint working."
     },
     {
       "date": "2026-05-29",
       "duration_minutes": 45,
       "method_used": "TDD",
-      "milestones_completed": ["jwt-validation"],
+      "milestones_completed": [
+        "jwt-validation"
+      ],
       "notes": "TDD session: JWT token validation. Progressed to Competent level. Named phases independently, predicted tests, minimal prompting needed."
     }
   ],
-  "notes": "Using TDD now. Learner getting better with async/await."
+  "notes": "Using TDD now. Learner getting better with async/await.",
+  "events": [
+    {
+      "ts": "2026-05-21T07:00:00Z",
+      "type": "session_started",
+      "session_id": "83c1b8d1-9fd1-4809-bcd5-72ab7d5faf43",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "backfilled_from": "session_history",
+        "method": "ride-along",
+        "notes": "Set up ASP.NET Core project"
+      }
+    },
+    {
+      "ts": "2026-05-21T07:00:01Z",
+      "type": "method_used",
+      "session_id": "83c1b8d1-9fd1-4809-bcd5-72ab7d5faf43",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "success": true,
+        "tier": null,
+        "backfilled_from": "session_history",
+        "method": "ride-along"
+      }
+    },
+    {
+      "ts": "2026-05-21T07:45:00Z",
+      "type": "session_ended",
+      "session_id": "83c1b8d1-9fd1-4809-bcd5-72ab7d5faf43",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "backfilled_from": "session_history",
+        "outcome": "completed",
+        "reason": "backfilled from session_history",
+        "method_used_count": 1,
+        "duration_minutes": 45,
+        "milestones_completed": "project-setup"
+      }
+    },
+    {
+      "ts": "2026-05-28T07:00:00Z",
+      "type": "session_started",
+      "session_id": "d00f0f97-7ae0-4ea5-9e62-0a75668261da",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "backfilled_from": "session_history",
+        "method": "TDD",
+        "notes": "Wrote tests first. GET endpoint working."
+      }
+    },
+    {
+      "ts": "2026-05-28T07:00:01Z",
+      "type": "method_used",
+      "session_id": "d00f0f97-7ae0-4ea5-9e62-0a75668261da",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "success": true,
+        "tier": null,
+        "backfilled_from": "session_history",
+        "method": "TDD"
+      }
+    },
+    {
+      "ts": "2026-05-28T08:00:00Z",
+      "type": "session_ended",
+      "session_id": "d00f0f97-7ae0-4ea5-9e62-0a75668261da",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "backfilled_from": "session_history",
+        "outcome": "completed",
+        "reason": "backfilled from session_history",
+        "method_used_count": 1,
+        "duration_minutes": 60,
+        "milestones_completed": [
+          "first-endpoint",
+          "validation-layer"
+        ]
+      }
+    },
+    {
+      "ts": "2026-05-29T07:00:00Z",
+      "type": "session_started",
+      "session_id": "b4ae63b7-28d0-4446-8ec7-1c4fc3ffb34f",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "backfilled_from": "session_history",
+        "method": "TDD",
+        "notes": "TDD session: JWT token validation. Progressed to Competent level. Named phases independently, predicted tests, minimal prompting needed."
+      }
+    },
+    {
+      "ts": "2026-05-29T07:00:01Z",
+      "type": "method_used",
+      "session_id": "b4ae63b7-28d0-4446-8ec7-1c4fc3ffb34f",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "success": true,
+        "tier": null,
+        "backfilled_from": "session_history",
+        "method": "TDD"
+      }
+    },
+    {
+      "ts": "2026-05-29T07:45:00.0000000Z",
+      "type": "session_ended",
+      "session_id": "b4ae63b7-28d0-4446-8ec7-1c4fc3ffb34f",
+      "project_id": "cad-02-rest-api",
+      "data": {
+        "backfilled_from": "session_history",
+        "outcome": "completed",
+        "reason": "backfilled from session_history",
+        "method_used_count": 1,
+        "duration_minutes": 45,
+        "milestones_completed": "jwt-validation"
+      }
+    }
+  ]
 }

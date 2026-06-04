@@ -23,7 +23,10 @@
 
 .PARAMETER Username
     If supplied, validates only that learner's *.progress.json files.
-    Otherwise scans every learner under .profiles/profiles/mentees/.
+    Otherwise scans every learner under .profiles/profiles/mentees/ AND mentors/.
+
+.PARAMETER Role
+    Limit scan to one role folder: 'mentee' or 'mentor'. If unset, both are scanned.
 
 .PARAMETER RepoRoot
     Explicit repo root override. Defaults to the repo containing this script.
@@ -42,6 +45,8 @@
 [CmdletBinding()]
 param(
     [string]$Username,
+    [ValidateSet('mentee','mentor')]
+    [string]$Role,
     [string]$RepoRoot
 )
 
@@ -52,7 +57,13 @@ if (-not $RepoRoot) {
     $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     $RepoRoot = Resolve-Path (Join-Path $scriptDir '..' '..' '..') | Select-Object -ExpandProperty Path
 }
-$profilesDir = Join-Path $RepoRoot '.profiles' 'profiles' 'mentees'
+
+$roleFolders = switch ($Role) {
+    'mentee' { @('mentees') }
+    'mentor' { @('mentors') }
+    default  { @('mentees','mentors') }
+}
+$profilesDirs = $roleFolders | ForEach-Object { Join-Path $RepoRoot '.profiles' 'profiles' $_ }
 
 $validEventTypes = @(
     'session_started'
@@ -126,21 +137,22 @@ function Test-Event {
 function Get-ProgressFiles {
     param([string]$Username)
 
-    if (-not (Test-Path $profilesDir)) {
-        Write-Host "No mentees directory at $profilesDir" -ForegroundColor Yellow
-        return @()
-    }
-
-    if ($Username) {
-        $userDir = Join-Path $profilesDir $Username
-        if (-not (Test-Path $userDir)) {
-            Write-Host "User directory not found: $userDir" -ForegroundColor Red
-            return @()
+    $all = @()
+    foreach ($dir in $profilesDirs) {
+        if (-not (Test-Path $dir)) {
+            Write-Host "No profiles directory at $dir (skipping)" -ForegroundColor DarkGray
+            continue
         }
-        return Get-ChildItem -Path $userDir -Filter '*.progress.json' -File
-    }
 
-    return Get-ChildItem -Path $profilesDir -Filter '*.progress.json' -File -Recurse
+        if ($Username) {
+            $userDir = Join-Path $dir $Username
+            if (-not (Test-Path $userDir)) { continue }
+            $all += Get-ChildItem -Path $userDir -Filter '*.progress.json' -File
+        } else {
+            $all += Get-ChildItem -Path $dir -Filter '*.progress.json' -File -Recurse
+        }
+    }
+    return $all
 }
 
 $files = Get-ProgressFiles -Username $Username

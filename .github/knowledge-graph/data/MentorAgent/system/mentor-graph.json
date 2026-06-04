@@ -4839,6 +4839,14 @@
       "description": "Wrap-up gate. Reads field:profile.events for the current session_id and verifies required events are present (Phase 1: session_started exists; Phase 4: concept_taught >= 1, session_ended). Emits session_ended on success. Exit code 2 with diagnostic if requirements unmet — turns the soft 'remember to persist' contract into a hard gate that must pass before the mentor can claim the session is done."
     },
     {
+      "id": "cli-tool:migrate-profile-to-events",
+      "type": "cli-tool",
+      "label": "migrate-profile-to-events.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/migrate-profile-to-events.ps1",
+      "description": "Phase 3 backfill tool. Reads legacy snapshot fields (session_history, method_proficiency, concept_proficiency, quiz_history) on a *.progress.json file and synthesizes the minimum events that derive-views can re-derive into faithful snapshots. Forwards every event through cli-tool:append-event (with -BackdateTs) to honor the single-writer invariant from rule:events-are-source-of-truth. Method 'level/notes' metadata is intentionally dropped — the new model derives method_proficiency from used_count, not free-form labels. Supports -Role mentee|mentor so both the mentee and mentor profile trees can be migrated. Safe to dry-run; refuses to migrate a file that already has events[] unless -Force is passed."
+    },
+    {
       "id": "cli-tool:set-session-setting",
       "type": "cli-tool",
       "label": "set-session-setting.ps1",
@@ -10465,6 +10473,30 @@
       "label": "defined in"
     },
     {
+      "source": "cli-tool:migrate-profile-to-events",
+      "target": "cli-tool:append-event",
+      "type": "uses",
+      "label": "forwards synthetic events to honor single-writer invariant"
+    },
+    {
+      "source": "cli-tool:migrate-profile-to-events",
+      "target": "field:profile.events",
+      "type": "writes",
+      "label": "backfill (Phase 3, via append-event)"
+    },
+    {
+      "source": "cli-tool:migrate-profile-to-events",
+      "target": "rule:events-are-source-of-truth",
+      "type": "enforces",
+      "label": "backfill honors single-writer + append-only invariants"
+    },
+    {
+      "source": "cli-tool:migrate-profile-to-events",
+      "target": "decision:event-log-cutover",
+      "type": "implements",
+      "label": "Phase 3 deliverable"
+    },
+    {
       "source": "field:profile.events",
       "target": "field:profile.events.ts",
       "type": "has_field",
@@ -10497,6 +10529,12 @@
     {
       "source": "cli-tool:validate-events",
       "target": "code-file:.github/knowledge-graph/cli/validate-events.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:migrate-profile-to-events",
+      "target": "code-file:.github/knowledge-graph/cli/migrate-profile-to-events.ps1",
       "type": "defined_in",
       "label": "defined in"
     }

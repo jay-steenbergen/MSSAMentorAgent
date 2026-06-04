@@ -21,10 +21,13 @@ Each appended event:
 The events array is created on first call.
 
 .PARAMETER Username
-Mentee github username (folder name under .../profiles/mentees/).
+Github username (folder name under .../profiles/mentees/ or mentors/).
 
 .PARAMETER ProjectId
 Project slug (matches {projectId}.progress.json filename).
+
+.PARAMETER Role
+Which role folder to write under. 'mentee' (default) or 'mentor'.
 
 .PARAMETER Type
 Event type. One of:
@@ -43,6 +46,10 @@ JSON string payload (per-type shape). Optional for simple events
 
 .PARAMETER DryRun
 Print the event JSON to stdout instead of writing to disk.
+
+.PARAMETER BackdateTs
+Override the event timestamp (ISO-8601). Reserved for migrate-profile-to-events.ps1
+backfilling historical events. Normal callers should never set this.
 
 .EXAMPLE
 # Start a session — mint a new session_id and echo it back.
@@ -93,21 +100,28 @@ param(
 
     [string]$Data,
 
+    [ValidateSet('mentee','mentor')]
+    [string]$Role = 'mentee',
+
+    [string]$BackdateTs,
+
     [switch]$DryRun
 )
 
 $ErrorActionPreference = 'Stop'
 
 function Resolve-ProgressPath {
-    param([string]$User, [string]$Project)
+    param([string]$User, [string]$Project, [string]$RoleFolder)
+
+    $roleDir = if ($RoleFolder -eq 'mentor') { 'mentors' } else { 'mentees' }
 
     $mentorHome = $env:MSSA_MENTOR_HOME
     if (-not [string]::IsNullOrWhiteSpace($mentorHome)) {
-        $base = Join-Path $mentorHome 'profiles/mentees'
+        $base = Join-Path $mentorHome "profiles/$roleDir"
     } else {
         # Repo fallback. PSScriptRoot = .../.github/knowledge-graph/cli
         $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '../../..')
-        $base = Join-Path $repoRoot '.profiles/profiles/mentees'
+        $base = Join-Path $repoRoot ".profiles/profiles/$roleDir"
     }
 
     $userDir = Join-Path $base $User
@@ -189,7 +203,7 @@ if (-not [string]::IsNullOrWhiteSpace($Data)) {
 
 # --- Main ---
 
-$progressPath = Resolve-ProgressPath -User $Username -Project $ProjectId
+$progressPath = Resolve-ProgressPath -User $Username -Project $ProjectId -RoleFolder $Role
 $progress     = Read-Progress -Path $progressPath
 
 # Read-Progress returns Hashtable from disk, OrderedDictionary in DryRun-on-missing branch.
@@ -198,8 +212,20 @@ if (-not $progress.Contains('events') -or $null -eq $progress['events']) {
     $progress['events'] = @()
 }
 
+# Honor -BackdateTs for migrate-profile-to-events.ps1; default = now (UTC).
+$ts = if (-not [string]::IsNullOrWhiteSpace($BackdateTs)) {
+    $parsed = [datetime]::MinValue
+    if (-not [datetime]::TryParse($BackdateTs, [ref]$parsed)) {
+        Write-Error "-BackdateTs is not ISO-8601 parseable: '$BackdateTs'"
+        exit 1
+    }
+    $parsed.ToUniversalTime().ToString('o')
+} else {
+    (Get-Date).ToUniversalTime().ToString('o')
+}
+
 $event = [ordered]@{
-    ts         = (Get-Date).ToUniversalTime().ToString('o')
+    ts         = $ts
     type       = $Type
     session_id = $SessionId
     project_id = $ProjectId

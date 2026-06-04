@@ -28,5 +28,49 @@
       "notes": "Built full profile system with Option C architecture (profile.json + progress files). Implemented clickable project picker. Created test infrastructure with template and 3 integration tests. Used TDD for method/track selection refactor."
     }
   ],
-  "notes": "Jay's testing profile for Mentor system development. Uses TDD for complex features. Builds systems iteratively."
+  "notes": "Jay's testing profile for Mentor system development. Uses TDD for complex features. Builds systems iteratively.",
+  "events": [
+    {
+      "ts": "2026-05-29T07:00:00Z",
+      "type": "session_started",
+      "session_id": "04b24305-8176-4361-9656-b59052a4fba9",
+      "project_id": "mssa-mentor-agent",
+      "data": {
+        "backfilled_from": "session_history",
+        "notes": "Built full profile system with Option C architecture (profile.json + progress files). Implemented clickable project picker. Created test infrastructure with template and 3 integration tests. Used TDD for method/track selection refactor.",
+        "method": "TDD"
+      }
+    },
+    {
+      "ts": "2026-05-29T07:00:01Z",
+      "type": "method_used",
+      "session_id": "04b24305-8176-4361-9656-b59052a4fba9",
+      "project_id": "mssa-mentor-agent",
+      "data": {
+        "tier": null,
+        "backfilled_from": "session_history",
+        "success": true,
+        "method": "TDD"
+      }
+    },
+    {
+      "ts": "2026-05-29T08:30:00.0000000Z",
+      "type": "session_ended",
+      "session_id": "04b24305-8176-4361-9656-b59052a4fba9",
+      "project_id": "mssa-mentor-agent",
+      "data": {
+        "duration_minutes": 90,
+        "milestones_completed": [
+          "profile-system-design",
+          "multi-project-architecture",
+          "project-picker-implementation",
+          "test-infrastructure-setup"
+        ],
+        "backfilled_from": "session_history",
+        "outcome": "completed",
+        "method_used_count": 1,
+        "reason": "backfilled from session_history"
+      }
+    }
+  ]
 }
