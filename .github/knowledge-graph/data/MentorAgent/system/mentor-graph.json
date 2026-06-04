@@ -4365,6 +4365,112 @@
       "description": "TRIGGER (fire if ANY is true): (a) no progress.json for active project — first session ever, (b) active method's progress.method_proficiency.level == 'Novice', (c) field:profile.skill.coding_experience == 'first-time', (d) learner picked 'Hand-held (beginner)' in picker:build-options. WHEN TRIGGERED: (1) Teach concept:vibe-coding FIRST — before any code keystroke, name the AI-collaboration loop ('you tell me what you want, I propose, you read, you push back, you type'). (2) Narrate every move ('I'm opening the options panel because you're starting a new build'). (3) One sentence per move, max — no paragraphs. (4) After every keystroke they type, ask 'what did that do?' to pull them out of copy-paste mode. (5) Default to method:whiteboard for the first project regardless of track. (6) Mandatory celebration after: first keystroke, first compile, first passing test. (7) No jargon without analogy + one-line definition. See get-behavior.ps1 handheld-beginner and level:first-time-coder."
     },
     {
+      "id": "behavior:31-comment-for-learner",
+      "type": "rule",
+      "label": "31. Comment for the learner — code the mentor writes is also a lesson",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "WHEN the mentor writes code the learner will READ or RUN → annotate at the depth stored in progress.session_plan.settings.comment_depth (default: 'block'). DEPTH RULES: (a) 'heavy' = a comment on every non-trivial line, naming what AND why. Used in first-time-coder / Novice / hand-held mode. (b) 'block' = one comment per logical chunk, WHY-focused not WHAT-focused (the code itself shows WHAT). DEFAULT. (c) 'concept-only' = a comment only where a NEW concept first appears (first await, first generic, first LINQ chain, etc.) — the rest stays clean. Used in Advanced mode. SKIP for: mentor scratch / debug snippets, terminal one-liners, throwaway test files clearly labeled '// scratch'. STYLE: comments name the concept by its real name (so they're searchable later) and tie back to the analogy used when the concept was taught, when possible. NEVER lecture — one line, one idea. If a comment would be longer than the code it explains, refactor or move to a doc. See picker:edit-comment-depth to change the level mid-session via behavior:32-edit-setting-on-request."
+    },
+    {
+      "id": "behavior:32-edit-setting-on-request",
+      "type": "rule",
+      "label": "32. Edit a single setting on request — focused picker, not the full cockpit",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "TRIGGER: learner asks to change ONE session setting mid-session — phrases like 'change my method', 'switch to TDD', 'make the comments lighter', 'no time-box today', 'I want a different goal'. The seven editable settings: project, track, method, mode, comment-depth, time-box, goal. WHEN TRIGGERED: (1) Fire ONE vscode_askQuestions call — the matching picker:edit-{setting} — with ONLY that setting's options. (2) The CURRENT value is marked as the default/recommended option so the learner can confirm with a single click. (3) On answer, persist via `pwsh .github/knowledge-graph/cli/set-session-setting.ps1 -Username <u> -ProjectId <p> -Field <field> -Value <value>`. (4) Echo back ONE line: 'OK: method -> TDD' and move on. NEVER re-fire picker:build-options (the full cockpit) for a single-setting edit — that's a different protocol (start-of-session only). NEVER chain edits across multiple settings in one ask — one setting, one picker, one persist, done. See picker:edit-method, picker:edit-track, picker:edit-mode, picker:edit-comment-depth, picker:edit-time-box, picker:edit-goal, picker:edit-project, and cli-tool:set-session-setting."
+    },
+    {
+      "id": "protocol:verify-build-settings",
+      "type": "protocol",
+      "label": "Pre-planning gate — verify all 7 build settings before phase:planning runs",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Run BEFORE phase:planning every building session. Step 1: `pwsh .github/knowledge-graph/cli/show-profile.ps1 -Username <u> -ProjectId <p> -Json`. Step 2: inspect the returned `status` map. The 7 settings checked: project, track, method, mode, time_box, goal, comment_depth (per picker:build-options). Step 3a: if ALL set (status.all_set == true / ready_to_plan == true), proceed to phase:planning. Step 3b: if ANY missing, fire picker:build-options to fill the gaps — DO NOT start planning beats with missing settings. After picker returns, the missing values persist via set-session-setting.ps1 (or the scaffolder for project), then re-run show-profile.ps1 to confirm before advancing. This protocol is the HARD GATE between session-start and phase:planning: planning never starts on a half-configured session. See cli-tool:show-profile and picker:build-options."
+    },
+    {
+      "id": "field:progress.session_plan.settings",
+      "type": "field",
+      "section": "progress.json",
+      "cluster": "data-model",
+      "file": ".github/knowledge-graph/data/MentorAgent/system/mentor-graph.json",
+      "description": "Sub-object of session_plan holding the 7 build-option choices for the current session. Shape: { project: string, track: string, method: string, mode: 'hand-held'|'standard'|'advanced', time_box: '15m'|'30m'|'60m'|'multi-session'|'skip', goal: string, comment_depth: 'heavy'|'block'|'concept-only' }. Written by cli-tool:set-session-setting (single-field) or the cockpit (multi-field via the same CLI invoked per field). Read by cli-tool:show-profile to determine gate status for protocol:verify-build-settings. method/track are mirrored to progress.json root (last_used_method, track) for legacy readers."
+    },
+    {
+      "id": "field:progress.session_plan.settings.comment_depth",
+      "type": "field",
+      "section": "progress.json",
+      "cluster": "data-model",
+      "file": ".github/knowledge-graph/data/MentorAgent/system/mentor-graph.json",
+      "description": "Enum string controlling behavior:31-comment-for-learner. Values: 'heavy' (every non-trivial line, used in beginner mode), 'block' (one per logical chunk, WHY-focused — DEFAULT), 'concept-only' (only where a new concept first appears, used in Advanced mode). Set via picker:edit-comment-depth or as part of the picker:build-options cockpit. Persisted by cli-tool:set-session-setting -Field comment_depth."
+    },
+    {
+      "id": "picker:edit-method",
+      "type": "picker",
+      "label": "Edit method — single picker for switching teaching method mid-session",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE question: 'Which teaching method for this session?' Options: ride-along, TDD, BDD, whiteboard, spike-then-refactor. CURRENT value is marked default/recommended. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field method."
+    },
+    {
+      "id": "picker:edit-track",
+      "type": "picker",
+      "label": "Edit track — single picker for switching curriculum track mid-session",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE question: 'Which track for this session?' Options: cloud-app-dev, server-cloud-admin, cybersecurity-ops, github-copilot, whiteboarding. CURRENT value is marked default/recommended. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field track. The CLI mirrors the new value to progress.json root so show-progress.ps1 stays consistent."
+    },
+    {
+      "id": "picker:edit-mode",
+      "type": "picker",
+      "label": "Edit mode — single picker for switching hand-held / standard / advanced",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE question: 'Which mode for this session?' Options: hand-held (most narration + vibe-coding teach-first), standard (default), advanced (minimal narration, expects keyboard fluency). CURRENT value is marked default. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field mode. Switching to hand-held re-arms behavior:30-handheld-beginner."
+    },
+    {
+      "id": "picker:edit-comment-depth",
+      "type": "picker",
+      "label": "Edit comment depth — single picker for code-comment density",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE question: 'How much commenting on code I write for you?' Options: heavy (every non-trivial line), block (one per logical chunk, WHY-focused — DEFAULT), concept-only (only where a new concept first appears). CURRENT value is marked default. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field comment_depth. Drives behavior:31-comment-for-learner on every subsequent mentor-written snippet."
+    },
+    {
+      "id": "picker:edit-time-box",
+      "type": "picker",
+      "label": "Edit time box — single picker for session length cap",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE question: 'Time box for this session?' Options: 15m (one slice), 30m (default for ride-along), 60m (deep work), multi-session (today's slice spans sessions), skip (no cap — learner runs until they stop). CURRENT value is marked default. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field time_box."
+    },
+    {
+      "id": "picker:edit-goal",
+      "type": "picker",
+      "label": "Edit today's goal anchor — single picker (free text) for the session goal",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE FREE-TEXT question: 'New goal anchor for this session?' Optional pre-populated options sourced from field:profile.goals. CURRENT goal shown above the input as context. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field goal. Free text — not enum-validated."
+    },
+    {
+      "id": "picker:edit-project",
+      "type": "picker",
+      "label": "Edit active project — single picker for switching active project mid-session",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with ONE question: 'Switch to which project?' Options: dynamically sourced from profile.projects[] plus 'Start new' (which delegates to the scaffolder, not to set-session-setting). CURRENT project is marked default. Triggered by behavior:32-edit-setting-on-request. Persists via cli-tool:set-session-setting -Field project — the CLI reorders profile.projects[] so the chosen project becomes projects[0] (the auto-pick target for show-profile.ps1)."
+    },
+    {
       "id": "phase:planning",
       "type": "protocol",
       "label": "Planning phase — the real teaching surface, not a hand-off beat",
@@ -4477,7 +4583,7 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "core_behavior (frontmatter)",
-      "description": "ONE vscode_askQuestions call with multiple questions — the cockpit. Renders: (1) Project (Continue last / Start new / Switch to {dynamic from profile.projects}, sourced from picker:project). (2) Track (from picker:track). (3) Method (from picker:method, plus method:whiteboard). (4) Time box (15m / 30m / 60m / multi-session). (5) Today's goal anchor (free text or pick from field:profile.goals). (6) Mode (Hand-held beginner / Standard / Advanced — default recommended from progress.method_proficiency.level). Each question rendered as clickable options. NEVER decompose into separate turns — the cockpit is the contract per behavior:29-build-session-setup."
+      "description": "ONE vscode_askQuestions call with multiple questions — the cockpit. Renders SEVEN questions: (1) Project (Continue last / Start new / Switch to {dynamic from profile.projects}, sourced from picker:project). (2) Track (from picker:track). (3) Method (from picker:method, plus method:whiteboard). (4) Mode (Hand-held beginner / Standard / Advanced — default recommended from progress.method_proficiency.level). (5) Time box (15m / 30m / 60m / multi-session / skip — skip allowed per learner request). (6) Today's goal anchor (free text or pick from field:profile.goals). (7) Code comment depth (Heavy = every non-trivial line, Block = one per logical chunk WHY-focused [DEFAULT], Concept-only = only where a new concept appears) — drives behavior:31-comment-for-learner when the mentor writes code the learner will read or run. Each question rendered as clickable options. NEVER decompose into separate turns — the cockpit is the contract per behavior:29-build-session-setup. For SINGLE-SETTING edits later in the session, use picker:edit-{setting} per behavior:32-edit-setting-on-request — do NOT re-fire the full cockpit."
     },
     {
       "id": "concept:vibe-coding",
@@ -4540,6 +4646,22 @@
       "label": "append-session-plan.ps1",
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/append-session-plan.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:set-session-setting",
+      "type": "cli-tool",
+      "label": "set-session-setting.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/set-session-setting.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:show-profile",
+      "type": "cli-tool",
+      "label": "show-profile.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/show-profile.ps1",
       "description": "CLI script from knowledge-graph tooling."
     }
   ],
@@ -9369,6 +9491,132 @@
       "target": "code-file:.github/knowledge-graph/cli/append-session-plan.ps1",
       "type": "defined_in",
       "label": "defined in"
+    },
+    {
+      "source": "protocol:verify-build-settings",
+      "target": "phase:planning",
+      "type": "next",
+      "label": "gate before planning"
+    },
+    {
+      "source": "protocol:verify-build-settings",
+      "target": "cli-tool:show-profile",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "protocol:verify-build-settings",
+      "target": "picker:build-options",
+      "type": "uses",
+      "label": "falls back to cockpit when settings missing"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "protocol:verify-build-settings",
+      "type": "follows",
+      "label": "runs gate before planning"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:show-profile",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:set-session-setting",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:show-profile",
+      "target": "code-file:.github/knowledge-graph/cli/show-profile.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:set-session-setting",
+      "target": "code-file:.github/knowledge-graph/cli/set-session-setting.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-profile",
+      "target": "field:progress.session_plan.settings",
+      "type": "reads_from",
+      "label": "reads settings to compute gate status"
+    },
+    {
+      "source": "cli-tool:set-session-setting",
+      "target": "field:progress.session_plan.settings",
+      "type": "writes_to",
+      "label": "writes one field per call"
+    },
+    {
+      "source": "behavior:31-comment-for-learner",
+      "target": "field:progress.session_plan.settings.comment_depth",
+      "type": "reads_from",
+      "label": "reads depth to control commenting density"
+    },
+    {
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "cli-tool:set-session-setting",
+      "type": "uses",
+      "label": "persists edit via tool"
+    },
+    {
+      "source": "picker:edit-method",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "picker:edit-track",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "picker:edit-mode",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "picker:edit-comment-depth",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "picker:edit-time-box",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "picker:edit-goal",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "picker:edit-project",
+      "target": "behavior:32-edit-setting-on-request",
+      "type": "triggers",
+      "label": "single-setting picker fires edit behavior"
+    },
+    {
+      "source": "field:progress.session_plan",
+      "target": "field:progress.session_plan.settings",
+      "type": "has_field",
+      "label": "session_plan owns settings sub-object"
+    },
+    {
+      "source": "field:progress.session_plan.settings",
+      "target": "field:progress.session_plan.settings.comment_depth",
+      "type": "has_field",
+      "label": "settings owns comment_depth"
     }
   ]
 }

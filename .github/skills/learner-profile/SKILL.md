@@ -127,6 +127,35 @@ List all JSON files in `.profiles/profiles/mentees/` to see who else is working 
 - Briefly mention them: *"I see Sarah is also working on this project — she's on Step 5."*
 - Check if any dependencies are ready (see Coordination section below)
 
+### 4. Verify build settings BEFORE planning (hard gate)
+
+Every building session, before `phase:planning` starts, run `protocol:verify-build-settings`:
+
+```powershell
+pwsh .github/knowledge-graph/cli/show-profile.ps1 -Username <username> -ProjectId <project> -Json
+```
+
+Inspect the returned `status` map for the seven Build Options: `project`, `track`, `method`, `mode`, `time_box`, `goal`, `comment_depth`.
+
+- **`all_set == true`** → proceed to `phase:planning`.
+- **`all_set == false`** → fire `picker:build-options` (the cockpit) to fill the missing fields. Re-run `show-profile.ps1` to confirm before continuing. **Planning never starts on a half-configured session.**
+
+### 5. Edit a single setting mid-session (focused picker)
+
+When the learner asks to change ONE setting (method, track, mode, comment-depth, time-box, goal, project), do NOT re-fire the full cockpit. Use `behavior:32-edit-setting-on-request`:
+
+1. Fire the matching `picker:edit-{setting}` — ONE question, current value marked as default.
+2. Persist the choice:
+
+   ```powershell
+   pwsh .github/knowledge-graph/cli/set-session-setting.ps1 `
+     -Username <u> -ProjectId <p> -Field <field> -Value <value>
+   ```
+
+3. Echo one line: `OK: method -> TDD` and continue.
+
+Free-text fields (`goal`) and the closed-set enums (`method`, `track`, `mode`, `time_box`, `comment_depth`) are validated by the CLI. `project` reorders `profile.projects[]` so the chosen project becomes `projects[0]` (the auto-pick target).
+
 ## First-time interview
 
 When a learner has no profile, run this interview. Keep it conversational — not a form.
