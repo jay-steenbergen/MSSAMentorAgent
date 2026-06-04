@@ -173,7 +173,7 @@ async function runScaffold(inputs: ScaffoldInputs): Promise<string> {
   const result = performScaffold(inputs, {
     workspaceRoot: folder.uri.fsPath,
     menteesDir: getMenteesDir(),
-    username: inputs.username ?? getCurrentUsername(),
+    username: inputs.username ?? await getCurrentUsername(),
     now: () => new Date().toISOString().slice(0, 10)
   });
 

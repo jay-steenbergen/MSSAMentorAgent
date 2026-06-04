@@ -1098,7 +1098,7 @@
       "cluster": "profile-system",
       "file": ".github/skills/learner-profile/SKILL.md",
       "section": "Session start #1",
-      "description": "Read GitHub Copilot signed-in username. If unknown, ask and store in session memory."
+      "description": "Fires AFTER the learner's first message in the session (not on activation). Resolves username silently — NEVER prompts. Order: (1) vscode.authentication.getSession('github', [], {silent:true, createIfNone:false}) -> session.account.label; (2) git config --global user.name; (3) OS username. Implemented by getCurrentUsername() in profileReader.ts. If no match against existing profile folders, agent treats learner as first-timer and runs protocol:interview."
     },
     {
       "id": "decision:profile-exists",
@@ -5438,6 +5438,12 @@
       "target": "protocol:identify-learner",
       "type": "has_phase",
       "label": "step 1"
+    },
+    {
+      "source": "protocol:identify-learner",
+      "target": "code-func:extensions/mssa-mentor/src/profileReader.ts::getCurrentUsername",
+      "type": "implemented_by",
+      "label": "silent: GitHub auth -> git -> OS, never prompts"
     },
     {
       "source": "protocol:session-start-skill",

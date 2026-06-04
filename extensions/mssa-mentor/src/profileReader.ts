@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { execFileSync } from 'child_process';
+import * as vscode from 'vscode';
 import { getMenteesDir } from './paths';
 
 export interface LearnerProfile {
@@ -47,15 +48,39 @@ function sanitizeUsername(raw: string): string {
 }
 
 /**
- * Best-effort guess at the current user's profile folder name.
+ * Best-effort identification of the current user's profile folder name.
  *
- * Order:
- *   1. `git config --global user.name` (sanitized)
- *   2. OS username (sanitized)
+ * Order (per protocol:identify-learner in the knowledge graph):
+ *   1. VS Code GitHub auth session (silent, never prompts).
+ *      The signed-in Copilot account is the source of truth.
+ *   2. `git config --global user.name` (sanitized) — fallback for
+ *      environments without an active GitHub auth session (CI, tests).
+ *   3. OS username (sanitized) — last-resort fallback so a folder name
+ *      is always produced.
  *
- * Used as the lookup key into ~/.mssa-mentor/profiles/mentees/.
+ * Never prompts the user. Returns a sanitized identifier suitable for
+ * use as a directory name under ~/.mssa-mentor/profiles/mentees/.
  */
-export function getCurrentUsername(): string {
+export async function getCurrentUsername(): Promise<string> {
+  // 1. VS Code GitHub authentication provider — silent.
+  //    `silent: true` + `createIfNone: false` guarantees no UI prompt.
+  //    Wrapped in try/catch because the API may not be available in
+  //    every host (e.g. extension host smoke tests without the GitHub
+  //    auth provider registered).
+  try {
+    const session = await vscode.authentication.getSession(
+      'github',
+      [],
+      { silent: true, createIfNone: false }
+    );
+    if (session?.account.label) {
+      return sanitizeUsername(session.account.label);
+    }
+  } catch {
+    // GitHub auth provider missing or denied — fall through.
+  }
+
+  // 2. git config --global user.name
   try {
     const gitName = execFileSync('git', ['config', '--global', 'user.name'], {
       encoding: 'utf8',
@@ -67,6 +92,8 @@ export function getCurrentUsername(): string {
   } catch {
     // git not installed or no global user.name configured — fall through
   }
+
+  // 3. OS username — last resort.
   return sanitizeUsername(os.userInfo().username);
 }
 
@@ -102,7 +129,7 @@ export async function findLearnerProfile(
   }
 
   // Resolve which folder to load — strict match only.
-  const lookup = identifier ?? getCurrentUsername();
+  const lookup = identifier ?? await getCurrentUsername();
   const username = userDirs.includes(lookup) ? lookup : undefined;
 
   if (!username) {

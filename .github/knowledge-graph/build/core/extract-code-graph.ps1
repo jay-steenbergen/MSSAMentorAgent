@@ -289,9 +289,10 @@ function Extract-TypeScript($file, $rel, $fileId) {
     }
     
     # Functions: export function name(...) or function name(...) or const name = (...) =>
+    # Note: (?:async\s+)? lets us match async function / export async function
     $funcPatterns = @(
-        '(?m)^\s*export\s+function\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(',
-        '(?m)^\s*function\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(',
+        '(?m)^\s*export\s+(?:async\s+)?function\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(',
+        '(?m)^\s*(?:async\s+)?function\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(',
         '(?m)^\s*(?:export\s+)?const\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>'
     )
     

@@ -53,12 +53,19 @@ At the beginning of every session:
 
 ### 1. Identify the learner
 
-Read the GitHub Copilot signed-in username. This is the learner's identity.
+**Trigger:** run this protocol after the learner sends their **first message** in the session — not on agent activation. The first message is what proves the session is live.
 
-**If you cannot determine the username:**
-- Ask directly: *"What's your GitHub username so I can track your progress?"*
-- Store it in session memory for the current session
-- When writing the profile file, use the provided username
+**Source of truth = the signed-in GitHub account.** Resolve the username silently — **never ask**. Order:
+
+1. **VS Code GitHub auth session** (silent): `vscode.authentication.getSession('github', [], { silent: true, createIfNone: false })` → `session.account.label`. This is the Copilot-signed-in GitHub login.
+2. **`git config --global user.name`** — fallback for environments without an active GitHub auth session (CI, smoke tests).
+3. **OS username** — last-resort fallback so a lookup key always exists.
+
+Sanitize the result (lowercase, non-alphanumeric → `-`, trim) before using it as the folder name under `.profiles/profiles/mentees/`.
+
+**If `silent: true` returns no session AND the git/OS fallbacks produce a folder name that doesn't match any existing profile** → treat the learner as a first-timer and jump straight to the first-time interview. **Do not prompt them to sign in**, do not ask for their GitHub username — the interview itself will capture their preferred name.
+
+This protocol is implemented by `getCurrentUsername()` in `extensions/mssa-mentor/src/profileReader.ts`. See `protocol:identify-learner` in the knowledge graph.
 
 ### 2. Check for existing profile
 
