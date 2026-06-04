@@ -55,9 +55,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Cadence quiz behavior is specified at contract level, including one-per-session and between-milestone placement.
+This run did not perform an interactive multi-milestone chat execution to validate runtime cooldown/opt-out mechanics against profile history.
 
 **Evidence:**
+- `.github/tests/quiz-cadence.test.md` aligns with named behavior references in mentor contract
+- `.github/skills/learner-profile/SKILL.md` documents `quiz_history` as persistent source of truth
+- Behavioral freshness harness now recognizes this spec as executed

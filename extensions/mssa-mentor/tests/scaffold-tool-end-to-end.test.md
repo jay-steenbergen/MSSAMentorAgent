@@ -56,9 +56,15 @@ The `@Mentor` agent should select `#mssa_scaffoldAndOpen` and invoke it with inp
 
 ## Actual Result
 
-**Date run:**
-**Result:** ✅ PASS | ❌ FAIL | ⚠️ PARTIAL
+**Date run:** 2026-06-03T19:30:08.9825464-07:00
+**Result:** ❌ FAIL
 
 **Notes:**
+Current implementation diverges from this spec in multiple required behaviors.
+The tool currently writes profile `projects` as an object map keyed by project id (not `projects[]`), throws if project folder already exists (not idempotent), and opens the README document (not the folder/workspace switch described here).
 
 **Evidence:**
+- `src/tools/scaffoldAndOpen.ts` uses `profile.projects[projectId] = {...}` (object map, not array append)
+- `src/tools/scaffoldAndOpen.ts` throws `Project folder already exists` on rerun
+- `src/tools/scaffoldAndOpen.ts` opens `readmePath` via `showTextDocument`, not `vscode.openFolder`
+- Tool registration and extension suite are healthy, but this spec's pass criteria are not met as written

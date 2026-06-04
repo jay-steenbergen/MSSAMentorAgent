@@ -211,6 +211,22 @@ If learner stayed at **Novice**:
 
 ---
 
+## Actual Result
+
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
+
+**Notes:**
+Method proficiency schema expectations and persistence fields are documented and profile validation pathways are passing.
+This run did not execute multi-session interactive method switching to confirm progression-level transitions from transcript evidence.
+
+**Evidence:**
+- `.github/skills/learner-profile/SKILL.md` defines `method_proficiency` structure and `last_used_method` persistence
+- `pwsh -NoProfile -File scripts/test.ps1 -Suite profiles` => PASS (`xUnit: 10 pass; PS validators: 1 pass`)
+- This spec is now freshness-tracked by behavioral harness
+
+---
+
 ## Failure Modes to Test
 
 ### Missing JSON file

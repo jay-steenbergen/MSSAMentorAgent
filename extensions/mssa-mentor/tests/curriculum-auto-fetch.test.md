@@ -66,9 +66,14 @@ Run **both** scenarios.
 
 ## Actual Result
 
-**Date run:**
-**Result:** ✅ PASS | ❌ FAIL | ⚠️ PARTIAL
+**Date run:** 2026-06-03T19:30:08.9825464-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Implementation supports remote fetch, cache-only short-circuit, cache-fallback, and friendly markdown warning on cold-cache fetch failure.
+This run did not execute a live network-on/network-off activation drill to validate output-channel lines and on-disk cache population end-to-end.
 
 **Evidence:**
+- `src/curriculumFetch.ts` implements `fetchCurriculum()`, `hasUsableCache()`, and sources `remote | cache-only | cache-fallback`
+- `src/extension.ts` calls `fetchCurriculum()` during pre-load and streams a friendly warning when fetch fails and no cache exists
+- Branch extension suite currently passes (`39 pass, 0 fail`), but no dedicated `curriculumFetch` unit test exists in `src/test/suite`

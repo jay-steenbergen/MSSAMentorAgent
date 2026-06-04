@@ -4021,6 +4021,14 @@
       "description": "Spike conclusion on how learners install the extension and how scaffolding works."
     },
     {
+      "id": "decision:feedback-loops",
+      "type": "decision",
+      "label": "Feedback-loop gap matrix",
+      "cluster": "session-protocols",
+      "file": "docs/design/feedback-loops.md",
+      "description": "10 system feedback loops scored against four failure modes (OPEN, SILENT, LOSSY, MANUAL, OK) with eight ranked gap findings. Top gap: quiz_history / concept_proficiency subsystem is contract-only — three documented behaviors reference fields no CLI writes and no profile contains. Drives prioritization of append-quiz-result.ps1, append-session.ps1, and CI graph-check workflow."
+    },
+    {
       "id": "cli-tool:preflight",
       "type": "cli-tool",
       "label": "preflight.ps1",
@@ -8316,6 +8324,12 @@
       "label": "implements decision"
     },
     {
+      "source": "extension:mssa-mentor",
+      "target": "decision:feedback-loops",
+      "type": "informs",
+      "label": "produces signals tracked by matrix"
+    },
+    {
       "source": "decision:v1-build-plan",
       "target": "code-file:docs/design/v1-build-plan.md",
       "type": "documented_in",
@@ -8324,6 +8338,12 @@
     {
       "source": "decision:v1-distribution-and-scaffolding",
       "target": "code-file:docs/design/v1-distribution-and-scaffolding.md",
+      "type": "documented_in",
+      "label": "documented in"
+    },
+    {
+      "source": "decision:feedback-loops",
+      "target": "code-file:docs/design/feedback-loops.md",
       "type": "documented_in",
       "label": "documented in"
     },

@@ -53,9 +53,14 @@ Choose one trigger:
 
 ## Actual Result
 
-**Date run:**
-**Result:** ✅ PASS | ❌ FAIL | ⚠️ PARTIAL
+**Date run:** 2026-06-03T19:26:33.1768609-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Automated coverage confirms first-run routing logic and command registration behavior, but this run did not execute a manual interactive first-time interview in Copilot Chat.
+Profile file creation and end-to-end interview UX are therefore not fully validated here.
 
 **Evidence:**
+- `pwsh -NoProfile -File scripts/test.ps1 -Suite extension` → PASS (`39 pass, 0 fail`)
+- `src/test/suite/statusBarState.test.ts` verifies null-context route to `mssa-mentor.welcome`
+- `src/test/suite/activation.test.ts` verifies `mssa-mentor.welcome` command registration

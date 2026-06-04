@@ -65,9 +65,14 @@ Run **both** scenarios on machines (or fresh VMs) matching each precondition.
 
 ## Actual Result
 
-**Date run:**
-**Result:** ✅ PASS | ❌ FAIL | ⚠️ PARTIAL
+**Date run:** 2026-06-03T19:29:29.5977005-07:00
+**Result:** ❌ FAIL
 
 **Notes:**
+Activation is non-blocking and the check is fire-and-forget, but the current implementation does not satisfy this spec's required modal content for the missing-pwsh scenario.
+Spec requires showing the exact `winget install Microsoft.PowerShell` command and a copy-style action; implementation shows only an install-page action.
 
 **Evidence:**
+- `src/powershellCheck.ts` uses `showErrorMessage(..., 'Open install page')` and opens `https://aka.ms/install-powershell`
+- `src/powershellCheck.ts` message text does not include literal `winget install Microsoft.PowerShell`
+- `src/extension.ts` runs `checkPowerShell(...)` fire-and-forget, so activation continues regardless of check outcome

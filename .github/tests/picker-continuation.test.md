@@ -54,9 +54,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:31:34.6132996-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+The agent contract explicitly requires ending sessions with a continuation card and supports switch-method / switch-track flows.
+This run did not execute a live chat continuation handoff to verify exact option labels, ordering, and milestone-aware resume text.
 
 **Evidence:**
+- `.github/agents/Mentor.agent.md` session contract: continuation card with continue / switch method / switch track
+- `.github/agents/Mentor.agent.md` includes explicit method-switch and track-switch workflow hooks
+- `.github/skills/learner-profile/SKILL.md` defines focused single-setting pickers (`picker:edit-{setting}`) for method/track changes

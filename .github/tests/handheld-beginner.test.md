@@ -59,8 +59,14 @@ Let's start the project
 
 ## Actual Result
 
-**Date run:** {fill when running}
-**Result:** ⏳ NOT YET RUN
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
-{paste agent transcript when first executed}
+Hand-held beginner trigger and behavior rules are explicitly documented in the mentor contract.
+This run did not execute a live first-time learner interaction to verify one-sentence narration, keystroke check-ins, and celebration cadence in transcript form.
+
+**Evidence:**
+- `.github/agents/Mentor.agent.md` includes `BEGINNER MODE` trigger conditions and required interaction style
+- `.github/agents/Mentor.agent.md` references `behavior:30-handheld-beginner` and `concept:vibe-coding`
+- Behavioral suite confirms this spec is now freshness-tracked

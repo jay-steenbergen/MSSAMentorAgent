@@ -59,9 +59,14 @@
 
 ## Actual Result
 
-**Date run:** 
-**Result:** 
+**Date run:** 2026-06-03T19:32:20.5707334-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Profile discovery, active-project counting, and last-used-method extraction are implemented and covered by automated profile/extension tests.
+This run did not execute an interactive chat session to validate the full picker chain and greeting text composition in one live end-to-end flow.
 
 **Evidence:**
+- `extensions/mssa-mentor/src/profileReader.ts` loads profile context, counts in-progress projects, and reads selected progress metadata
+- `pwsh -NoProfile -File scripts/test.ps1 -Suite profiles` => PASS (`xUnit: 10 pass; PS validators: 1 pass`)
+- `.github/skills/learner-profile/SKILL.md` defines project picker and continuation flow expectations for multi-project sessions

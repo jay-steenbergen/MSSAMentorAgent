@@ -59,9 +59,13 @@ We're writing a validation function. In TDD, what do we write first?
 
 ## Actual Result
 
-**Date run:** 
-**Result:** 
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+TDD method skill and red-phase expectations are present, but this run did not execute an interactive TDD turn to verify runtime sequencing (red before green) in transcript.
 
 **Evidence:**
+- `.github/skills/methods/TDD/SKILL.md` defines method behavior and phase expectations
+- `.github/agents/Mentor.agent.md` method overlays include TDD planning/define-done reframing
+- Spec is now included as freshness-tracked by behavioral suite

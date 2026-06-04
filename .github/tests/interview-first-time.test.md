@@ -61,9 +61,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:32:20.5707334-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Identity resolution and first-run null-profile gating are implemented, and profile validation tooling is passing.
+This run did not execute a full interactive first-time interview transcript to verify exact one-question cadence and summary-confirm messaging turn by turn.
 
 **Evidence:**
+- `extensions/mssa-mentor/src/profileReader.ts` resolves username silently (GitHub auth -> git -> OS) and returns null when no matching profile exists
+- `.profiles/validate-profile.ps1` provides the required post-write validation pathway; profile suite currently passes
+- `.github/skills/learner-profile/SKILL.md` defines the first-time interview and followup-interview protocol requirements

@@ -64,9 +64,14 @@ Then run **Developer: Reload Window** from the command palette (`Ctrl+Shift+P`).
 
 ## Actual Result
 
-**Date run:**
-**Result:** ✅ PASS | ❌ FAIL | ⚠️ PARTIAL
+**Date run:** 2026-06-03T19:26:33.1768609-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Automated extension suite passed (`39 pass, 0 fail`) and confirms activation, command registration, and `MSSA_MENTOR_HOME` initialization.
+This spec remains partial because manual VSIX installation output, status-bar visual check, chat autocomplete UX, and tool-list visibility were not manually executed in this run.
 
 **Evidence:**
+- `pwsh -NoProfile -File scripts/test.ps1 -Suite extension` → PASS (`39 pass, 0 fail`)
+- `src/test/suite/activation.test.ts` validates extension presence/activation and all 4 command IDs
+- `package.json` contributes `chatParticipants: Mentor` and `languageModelTools: mssa_scaffoldAndOpen`

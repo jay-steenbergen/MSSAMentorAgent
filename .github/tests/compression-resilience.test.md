@@ -56,9 +56,14 @@ What was my last milestone?
 
 ## Actual Result
 
-**Date run:** 
-**Result:** 
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Compression-resilience behavior is explicitly documented in learner-profile and mentor contracts, and profile-loading paths are automated-test covered.
+This run did not execute a 50+ turn live compressed chat transcript to verify milestone recall under real context compaction.
 
 **Evidence:**
+- `.github/skills/learner-profile/SKILL.md` includes explicit compression resilience check/reload guidance
+- `extensions/mssa-mentor/src/profileReader.ts` and profile suite validate robust profile/progress loading
+- `.github/agents/Mentor.agent.md` enforces session contract continuity across long sessions

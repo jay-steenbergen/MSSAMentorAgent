@@ -103,10 +103,29 @@ foreach ($suiteName in $toRun) {
 
     Write-Host ("[{0}] {1} - {2} ({3}ms)" -f $suiteName, $result.result, $result.detail, $result.durationMs) -ForegroundColor $color
 
-    # Show behavioral spec lists when asked
+    # Show behavioral spec lists when asked.
+    # Suite scripts currently return hashtables; grab values by key first,
+    # then fall back to object properties for forward compatibility.
     if ($ShowDetails -and $suiteName -eq 'behavioral') {
-        $staleList = if ($result.PSObject.Properties['stale']) { $result.stale } else { @() }
-        $neverList = if ($result.PSObject.Properties['neverRun']) { $result.neverRun } else { @() }
+        $staleList = @()
+        $neverList = @()
+
+        if ($result -is [hashtable]) {
+            if ($result.ContainsKey('stale') -and $result.stale) {
+                $staleList = @($result.stale)
+            }
+            if ($result.ContainsKey('neverRun') -and $result.neverRun) {
+                $neverList = @($result.neverRun)
+            }
+        } else {
+            if ($result.PSObject.Properties['stale'] -and $result.stale) {
+                $staleList = @($result.stale)
+            }
+            if ($result.PSObject.Properties['neverRun'] -and $result.neverRun) {
+                $neverList = @($result.neverRun)
+            }
+        }
+
         if ($staleList -and $staleList.Count -gt 0) {
             Write-Host '  Stale specs (covered code changed since last run):' -ForegroundColor Yellow
             $staleList | ForEach-Object { Write-Host "    - $_" -ForegroundColor Yellow }

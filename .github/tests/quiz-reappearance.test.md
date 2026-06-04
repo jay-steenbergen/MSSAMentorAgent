@@ -53,9 +53,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Reappearance quiz and callback-gating intent is represented in current behavior docs, with quiz outcomes expected to influence concept proficiency.
+This run did not execute a live wrong/correct branch to verify callback suppression/refresher behavior in transcript.
 
 **Evidence:**
+- `.github/skills/learner-profile/SKILL.md` captures `quiz_history` + tier model used by callback-related behaviors
+- `.github/tests/quiz-reappearance.test.md` is now freshness-tracked under behavioral suite
+- Mentor contract includes quiz-driven proficiency emphasis in session-end/update flows

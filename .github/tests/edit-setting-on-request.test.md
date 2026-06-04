@@ -74,8 +74,14 @@
 
 ## Actual Result
 
-**Date run:** {fill when running}
-**Result:** ⏳ NOT YET RUN
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
-{paste agent transcript + post-edit progress.json diff when first executed}
+Behavior contracts and CLI wiring for single-setting edits are present, including explicit guidance to avoid re-firing the full cockpit.
+This run did not execute a live mid-planning transcript to verify one-picker-per-edit and exact `OK:` echo strings end-to-end.
+
+**Evidence:**
+- `.github/agents/Mentor.agent.md` defines `behavior:32-edit-setting-on-request` and focused `picker:edit-{setting}` flows
+- `.github/skills/learner-profile/SKILL.md` specifies single-setting update protocol and `set-session-setting.ps1` usage
+- `scripts/test.ps1 -Suite behavioral` now reports this spec as executed/freshness-tracked

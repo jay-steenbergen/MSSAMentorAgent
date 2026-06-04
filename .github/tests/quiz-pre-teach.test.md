@@ -55,9 +55,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:33:05.4808734-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Pre-teach calibration quiz expectations are documented, including gating before explanation and concept-tier skip behavior.
+This run did not include a live concept-introduction interaction to verify exact card sequencing and quiz-form selection at runtime.
 
 **Evidence:**
+- `.github/skills/learner-profile/SKILL.md` defines `quiz_history` persistence and concept proficiency model
+- `.github/agents/Mentor.agent.md` references quiz behavior families and proficiency updates in session flow
+- Behavioral suite now marks this spec as freshness-tracked

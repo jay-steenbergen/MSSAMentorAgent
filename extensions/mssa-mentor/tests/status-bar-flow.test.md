@@ -66,9 +66,14 @@ Run **both** scenarios below.
 
 ## Actual Result
 
-**Date run:**
-**Result:** ✅ PASS | ❌ FAIL | ⚠️ PARTIAL
+**Date run:** 2026-06-03T19:29:29.5977005-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Automated tests verify Start/Resume state computation and command routing semantics.
+This run did not perform manual status-bar click validation in a live VS Code window for both profile scenarios, so end-to-end click UX remains partially verified.
 
 **Evidence:**
+- `src/test/suite/statusBarState.test.ts` verifies null context routes to `mssa-mentor.welcome`
+- `src/test/suite/statusBarState.test.ts` verifies profile with active projects routes to `mssa-mentor.resumeOrStart`
+- `pwsh -NoProfile -File scripts/test.ps1 -Suite extension` => PASS (`39 pass, 0 fail`)

@@ -60,9 +60,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:30:57.7889641-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+The learner-profile skill defines project-picker construction rules: in-progress first, most recent recommended, and always include `Start new project`.
+This run did not execute an interactive `@Mentor` chat turn to validate exact rendered order and single-progress-file load behavior in live runtime.
 
 **Evidence:**
+- `.github/skills/learner-profile/SKILL.md` includes the project-selection `vscode_askQuestions` example and option requirements
+- `.github/skills/learner-profile/SKILL.md` states sorting/display rules (in-progress first, most recent recommended)
+- `.github/agents/Mentor.agent.md` session contract requires clickable project selection before planning

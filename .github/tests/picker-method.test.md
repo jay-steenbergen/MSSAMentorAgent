@@ -54,9 +54,14 @@
 
 ## Actual Result
 
-**Date run:**
-**Result:**
+**Date run:** 2026-06-03T19:30:57.7889641-07:00
+**Result:** ⚠️ PARTIAL
 
 **Notes:**
+Current agent contract and learner-profile skill explicitly define clickable picker flows and method set expectations, including ride-along default behavior.
+This run did not execute a live chat interaction to confirm the exact rendered method-option ordering and runtime missing-file fallback message text end-to-end.
 
 **Evidence:**
+- `.github/agents/Mentor.agent.md` requires learner-facing questions via `vscode_askQuestions` and references `picker:build-options`
+- `.github/agents/Mentor.agent.md` lists methods: `ride-along`, `TDD`, `BDD`, `spike-then-refactor`
+- `.github/skills/learner-profile/SKILL.md` defines focused picker flows and persistence of `last_used_method`
