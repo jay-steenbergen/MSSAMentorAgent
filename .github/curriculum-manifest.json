@@ -26,6 +26,8 @@
     ".github/knowledge-graph/cli/query-node.ps1",
     ".github/knowledge-graph/cli/recommend-next-skills.ps1",
     ".github/knowledge-graph/cli/session-protocol.ps1",
+    ".github/knowledge-graph/cli/set-session-setting.ps1",
+    ".github/knowledge-graph/cli/show-profile.ps1",
     ".github/knowledge-graph/cli/show-progress.ps1",
     ".github/knowledge-graph/cli/show-skill-impact.ps1",
     ".github/knowledge-graph/cli/test-load-list.ps1",
