@@ -6,6 +6,7 @@
     ".github/knowledge-graph/cli/_mentor-gaps2.ps1",
     ".github/knowledge-graph/cli/_triage-drift.ps1",
     ".github/knowledge-graph/cli/analyze-agent-size.ps1",
+    ".github/knowledge-graph/cli/append-session-plan.ps1",
     ".github/knowledge-graph/cli/audit-quality.ps1",
     ".github/knowledge-graph/cli/check-skill-exists.ps1",
     ".github/knowledge-graph/cli/enforce-method.ps1",
