@@ -2561,6 +2561,22 @@
       "type": "test"
     },
     {
+      "file": ".github/tests/handheld-beginner.test.md",
+      "description": "Behavioral test for behavior:30-handheld-beginner — vibe-coding taught before code, whiteboard override, narrate-per-move, what-did-that-do check-in, mandatory celebrations.",
+      "cluster": "infra-layer",
+      "label": "handheld-beginner.test.md",
+      "id": "test:handheld-beginner",
+      "type": "test"
+    },
+    {
+      "file": ".github/tests/edit-setting-on-request.test.md",
+      "description": "Behavioral test for behavior:32-edit-setting-on-request — one picker per setting, current value default, set-session-setting.ps1 persist, one-line OK echo, no full cockpit re-fire.",
+      "cluster": "infra-layer",
+      "label": "edit-setting-on-request.test.md",
+      "id": "test:edit-setting-on-request",
+      "type": "test"
+    },
+    {
       "id": "test:template",
       "type": "test",
       "label": "TEST_TEMPLATE.md",
@@ -9565,46 +9581,94 @@
       "label": "persists edit via tool"
     },
     {
-      "source": "picker:edit-method",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-method",
+      "type": "uses",
+      "label": "fires single-setting picker"
     },
     {
-      "source": "picker:edit-track",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-track",
+      "type": "uses",
+      "label": "fires single-setting picker"
     },
     {
-      "source": "picker:edit-mode",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-mode",
+      "type": "uses",
+      "label": "fires single-setting picker"
     },
     {
-      "source": "picker:edit-comment-depth",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-comment-depth",
+      "type": "uses",
+      "label": "fires single-setting picker"
     },
     {
-      "source": "picker:edit-time-box",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-time-box",
+      "type": "uses",
+      "label": "fires single-setting picker"
     },
     {
-      "source": "picker:edit-goal",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-goal",
+      "type": "uses",
+      "label": "fires single-setting picker"
     },
     {
-      "source": "picker:edit-project",
-      "target": "behavior:32-edit-setting-on-request",
-      "type": "triggers",
-      "label": "single-setting picker fires edit behavior"
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "picker:edit-project",
+      "type": "uses",
+      "label": "fires single-setting picker"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:show-progress",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:propose-analogy",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:propose-mistake",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:validate-goal",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "behavior:30-handheld-beginner",
+      "target": "test:handheld-beginner",
+      "type": "tested_by",
+      "label": "behavioral test scenario"
+    },
+    {
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "test:edit-setting-on-request",
+      "type": "tested_by",
+      "label": "behavioral test scenario"
+    },
+    {
+      "source": "test:handheld-beginner",
+      "target": "code-file:.github/tests/handheld-beginner.test.md",
+      "type": "implemented_by",
+      "label": "test markdown file"
+    },
+    {
+      "source": "test:edit-setting-on-request",
+      "target": "code-file:.github/tests/edit-setting-on-request.test.md",
+      "type": "implemented_by",
+      "label": "test markdown file"
     },
     {
       "source": "field:progress.session_plan",
