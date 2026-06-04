@@ -4577,6 +4577,87 @@
       "description": "Closing beat. Ask: 'when this session is done, how does it move you toward your real goal?' Why: a slice in isolation is just an exercise. A slice connected to a goal is progress. Connects today's tiny win to the multi-session arc tracked in profile.projects. Mentor reflects back the connection if the learner can't articulate it: 'this REST endpoint is move 1 of 6 toward the task-tracker MVP from your profile.' Write to session_plan.why. This is the line Mentor reads back at session START next time as the resume hook."
     },
     {
+      "id": "picker:beat-restate-brief",
+      "type": "picker",
+      "label": "Beat 1 picker — restate the brief",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with one free-text prompt: 'In one sentence, what are we building right now?' Optional chips: 'Build a simple endpoint', 'Read input and print result', 'First tiny slice of my project'."
+    },
+    {
+      "id": "picker:beat-identify-user",
+      "type": "picker",
+      "label": "Beat 2 picker — identify user",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with one choice question: 'Who is the user for this slice?' Options: Myself learning, Instructor/reviewer, Teammate/operator, External end user, Other (free text)."
+    },
+    {
+      "id": "picker:beat-decompose",
+      "type": "picker",
+      "label": "Beat 3 picker — smallest useful slice",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call asking for today's smallest useful slice. Options: Implement one endpoint, One script command, One UI interaction, One data read/write path, Other (free text)."
+    },
+    {
+      "id": "picker:beat-name-unknowns",
+      "type": "picker",
+      "label": "Beat 4 picker — name unknowns",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call with multi-select unknown categories. Options: Input format, File path or location, API contract, Authentication, Data shape, Tooling command, Other (free text)."
+    },
+    {
+      "id": "picker:beat-sketch-shape",
+      "type": "picker",
+      "label": "Beat 5 picker — choose sketch style",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call asking how to sketch before coding. Options: Pseudocode, Data shape, Request/response example, Component flow, Sequence flow."
+    },
+    {
+      "id": "picker:beat-folder-walk",
+      "type": "picker",
+      "label": "Beat 6 picker — folder walk depth",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call for folder-walk scope. Options: Top-level only, Depth 2, Depth 3, Skip this beat."
+    },
+    {
+      "id": "picker:beat-define-done",
+      "type": "picker",
+      "label": "Beat 7 picker — define done",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call asking for done condition. Options: Command exits successfully, Test passes, Endpoint returns expected output, File produced with expected content, Other (free text)."
+    },
+    {
+      "id": "picker:beat-predict-breaks",
+      "type": "picker",
+      "label": "Beat 8 picker — predict break",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call asking which edge case to handle first. Options: Empty input, Huge input, Wrong type input, Missing file/resource, Network down, Other."
+    },
+    {
+      "id": "picker:beat-why-this-matters",
+      "type": "picker",
+      "label": "Beat 9 picker — connect to bigger goal",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "ONE vscode_askQuestions call asking how this slice moves the bigger goal. Options: Unlocks next feature, Reduces risk, Builds confidence with core concept, Produces demo-able milestone, Other (free text)."
+    },
+    {
       "id": "concept:planning-as-skill",
       "type": "concept",
       "label": "Planning as a teachable skill, not an overhead tax",
@@ -9623,6 +9704,534 @@
       "label": "fires single-setting picker"
     },
     {
+      "source": "beat:restate-brief",
+      "target": "picker:beat-restate-brief",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:identify-user",
+      "target": "picker:beat-identify-user",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:decompose",
+      "target": "picker:beat-decompose",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:name-unknowns",
+      "target": "picker:beat-name-unknowns",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:sketch-shape",
+      "target": "picker:beat-sketch-shape",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:folder-walk",
+      "target": "picker:beat-folder-walk",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:define-done",
+      "target": "picker:beat-define-done",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:predict-breaks",
+      "target": "picker:beat-predict-breaks",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "beat:why-this-matters",
+      "target": "picker:beat-why-this-matters",
+      "type": "uses",
+      "label": "renders clickable beat prompt"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "audience:adult-pro",
+      "type": "references",
+      "label": "audience baseline"
+    },
+    {
+      "source": "skill:knowledge-graph-management",
+      "target": "concept:discovery-log",
+      "type": "references",
+      "label": "uses discovery log artifact"
+    },
+    {
+      "source": "picker:track",
+      "target": "concept:track-cad",
+      "type": "references",
+      "label": "track option anchor"
+    },
+    {
+      "source": "picker:track",
+      "target": "concept:track-sca",
+      "type": "references",
+      "label": "track option anchor"
+    },
+    {
+      "source": "picker:track",
+      "target": "concept:track-cyber",
+      "type": "references",
+      "label": "track option anchor"
+    },
+    {
+      "source": "audience:adult-pro",
+      "target": "branch:army",
+      "type": "references",
+      "label": "service branch profile"
+    },
+    {
+      "source": "audience:adult-pro",
+      "target": "branch:marines",
+      "type": "references",
+      "label": "service branch profile"
+    },
+    {
+      "source": "audience:adult-pro",
+      "target": "branch:navy",
+      "type": "references",
+      "label": "service branch profile"
+    },
+    {
+      "source": "audience:adult-pro",
+      "target": "branch:airforce",
+      "type": "references",
+      "label": "service branch profile"
+    },
+    {
+      "source": "audience:adult-pro",
+      "target": "branch:coastguard",
+      "type": "references",
+      "label": "service branch profile"
+    },
+    {
+      "source": "audience:adult-pro",
+      "target": "branch:spaceforce",
+      "type": "references",
+      "label": "service branch profile"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:variable",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:function",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:conditional",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:for-loop",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:while-loop",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:array",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:dictionary",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:try-catch",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:test",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:git-commit",
+      "type": "references",
+      "label": "teaching anchor"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:move",
+      "type": "references",
+      "label": "method core concept"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:altitude",
+      "type": "references",
+      "label": "method core concept"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:aar",
+      "type": "references",
+      "label": "method core concept"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "concept:milestone",
+      "type": "references",
+      "label": "method core concept"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:contract",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:1-open",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:2-build-move",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:3-stuck",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:4-aar",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:5-close",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:altitude-table",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:hard-rules",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:analogy-bank",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:ride-along",
+      "target": "ride-along:break-method-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:intent",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:context-use-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:context-avoid-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:cycle",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:phase-red",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:phase-green",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:phase-refactor",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-implementation-first",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-multi-behavior",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-skip-red",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-refactor-during-green",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-no-test-after-refactor",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:anti-give-up-1-cycle",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "tdd:success-looks-like",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:intent",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:context-use-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:context-avoid-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:cycle",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:phase-scenario",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:phase-test",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:phase-implement",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:phase-validate",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-code-before-scenario",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-tech-jargon",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-implementation-tests",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-out-of-sync",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-features-no-scenario",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "bdd:anti-skip-validate",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:intent",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:context-use-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:context-avoid-when",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:cycle",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:phase-spike",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:phase-evaluate",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:phase-decide",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:phase-rebuild-refactor",
+      "type": "references",
+      "label": "method internal node"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:rule-time-box",
+      "type": "references",
+      "label": "method rule"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:rule-permission-messy",
+      "type": "references",
+      "label": "method rule"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-tests-during-spike",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-refactor-during-spike",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-ship-spike",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-no-question",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-hours-long",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
+      "source": "skill:spike",
+      "target": "spike:anti-no-doc-lessons",
+      "type": "references",
+      "label": "method anti-pattern"
+    },
+    {
       "source": "agent:mentor",
       "target": "cli-tool:show-progress",
       "type": "uses",
@@ -9657,18 +10266,6 @@
       "target": "test:edit-setting-on-request",
       "type": "tested_by",
       "label": "behavioral test scenario"
-    },
-    {
-      "source": "test:handheld-beginner",
-      "target": "code-file:.github/tests/handheld-beginner.test.md",
-      "type": "implemented_by",
-      "label": "test markdown file"
-    },
-    {
-      "source": "test:edit-setting-on-request",
-      "target": "code-file:.github/tests/edit-setting-on-request.test.md",
-      "type": "implemented_by",
-      "label": "test markdown file"
     },
     {
       "source": "field:progress.session_plan",
