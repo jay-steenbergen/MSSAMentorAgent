@@ -4029,6 +4029,14 @@
       "description": "10 system feedback loops scored against four failure modes (OPEN, SILENT, LOSSY, MANUAL, OK) with eight ranked gap findings. Top gap: quiz_history / concept_proficiency subsystem is contract-only — three documented behaviors reference fields no CLI writes and no profile contains. Drives prioritization of append-quiz-result.ps1, append-session.ps1, and CI graph-check workflow."
     },
     {
+      "id": "decision:event-log-cutover",
+      "type": "decision",
+      "label": "Event-log cutover (single writer + gate)",
+      "cluster": "session-protocols",
+      "file": "docs/design/event-log-design.md",
+      "description": "Replace four broken feedback loops (L4 session_history, L5 method_proficiency, L8 teaching pattern, L9 quiz_history) by collapsing them into one append-only event log (field:profile.events) with a single writer (cli-tool:append-event), a pure-function reader (cli-tool:derive-views) that recomputes the prior fields as snapshots, and a wrap-up gate (cli-tool:close-session) that refuses to mark a session ended unless required events are present. Phased rollout: Phase 1 foundation (additive), Phase 2 cutover (readers/writers), Phase 3 backfill live profiles, Phase 4 specs+docs. Sister to decision:feedback-loops which surfaced the problem."
+    },
+    {
       "id": "cli-tool:preflight",
       "type": "cli-tool",
       "label": "preflight.ps1",
@@ -4273,12 +4281,61 @@
       "description": "field:profile.concept_proficiency.tier is a snapshot, NOT the source of truth — mirrors rule:goal-progress-derived-not-stored. behavior:15-track-concept-proficiency at every AAR MUST recompute tier from field:profile.quiz_history + callback_success log + learner self-confirmation, then write the snapshot back. Rollup rules: 3+ correct quiz answers within the same tier over 2+ sessions = evidence to bump up one tier; 1 callback_success unprompted = evidence to bump guided -> independent (already captured by rule:callback-counts-as-grading-signal). Incorrect quiz answers never downgrade — they just delay the next bump. Trusting the stored tier without recomputing would compound errors across sessions and silently drift proficiency away from reality."
     },
     {
+      "id": "rule:events-are-source-of-truth",
+      "type": "rule",
+      "label": "field:profile.events is the only source of truth",
+      "cluster": "profile-system",
+      "file": "docs/design/event-log-design.md",
+      "section": "Invariants",
+      "description": "Generalizes rule:proficiency-derived-from-quiz-history and rule:goal-progress-derived-not-stored. field:profile.events is the append-only ledger; every other profile field that summarizes activity (session_history, method_proficiency, quiz_history, concept_proficiency) is a DERIVED VIEW computed by cli-tool:derive-views. Only cli-tool:append-event may write to events. Only cli-tool:close-session may emit the session_ended event. Direct hand-edits to derived fields are forbidden — they will be silently overwritten the next time a reader runs derive-views. Phase 1 introduces the rule alongside the old fields; Phase 2 enforces it by removing the old field writers; Phase 3 backfills live profiles; Phase 4 deletes the old fields outright. Per decision:event-log-cutover."
+    },
+    {
       "id": "field:profile.quiz_history",
       "type": "field",
       "label": "profile.quiz_history (array)",
       "cluster": "concept-proficiency",
       "section": "profile.json",
-      "description": "Append-only array of quiz records. Each record: { ts (ISO8601), concept_id (canonical or minted slug), project_id (current project context), trigger ('pre-teach' | 'reappearance' | 'cadence' | 'recall-open'), form ('mc' | 'code-fill' | 'open' | 'self-report'), question (text), answer (text or option index), correct (bool or null for self-report), tier_before, tier_after (null until AAR rollup). Read by behavior:15-track-concept-proficiency and behavior:08-aar-at-milestones as the ground-truth ledger for tier rollups per rule:proficiency-derived-from-quiz-history. Never mutated — only appended; corrections become new entries with notes referencing the prior ts."
+      "description": "Append-only array of quiz records. Each record: { ts (ISO8601), concept_id (canonical or minted slug), project_id (current project context), trigger ('pre-teach' | 'reappearance' | 'cadence' | 'recall-open'), form ('mc' | 'code-fill' | 'open' | 'self-report'), question (text), answer (text or option index), correct (bool or null for self-report), tier_before, tier_after (null until AAR rollup). Read by behavior:15-track-concept-proficiency and behavior:08-aar-at-milestones as the ground-truth ledger for tier rollups per rule:proficiency-derived-from-quiz-history. Never mutated — only appended; corrections become new entries with notes referencing the prior ts. PHASE 1 STATUS: field still in use; will be deprecated in Phase 2 in favor of field:profile.events of type quiz_* per decision:event-log-cutover."
+    },
+    {
+      "id": "field:profile.events",
+      "type": "field",
+      "label": "profile.events (array)",
+      "cluster": "profile-system",
+      "section": "progress.json",
+      "description": "Append-only event log — the single source of truth for what happened during a learner's session. Replaces session_history, method_proficiency (writer), quiz_history, concept_proficiency (writer), and the soft teaching-loop contract (L4/L5/L8/L9 from decision:feedback-loops). Each event: { ts (ISO8601), type (enum), session_id (UUID), project_id, data (type-specific JSON) }. Event types: session_started, session_ended, concept_taught, concept_calibrated, quiz_asked, quiz_answered, method_used, analogy_offered, callback_made, celebration. Written ONLY by cli-tool:append-event; read by cli-tool:derive-views and cli-tool:close-session. Lives on progress.json so events are scoped per-project. Never mutated."
+    },
+    {
+      "id": "field:profile.events.ts",
+      "type": "field",
+      "label": "events[].ts",
+      "cluster": "profile-system",
+      "section": "progress.json",
+      "description": "ISO8601 timestamp the event was emitted. Set by cli-tool:append-event; required."
+    },
+    {
+      "id": "field:profile.events.type",
+      "type": "field",
+      "label": "events[].type",
+      "cluster": "profile-system",
+      "section": "progress.json",
+      "description": "Enum: session_started | session_ended | concept_taught | concept_calibrated | quiz_asked | quiz_answered | method_used | analogy_offered | callback_made | celebration. Validated by cli-tool:append-event."
+    },
+    {
+      "id": "field:profile.events.session_id",
+      "type": "field",
+      "label": "events[].session_id",
+      "cluster": "profile-system",
+      "section": "progress.json",
+      "description": "UUID that groups all events emitted within one logical session. Set at session_started, repeated on every subsequent event until session_ended. Lets cli-tool:close-session inspect 'this session's events' without timestamp heuristics."
+    },
+    {
+      "id": "field:profile.events.data",
+      "type": "field",
+      "label": "events[].data (object)",
+      "cluster": "profile-system",
+      "section": "progress.json",
+      "description": "Type-specific payload. Example shapes — concept_taught: { concept_id, analogy_used, method }. quiz_answered: { concept_id, trigger, form, question, answer, correct }. method_used: { method, duration_minutes }. session_ended: { duration_minutes, notes }. Schema lives in docs/design/event-log-design.md."
     },
     {
       "id": "test:picker-project",
@@ -4752,6 +4809,30 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/append-session-plan.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:append-event",
+      "type": "cli-tool",
+      "label": "append-event.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/append-event.ps1",
+      "description": "Single writer for field:profile.events. Atomic-write append per rule:events-are-source-of-truth. Validates -Type against the enum, requires -SessionId for non-session_started events, attaches -Data as JSON. Mirrors cli-tool:append-session-plan's atomic write pattern."
+    },
+    {
+      "id": "cli-tool:derive-views",
+      "type": "cli-tool",
+      "label": "derive-views.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/derive-views.ps1",
+      "description": "Pure function over field:profile.events. Computes derived snapshots — session_history (from session_started/session_ended pairs), method_proficiency (from method_used events), quiz_history (from quiz_asked/quiz_answered events), concept_proficiency (rolled up from quiz_answered + callback_made per rule:proficiency-derived-from-quiz-history). Output is JSON to stdout; never writes back to the profile. Replaces the stale snapshot-as-truth pattern with derive-on-read."
+    },
+    {
+      "id": "cli-tool:close-session",
+      "type": "cli-tool",
+      "label": "close-session.ps1",
+      "cluster": "session-protocols",
+      "file": ".github/knowledge-graph/cli/close-session.ps1",
+      "description": "Wrap-up gate. Reads field:profile.events for the current session_id and verifies required events are present (Phase 1: session_started exists; Phase 4: concept_taught >= 1, session_ended). Emits session_ended on success. Exit code 2 with diagnostic if requirements unmet — turns the soft 'remember to persist' contract into a hard gate that must pass before the mentor can claim the session is done."
     },
     {
       "id": "cli-tool:set-session-setting",
@@ -10298,6 +10379,102 @@
       "target": "field:progress.session_plan.settings.comment_depth",
       "type": "has_field",
       "label": "settings owns comment_depth"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "decision:event-log-cutover",
+      "type": "implements",
+      "label": "Phase 1 lays foundation (events: [] init in scaffold)"
+    },
+    {
+      "source": "decision:event-log-cutover",
+      "target": "code-file:docs/design/event-log-design.md",
+      "type": "documented_in",
+      "label": "documented in"
+    },
+    {
+      "source": "decision:feedback-loops",
+      "target": "decision:event-log-cutover",
+      "type": "informs",
+      "label": "matrix surfaced the gap; cutover is the fix"
+    },
+    {
+      "source": "rule:events-are-source-of-truth",
+      "target": "field:profile.events",
+      "type": "governs",
+      "label": "single writer, append-only"
+    },
+    {
+      "source": "rule:events-are-source-of-truth",
+      "target": "rule:proficiency-derived-from-quiz-history",
+      "type": "generalizes",
+      "label": "extends derive-from-source pattern to all snapshot fields"
+    },
+    {
+      "source": "cli-tool:append-event",
+      "target": "field:profile.events",
+      "type": "writes",
+      "label": "atomic append (sole writer)"
+    },
+    {
+      "source": "cli-tool:append-event",
+      "target": "code-file:.github/knowledge-graph/cli/append-event.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:derive-views",
+      "target": "field:profile.events",
+      "type": "reads",
+      "label": "pure function (no write-back)"
+    },
+    {
+      "source": "cli-tool:derive-views",
+      "target": "code-file:.github/knowledge-graph/cli/derive-views.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:close-session",
+      "target": "field:profile.events",
+      "type": "reads",
+      "label": "gate inspects this session's events"
+    },
+    {
+      "source": "cli-tool:close-session",
+      "target": "cli-tool:append-event",
+      "type": "uses",
+      "label": "emits session_ended on pass"
+    },
+    {
+      "source": "cli-tool:close-session",
+      "target": "code-file:.github/knowledge-graph/cli/close-session.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "field:profile.events",
+      "target": "field:profile.events.ts",
+      "type": "has_field",
+      "label": "event record owns ts"
+    },
+    {
+      "source": "field:profile.events",
+      "target": "field:profile.events.type",
+      "type": "has_field",
+      "label": "event record owns type"
+    },
+    {
+      "source": "field:profile.events",
+      "target": "field:profile.events.session_id",
+      "type": "has_field",
+      "label": "event record owns session_id"
+    },
+    {
+      "source": "field:profile.events",
+      "target": "field:profile.events.data",
+      "type": "has_field",
+      "label": "event record owns data"
     }
   ]
 }

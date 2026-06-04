@@ -150,7 +150,12 @@ export function performScaffold(
         status: 'in_progress',
         current_step: 0,
         completed_milestones: [],
-        session_history: []
+        session_history: [],
+        // Event log (Phase 1 of event-log-cutover). Append-only ledger;
+        // session_history above is a derived view and will be removed in
+        // Phase 4. See docs/design/event-log-design.md and
+        // .github/knowledge-graph/cli/append-event.ps1.
+        events: []
       },
       null,
       2
