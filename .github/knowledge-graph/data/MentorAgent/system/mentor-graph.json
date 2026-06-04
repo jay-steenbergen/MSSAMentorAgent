@@ -4367,11 +4367,108 @@
     {
       "id": "phase:planning",
       "type": "protocol",
-      "label": "Planning phase — between project pick and first keystroke",
+      "label": "Planning phase — the real teaching surface, not a hand-off beat",
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "core_behavior (frontmatter)",
-      "description": "The beat between picker:build-options returning and the first build move. Steps: (1) Restate the picks in one sentence ('OK — cloud-app-dev, ride-along, 30 minutes, goal is your first REST endpoint'). (2) Connect to the goal anchor with an MOS-mapped analogy. (3) Name the FIRST concrete move sized to the time-box — not the full project, just the first keystroke-sized step. (4) Get explicit confirmation ('Ready? Or want to change anything?') before any code action. Never skip planning even if the learner says 'just start' — one sentence per step is enough, but all four steps fire. Beginner mode (behavior:30) expands step 3 into vibe-coding teach first."
+      "description": "Planning is where mentees learn the META-SKILL of taking a goal and turning it into runnable code. Runs 9 BEATS in order, one per turn (never all at once): (1) beat:restate-brief — read the goal back in your own words. (2) beat:identify-user — who uses this, what do they do with it? (3) beat:decompose — break the big thing into the smallest useful slice. (4) beat:name-unknowns — what am I guessing right now? (5) beat:sketch-shape — whiteboard / pseudocode / data shape before typing. (6) beat:folder-walk — for NEW projects only, render folder tree as Mermaid and explain each folder's job. (7) beat:define-done — 'I'll know I'm done when ___'. (8) beat:predict-breaks — pre-mortem. Empty/huge/wrong input. (9) beat:why-this-matters — connect to bigger goal/project. SKIP RULE: learner can say 'skip {beat-name}' or 'skip user' etc. — log to session_plan.skipped[] and move on. ARTIFACT TRIPLE: every beat answer is (a) appended to field:progress.session_plan, (b) rendered to a running checklist in chat the learner can read back during coding, (c) for sketch + folder-walk beats only, drawn as a Mermaid diagram. END CONDITION: planning ends when the learner confirms the plan OR explicitly says 'let's code'. Method awareness (follow-up): each method skill can override how a beat is framed. teaches concept:planning-as-skill so the learner recognizes the META-SKILL by name."
+    },
+    {
+      "id": "beat:restate-brief",
+      "type": "protocol",
+      "label": "Beat 1 — restate the brief in your own words",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Ask the learner to say back what they're building in ONE sentence, in their own words. Why: people who can't restate a goal don't yet understand it. Mentor catches gaps (vague verbs like 'do', 'handle'; missing actor; missing what-it-produces). If the restatement matches what was picked, write it to session_plan.restated and move on. If gaps, ask one targeted clarifying question, not three. Beginner mode adds: 'this is the most important skill in software — the people who can restate a problem clearly are the ones who can solve it.'"
+    },
+    {
+      "id": "beat:identify-user",
+      "type": "protocol",
+      "label": "Beat 2 — who uses this, and what do they do with it?",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Ask: who is the user, and what do they actually DO with this? Why: code without a user is decoration. Even practice exercises have a user (yourself, an instructor, a future you). Most-skippable beat — for pure-learning exercises ('I'm learning loops') the user IS the learner and that's fine; log to skipped[] without friction. For projects with a real user (CLI tool, web endpoint, script), spending 30 seconds here saves hours of building the wrong thing. Write to session_plan.user."
+    },
+    {
+      "id": "beat:decompose",
+      "type": "protocol",
+      "label": "Beat 3 — break the big thing into the smallest useful slice",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "The META-SKILL beat. Ask: 'what's the SMALLEST piece of this that's still useful on its own?' Why: this is the skill that unblocks every other beat. Beginners want to build the whole thing at once and get stuck; the people who ship break it into 15-minute slices. Mentor models it once: 'You said \"build a REST API for tasks\". Smallest useful slice: ONE endpoint that returns a hard-coded list of tasks. That's it. Everything else comes after.' Then asks: 'What's YOUR smallest slice for today's time-box?' Write list to session_plan.chunks; today's pick to session_plan.chunks_today."
+    },
+    {
+      "id": "beat:name-unknowns",
+      "type": "protocol",
+      "label": "Beat 4 — what am I guessing right now?",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Ask: 'what do you NOT know yet that you'll need to figure out?' Why: unnamed assumptions become bugs. Naming them up front turns 'I'm stuck' into 'I need to look up X'. Beginners often say 'nothing, I'm good' — that's the signal to nudge: 'OK — do you know how to read input? How to write a file? Where the data lives? What format it comes in?' One question at a time. Each named unknown becomes either a research task (resolve before coding) or a flagged assumption (proceed, but mark it). Write to session_plan.unknowns as objects: {name, resolution: 'research'|'assume'}."
+    },
+    {
+      "id": "beat:sketch-shape",
+      "type": "protocol",
+      "label": "Beat 5 — sketch the shape before typing",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Decouple thinking from syntax. Ask the learner to sketch — pseudocode, data shape, request/response example, or component flow — BEFORE writing any real code. Mentor renders the sketch as a Mermaid diagram in chat (flowchart for control flow, classDiagram for data shape, sequenceDiagram for interactions). Why: typing into the editor activates syntax-anxiety brain; sketching activates problem-shape brain. Beginners trying to type their first line of C# while ALSO designing the data model produce nothing. Sketch first, then translate. Write the sketch text + diagram source to session_plan.sketch."
+    },
+    {
+      "id": "beat:folder-walk",
+      "type": "protocol",
+      "label": "Beat 6 — render the folder tree and explain each folder's job",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "TRIGGERS ONLY when picker:build-options project answer == 'Start new'. For 'Continue last' or 'Switch to {existing}', SKIP silently. Steps: (1) Run a terminal directory listing of the scaffolded project (Get-ChildItem -Recurse -Depth 2 -Force | Where-Object { $_.Name -notmatch '^(node_modules|bin|obj|\\.git)$' }). (2) Render the tree as a Mermaid flowchart TD diagram. (3) Walk the learner through each folder ONE AT A TIME: 'src/ — this is where your code lives. test/ — this proves your code works. .github/ — automation that runs without you (CI, agent rules).' (4) Pause after each folder for a 'questions?' beat. Why: beginners open a scaffolded project and see 20 folders and freeze. Naming each one demystifies the structure and reveals that most folders are convention, not magic. Write tree + per-folder explanations to session_plan.folders."
+    },
+    {
+      "id": "beat:define-done",
+      "type": "protocol",
+      "label": "Beat 7 — define done for THIS session",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Ask: 'how will you know you're done with TODAY'S slice?' Why: open-ended sessions never feel finished and beginners leave feeling defeated. A concrete done-condition turns a 30-minute session into a measurable win. Examples: 'I can run dotnet test and it passes', 'curl localhost:5000/tasks returns my hard-coded list', 'the script reads a file and prints the first line'. If the learner names a too-big done ('the whole API works'), Mentor renegotiates: 'that's a 3-session done. For TODAY's done — what's the smallest version?' Write to session_plan.done_when. This becomes the celebration trigger at session end."
+    },
+    {
+      "id": "beat:predict-breaks",
+      "type": "protocol",
+      "label": "Beat 8 — pre-mortem. What could break?",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Ask: 'what happens if {edge case}?' Walk through: empty input, huge input, wrong-type input, missing file, network down, user types nothing. Why: beginners only think about the happy path; production code lives in the edge cases. Naming the failure modes BEFORE writing code makes 'handle the error' a designed-in feature, not a bolt-on. For beginner mode, pick ONLY ONE edge case per session — don't overwhelm. For Standard/Advanced, list all named edge cases. Write to session_plan.risks as array of {scenario, handling: 'guard'|'crash-loud'|'ignore'|'TODO'}."
+    },
+    {
+      "id": "beat:why-this-matters",
+      "type": "protocol",
+      "label": "Beat 9 — connect this to your bigger goal",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Closing beat. Ask: 'when this session is done, how does it move you toward your real goal?' Why: a slice in isolation is just an exercise. A slice connected to a goal is progress. Connects today's tiny win to the multi-session arc tracked in profile.projects. Mentor reflects back the connection if the learner can't articulate it: 'this REST endpoint is move 1 of 6 toward the task-tracker MVP from your profile.' Write to session_plan.why. This is the line Mentor reads back at session START next time as the resume hook."
+    },
+    {
+      "id": "concept:planning-as-skill",
+      "type": "concept",
+      "label": "Planning as a teachable skill, not an overhead tax",
+      "cluster": "track-curriculum",
+      "file": ".github/agents/Mentor.agent.md",
+      "description": "Most beginners think planning = bureaucracy that delays the fun part (coding). The truth: planning IS the engineering skill. The people who ship are not faster typers — they are better planners. Mentor names this explicitly so the learner sees the 9 beats as the SKILL being practiced, not paperwork blocking the code. Taught when phase:planning runs for the first time, then reinforced by naming each beat aloud ('Beat 3: decomposing. This is the one that unblocks everything else.')."
+    },
+    {
+      "id": "field:progress.session_plan",
+      "type": "field",
+      "label": "session_plan",
+      "cluster": "data-layer",
+      "section": "progress.json",
+      "description": "Object capturing the output of phase:planning for the current session. Shape: { restated: string, user: string|null, chunks: string[], chunks_today: string, unknowns: [{name, resolution}], sketch: {text, mermaid}, folders: {tree, explanations: {folder: purpose}} | null, done_when: string, risks: [{scenario, handling}], why: string, skipped: string[], created_at: ISO8601 }. Written incrementally — each beat appends its piece. Persisted to progress.json at planning end. Read back at NEXT session start by behavior:29-build-session-setup as the resume hook (last session's why + done_when becomes this session's restate context). The artifact is the second deliverable of planning, after the in-chat checklist."
     },
     {
       "id": "picker:build-options",
@@ -9090,6 +9187,78 @@
       "target": "picker:track",
       "type": "uses",
       "label": "track sub-options"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:restate-brief",
+      "type": "runs",
+      "label": "beat 1"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:identify-user",
+      "type": "runs",
+      "label": "beat 2 (skippable)"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:decompose",
+      "type": "runs",
+      "label": "beat 3 — the meta-skill"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:name-unknowns",
+      "type": "runs",
+      "label": "beat 4"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:sketch-shape",
+      "type": "runs",
+      "label": "beat 5 — Mermaid artifact"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:folder-walk",
+      "type": "runs",
+      "label": "beat 6 — new projects only"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:define-done",
+      "type": "runs",
+      "label": "beat 7 — celebration trigger"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:predict-breaks",
+      "type": "runs",
+      "label": "beat 8 — pre-mortem"
+    },
+    {
+      "source": "phase:planning",
+      "target": "beat:why-this-matters",
+      "type": "runs",
+      "label": "beat 9 — resume hook for next session"
+    },
+    {
+      "source": "phase:planning",
+      "target": "concept:planning-as-skill",
+      "type": "teaches",
+      "label": "name the meta-skill explicitly"
+    },
+    {
+      "source": "phase:planning",
+      "target": "field:progress.session_plan",
+      "type": "generates",
+      "label": "persisted artifact"
+    },
+    {
+      "source": "schema:progress-json",
+      "target": "field:progress.session_plan",
+      "type": "has_field",
+      "label": "planning output"
     },
     {
       "source": "track:cloud-app-dev",
