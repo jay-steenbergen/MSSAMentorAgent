@@ -4533,6 +4533,14 @@
       "cluster": "track-curriculum",
       "file": ".github/agents/Mentor.agent.md",
       "description": "Kusto Query Language for Sentinel hunts, detections, and Defender XDR queries. Track-native for cybersecurity-ops."
+    },
+    {
+      "id": "cli-tool:append-session-plan",
+      "type": "cli-tool",
+      "label": "append-session-plan.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/append-session-plan.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -9261,6 +9269,66 @@
       "label": "planning output"
     },
     {
+      "source": "phase:planning",
+      "target": "cli-tool:append-session-plan",
+      "type": "uses",
+      "label": "persist beat output"
+    },
+    {
+      "source": "field:progress.session_plan",
+      "target": "cli-tool:append-session-plan",
+      "type": "implemented_by",
+      "label": "atomic writer (one call per beat)"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "beat:define-done",
+      "type": "uses",
+      "label": "done = the failing test passes"
+    },
+    {
+      "source": "skill:tdd",
+      "target": "beat:decompose",
+      "type": "uses",
+      "label": "chunk = smallest testable behavior"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "beat:restate-brief",
+      "type": "uses",
+      "label": "restate as Given/When/Then"
+    },
+    {
+      "source": "skill:bdd",
+      "target": "beat:identify-user",
+      "type": "uses",
+      "label": "the actor — NOT skippable"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "beat:sketch-shape",
+      "type": "uses",
+      "label": "full architecture diagram — mandatory"
+    },
+    {
+      "source": "method:whiteboard",
+      "target": "beat:folder-walk",
+      "type": "uses",
+      "label": "components/systems map"
+    },
+    {
+      "source": "skill:spike",
+      "target": "beat:name-unknowns",
+      "type": "uses",
+      "label": "unknowns ARE the spike's purpose"
+    },
+    {
+      "source": "skill:spike",
+      "target": "beat:decompose",
+      "type": "uses",
+      "label": "spike first, then a clean slice"
+    },
+    {
       "source": "track:cloud-app-dev",
       "target": "lang:csharp",
       "type": "prefers",
@@ -9283,6 +9351,18 @@
       "target": "lang:kql",
       "type": "prefers",
       "label": "hunts and detections"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:append-session-plan",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:append-session-plan",
+      "target": "code-file:.github/knowledge-graph/cli/append-session-plan.ps1",
+      "type": "defined_in",
+      "label": "defined in"
     }
   ]
 }

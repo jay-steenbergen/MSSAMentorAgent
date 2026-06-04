@@ -254,3 +254,29 @@ Repeat until feature is complete.
 - Recognize when to stop refactoring (test green, code readable)
 
 **When that happens:** *"You've got it. That's the TDD rhythm."*
+
+---
+
+## PLANNING OVERLAY
+
+When TDD is the active method, two planning beats are **reframed** in TDD's vocabulary. Run all 9 beats from `phase:planning` in order, but speak these two through the TDD lens:
+
+### Beat 7: `beat:define-done` → "the failing test passes"
+
+- **Default beat asks:** "How will you know you're done with today's slice?"
+- **TDD reframing:** "What's the failing test that, when green, means we're done?"
+  - Done is no longer a vibe — it's an executable assertion the learner is about to write.
+  - This pulls Red forward: by the end of planning, the learner already knows the exact test they're about to write in the first RED phase.
+  - Persist: `... -Beat define-done -Value "<test name + expected assertion in plain English>"`
+
+### Beat 3: `beat:decompose` → "the smallest testable behavior"
+
+- **Default beat asks:** "What's the smallest piece still useful on its own?"
+- **TDD reframing:** "What's the smallest *behavior* you could prove with one test?"
+  - Each chunk in `session_plan.chunks` becomes a future Red → Green → Refactor cycle.
+  - `session_plan.chunks_today` IS the cycle list for this session.
+  - Persist (decompose payload uses `-Json`): each chunk should read like "function X returns Y for input Z."
+
+**Other beats:** unchanged. The TDD cycle (Red → Green → Refactor) takes over only after planning ends and the learner says "let's code."
+
+See `phase:planning`, `tdd:cycle`, `cli-tool:append-session-plan`.

@@ -50,9 +50,11 @@ core_behavior: |
   SKIP RULE: learner can say "skip {beat-name}" or just "skip" — log to session_plan.skipped[] and advance.
   END CONDITION: planning ends when learner confirms the plan OR explicitly says "let's code".
   ARTIFACT TRIPLE every planning session produces: (a) field:progress.session_plan appended incrementally to progress.json, (b) running checklist in chat the learner can read back during coding, (c) Mermaid diagram for beats 5 and 6 when those beats fire.
+  PERSIST AFTER EACH BEAT: invoke `pwsh .github/knowledge-graph/cli/append-session-plan.ps1 -Username <u> -ProjectId <p> -Beat <name> -Value "<answer>"` (add `-Json` for decompose/name-unknowns/predict-breaks/folder-walk; add `-Skip` instead of `-Value` when skipping; use `-DryRun` to preview without writing). The CLI is the only sanctioned writer for field:progress.session_plan.
   BEGINNER MODE OVERLAY: beat 3 models 2 examples (not 1); beat 5 defaults to method:whiteboard regardless of track; beat 8 = ONE case; every beat closes with "what did we just do, in your words?"
+  METHOD OVERLAYS: if a method is active, read its SKILL.md "PLANNING OVERLAY" section and follow the reframings (TDD: define-done = failing-test, decompose = smallest testable behavior; BDD: restate = Given/When/Then, identify-user = actor, NOT skippable; whiteboard: sketch-shape = full arch diagram, folder-walk = component map; spike: name-unknowns IS the spike, decompose = spike-then-clean; ride-along: no overrides).
 
-  See phase:planning, beat:* nodes, concept:planning-as-skill, field:progress.session_plan, and get-behavior.ps1 planning.
+  See phase:planning, beat:* nodes, concept:planning-as-skill, field:progress.session_plan, cli-tool:append-session-plan, and get-behavior.ps1 planning.
 
   BEGINNER MODE (hand-held — teach vibe-coding before code):
   TRIGGER if ANY: (a) no progress.json for active project (first session ever), (b) active method's progress.method_proficiency.level == "Novice", (c) field:profile.skill.coding_experience == "first-time", (d) learner picked "Hand-held (beginner)" in the cockpit.

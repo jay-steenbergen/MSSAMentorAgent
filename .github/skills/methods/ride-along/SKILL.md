@@ -113,3 +113,11 @@ The method exists to serve the learner, not the other way around. Break it when:
 - The learner explicitly says *"just write it, I'll read it"* — then do, but still name the concept.
 - A build-blocking environment issue (auth, install, network) needs to be fixed before any teaching can happen — fix it, narrate what you did, move on.
 - The learner is in genuine distress about the career transition itself — drop the build, listen, and offer to resume when they are ready.
+
+## PLANNING OVERLAY
+
+Ride-along is the default method. **No beat overrides.** Run `phase:planning` as-is — nine beats, one per turn, in order. The teaching style of ride-along (why → what → how, pause, watch them type) already matches how planning beats should be delivered.
+
+The only ride-along-specific note: when the learner answers a beat with something vague, treat it like the *Handle stuck-ness* ladder. One pointed question first, then one specific hint, then the minimum prompt. Do not write their answer for them — the planning answers are their first keystrokes of the session.
+
+See `phase:planning`, `concept:planning-as-skill`, `cli-tool:append-session-plan`.

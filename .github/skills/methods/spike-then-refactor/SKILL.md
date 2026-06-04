@@ -297,3 +297,29 @@ Teach **exploratory learning**: build it messy to learn how it works, then throw
 - Recognize when to spike (unfamiliar) vs. when to TDD (known problem)
 
 **When that happens:** *"You've got it. Spike when exploring, TDD when building. Now you know both."*
+
+---
+
+## PLANNING OVERLAY
+
+When spike-then-refactor is the active method, two planning beats are **reframed**. Run all 9 beats from `phase:planning` in order, but speak these two through the spike lens:
+
+### Beat 4: `beat:name-unknowns` → "the unknowns ARE the spike's purpose"
+
+- **Default beat asks:** "What do you NOT know yet that you'll need?"
+- **Spike reframing:** every unknown listed here is a candidate **spike question**. The spike's job is to answer one of them with throwaway code.
+  - If the unknowns list is empty, you don't need a spike — switch to TDD or ride-along.
+  - If the list has 5+ items, pick the ONE that blocks everything else.
+  - Persist (JSON): each unknown should have `resolution: "spike"` instead of `"research"` or `"assume"`.
+
+### Beat 3: `beat:decompose` → "first the spike, then the clean slice"
+
+- **Default beat asks:** "What's the smallest piece still useful on its own?"
+- **Spike reframing:** decompose into **TWO phases**:
+  1. **Spike chunk** — the throwaway code that answers the unknown from beat 4. Small, ugly, time-boxed. Goes to `chunks_today[0]`.
+  2. **Clean slice** — the real implementation, built once the spike's lesson is known. Goes to `chunks_today[1]` (or deferred to next session).
+  - Persist (decompose payload): `chunks_today` should be exactly `["spike: <question>", "clean: <slice>"]`.
+
+**Other beats:** unchanged. The spike cycle (Spike → Evaluate → Decide → Rebuild) takes over once the learner says "let's code" — and beat 7's `done_when` should explicitly include "and the spike code is deleted."
+
+See `phase:planning`, `spike:cycle`, `cli-tool:append-session-plan`.

@@ -130,3 +130,25 @@ Read the learner's behavior on the diagram. Adjust accordingly.
 | Learner walks the diagram cleanly but freezes when you say "now let's build this box" | The diagram is at the right altitude, but the syntax inside the box is the gap | Stay in whiteboard mode for one more pass — sketch the *inside* of that box as 3–4 micro-boxes, then build |
 | Learner keeps pointing at boxes you didn't draw | They're seeing a richer system than your sketch | Add their boxes. Their diagram > yours. They've taken ownership of the design |
 | Learner won't point at boxes when narrating, just talks in the abstract | They're not really *reading* the diagram, they're guessing | Stop. Ask them to point. The pointing IS the comprehension check |
+
+## PLANNING OVERLAY
+
+When whiteboard is the active method, two planning beats are **promoted** to be the centerpiece of the session. Run all 9 beats from `phase:planning` in order, but speak these two through the whiteboard lens:
+
+### Beat 5: `beat:sketch-shape` → "full architecture diagram" (mandatory, primary artifact)
+
+- **Default beat:** a quick sketch — pseudocode, data shape, or component flow.
+- **Whiteboard reframing:** this beat IS the session. Render the **full architecture diagram** as a Mermaid `flowchart TD` (or `classDiagram` / `sequenceDiagram` if better fit). Cover every box the learner will need to reason about, with edges showing what each box passes to the next.
+  - Walk the diagram with the learner pointing at each box (per the *Comprehension checks* table above).
+  - Persist with both text and Mermaid: `... -Beat sketch-shape -Value "<plain summary>" -Mermaid "<full diagram source>"`
+
+### Beat 6: `beat:folder-walk` → "component / system map"
+
+- **Default beat:** fires only for NEW projects — maps repo folders.
+- **Whiteboard reframing:** even for *existing* projects, walk the **component/system map** instead of the folder tree. Which services? Which queues? Which external systems? What lives where?
+  - Render as a Mermaid `flowchart LR` if the system is process-oriented; `flowchart TD` if it's hierarchical.
+  - Persist: `... -Beat folder-walk -FolderTree "<component list>" -Json -Value (@(@{folder="auth-svc"; job="validates tokens"}) | ConvertTo-Json -Compress)`
+
+**Other beats:** unchanged. Whiteboard sessions usually end at planning — the diagram IS the deliverable — so the post-planning code phase may not fire at all.
+
+See `phase:planning`, `method:whiteboard`, `cli-tool:append-session-plan`.

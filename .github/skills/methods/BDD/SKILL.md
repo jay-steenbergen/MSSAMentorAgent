@@ -296,3 +296,29 @@ And a welcome message says "Welcome back, alex"
 - Recognize when to write a new scenario vs. modify existing
 
 **When that happens:** *"You've got it. That's BDD — the user's story drives the code."*
+
+---
+
+## PLANNING OVERLAY
+
+When BDD is the active method, two planning beats are **reframed** in BDD's vocabulary. Run all 9 beats from `phase:planning` in order, but speak these two through the BDD lens:
+
+### Beat 1: `beat:restate-brief` → "Given / When / Then"
+
+- **Default beat asks:** "In your own words, what are we building this session?"
+- **BDD reframing:** "State the behavior as a Given/When/Then scenario."
+  - *Given* a state. *When* something happens. *Then* an observable outcome.
+  - If the learner can't articulate it as G/W/T, the scenario isn't clear enough yet — stay in this beat, don't advance.
+  - Persist: `... -Beat restate-brief -Value "Given <state>, when <action>, then <outcome>."`
+
+### Beat 2: `beat:identify-user` → "the actor" (NOT skippable)
+
+- **Default beat:** is the most-skippable beat in `phase:planning`.
+- **BDD reframing:** this beat is **mandatory** under BDD. The scenario has no meaning without the actor.
+  - "WHO triggers the *When*? Who observes the *Then*?"
+  - If the learner says "me" or "the user" — push for one more specifier (role, permission level, fresh vs. returning).
+  - Persist: `... -Beat identify-user -Value "<actor role + what they want>"` — do NOT use `-Skip` here.
+
+**Other beats:** unchanged. The BDD cycle (Scenario → Test → Implement → Validate) takes over after planning ends.
+
+See `phase:planning`, `bdd:cycle`, `cli-tool:append-session-plan`.
