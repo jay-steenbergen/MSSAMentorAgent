@@ -51,7 +51,7 @@ $bNode = $graph.nodes | Where-Object { $_.id -eq 'behavior:11-ask-as-clickable' 
 $bEdge = $graph.edges | Where-Object { $_.source -eq 'agent:mentor' -and $_.target -eq 'behavior:11-ask-as-clickable' -and $_.type -eq 'follows' }
 Check "node behavior:11-ask-as-clickable exists" ($null -ne $bNode)
 Check "edge agent:mentor --[follows]--> behavior:11-ask-as-clickable" ($null -ne $bEdge)
-$getBehaviorOut = & pwsh -NoProfile -File .github/knowledge-graph/cli/get-behavior.ps1 'ask-as-clickable' 2>&1 | Out-String
+$getBehaviorOut = & pwsh -NoProfile -File .github/knowledge-graph/cli/inspect/get-behavior.ps1 'ask-as-clickable' 2>&1 | Out-String
 Check "get-behavior.ps1 returns body"             ($getBehaviorOut -match 'vscode_askQuestions')
 
 # Summary

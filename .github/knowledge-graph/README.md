@@ -99,20 +99,20 @@ Prefixes never collide. `merge.ps1`:
 
 ```powershell
 # Learner progress dashboard
-pwsh .github/knowledge-graph/cli/show-progress.ps1 -Username "alex_smith"
-pwsh .github/knowledge-graph/cli/show-progress.ps1 -Username "alex_smith" -Track "cloud-app-dev"
+pwsh .github/knowledge-graph/cli/inspect/show-progress.ps1 -Username "alex_smith"
+pwsh .github/knowledge-graph/cli/inspect/show-progress.ps1 -Username "alex_smith" -Track "cloud-app-dev"
 
 # Quality audit (find technical debt)
-pwsh .github/knowledge-graph/cli/audit-quality.ps1
+pwsh .github/knowledge-graph/cli/audit/audit-quality.ps1
 
 # Check for duplicate skills before creating new ones
-pwsh .github/knowledge-graph/cli/check-skill-exists.ps1 -Name "TDD"
+pwsh .github/knowledge-graph/cli/authoring/check-skill-exists.ps1 -Name "TDD"
 
 # Impact analysis (what depends on this skill?)
-pwsh .github/knowledge-graph/cli/show-skill-impact.ps1 -SkillId "skill:learner-profile"
+pwsh .github/knowledge-graph/cli/inspect/show-skill-impact.ps1 -SkillId "skill:learner-profile"
 
 # Skill recommendations (what should I learn next?)
-pwsh .github/knowledge-graph/cli/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console"
+pwsh .github/knowledge-graph/cli/inspect/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console"
 
 # Self-healing rebuild (auto-detects staleness)
 pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1
@@ -263,13 +263,13 @@ The `audit-quality.ps1` script surfaces quality issues automatically:
 
 ```powershell
 # Run full audit
-pwsh .github/knowledge-graph/cli/audit-quality.ps1
+pwsh .github/knowledge-graph/cli/audit/audit-quality.ps1
 
 # Filter to specific category
-pwsh .github/knowledge-graph/cli/audit-quality.ps1 -Category untested
+pwsh .github/knowledge-graph/cli/audit/audit-quality.ps1 -Category untested
 
 # Output as JSON
-pwsh .github/knowledge-graph/cli/audit-quality.ps1 -Json
+pwsh .github/knowledge-graph/cli/audit/audit-quality.ps1 -Json
 ```
 
 ### What It Checks
@@ -341,16 +341,16 @@ The `check-skill-exists.ps1` script prevents duplicate work by finding existing 
 
 ```powershell
 # Check if similar skill exists
-pwsh .github/knowledge-graph/cli/check-skill-exists.ps1 -Name "git-basics"
+pwsh .github/knowledge-graph/cli/authoring/check-skill-exists.ps1 -Name "git-basics"
 
 # Include description for better matching
-pwsh .github/knowledge-graph/cli/check-skill-exists.ps1 -Name "api-auth" -Description "Teach REST API authentication"
+pwsh .github/knowledge-graph/cli/authoring/check-skill-exists.ps1 -Name "api-auth" -Description "Teach REST API authentication"
 
 # Set higher threshold (50 = very similar only)
-pwsh .github/knowledge-graph/cli/check-skill-exists.ps1 -Name "docker-intro" -Threshold 50
+pwsh .github/knowledge-graph/cli/authoring/check-skill-exists.ps1 -Name "docker-intro" -Threshold 50
 
 # Export as JSON
-pwsh .github/knowledge-graph/cli/check-skill-exists.ps1 -Name "profile" -Json
+pwsh .github/knowledge-graph/cli/authoring/check-skill-exists.ps1 -Name "profile" -Json
 ```
 
 ### Similarity Scoring
@@ -404,13 +404,13 @@ The `show-skill-impact.ps1` script shows what depends on a skill before you chan
 
 ```powershell
 # See what depends on learner-profile skill
-pwsh .github/knowledge-graph/cli/show-skill-impact.ps1 -SkillId "skill:learner-profile"
+pwsh .github/knowledge-graph/cli/inspect/show-skill-impact.ps1 -SkillId "skill:learner-profile"
 
 # Include indirect dependencies (transitive impact)
-pwsh .github/knowledge-graph/cli/show-skill-impact.ps1 -SkillId "skill:ride-along" -IncludeIndirect
+pwsh .github/knowledge-graph/cli/inspect/show-skill-impact.ps1 -SkillId "skill:ride-along" -IncludeIndirect
 
 # Export as JSON
-pwsh .github/knowledge-graph/cli/show-skill-impact.ps1 -SkillId "skill:tdd" -Json
+pwsh .github/knowledge-graph/cli/inspect/show-skill-impact.ps1 -SkillId "skill:tdd" -Json
 ```
 
 ### Example Output
@@ -452,16 +452,16 @@ The `recommend-next-skills.ps1` script suggests what to learn based on completed
 
 ```powershell
 # After completing hello-console, what's next?
-pwsh .github/knowledge-graph/cli/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console"
+pwsh .github/knowledge-graph/cli/inspect/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console"
 
 # Multiple completed skills
-pwsh .github/knowledge-graph/cli/recommend-next-skills.ps1 -CompletedSkills "skill:ride-along","skill:learner-profile"
+pwsh .github/knowledge-graph/cli/inspect/recommend-next-skills.ps1 -CompletedSkills "skill:ride-along","skill:learner-profile"
 
 # Filter to specific track
-pwsh .github/knowledge-graph/cli/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console" -Track "cloud-app-dev"
+pwsh .github/knowledge-graph/cli/inspect/recommend-next-skills.ps1 -CompletedSkills "skill:cad-hello-console" -Track "cloud-app-dev"
 
 # Get more results
-pwsh .github/knowledge-graph/cli/recommend-next-skills.ps1 -CompletedSkills "skill:tdd" -MaxResults 10
+pwsh .github/knowledge-graph/cli/inspect/recommend-next-skills.ps1 -CompletedSkills "skill:tdd" -MaxResults 10
 ```
 
 ### Recommendation Algorithm

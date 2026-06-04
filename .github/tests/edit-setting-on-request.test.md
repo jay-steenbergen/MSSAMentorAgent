@@ -25,7 +25,7 @@
 1. Fire ONE `vscode_askQuestions` call with `picker:edit-method` (4 options: ride-along, TDD, BDD, spike-then-refactor)
 2. Current value `ride-along` is marked as the default/recommended option
 3. User picks TDD
-4. Agent runs `pwsh .github/knowledge-graph/cli/set-session-setting.ps1 -Username test_user -ProjectId cad-02-rest-api -Field method -Value TDD`
+4. Agent runs `pwsh .github/knowledge-graph/cli/session/set-session-setting.ps1 -Username test_user -ProjectId cad-02-rest-api -Field method -Value TDD`
 5. Agent echoes exactly one line: `OK: method -> TDD`
 6. Planning resumes from the current beat — no restart, no re-greeting
 

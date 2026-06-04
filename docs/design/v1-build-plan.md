@@ -151,7 +151,7 @@ export const DEFAULT_SOURCE: CurriculumSource = {
 //
 // Examples:
 //   fetchCurriculumFile('.github/skills/tracks/cloud-app-dev/cad-todo-cli/SKILL.md')
-//   fetchCurriculumFile('.github/knowledge-graph/cli/session-protocol.ps1')
+//   fetchCurriculumFile('.github/knowledge-graph/cli/session/session-protocol.ps1')
 //   fetchCurriculumFile('.github/knowledge-graph/output/merged-graph.json')
 export async function fetchCurriculumFile(
   relPath: string,
@@ -165,9 +165,9 @@ export async function warmCache(): Promise<void>;
 // What gets warmed:
 //   - .github/agents/Mentor.agent.md
 //   - .github/skills/learner-profile/SKILL.md
-//   - .github/knowledge-graph/cli/session-protocol.ps1
-//   - .github/knowledge-graph/cli/query-node.ps1
-//   - .github/knowledge-graph/cli/get-behavior.ps1
+//   - .github/knowledge-graph/cli/session/session-protocol.ps1
+//   - .github/knowledge-graph/cli/inspect/query-node.ps1
+//   - .github/knowledge-graph/cli/inspect/get-behavior.ps1
 //   - .github/knowledge-graph/output/merged-graph.json   (1.1 MB)
 //   - All 4 method SKILL.md files (small)
 //   - All 3 track README.md files (small)
@@ -355,7 +355,7 @@ These are **service code changes** to existing `.ps1` files. I will not edit the
 
 | File | Patch | Why |
 |---|---|---|
-| `.github/knowledge-graph/cli/session-protocol.ps1` | Add `$ProfileRoot = $env:MSSA_MENTOR_HOME ?? (Join-Path $PSScriptRoot '../../../.profiles')` at top. Replace all `.profiles/profiles/mentees/...` literals with `Join-Path $ProfileRoot 'profiles/mentees/...'`. Gate `GitCommand` field: `if ($env:MSSA_MENTOR_HOME) { $update.GitCommand = $null }`. | Profile location depends on caller (dev vs mentee). |
+| `.github/knowledge-graph/cli/session/session-protocol.ps1` | Add `$ProfileRoot = $env:MSSA_MENTOR_HOME ?? (Join-Path $PSScriptRoot '../../../.profiles')` at top. Replace all `.profiles/profiles/mentees/...` literals with `Join-Path $ProfileRoot 'profiles/mentees/...'`. Gate `GitCommand` field: `if ($env:MSSA_MENTOR_HOME) { $update.GitCommand = $null }`. | Profile location depends on caller (dev vs mentee). |
 | Other CLIs that read/write `.profiles/` | Same env-var pattern. | Same reason. (Enumerate in step 0 below.) |
 | `.github/skills/tracks/README.md` | Mark `github-copilot` and `whiteboarding` as "(coming soon)". | Picker only offers 3 MSSA tracks; README must not promise more. |
 

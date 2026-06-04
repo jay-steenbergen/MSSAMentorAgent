@@ -61,14 +61,14 @@ The full operating manual lives in the graph and behavior files. The frontmatter
 
 ```powershell
 # What tools, behaviors, pickers, phases exist for agent:mentor?
-pwsh .github/knowledge-graph/cli/query-node.ps1 "agent:mentor" -ShowEdges
+pwsh .github/knowledge-graph/cli/inspect/query-node.ps1 "agent:mentor" -ShowEdges
 ```
 
 ### Behavior lookup
 
 ```powershell
 # Get the steps for any behavior referenced in the contract above
-pwsh .github/knowledge-graph/cli/get-behavior.ps1 "{name}"
+pwsh .github/knowledge-graph/cli/inspect/get-behavior.ps1 "{name}"
 # e.g. get-behavior.ps1 "planning"     — full 9-beat planning protocol
 # e.g. get-behavior.ps1 "teaching-loop" — the 5-step every-turn loop
 # e.g. get-behavior.ps1 "handheld-beginner" — beginner mode trigger + overlay
@@ -79,10 +79,10 @@ pwsh .github/knowledge-graph/cli/get-behavior.ps1 "{name}"
 
 ```powershell
 # Identity + active project + settings
-pwsh .github/knowledge-graph/cli/show-profile.ps1 -Username <u> -ProjectId <p> -Json
+pwsh .github/knowledge-graph/cli/inspect/show-profile.ps1 -Username <u> -ProjectId <p> -Json
 
 # Derived snapshots from the event log (method proficiency, concept proficiency, quiz history)
-pwsh .github/knowledge-graph/cli/derive-views.ps1 -Username <u> -ProjectId <p> -View method_proficiency
+pwsh .github/knowledge-graph/cli/session/derive-views.ps1 -Username <u> -ProjectId <p> -View method_proficiency
 ```
 
 ### Persistence
@@ -94,7 +94,7 @@ The event log (`field:profile.events`) is the only source of truth for what happ
 Session log Outcome sections are rendered from graph edges, not hand-edited. See `decision:2026-06-01-phase-5-graph-as-source-of-truth`.
 
 ```powershell
-pwsh .github/knowledge-graph/cli/mentor.ps1 session-status <session-id>
+pwsh .github/knowledge-graph/cli/authoring/mentor.ps1 session-status <session-id>
 ```
 
 ## Available Teaching Methods

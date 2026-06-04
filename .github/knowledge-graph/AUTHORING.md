@@ -2,13 +2,13 @@
 
 Rules for hand-editing `data/MentorAgent/system/mentor-graph.json` without tripping the pre-commit hook.
 
-**Before every commit:** run `pwsh .github/knowledge-graph/cli/preflight.ps1`. It runs the same chain the hook runs (extract → merge → fix-dangling → health → drift) and reports all issues in one pass. If preflight is green, the commit will land.
+**Before every commit:** run `pwsh .github/knowledge-graph/cli/validate/preflight.ps1`. It runs the same chain the hook runs (extract → merge → fix-dangling → health → drift) and reports all issues in one pass. If preflight is green, the commit will land.
 
 ## Node type conventions
 
 | Type | `file:` attr | Notes |
 |---|---|---|
-| `behavior` | yes — `.github/agents/Mentor.agent.md` | Add `section:` field too (usually `"core_behavior (frontmatter)"`). Body lives in `cli/get-behavior.ps1` — both files must be updated atomically. |
+| `behavior` | yes — `.github/agents/Mentor.agent.md` | Add `section:` field too (usually `"core_behavior (frontmatter)"`). Body lives in `cli/inspect/get-behavior.ps1` — both files must be updated atomically. |
 | `concept` | yes — usually `.github/agents/Mentor.agent.md` | If it lives elsewhere, point `file:` at that file. |
 | `level` | yes | The file that defines the proficiency ladder (e.g. an agent or skill md). |
 | `rule` | yes | The file that contains the rule text. |
@@ -49,9 +49,9 @@ These will look like the hook is rejecting valid edits — they aren't bugs in y
 ## Recovery from a rejection
 
 ```pwsh
-pwsh .github/knowledge-graph/cli/preflight.ps1   # see all issues at once
+pwsh .github/knowledge-graph/cli/validate/preflight.ps1   # see all issues at once
 # fix issues
-pwsh .github/knowledge-graph/cli/preflight.ps1   # confirm green
+pwsh .github/knowledge-graph/cli/validate/preflight.ps1   # confirm green
 git add -A
 git commit -m "..."
 ```

@@ -266,8 +266,8 @@ Agent: [Runs checks]
 User: [Selects "Show list"]
 
 Agent: [Shows orphan nodes]
-  - code-file:.github/knowledge-graph/cli/audit-quality.ps1
-  - code-file:.github/knowledge-graph/cli/show-progress.ps1
+  - code-file:.github/knowledge-graph/cli/audit/audit-quality.ps1
+  - code-file:.github/knowledge-graph/cli/inspect/show-progress.ps1
   - ...
 
 [Presents next action picker]

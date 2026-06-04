@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Stop'
 $repoRoot   = (Resolve-Path "$PSScriptRoot/../../../..").Path
 $graphPath  = Join-Path $repoRoot '.github/knowledge-graph/data/MentorAgent/system/mentor-graph.json'
 $agentPath  = Join-Path $repoRoot '.github/agents/Mentor.agent.md'
-$cli        = Join-Path $repoRoot '.github/knowledge-graph/cli/mentor.ps1'
+$cli        = Join-Path $repoRoot '.github/knowledge-graph/cli/authoring/mentor.ps1'
 $stubDir    = Join-Path $repoRoot '.github/skills/_e2e-throwaway'
 
 Push-Location $repoRoot

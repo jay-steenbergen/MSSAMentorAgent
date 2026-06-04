@@ -16,6 +16,7 @@
       WARN  orphan-nodes        zero incoming and zero outgoing edges
       WARN  unclustered-nodes   cluster field empty or points to missing cluster
       WARN  duplicate-edges     same (source, target, type) > 1
+      WARN  duplicate-pairs     same (source, target) carrying multiple types — drop the weaker
       WARN  dropped-bridges     unresolved cross-layer bridges (merged only)
       WARN  doc-drift           TYPE_CATALOG.md out of sync with actual graph files
       WARN  code-coverage       repo files not in graph (by category) + stale nodes
@@ -231,6 +232,108 @@ $edgeTypeDist = $edges | Group-Object -Property type | Sort-Object Count -Descen
     [pscustomobject]@{ type = $_.Name; count = $_.Count }
 }
 $findings['edge-type-dist'] = @{ severity = 'INFO'; count = ($edgeTypeDist | Measure-Object).Count; items = @($edgeTypeDist) }
+
+# edge-quality: classify edges against Get-EdgeTaxonomy.
+# Detects (1) new edge types added without being classified, (2) annotation creep.
+# Why this exists: decision:2026-06-03-purpose-experiment relies on the carrier/noise
+# split to compute purpose linkage. If new edge types appear without being added to
+# the taxonomy, linkage scores drift silently. This check forces explicit triage.
+$taxonomyModule = Join-Path $scriptDir 'lib\query.psm1'
+if (Test-Path $taxonomyModule) {
+    Import-Module $taxonomyModule -Force -DisableNameChecking | Out-Null
+    $tx = Get-EdgeTaxonomy
+    $carriers = [System.Collections.Generic.HashSet[string]]::new([string[]]$tx.carrier, [StringComparer]::OrdinalIgnoreCase)
+    $inverses = [System.Collections.Generic.HashSet[string]]::new([string[]]$tx.inverse, [StringComparer]::OrdinalIgnoreCase)
+    $noises   = [System.Collections.Generic.HashSet[string]]::new([string[]]$tx.noise,   [StringComparer]::OrdinalIgnoreCase)
+    $cls = @{ carrier = 0; inverse = 0; noise = 0; unclassified = 0 }
+    $unclassifiedTypes = @{}
+    foreach ($e in $edges) {
+        if ($carriers.Contains($e.type))     { $cls.carrier++ }
+        elseif ($inverses.Contains($e.type)) { $cls.inverse++ }
+        elseif ($noises.Contains($e.type))   { $cls.noise++ }
+        else {
+            $cls.unclassified++
+            if (-not $unclassifiedTypes.ContainsKey($e.type)) { $unclassifiedTypes[$e.type] = 0 }
+            $unclassifiedTypes[$e.type]++
+        }
+    }
+    $totalEdges = [math]::Max(1, $edges.Count)
+    $noisePct = [math]::Round(100 * $cls.noise / $totalEdges, 1)
+    $unclPct  = [math]::Round(100 * $cls.unclassified / $totalEdges, 1)
+    # Threshold rationale:
+    #   - any unclassified edge type is a structural smell (graph vocabulary expanded
+    #     without taxonomy update) -> WARN
+    #   - noise > 15% suggests over-reliance on 'references'/'related_to' instead of
+    #     real dependency edges -> WARN
+    $severity = 'INFO'
+    if ($cls.unclassified -gt 0) { $severity = 'WARN' }
+    elseif ($noisePct -gt 15)    { $severity = 'WARN' }
+    $eqItems = @(
+        [pscustomobject]@{ bucket = 'carrier';      count = $cls.carrier;      pct = [math]::Round(100*$cls.carrier/$totalEdges,1) }
+        [pscustomobject]@{ bucket = 'inverse';      count = $cls.inverse;      pct = [math]::Round(100*$cls.inverse/$totalEdges,1) }
+        [pscustomobject]@{ bucket = 'noise';        count = $cls.noise;        pct = $noisePct }
+        [pscustomobject]@{ bucket = 'unclassified'; count = $cls.unclassified; pct = $unclPct }
+    )
+    $unclassifiedList = $unclassifiedTypes.GetEnumerator() | Sort-Object Value -Descending | ForEach-Object {
+        [pscustomobject]@{ type = $_.Key; count = $_.Value }
+    }
+    $findings['edge-quality'] = @{
+        severity           = $severity
+        count              = $eqItems.Count
+        items              = $eqItems
+        unclassified_count = $cls.unclassified
+        unclassified_types = @($unclassifiedList)
+        noise_pct          = $noisePct
+        unclassified_pct   = $unclPct
+    }
+
+    # duplicate-pairs: same (source, target) carrying multiple edge types.
+    # Why this exists: Phase 2 cleanup found 75 hand-authored redundancies
+    # (e.g. skill [forbids] X + skill [references] X). Once classified, the
+    # weaker edge is just annotation creep that inflates noise %. This check
+    # catches future regressions where someone re-adds a 'references' or
+    # 'related_to' edge next to an existing carrier/inverse.
+    $pairTypes = @{}
+    foreach ($e in $edges) {
+        $k = '{0}|{1}' -f $e.source, $e.target
+        if (-not $pairTypes.ContainsKey($k)) { $pairTypes[$k] = @() }
+        $pairTypes[$k] += $e.type
+    }
+    $dupPairs = @()
+    foreach ($k in $pairTypes.Keys) {
+        $types = $pairTypes[$k]
+        if ($types.Count -le 1) { continue }
+        $distinct = $types | Sort-Object -Unique
+        if ($distinct.Count -le 1) { continue }  # plain (s,t,type) dupes are caught by duplicate-edges
+        $hasC = $false; $hasI = $false; $hasN = $false
+        foreach ($t in $distinct) {
+            if ($carriers.Contains($t))     { $hasC = $true }
+            elseif ($inverses.Contains($t)) { $hasI = $true }
+            elseif ($noises.Contains($t))   { $hasN = $true }
+        }
+        # Classify the pair. Actionable = a noise type co-exists with carrier or inverse.
+        $klass = if ($hasN -and ($hasC -or $hasI)) { 'noise-over-carrier' }
+                 elseif ($hasC -and $hasI)         { 'carrier-with-inverse' }
+                 elseif ($hasC)                    { 'multi-carrier' }
+                 elseif ($hasI)                    { 'multi-inverse' }
+                 else                              { 'multi-noise' }
+        $parts = $k -split '\|', 2
+        $dupPairs += [pscustomobject]@{
+            source = $parts[0]
+            target = $parts[1]
+            types  = ($distinct -join ', ')
+            class  = $klass
+        }
+    }
+    $actionable = @($dupPairs | Where-Object { $_.class -eq 'noise-over-carrier' }).Count
+    $dpSeverity = if ($actionable -gt 0) { 'WARN' } else { 'INFO' }
+    $findings['duplicate-pairs'] = @{
+        severity          = $dpSeverity
+        count             = $dupPairs.Count
+        items             = @($dupPairs | Sort-Object @{e={ if ($_.class -eq 'noise-over-carrier') { 0 } else { 1 } }}, class, source, target)
+        actionable_count  = $actionable
+    }
+}
 
 # INFO: top hub nodes (top 10 by degree)
 $topHubs = $degree.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 10 | ForEach-Object {
@@ -628,6 +731,42 @@ Write-Section 'node-type-dist' $findings['node-type-dist'] {
 }
 Write-Section 'edge-type-dist' $findings['edge-type-dist'] {
     param($f) foreach ($r in $f.items) { Write-Host ("    {0,-25} {1,6}" -f $r.type, $r.count) -ForegroundColor DarkGray }
+}
+Write-Section 'edge-quality' $findings['edge-quality'] {
+    param($f)
+    foreach ($r in $f.items) {
+        $color = switch ($r.bucket) {
+            'carrier'      { 'Green' }
+            'inverse'      { 'Cyan' }
+            'noise'        { if ($r.pct -gt 15) { 'Yellow' } else { 'DarkGray' } }
+            'unclassified' { if ($r.count -gt 0) { 'Red' } else { 'DarkGray' } }
+        }
+        Write-Host ("    {0,-14} {1,6}  ({2,5}%)" -f $r.bucket, $r.count, $r.pct) -ForegroundColor $color
+    }
+    if ($f.unclassified_types -and @($f.unclassified_types).Count -gt 0) {
+        Write-Host "    Unclassified types (add to Get-EdgeTaxonomy):" -ForegroundColor Yellow
+        foreach ($u in $f.unclassified_types) {
+            Write-Host ("      {0,-25} {1,4}" -f $u.type, $u.count) -ForegroundColor Yellow
+        }
+    }
+}
+Write-Section 'duplicate-pairs' $findings['duplicate-pairs'] {
+    param($f)
+    Write-Host ("    Total duplicate pairs:  {0}" -f $f.count) -ForegroundColor DarkGray
+    $actColor = if ($f.actionable_count -gt 0) { 'Yellow' } else { 'DarkGray' }
+    Write-Host ("    Actionable (noise+carrier): {0}" -f $f.actionable_count) -ForegroundColor $actColor
+    $shown = 0
+    foreach ($r in $f.items) {
+        if ($shown -ge 15) { break }
+        $color = switch ($r.class) {
+            'noise-over-carrier'   { 'Yellow' }
+            'carrier-with-inverse' { 'DarkGray' }
+            default                { 'DarkGray' }
+        }
+        Write-Host ("    [{0}] {1} -> {2}  ({3})" -f $r.class, $r.source, $r.target, $r.types) -ForegroundColor $color
+        $shown++
+    }
+    if ($f.count -gt 15) { Write-Host ("    ... and {0} more" -f ($f.count - 15)) -ForegroundColor DarkGray }
 }
 Write-Section 'top-hubs' $findings['top-hubs'] {
     param($f) foreach ($r in $f.items) { Write-Host ("    [{0,4}]  {1}" -f $r.degree, $r.id) -ForegroundColor DarkGray }

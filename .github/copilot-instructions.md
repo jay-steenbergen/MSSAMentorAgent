@@ -22,6 +22,55 @@ See [docs/MENTOR_DIRECTORY.md](docs/MENTOR_DIRECTORY.md) for how the system work
 
 You're building this system. Here's the architecture:
 
+### Graph-First Analysis (read this before doing anything else)
+
+**The knowledge graph is the source of truth. Code, agent files, skills, and design docs are derived from it — and are often stubs.** We are building the graph first, not the code.
+
+When asked to **analyze, review, audit, or reason about** any part of the Mentor system — behaviors, rules, skills, tracks, methods, pickers, protocols, fields, CLIs, decisions, feedback loops — query the graph FIRST. Do **not** open `.agent.md` files, skill markdown, design docs, or extension source as a way to discover what the system does. Those are bodies attached to nodes. The graph is the map.
+
+**Concrete commands (run these instead of reading files):**
+
+```powershell
+# What exists for a node, and what does it connect to?
+pwsh .github/knowledge-graph/cli/inspect/query-node.ps1 "agent:mentor" -ShowEdges
+pwsh .github/knowledge-graph/cli/inspect/query-node.ps1 "skill:learner-profile" -ShowEdges
+pwsh .github/knowledge-graph/cli/inspect/query-node.ps1 "rule:events-are-source-of-truth" -ShowEdges
+
+# What does a behavior actually require?
+pwsh .github/knowledge-graph/cli/inspect/get-behavior.ps1 "teaching-loop"
+pwsh .github/knowledge-graph/cli/inspect/get-behavior.ps1 "planning"
+
+# What depends on this? What does it depend on?
+pwsh .github/knowledge-graph/queries/Get-Dependents.ps1   -NodeId "skill:learner-profile"
+pwsh .github/knowledge-graph/queries/Get-Dependencies.ps1 -NodeId "agent:mentor"
+
+# Where does a value flow through the system?
+pwsh .github/knowledge-graph/queries/Get-CallFlow.ps1 -StartNode "picker:build-options"
+
+# Quality / drift / health
+pwsh .github/knowledge-graph/cli/audit/audit-quality.ps1
+pwsh .github/knowledge-graph/cli/audit/find-drift.ps1
+pwsh .github/knowledge-graph/build/core/health.ps1
+```
+
+**Tag every discovery operation:**
+- `[Discovery: graph]` — found via `query-node` / `get-behavior` / `Get-*` queries.
+- `[Discovery: filesystem — reason: ...]` — fell back to `read_file` / `grep_search` / `file_search`. Must state why the graph couldn't answer.
+
+**Anti-patterns (don't do these):**
+
+| Anti-pattern | Why it's wrong | Do this instead |
+|---|---|---|
+| Read `Mentor.agent.md` to learn what the agent does | Frontmatter is irreducible identity; behavior lives in graph nodes | `query-node.ps1 "agent:mentor" -ShowEdges` |
+| Read a skill's `SKILL.md` to understand its protocol | Markdown body is often a stub pointing back to the graph | `query-node.ps1 "skill:{name}"` + `get-behavior.ps1` |
+| Read `docs/design/*.md` to discover system architecture | Design docs document *changes*; the graph holds the current state | Query the relevant nodes (`decision:*`, `rule:*`, `field:*`) |
+| Grep for "where is X implemented" | Filesystem is the escape hatch, not the first move | `query-node.ps1 X -ShowEdges` then follow `implemented_by` edges |
+| Open extension TypeScript to understand what the extension does | Use the code graph: `query-node.ps1 "code-file:..."` | Same |
+
+**When the graph is genuinely insufficient** (you queried, the node doesn't exist or has no edges), surface that as a finding: "the graph has no `{node-type}:{name}` — this is either a gap to file or a stub to fill." Then fall back to filesystem with the `[Discovery: filesystem]` tag.
+
+**Why this rule exists:** the system is designed graph-first. Reading files to understand the mentor produces analysis grounded in stubs and stale prose, not the actual current contract. Every node in the graph has typed edges that capture relationships markdown can't. Use them.
+
 ### Core Concepts
 
 | Concept | What it is | Example |

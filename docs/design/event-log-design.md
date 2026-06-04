@@ -150,7 +150,7 @@ Phase 4 burns the bridge. Before Phase 4, take a tagged backup of every live pro
 
 ```powershell
 # Start a session — mints a session_id and prints it for capture.
-& .github/knowledge-graph/cli/append-event.ps1 `
+& .github/knowledge-graph/cli/session/append-event.ps1 `
   -Username alex_smith -ProjectId weather-api -Type session_started
 # OK: type=session_started session_id=6db8... -> ...progress.json
 
@@ -158,23 +158,23 @@ $sid = '6db8...'  # capture from the line above
 
 # Log a teach event.
 $d = @{ concept_id='for-loop'; analogy_used=$true; method='ride-along' } | ConvertTo-Json -Compress
-& .github/knowledge-graph/cli/append-event.ps1 `
+& .github/knowledge-graph/cli/session/append-event.ps1 `
   -Username alex_smith -ProjectId weather-api `
   -Type concept_taught -SessionId $sid -Data $d
 
 # Log a quiz round.
 $d = @{ concept_id='for-loop'; trigger='reappearance'; form='code-fill';
         question='fill the hole'; answer='i'; correct=$true } | ConvertTo-Json -Compress
-& .github/knowledge-graph/cli/append-event.ps1 `
+& .github/knowledge-graph/cli/session/append-event.ps1 `
   -Username alex_smith -ProjectId weather-api `
   -Type quiz_answered -SessionId $sid -Data $d
 
 # AAR: render the derived views for the wrap-up message.
-& .github/knowledge-graph/cli/derive-views.ps1 `
+& .github/knowledge-graph/cli/session/derive-views.ps1 `
   -Username alex_smith -ProjectId weather-api
 
 # Close the session via the gate.
-& .github/knowledge-graph/cli/close-session.ps1 `
+& .github/knowledge-graph/cli/session/close-session.ps1 `
   -Username alex_smith -ProjectId weather-api `
   -SessionId $sid -Outcome completed -Reason 'AAR complete'
 ```

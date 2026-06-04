@@ -45,22 +45,33 @@ $plan = @()
 # 1. CLI tools
 $cliEdges = @()
 if (Test-Path $cliDir) {
-    $cliScripts = Get-ChildItem $cliDir -Filter *.ps1 | Where-Object { $_.Name -notlike 'add-*.ps1' -and $_.Name -notlike 'auto-*.ps1' }
+    # Recurse into cli/<bucket>/ subfolders (inspect, authoring, audit, validate, session, archive).
+    # Skip lib/, tests/, and any auto-* / add-* scaffolding scripts.
+    $cliScripts = Get-ChildItem $cliDir -Filter *.ps1 -Recurse |
+        Where-Object {
+            $_.Name -notlike 'add-*.ps1' -and
+            $_.Name -notlike 'auto-*.ps1' -and
+            $_.FullName -notmatch '[\\/](lib|tests)[\\/]'
+        }
     foreach ($script in $cliScripts) {
         $basename = $script.BaseName
         $toolId = "cli-tool:$basename"
-        
+
+        # Build the repo-relative path with bucket prefix preserved.
+        $relativePath = $script.FullName.Substring($cliDir.Length).TrimStart('\','/') -replace '\\','/'
+        $fileField = ".github/knowledge-graph/cli/$relativePath"
+
         $plan += [pscustomobject]@{
             Kind = 'cli-tool'
             Id = $toolId
             Label = "$basename.ps1"
-            File = ".github/knowledge-graph/cli/$($script.Name)"
+            File = $fileField
             Description = "CLI script from knowledge-graph tooling."
             Cluster = 'profile-system'  # default cluster
         }
-        
+
         # Add bridge to code-file (cross-layer)
-        $codeFileId = "code-file:.github/knowledge-graph/cli/$($script.Name)"
+        $codeFileId = "code-file:$fileField"
         $cliEdges += [pscustomobject]@{
             Source = $toolId
             Target = $codeFileId

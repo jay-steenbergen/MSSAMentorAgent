@@ -10,6 +10,24 @@
       "description": "MSSA Mentor — teaches veterans software engineering by building real code alongside them. Model: Claude Sonnet 4.5."
     },
     {
+      "id": "purpose:mentor",
+      "type": "purpose",
+      "label": "Why the Mentor exists",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter",
+      "description": "A veteran completes a real, working project of their choosing in their MSSA track, with hands on keyboard, understanding why each piece is there. Every behavior, rule, and skill in this system exists to serve this outcome. Added 2026-06-03 as Meadows-leverage-point-3 experiment (decision:2026-06-03-purpose-experiment)."
+    },
+    {
+      "id": "decision:2026-06-03-purpose-experiment",
+      "type": "decision",
+      "label": "Adopt purpose:* node-type and purpose-linkage audit",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "frontmatter",
+      "description": "Experiment: add purpose:mentor as the single anchor node (Meadows leverage point 3 — System Goal), link agent + 32 behaviors via [serves] edges, and promote a forward-reachability check into audit-quality.ps1 as the 7th category. Pre-commit hook warns (does not block) on new nodes that don't reach purpose:*. Rationale: rules and skills are decoration unless they trace to an outcome; the audit makes 'why does this exist?' a queryable question. Reversible — see commit for the 33-edge + 2-node footprint."
+    },
+    {
       "id": "core-behavior:execute-directly",
       "type": "principle",
       "label": "Execute loaded skills directly",
@@ -428,7 +446,7 @@
       "type": "cli-tool",
       "label": "propose-concept.ps1",
       "cluster": "concept-proficiency",
-      "file": ".github/knowledge-graph/cli/propose-concept.ps1",
+      "file": ".github/knowledge-graph/cli/authoring/propose-concept.ps1",
       "description": "Reads pending concept mints from the concept-mints log. For concepts minted 3+ times across distinct learners, generates a PR-ready concept:{slug} node draft to promote into the registry. Mirrors the propose-analogy pattern (Gap 4)."
     },
     {
@@ -999,7 +1017,7 @@
       "type": "cli-tool",
       "label": "propose-analogy.ps1",
       "cluster": "references-and-analogies",
-      "file": ".github/knowledge-graph/cli/propose-analogy.ps1",
+      "file": ".github/knowledge-graph/cli/authoring/propose-analogy.ps1",
       "description": "Reads pending analogy mints from .github/knowledge-graph/data/analogy-pending.jsonl. For (role_tag, concept) pairs minted 2+ times across distinct learners, generates a PR-ready analogy:<role-tag>-<concept> node draft to promote into the registry. Mirrors cli-tool:propose-concept."
     },
     {
@@ -2504,7 +2522,7 @@
       "type": "script",
       "label": "validate-events.ps1",
       "cluster": "validation-layer",
-      "file": ".github/knowledge-graph/cli/validate-events.ps1",
+      "file": ".github/knowledge-graph/cli/validate/validate-events.ps1",
       "description": "Scans all .progress.json files. Verifies field:profile.events shape per rule:events-are-source-of-truth: ISO-8601 ts, type in 10-event enum, non-empty session_id, project_id matches filename, data is null or object, append-only ordering. Replaces the deprecated validate-proficiency.ps1 (Phase 2)."
     },
     {
@@ -2818,6 +2836,14 @@
       "cluster": "agent-core",
       "file": "docs/MENTOR_DIRECTORY.md",
       "description": "System map for users — how Mentor works."
+    },
+    {
+      "id": "file:mentee-questions",
+      "type": "file",
+      "label": "docs/MENTEE_QUESTIONS.md",
+      "cluster": "agent-core",
+      "file": "docs/MENTEE_QUESTIONS.md",
+      "description": "Running list of questions mentees have asked Jay about AI agents, learning paths, and building agentic systems. Answers land in-line."
     },
     {
       "id": "concept:track-cad",
@@ -3321,7 +3347,7 @@
       "label": "Progress Dashboard",
       "description": "Visual dashboard showing learner progress across all tracks. Tracks completion %, milestones, projects, method proficiency.",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/show-progress.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/show-progress.ps1",
       "type": "feature",
       "id": "feature:progress-dashboard"
     },
@@ -3329,7 +3355,7 @@
       "label": "show-progress.ps1",
       "description": "CLI script that displays learner progress dashboard. Supports track filtering (-Track) and JSON export (-Json).",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/show-progress.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/show-progress.ps1",
       "type": "cli-tool",
       "id": "cli-tool:show-progress"
     },
@@ -3338,7 +3364,7 @@
       "type": "cli-tool",
       "label": "audit-quality.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/audit-quality.ps1",
+      "file": ".github/knowledge-graph/cli/audit/audit-quality.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3346,7 +3372,7 @@
       "type": "cli-tool",
       "label": "check-skill-exists.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/check-skill-exists.ps1",
+      "file": ".github/knowledge-graph/cli/authoring/check-skill-exists.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3354,7 +3380,7 @@
       "type": "cli-tool",
       "label": "recommend-next-skills.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/recommend-next-skills.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/recommend-next-skills.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3362,7 +3388,7 @@
       "type": "cli-tool",
       "label": "show-skill-impact.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/show-skill-impact.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/show-skill-impact.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3544,7 +3570,7 @@
       "type": "cli-tool",
       "label": "analyze-agent-size.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/analyze-agent-size.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/analyze-agent-size.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3552,7 +3578,7 @@
       "type": "cli-tool",
       "label": "enforce-method.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/enforce-method.ps1",
+      "file": ".github/knowledge-graph/cli/validate/enforce-method.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3560,7 +3586,7 @@
       "type": "cli-tool",
       "label": "enforce-track.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/enforce-track.ps1",
+      "file": ".github/knowledge-graph/cli/validate/enforce-track.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3568,7 +3594,7 @@
       "type": "cli-tool",
       "label": "find-drift.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/find-drift.ps1",
+      "file": ".github/knowledge-graph/cli/audit/find-drift.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3576,7 +3602,7 @@
       "type": "cli-tool",
       "label": "get-behavior.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/get-behavior.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/get-behavior.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3584,7 +3610,7 @@
       "type": "cli-tool",
       "label": "query-node.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/query-node.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/query-node.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3592,7 +3618,7 @@
       "type": "cli-tool",
       "label": "session-protocol.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/session-protocol.ps1",
+      "file": ".github/knowledge-graph/cli/session/session-protocol.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3600,7 +3626,7 @@
       "type": "cli-tool",
       "label": "_triage-drift.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/_triage-drift.ps1",
+      "file": ".github/knowledge-graph/cli/archive/_triage-drift.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3608,7 +3634,7 @@
       "type": "cli-tool",
       "label": "mentor.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/mentor.ps1",
+      "file": ".github/knowledge-graph/cli/authoring/mentor.ps1",
       "description": "Graph-first authoring CLI. Verbs: add | link | remove | unlink | validate | types | session-status. Use 'session-status <session-id>' at session end to render the session Outcome from the graph (experiments, decisions, child sessions) — do NOT hand-edit Outcome in the session markdown; the graph is source of truth (decision:2026-06-01-phase-5-graph-as-source-of-truth)."
     },
     {
@@ -3733,7 +3759,7 @@
       "type": "cli-tool",
       "label": "find-orphan-markdown.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/find-orphan-markdown.ps1",
+      "file": ".github/knowledge-graph/cli/audit/find-orphan-markdown.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3786,7 +3812,7 @@
       "type": "cli-tool",
       "label": "find-missing-files.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/find-missing-files.ps1",
+      "file": ".github/knowledge-graph/cli/audit/find-missing-files.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3803,7 +3829,7 @@
       "type": "cli-tool",
       "label": "test-load-list.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/test-load-list.ps1",
+      "file": ".github/knowledge-graph/cli/validate/test-load-list.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -3996,7 +4022,7 @@
       "type": "cli-tool",
       "label": "_mentor-gaps2.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/_mentor-gaps2.ps1",
+      "file": ".github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -4044,7 +4070,7 @@
       "type": "cli-tool",
       "label": "preflight.ps1",
       "cluster": "infra-layer",
-      "file": ".github/knowledge-graph/cli/preflight.ps1",
+      "file": ".github/knowledge-graph/cli/validate/preflight.ps1",
       "description": "Runs the full pre-commit graph chain locally (auto-discover, extract, merge, fix-dangling, health, drift) and reports every issue in one pass instead of failing one-at-a-time. Use before staging any knowledge-graph edit."
     },
     {
@@ -4135,7 +4161,7 @@
       "type": "cli-tool",
       "label": "propose-mistake.ps1",
       "cluster": "mistake-memory",
-      "file": ".github/knowledge-graph/cli/propose-mistake.ps1",
+      "file": ".github/knowledge-graph/cli/authoring/propose-mistake.ps1",
       "description": "Reads pending mistake mints from .github/knowledge-graph/data/mistake-pending.jsonl. For mistake-ids minted 3+ times across distinct learners, generates a PR-ready entry for the mistakes[] array in .github/knowledge-graph/data/mistake-taxonomy.json. Mirrors cli-tool:propose-concept (Gap 1) and cli-tool:propose-analogy (Gap 4)."
     },
     {
@@ -4235,7 +4261,7 @@
       "type": "cli-tool",
       "label": "validate-goal.ps1",
       "cluster": "longitudinal-goals",
-      "file": ".github/knowledge-graph/cli/validate-goal.ps1",
+      "file": ".github/knowledge-graph/cli/validate/validate-goal.ps1",
       "description": "Stub validator for a single goal record from field:profile.goals. Checks goal_id slug shape, type enum membership, target schema matching type, deadline ISO8601 parse, and related_concepts referencing real concept:* nodes (warn-only). Called by behavior:21-elicit-goal before persisting a goal record. Mirrors cli-tool:propose-mistake and cli-tool:propose-analogy stub pattern — full implementation lands once goal records are actually being written in practice."
     },
     {
@@ -4465,7 +4491,7 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "core_behavior (frontmatter)",
-      "description": "TRIGGER: learner asks to change ONE session setting mid-session — phrases like 'change my method', 'switch to TDD', 'make the comments lighter', 'no time-box today', 'I want a different goal'. The seven editable settings: project, track, method, mode, comment-depth, time-box, goal. WHEN TRIGGERED: (1) Fire ONE vscode_askQuestions call — the matching picker:edit-{setting} — with ONLY that setting's options. (2) The CURRENT value is marked as the default/recommended option so the learner can confirm with a single click. (3) On answer, persist via `pwsh .github/knowledge-graph/cli/set-session-setting.ps1 -Username <u> -ProjectId <p> -Field <field> -Value <value>`. (4) Echo back ONE line: 'OK: method -> TDD' and move on. NEVER re-fire picker:build-options (the full cockpit) for a single-setting edit — that's a different protocol (start-of-session only). NEVER chain edits across multiple settings in one ask — one setting, one picker, one persist, done. See picker:edit-method, picker:edit-track, picker:edit-mode, picker:edit-comment-depth, picker:edit-time-box, picker:edit-goal, picker:edit-project, and cli-tool:set-session-setting."
+      "description": "TRIGGER: learner asks to change ONE session setting mid-session — phrases like 'change my method', 'switch to TDD', 'make the comments lighter', 'no time-box today', 'I want a different goal'. The seven editable settings: project, track, method, mode, comment-depth, time-box, goal. WHEN TRIGGERED: (1) Fire ONE vscode_askQuestions call — the matching picker:edit-{setting} — with ONLY that setting's options. (2) The CURRENT value is marked as the default/recommended option so the learner can confirm with a single click. (3) On answer, persist via `pwsh .github/knowledge-graph/cli/session/set-session-setting.ps1 -Username <u> -ProjectId <p> -Field <field> -Value <value>`. (4) Echo back ONE line: 'OK: method -> TDD' and move on. NEVER re-fire picker:build-options (the full cockpit) for a single-setting edit — that's a different protocol (start-of-session only). NEVER chain edits across multiple settings in one ask — one setting, one picker, one persist, done. See picker:edit-method, picker:edit-track, picker:edit-mode, picker:edit-comment-depth, picker:edit-time-box, picker:edit-goal, picker:edit-project, and cli-tool:set-session-setting."
     },
     {
       "id": "protocol:verify-build-settings",
@@ -4474,7 +4500,7 @@
       "cluster": "agent-rules",
       "file": ".github/agents/Mentor.agent.md",
       "section": "core_behavior (frontmatter)",
-      "description": "Run BEFORE phase:planning every building session. Step 1: `pwsh .github/knowledge-graph/cli/show-profile.ps1 -Username <u> -ProjectId <p> -Json`. Step 2: inspect the returned `status` map. The 7 settings checked: project, track, method, mode, time_box, goal, comment_depth (per picker:build-options). Step 3a: if ALL set (status.all_set == true / ready_to_plan == true), proceed to phase:planning. Step 3b: if ANY missing, fire picker:build-options to fill the gaps — DO NOT start planning beats with missing settings. After picker returns, the missing values persist via set-session-setting.ps1 (or the scaffolder for project), then re-run show-profile.ps1 to confirm before advancing. This protocol is the HARD GATE between session-start and phase:planning: planning never starts on a half-configured session. See cli-tool:show-profile and picker:build-options."
+      "description": "Run BEFORE phase:planning every building session. Step 1: `pwsh .github/knowledge-graph/cli/inspect/show-profile.ps1 -Username <u> -ProjectId <p> -Json`. Step 2: inspect the returned `status` map. The 7 settings checked: project, track, method, mode, time_box, goal, comment_depth (per picker:build-options). Step 3a: if ALL set (status.all_set == true / ready_to_plan == true), proceed to phase:planning. Step 3b: if ANY missing, fire picker:build-options to fill the gaps — DO NOT start planning beats with missing settings. After picker returns, the missing values persist via set-session-setting.ps1 (or the scaffolder for project), then re-run show-profile.ps1 to confirm before advancing. This protocol is the HARD GATE between session-start and phase:planning: planning never starts on a half-configured session. See cli-tool:show-profile and picker:build-options."
     },
     {
       "id": "field:progress.session_plan.settings",
@@ -4811,7 +4837,7 @@
       "type": "cli-tool",
       "label": "append-session-plan.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/append-session-plan.ps1",
+      "file": ".github/knowledge-graph/cli/session/append-session-plan.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -4819,7 +4845,7 @@
       "type": "cli-tool",
       "label": "append-event.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/append-event.ps1",
+      "file": ".github/knowledge-graph/cli/session/append-event.ps1",
       "description": "Single writer for field:profile.events. Atomic-write append per rule:events-are-source-of-truth. Validates -Type against the enum, requires -SessionId for non-session_started events, attaches -Data as JSON. Mirrors cli-tool:append-session-plan's atomic write pattern."
     },
     {
@@ -4827,7 +4853,7 @@
       "type": "cli-tool",
       "label": "derive-views.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/derive-views.ps1",
+      "file": ".github/knowledge-graph/cli/session/derive-views.ps1",
       "description": "Pure function over field:profile.events. Computes derived snapshots — session_history (from session_started/session_ended pairs), method_proficiency (from method_used events), quiz_history (from quiz_asked/quiz_answered events), concept_proficiency (rolled up from quiz_answered + callback_made per rule:proficiency-derived-from-quiz-history). Output is JSON to stdout; never writes back to the profile. Replaces the stale snapshot-as-truth pattern with derive-on-read."
     },
     {
@@ -4835,7 +4861,7 @@
       "type": "cli-tool",
       "label": "close-session.ps1",
       "cluster": "session-protocols",
-      "file": ".github/knowledge-graph/cli/close-session.ps1",
+      "file": ".github/knowledge-graph/cli/session/close-session.ps1",
       "description": "Wrap-up gate. Reads field:profile.events for the current session_id and verifies required events are present (Phase 1: session_started exists; Phase 4: concept_taught >= 1, session_ended). Emits session_ended on success. Exit code 2 with diagnostic if requirements unmet — turns the soft 'remember to persist' contract into a hard gate that must pass before the mentor can claim the session is done."
     },
     {
@@ -4843,7 +4869,7 @@
       "type": "cli-tool",
       "label": "migrate-profile-to-events.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/migrate-profile-to-events.ps1",
+      "file": ".github/knowledge-graph/cli/session/migrate-profile-to-events.ps1",
       "description": "Phase 3 backfill tool. Reads legacy snapshot fields (session_history, method_proficiency, concept_proficiency, quiz_history) on a *.progress.json file and synthesizes the minimum events that derive-views can re-derive into faithful snapshots. Forwards every event through cli-tool:append-event (with -BackdateTs) to honor the single-writer invariant from rule:events-are-source-of-truth. Method 'level/notes' metadata is intentionally dropped — the new model derives method_proficiency from used_count, not free-form labels. Supports -Role mentee|mentor so both the mentee and mentor profile trees can be migrated. Safe to dry-run; refuses to migrate a file that already has events[] unless -Force is passed."
     },
     {
@@ -4851,7 +4877,7 @@
       "type": "cli-tool",
       "label": "set-session-setting.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/set-session-setting.ps1",
+      "file": ".github/knowledge-graph/cli/session/set-session-setting.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -4859,7 +4885,7 @@
       "type": "cli-tool",
       "label": "show-profile.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/show-profile.ps1",
+      "file": ".github/knowledge-graph/cli/inspect/show-profile.ps1",
       "description": "CLI script from knowledge-graph tooling."
     },
     {
@@ -4867,7 +4893,471 @@
       "type": "cli-tool",
       "label": "validate-events.ps1",
       "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/validate-events.ps1",
+      "file": ".github/knowledge-graph/cli/validate/validate-events.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:kg",
+      "type": "cli-tool",
+      "label": "kg.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/kg.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "test:ride-along",
+      "type": "test",
+      "label": "ride-along.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/methods/ride-along/tests/ride-along.test.md",
+      "description": "Behavioral test for ride-along skill (default method) (skill)."
+    },
+    {
+      "id": "test:tdd",
+      "type": "test",
+      "label": "tdd.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/methods/TDD/tests/tdd.test.md",
+      "description": "Behavioral test for TDD skill (skill)."
+    },
+    {
+      "id": "test:bdd",
+      "type": "test",
+      "label": "bdd.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/methods/BDD/tests/bdd.test.md",
+      "description": "Behavioral test for BDD skill (skill)."
+    },
+    {
+      "id": "test:spike",
+      "type": "test",
+      "label": "spike.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/methods/spike-then-refactor/tests/spike.test.md",
+      "description": "Behavioral test for spike-then-refactor skill (skill)."
+    },
+    {
+      "id": "test:knowledge-graph-management",
+      "type": "test",
+      "label": "knowledge-graph-management.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/knowledge-graph-management/tests/knowledge-graph-management.test.md",
+      "description": "Behavioral test for knowledge-graph-management skill (skill)."
+    },
+    {
+      "id": "test:cloud-app-dev",
+      "type": "test",
+      "label": "cloud-app-dev.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/tests/cloud-app-dev.test.md",
+      "description": "Behavioral test for cloud-app-dev (track)."
+    },
+    {
+      "id": "test:cad-blob-uploader",
+      "type": "test",
+      "label": "cad-blob-uploader.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-blob-uploader/tests/cad-blob-uploader.test.md",
+      "description": "Behavioral test for cad-blob-uploader (skill)."
+    },
+    {
+      "id": "test:cad-cicd-pipeline",
+      "type": "test",
+      "label": "cad-cicd-pipeline.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/tests/cad-cicd-pipeline.test.md",
+      "description": "Behavioral test for cad-cicd-pipeline (skill)."
+    },
+    {
+      "id": "test:cad-deploy-app-service",
+      "type": "test",
+      "label": "cad-deploy-app-service.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-deploy-app-service/tests/cad-deploy-app-service.test.md",
+      "description": "Behavioral test for cad-deploy-app-service (skill)."
+    },
+    {
+      "id": "test:cad-function-queue-trigger",
+      "type": "test",
+      "label": "cad-function-queue-trigger.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/tests/cad-function-queue-trigger.test.md",
+      "description": "Behavioral test for cad-function-queue-trigger (skill)."
+    },
+    {
+      "id": "test:cad-hello-console",
+      "type": "test",
+      "label": "cad-hello-console.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-hello-console/tests/cad-hello-console.test.md",
+      "description": "Behavioral test for cad-hello-console (skill)."
+    },
+    {
+      "id": "test:cad-todo-api",
+      "type": "test",
+      "label": "cad-todo-api.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api/tests/cad-todo-api.test.md",
+      "description": "Behavioral test for cad-todo-api (skill)."
+    },
+    {
+      "id": "test:cad-todo-api-auth",
+      "type": "test",
+      "label": "cad-todo-api-auth.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-auth/tests/cad-todo-api-auth.test.md",
+      "description": "Behavioral test for cad-todo-api-auth (skill)."
+    },
+    {
+      "id": "test:cad-todo-api-ef",
+      "type": "test",
+      "label": "cad-todo-api-ef.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-ef/tests/cad-todo-api-ef.test.md",
+      "description": "Behavioral test for cad-todo-api-ef (skill)."
+    },
+    {
+      "id": "test:cad-todo-cli",
+      "type": "test",
+      "label": "cad-todo-cli.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cloud-app-dev/cad-todo-cli/tests/cad-todo-cli.test.md",
+      "description": "Behavioral test for cad-todo-cli (skill)."
+    },
+    {
+      "id": "test:cybersecurity-ops",
+      "type": "test",
+      "label": "cybersecurity-ops.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/tests/cybersecurity-ops.test.md",
+      "description": "Behavioral test for cybersecurity-ops (track)."
+    },
+    {
+      "id": "test:cso-defender-endpoint-onboard",
+      "type": "test",
+      "label": "cso-defender-endpoint-onboard.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/tests/cso-defender-endpoint-onboard.test.md",
+      "description": "Behavioral test for cso-defender-endpoint-onboard (skill)."
+    },
+    {
+      "id": "test:cso-detection-rule",
+      "type": "test",
+      "label": "cso-detection-rule.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-detection-rule/tests/cso-detection-rule.test.md",
+      "description": "Behavioral test for cso-detection-rule (skill)."
+    },
+    {
+      "id": "test:cso-entra-identity-hardening",
+      "type": "test",
+      "label": "cso-entra-identity-hardening.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/tests/cso-entra-identity-hardening.test.md",
+      "description": "Behavioral test for cso-entra-identity-hardening (skill)."
+    },
+    {
+      "id": "test:cso-hunting-query",
+      "type": "test",
+      "label": "cso-hunting-query.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-hunting-query/tests/cso-hunting-query.test.md",
+      "description": "Behavioral test for cso-hunting-query (skill)."
+    },
+    {
+      "id": "test:cso-incident-investigation",
+      "type": "test",
+      "label": "cso-incident-investigation.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-incident-investigation/tests/cso-incident-investigation.test.md",
+      "description": "Behavioral test for cso-incident-investigation (skill)."
+    },
+    {
+      "id": "test:cso-kql-foundations",
+      "type": "test",
+      "label": "cso-kql-foundations.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-kql-foundations/tests/cso-kql-foundations.test.md",
+      "description": "Behavioral test for cso-kql-foundations (skill)."
+    },
+    {
+      "id": "test:cso-sentinel-workspace",
+      "type": "test",
+      "label": "cso-sentinel-workspace.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/tests/cso-sentinel-workspace.test.md",
+      "description": "Behavioral test for cso-sentinel-workspace (skill)."
+    },
+    {
+      "id": "test:cso-soar-playbook",
+      "type": "test",
+      "label": "cso-soar-playbook.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-soar-playbook/tests/cso-soar-playbook.test.md",
+      "description": "Behavioral test for cso-soar-playbook (skill)."
+    },
+    {
+      "id": "test:cso-threat-intel-integration",
+      "type": "test",
+      "label": "cso-threat-intel-integration.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/tests/cso-threat-intel-integration.test.md",
+      "description": "Behavioral test for cso-threat-intel-integration (skill)."
+    },
+    {
+      "id": "test:github-copilot",
+      "type": "test",
+      "label": "github-copilot.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/tests/github-copilot.test.md",
+      "description": "Behavioral test for github-copilot (track)."
+    },
+    {
+      "id": "test:ghc-chat-driven-debugging",
+      "type": "test",
+      "label": "ghc-chat-driven-debugging.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-chat-driven-debugging/tests/ghc-chat-driven-debugging.test.md",
+      "description": "Behavioral test for ghc-chat-driven-debugging (skill)."
+    },
+    {
+      "id": "test:ghc-code-review-with-copilot",
+      "type": "test",
+      "label": "ghc-code-review-with-copilot.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-code-review-with-copilot/tests/ghc-code-review-with-copilot.test.md",
+      "description": "Behavioral test for ghc-code-review-with-copilot (skill)."
+    },
+    {
+      "id": "test:ghc-copilot-foundations",
+      "type": "test",
+      "label": "ghc-copilot-foundations.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-copilot-foundations/tests/ghc-copilot-foundations.test.md",
+      "description": "Behavioral test for ghc-copilot-foundations (skill)."
+    },
+    {
+      "id": "test:ghc-custom-agents",
+      "type": "test",
+      "label": "ghc-custom-agents.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-custom-agents/tests/ghc-custom-agents.test.md",
+      "description": "Behavioral test for ghc-custom-agents (skill)."
+    },
+    {
+      "id": "test:ghc-custom-instructions",
+      "type": "test",
+      "label": "ghc-custom-instructions.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-custom-instructions/tests/ghc-custom-instructions.test.md",
+      "description": "Behavioral test for ghc-custom-instructions (skill)."
+    },
+    {
+      "id": "test:ghc-mcp-tools-integration",
+      "type": "test",
+      "label": "ghc-mcp-tools-integration.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-mcp-tools-integration/tests/ghc-mcp-tools-integration.test.md",
+      "description": "Behavioral test for ghc-mcp-tools-integration (skill)."
+    },
+    {
+      "id": "test:ghc-prompt-files",
+      "type": "test",
+      "label": "ghc-prompt-files.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-prompt-files/tests/ghc-prompt-files.test.md",
+      "description": "Behavioral test for ghc-prompt-files (skill)."
+    },
+    {
+      "id": "test:ghc-prompting-for-completions",
+      "type": "test",
+      "label": "ghc-prompting-for-completions.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-prompting-for-completions/tests/ghc-prompting-for-completions.test.md",
+      "description": "Behavioral test for ghc-prompting-for-completions (skill)."
+    },
+    {
+      "id": "test:ghc-test-generation",
+      "type": "test",
+      "label": "ghc-test-generation.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/github-copilot/ghc-test-generation/tests/ghc-test-generation.test.md",
+      "description": "Behavioral test for ghc-test-generation (skill)."
+    },
+    {
+      "id": "test:server-cloud-admin",
+      "type": "test",
+      "label": "server-cloud-admin.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/tests/server-cloud-admin.test.md",
+      "description": "Behavioral test for server-cloud-admin (track)."
+    },
+    {
+      "id": "test:sca-ad-and-gpo",
+      "type": "test",
+      "label": "sca-ad-and-gpo.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/tests/sca-ad-and-gpo.test.md",
+      "description": "Behavioral test for sca-ad-and-gpo (skill)."
+    },
+    {
+      "id": "test:sca-arm-bicep-iac",
+      "type": "test",
+      "label": "sca-arm-bicep-iac.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/tests/sca-arm-bicep-iac.test.md",
+      "description": "Behavioral test for sca-arm-bicep-iac (skill)."
+    },
+    {
+      "id": "test:sca-azure-vnet-vm",
+      "type": "test",
+      "label": "sca-azure-vnet-vm.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/tests/sca-azure-vnet-vm.test.md",
+      "description": "Behavioral test for sca-azure-vnet-vm (skill)."
+    },
+    {
+      "id": "test:sca-entra-hybrid-identity",
+      "type": "test",
+      "label": "sca-entra-hybrid-identity.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/tests/sca-entra-hybrid-identity.test.md",
+      "description": "Behavioral test for sca-entra-hybrid-identity (skill)."
+    },
+    {
+      "id": "test:sca-local-system-admin",
+      "type": "test",
+      "label": "sca-local-system-admin.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-local-system-admin/tests/sca-local-system-admin.test.md",
+      "description": "Behavioral test for sca-local-system-admin (skill)."
+    },
+    {
+      "id": "test:sca-monitoring",
+      "type": "test",
+      "label": "sca-monitoring.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-monitoring/tests/sca-monitoring.test.md",
+      "description": "Behavioral test for sca-monitoring (skill)."
+    },
+    {
+      "id": "test:sca-powershell-foundations",
+      "type": "test",
+      "label": "sca-powershell-foundations.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-powershell-foundations/tests/sca-powershell-foundations.test.md",
+      "description": "Behavioral test for sca-powershell-foundations (skill)."
+    },
+    {
+      "id": "test:sca-server-vm-setup",
+      "type": "test",
+      "label": "sca-server-vm-setup.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-server-vm-setup/tests/sca-server-vm-setup.test.md",
+      "description": "Behavioral test for sca-server-vm-setup (skill)."
+    },
+    {
+      "id": "test:sca-storage-and-backup",
+      "type": "test",
+      "label": "sca-storage-and-backup.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/server-cloud-admin/sca-storage-and-backup/tests/sca-storage-and-backup.test.md",
+      "description": "Behavioral test for sca-storage-and-backup (skill)."
+    },
+    {
+      "id": "test:whiteboarding",
+      "type": "test",
+      "label": "whiteboarding.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/tests/whiteboarding.test.md",
+      "description": "Behavioral test for whiteboarding (track)."
+    },
+    {
+      "id": "test:wbd-box-and-arrow-diagrams",
+      "type": "test",
+      "label": "wbd-box-and-arrow-diagrams.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/tests/wbd-box-and-arrow-diagrams.test.md",
+      "description": "Behavioral test for wbd-box-and-arrow-diagrams (skill)."
+    },
+    {
+      "id": "test:wbd-capstone-present-a-system",
+      "type": "test",
+      "label": "wbd-capstone-present-a-system.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/tests/wbd-capstone-present-a-system.test.md",
+      "description": "Behavioral test for wbd-capstone-present-a-system (skill)."
+    },
+    {
+      "id": "test:wbd-drawio-for-polished-diagrams",
+      "type": "test",
+      "label": "wbd-drawio-for-polished-diagrams.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/tests/wbd-drawio-for-polished-diagrams.test.md",
+      "description": "Behavioral test for wbd-drawio-for-polished-diagrams (skill)."
+    },
+    {
+      "id": "test:wbd-entity-relationship-diagrams",
+      "type": "test",
+      "label": "wbd-entity-relationship-diagrams.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/tests/wbd-entity-relationship-diagrams.test.md",
+      "description": "Behavioral test for wbd-entity-relationship-diagrams (skill)."
+    },
+    {
+      "id": "test:wbd-mermaid-as-code",
+      "type": "test",
+      "label": "wbd-mermaid-as-code.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-mermaid-as-code/tests/wbd-mermaid-as-code.test.md",
+      "description": "Behavioral test for wbd-mermaid-as-code (skill)."
+    },
+    {
+      "id": "test:wbd-sequence-diagrams",
+      "type": "test",
+      "label": "wbd-sequence-diagrams.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-sequence-diagrams/tests/wbd-sequence-diagrams.test.md",
+      "description": "Behavioral test for wbd-sequence-diagrams (skill)."
+    },
+    {
+      "id": "test:wbd-state-machines-and-flowcharts",
+      "type": "test",
+      "label": "wbd-state-machines-and-flowcharts.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/tests/wbd-state-machines-and-flowcharts.test.md",
+      "description": "Behavioral test for wbd-state-machines-and-flowcharts (skill)."
+    },
+    {
+      "id": "test:wbd-system-design-interview",
+      "type": "test",
+      "label": "wbd-system-design-interview.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-system-design-interview/tests/wbd-system-design-interview.test.md",
+      "description": "Behavioral test for wbd-system-design-interview (skill)."
+    },
+    {
+      "id": "test:wbd-whiteboard-foundations",
+      "type": "test",
+      "label": "wbd-whiteboard-foundations.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/tests/wbd-whiteboard-foundations.test.md",
+      "description": "Behavioral test for wbd-whiteboard-foundations (skill)."
+    },
+    {
+      "id": "test:whiteboard",
+      "type": "test",
+      "label": "whiteboard.test.md",
+      "cluster": "validation-layer",
+      "file": ".github/skills/methods/whiteboard/tests/whiteboard.test.md",
+      "description": "Behavioral test for whiteboard (method)."
+    },
+    {
+      "id": "cli-tool:test-runner",
+      "type": "cli-tool",
+      "label": "test-runner.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/session/test-runner.ps1",
       "description": "CLI script from knowledge-graph tooling."
     }
   ],
@@ -5098,6 +5588,228 @@
   "edges": [
     {
       "source": "agent:mentor",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment — agent anchor"
+    },
+    {
+      "source": "core-behavior:execute-directly",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "core-behavior:stay-conversational",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "core-behavior:keyboard-discipline",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "core-behavior:humor-serves-mission",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:01-identify-learner",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:02-open-with-intent",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:03-honor-intent",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:04-altitude-one-move",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:05-name-concept",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:06-keep-at-keyboard",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:07-connect-mental-models",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:08-aar-at-milestones",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:09-track-and-adapt",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:10-full-pedagogy",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:11-ask-as-clickable",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:12-discovery-trace",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:13-stub-completion",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:14-no-unprompted-audits",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:16-recall-check-at-open",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:17-callback-prior-concept",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:18-log-mistake",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:19-mint-analogy-on-demand",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:20-mistake-intervention",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:21-elicit-goal",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:22-goal-aware-session-pick",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:23-goal-progress-at-aar",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:24-pre-teach-quiz",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:25-reappearance-quiz",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:26-cadence-quiz",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:27-csharp-default-mentee",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:28-teaching-loop",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:29-build-session-setup",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:30-handheld-beginner",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:31-comment-for-learner",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "behavior:32-edit-setting-on-request",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment"
+    },
+    {
+      "source": "agent:mentor",
       "target": "core-behavior:execute-directly",
       "type": "embodies"
     },
@@ -5188,6 +5900,30 @@
       "source": "agent:mentor",
       "target": "personality:instructor-buddy",
       "type": "embodies"
+    },
+    {
+      "source": "personality:instructor-buddy",
+      "target": "purpose:mentor",
+      "type": "serves",
+      "evidence": "2026-06-03 purpose-experiment — persona anchor"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "rule:dynamic-skill-loading",
+      "type": "follows",
+      "evidence": "2026-06-03 purpose-experiment — rule description: 'extension pre-loads essentials, agent loads via Get-AgentLoadList -SkipEssentials'"
+    },
+    {
+      "source": "behavior:15-track-concept-proficiency",
+      "target": "rule:proficiency-derived-from-quiz-history",
+      "type": "enforces",
+      "evidence": "2026-06-03 purpose-experiment — rule description names behavior:15 as the enforcer ('behavior:15-track-concept-proficiency at every AAR MUST recompute tier')"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "rule:events-are-source-of-truth",
+      "type": "follows",
+      "evidence": "2026-06-03 purpose-experiment — Mentor.agent.md L90: 'The event log (field:profile.events) is the only source of truth for what happened in a session'"
     },
     {
       "source": "personality:instructor-buddy",
@@ -7095,6 +7831,11 @@
       "target": "agent:mentor"
     },
     {
+      "source": "file:mentee-questions",
+      "type": "documents",
+      "target": "agent:mentor"
+    },
+    {
       "source": "file:readme",
       "target": "file:mentor-directory",
       "type": "references"
@@ -7647,100 +8388,16 @@
       "label": "uses tool"
     },
     {
-      "source": "cli-tool:analyze-agent-size",
-      "target": "code-file:.github/knowledge-graph/cli/analyze-agent-size.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:audit-quality",
-      "target": "code-file:.github/knowledge-graph/cli/audit-quality.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:check-skill-exists",
-      "target": "code-file:.github/knowledge-graph/cli/check-skill-exists.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:enforce-method",
-      "target": "code-file:.github/knowledge-graph/cli/enforce-method.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:enforce-track",
-      "target": "code-file:.github/knowledge-graph/cli/enforce-track.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:find-drift",
-      "target": "code-file:.github/knowledge-graph/cli/find-drift.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:get-behavior",
-      "target": "code-file:.github/knowledge-graph/cli/get-behavior.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:query-node",
-      "target": "code-file:.github/knowledge-graph/cli/query-node.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:recommend-next-skills",
-      "target": "code-file:.github/knowledge-graph/cli/recommend-next-skills.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:session-protocol",
-      "target": "code-file:.github/knowledge-graph/cli/session-protocol.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:show-progress",
-      "target": "code-file:.github/knowledge-graph/cli/show-progress.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:show-skill-impact",
-      "target": "code-file:.github/knowledge-graph/cli/show-skill-impact.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "agent:mentor",
       "target": "cli-tool:_triage-drift",
       "type": "uses",
       "label": "uses tool"
     },
     {
-      "source": "cli-tool:_triage-drift",
-      "target": "code-file:.github/knowledge-graph/cli/_triage-drift.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "agent:mentor",
       "target": "cli-tool:mentor",
       "type": "uses",
       "label": "uses tool"
-    },
-    {
-      "source": "cli-tool:mentor",
-      "target": "code-file:.github/knowledge-graph/cli/mentor.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "agent:mentor",
@@ -7824,12 +8481,6 @@
       "label": "uses tool"
     },
     {
-      "source": "cli-tool:find-orphan-markdown",
-      "target": "code-file:.github/knowledge-graph/cli/find-orphan-markdown.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "test:tdd-red-phase",
       "target": "tdd:phase-red",
       "type": "tests"
@@ -7881,12 +8532,6 @@
       "label": "uses tool"
     },
     {
-      "source": "cli-tool:find-missing-files",
-      "target": "code-file:.github/knowledge-graph/cli/find-missing-files.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "session:2026-06-01-graph-driven-setup",
       "target": "decision:2026-06-01-phase-c-agent-conformance-deferred",
       "type": "has_decision"
@@ -7896,12 +8541,6 @@
       "target": "cli-tool:test-load-list",
       "type": "uses",
       "label": "uses tool"
-    },
-    {
-      "source": "cli-tool:test-load-list",
-      "target": "code-file:.github/knowledge-graph/cli/test-load-list.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "session:2026-06-01-graph-driven-setup",
@@ -7945,24 +8584,6 @@
     },
     {
       "source": "module:graph-writer",
-      "target": "code-file:.github/knowledge-graph/cli/lib/graph-writer.psm1",
-      "type": "related_to",
-      "description": "Module's source file."
-    },
-    {
-      "source": "module:scaffold",
-      "target": "code-file:.github/knowledge-graph/cli/lib/scaffold.psm1",
-      "type": "related_to",
-      "description": "Module's source file."
-    },
-    {
-      "source": "module:agent-sync",
-      "target": "code-file:.github/knowledge-graph/cli/lib/agent-sync.psm1",
-      "type": "related_to",
-      "description": "Module's source file."
-    },
-    {
-      "source": "module:graph-writer",
       "target": "test:graph-writer",
       "type": "tested_by"
     },
@@ -7978,7 +8599,7 @@
     },
     {
       "source": "cli-tool:test-load-list",
-      "target": "code-file:.github/knowledge-graph/cli/test-load-list.goldens.json",
+      "target": "code-file:.github/knowledge-graph/cli/validate/test-load-list.goldens.json",
       "type": "uses",
       "description": "Pinned golden baselines for Get-AgentLoadList."
     },
@@ -8269,12 +8890,6 @@
       "label": "extends agent"
     },
     {
-      "source": "cli-tool:_mentor-gaps2",
-      "target": "code-file:.github/knowledge-graph/cli/_mentor-gaps2.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "extension:mssa-mentor",
       "target": "code-file:extensions/mssa-mentor/package.json",
       "type": "contains",
@@ -8429,24 +9044,6 @@
       "target": "decision:feedback-loops",
       "type": "informs",
       "label": "produces signals tracked by matrix"
-    },
-    {
-      "source": "decision:v1-build-plan",
-      "target": "code-file:docs/design/v1-build-plan.md",
-      "type": "documented_in",
-      "label": "documented in"
-    },
-    {
-      "source": "decision:v1-distribution-and-scaffolding",
-      "target": "code-file:docs/design/v1-distribution-and-scaffolding.md",
-      "type": "documented_in",
-      "label": "documented in"
-    },
-    {
-      "source": "decision:feedback-loops",
-      "target": "code-file:docs/design/feedback-loops.md",
-      "type": "documented_in",
-      "label": "documented in"
     },
     {
       "source": "extension:mssa-mentor",
@@ -8917,22 +9514,10 @@
       "label": "promotes minted concepts"
     },
     {
-      "source": "cli-tool:propose-concept",
-      "target": "code-file:.github/knowledge-graph/cli/propose-concept.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "agent:mentor",
       "target": "cli-tool:preflight",
       "type": "uses",
       "label": "uses tool"
-    },
-    {
-      "source": "cli-tool:preflight",
-      "target": "code-file:.github/knowledge-graph/cli/preflight.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "cli-tool:preflight",
@@ -8987,12 +9572,6 @@
       "target": "data:analogy-registry",
       "type": "reads_from",
       "label": "lookup canonical analogy-id"
-    },
-    {
-      "source": "cli-tool:propose-analogy",
-      "target": "code-file:.github/knowledge-graph/cli/propose-analogy.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "agent:mentor",
@@ -9101,12 +9680,6 @@
       "target": "reference:graph-authoring-conventions",
       "type": "documented_in",
       "label": "conventions documented in"
-    },
-    {
-      "source": "cli-tool:propose-mistake",
-      "target": "code-file:.github/knowledge-graph/cli/propose-mistake.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "field:profile.recurring_mistakes",
@@ -9251,12 +9824,6 @@
       "target": "field:profile.goals.progress",
       "type": "has_field",
       "label": "sub-field"
-    },
-    {
-      "source": "cli-tool:validate-goal",
-      "target": "code-file:.github/knowledge-graph/cli/validate-goal.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "agent:mentor",
@@ -9705,12 +10272,6 @@
       "label": "uses tool"
     },
     {
-      "source": "cli-tool:append-session-plan",
-      "target": "code-file:.github/knowledge-graph/cli/append-session-plan.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "protocol:verify-build-settings",
       "target": "phase:planning",
       "type": "next",
@@ -9745,18 +10306,6 @@
       "target": "cli-tool:set-session-setting",
       "type": "uses",
       "label": "uses tool"
-    },
-    {
-      "source": "cli-tool:show-profile",
-      "target": "code-file:.github/knowledge-graph/cli/show-profile.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:set-session-setting",
-      "target": "code-file:.github/knowledge-graph/cli/set-session-setting.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "cli-tool:show-profile",
@@ -9877,12 +10426,6 @@
       "target": "picker:beat-why-this-matters",
       "type": "uses",
       "label": "renders clickable beat prompt"
-    },
-    {
-      "source": "agent:mentor",
-      "target": "audience:adult-pro",
-      "type": "references",
-      "label": "audience baseline"
     },
     {
       "source": "skill:knowledge-graph-management",
@@ -10029,90 +10572,6 @@
       "label": "method core concept"
     },
     {
-      "source": "skill:ride-along",
-      "target": "ride-along:contract",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:1-open",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:2-build-move",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:3-stuck",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:4-aar",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:5-close",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:altitude-table",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:hard-rules",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:analogy-bank",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:ride-along",
-      "target": "ride-along:break-method-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:intent",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:context-use-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:context-avoid-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:cycle",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
       "source": "skill:tdd",
       "target": "tdd:phase-red",
       "type": "references",
@@ -10127,72 +10586,6 @@
     {
       "source": "skill:tdd",
       "target": "tdd:phase-refactor",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:anti-implementation-first",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:anti-multi-behavior",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:anti-skip-red",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:anti-refactor-during-green",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:anti-no-test-after-refactor",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:anti-give-up-1-cycle",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:tdd",
-      "target": "tdd:success-looks-like",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:intent",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:context-use-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:context-avoid-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:cycle",
       "type": "references",
       "label": "method internal node"
     },
@@ -10221,66 +10614,6 @@
       "label": "method internal node"
     },
     {
-      "source": "skill:bdd",
-      "target": "bdd:anti-code-before-scenario",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:anti-tech-jargon",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:anti-implementation-tests",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:anti-out-of-sync",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:anti-features-no-scenario",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:bdd",
-      "target": "bdd:anti-skip-validate",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:intent",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:context-use-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:context-avoid-when",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:cycle",
-      "type": "references",
-      "label": "method internal node"
-    },
-    {
       "source": "skill:spike",
       "target": "spike:phase-spike",
       "type": "references",
@@ -10303,54 +10636,6 @@
       "target": "spike:phase-rebuild-refactor",
       "type": "references",
       "label": "method internal node"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:rule-time-box",
-      "type": "references",
-      "label": "method rule"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:rule-permission-messy",
-      "type": "references",
-      "label": "method rule"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:anti-tests-during-spike",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:anti-refactor-during-spike",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:anti-ship-spike",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:anti-no-question",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:anti-hours-long",
-      "type": "references",
-      "label": "method anti-pattern"
-    },
-    {
-      "source": "skill:spike",
-      "target": "spike:anti-no-doc-lessons",
-      "type": "references",
-      "label": "method anti-pattern"
     },
     {
       "source": "agent:mentor",
@@ -10407,12 +10692,6 @@
       "label": "Phase 1 lays foundation (events: [] init in scaffold)"
     },
     {
-      "source": "decision:event-log-cutover",
-      "target": "code-file:docs/design/event-log-design.md",
-      "type": "documented_in",
-      "label": "documented in"
-    },
-    {
       "source": "decision:feedback-loops",
       "target": "decision:event-log-cutover",
       "type": "informs",
@@ -10437,22 +10716,10 @@
       "label": "atomic append (sole writer)"
     },
     {
-      "source": "cli-tool:append-event",
-      "target": "code-file:.github/knowledge-graph/cli/append-event.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
       "source": "cli-tool:derive-views",
       "target": "field:profile.events",
       "type": "reads",
       "label": "pure function (no write-back)"
-    },
-    {
-      "source": "cli-tool:derive-views",
-      "target": "code-file:.github/knowledge-graph/cli/derive-views.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "cli-tool:close-session",
@@ -10465,12 +10732,6 @@
       "target": "cli-tool:append-event",
       "type": "uses",
       "label": "emits session_ended on pass"
-    },
-    {
-      "source": "cli-tool:close-session",
-      "target": "code-file:.github/knowledge-graph/cli/close-session.ps1",
-      "type": "defined_in",
-      "label": "defined in"
     },
     {
       "source": "cli-tool:migrate-profile-to-events",
@@ -10527,14 +10788,492 @@
       "label": "uses tool"
     },
     {
-      "source": "cli-tool:validate-events",
-      "target": "code-file:.github/knowledge-graph/cli/validate-events.ps1",
+      "source": "agent:mentor",
+      "target": "cli-tool:kg",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:kg",
+      "target": "code-file:.github/knowledge-graph/cli/kg.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:_mentor-gaps2",
+      "target": "code-file:.github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:_triage-drift",
+      "target": "code-file:.github/knowledge-graph/cli/archive/_triage-drift.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:audit-quality",
+      "target": "code-file:.github/knowledge-graph/cli/audit/audit-quality.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:find-drift",
+      "target": "code-file:.github/knowledge-graph/cli/audit/find-drift.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:find-missing-files",
+      "target": "code-file:.github/knowledge-graph/cli/audit/find-missing-files.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:find-orphan-markdown",
+      "target": "code-file:.github/knowledge-graph/cli/audit/find-orphan-markdown.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:check-skill-exists",
+      "target": "code-file:.github/knowledge-graph/cli/authoring/check-skill-exists.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:mentor",
+      "target": "code-file:.github/knowledge-graph/cli/authoring/mentor.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:propose-analogy",
+      "target": "code-file:.github/knowledge-graph/cli/authoring/propose-analogy.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:propose-concept",
+      "target": "code-file:.github/knowledge-graph/cli/authoring/propose-concept.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:propose-mistake",
+      "target": "code-file:.github/knowledge-graph/cli/authoring/propose-mistake.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:analyze-agent-size",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/analyze-agent-size.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:get-behavior",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/get-behavior.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:query-node",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/query-node.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:recommend-next-skills",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/recommend-next-skills.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-profile",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/show-profile.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-progress",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/show-progress.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-skill-impact",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/show-skill-impact.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:append-event",
+      "target": "code-file:.github/knowledge-graph/cli/session/append-event.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:append-session-plan",
+      "target": "code-file:.github/knowledge-graph/cli/session/append-session-plan.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:close-session",
+      "target": "code-file:.github/knowledge-graph/cli/session/close-session.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:derive-views",
+      "target": "code-file:.github/knowledge-graph/cli/session/derive-views.ps1",
       "type": "defined_in",
       "label": "defined in"
     },
     {
       "source": "cli-tool:migrate-profile-to-events",
-      "target": "code-file:.github/knowledge-graph/cli/migrate-profile-to-events.ps1",
+      "target": "code-file:.github/knowledge-graph/cli/session/migrate-profile-to-events.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:session-protocol",
+      "target": "code-file:.github/knowledge-graph/cli/session/session-protocol.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:set-session-setting",
+      "target": "code-file:.github/knowledge-graph/cli/session/set-session-setting.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:enforce-method",
+      "target": "code-file:.github/knowledge-graph/cli/validate/enforce-method.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:enforce-track",
+      "target": "code-file:.github/knowledge-graph/cli/validate/enforce-track.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:preflight",
+      "target": "code-file:.github/knowledge-graph/cli/validate/preflight.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:test-load-list",
+      "target": "code-file:.github/knowledge-graph/cli/validate/test-load-list.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:validate-events",
+      "target": "code-file:.github/knowledge-graph/cli/validate/validate-events.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:validate-goal",
+      "target": "code-file:.github/knowledge-graph/cli/validate/validate-goal.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "test:ride-along",
+      "target": "skill:ride-along",
+      "type": "tests"
+    },
+    {
+      "source": "test:tdd",
+      "target": "skill:tdd",
+      "type": "tests"
+    },
+    {
+      "source": "test:bdd",
+      "target": "skill:bdd",
+      "type": "tests"
+    },
+    {
+      "source": "test:spike",
+      "target": "skill:spike",
+      "type": "tests"
+    },
+    {
+      "source": "test:knowledge-graph-management",
+      "target": "skill:knowledge-graph-management",
+      "type": "tests"
+    },
+    {
+      "source": "test:cloud-app-dev",
+      "target": "track:cloud-app-dev",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-blob-uploader",
+      "target": "skill:cad-blob-uploader",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-cicd-pipeline",
+      "target": "skill:cad-cicd-pipeline",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-deploy-app-service",
+      "target": "skill:cad-deploy-app-service",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-function-queue-trigger",
+      "target": "skill:cad-function-queue-trigger",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-hello-console",
+      "target": "skill:cad-hello-console",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-todo-api",
+      "target": "skill:cad-todo-api",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-todo-api-auth",
+      "target": "skill:cad-todo-api-auth",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-todo-api-ef",
+      "target": "skill:cad-todo-api-ef",
+      "type": "tests"
+    },
+    {
+      "source": "test:cad-todo-cli",
+      "target": "skill:cad-todo-cli",
+      "type": "tests"
+    },
+    {
+      "source": "test:cybersecurity-ops",
+      "target": "track:cybersecurity-ops",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-defender-endpoint-onboard",
+      "target": "skill:cso-defender-endpoint-onboard",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-detection-rule",
+      "target": "skill:cso-detection-rule",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-entra-identity-hardening",
+      "target": "skill:cso-entra-identity-hardening",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-hunting-query",
+      "target": "skill:cso-hunting-query",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-incident-investigation",
+      "target": "skill:cso-incident-investigation",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-kql-foundations",
+      "target": "skill:cso-kql-foundations",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-sentinel-workspace",
+      "target": "skill:cso-sentinel-workspace",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-soar-playbook",
+      "target": "skill:cso-soar-playbook",
+      "type": "tests"
+    },
+    {
+      "source": "test:cso-threat-intel-integration",
+      "target": "skill:cso-threat-intel-integration",
+      "type": "tests"
+    },
+    {
+      "source": "test:github-copilot",
+      "target": "track:github-copilot",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-chat-driven-debugging",
+      "target": "skill:ghc-chat-driven-debugging",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-code-review-with-copilot",
+      "target": "skill:ghc-code-review-with-copilot",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-copilot-foundations",
+      "target": "skill:ghc-copilot-foundations",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-custom-agents",
+      "target": "skill:ghc-custom-agents",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-custom-instructions",
+      "target": "skill:ghc-custom-instructions",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-mcp-tools-integration",
+      "target": "skill:ghc-mcp-tools-integration",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-prompt-files",
+      "target": "skill:ghc-prompt-files",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-prompting-for-completions",
+      "target": "skill:ghc-prompting-for-completions",
+      "type": "tests"
+    },
+    {
+      "source": "test:ghc-test-generation",
+      "target": "skill:ghc-test-generation",
+      "type": "tests"
+    },
+    {
+      "source": "test:server-cloud-admin",
+      "target": "track:server-cloud-admin",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-ad-and-gpo",
+      "target": "skill:sca-ad-and-gpo",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-arm-bicep-iac",
+      "target": "skill:sca-arm-bicep-iac",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-azure-vnet-vm",
+      "target": "skill:sca-azure-vnet-vm",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-entra-hybrid-identity",
+      "target": "skill:sca-entra-hybrid-identity",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-local-system-admin",
+      "target": "skill:sca-local-system-admin",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-monitoring",
+      "target": "skill:sca-monitoring",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-powershell-foundations",
+      "target": "skill:sca-powershell-foundations",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-server-vm-setup",
+      "target": "skill:sca-server-vm-setup",
+      "type": "tests"
+    },
+    {
+      "source": "test:sca-storage-and-backup",
+      "target": "skill:sca-storage-and-backup",
+      "type": "tests"
+    },
+    {
+      "source": "test:whiteboarding",
+      "target": "track:whiteboarding",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-box-and-arrow-diagrams",
+      "target": "skill:wbd-box-and-arrow-diagrams",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-capstone-present-a-system",
+      "target": "skill:wbd-capstone-present-a-system",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-drawio-for-polished-diagrams",
+      "target": "skill:wbd-drawio-for-polished-diagrams",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-entity-relationship-diagrams",
+      "target": "skill:wbd-entity-relationship-diagrams",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-mermaid-as-code",
+      "target": "skill:wbd-mermaid-as-code",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-sequence-diagrams",
+      "target": "skill:wbd-sequence-diagrams",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-state-machines-and-flowcharts",
+      "target": "skill:wbd-state-machines-and-flowcharts",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-system-design-interview",
+      "target": "skill:wbd-system-design-interview",
+      "type": "tests"
+    },
+    {
+      "source": "test:wbd-whiteboard-foundations",
+      "target": "skill:wbd-whiteboard-foundations",
+      "type": "tests"
+    },
+    {
+      "source": "test:whiteboard",
+      "target": "method:whiteboard",
+      "type": "tests"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:test-runner",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:test-runner",
+      "target": "code-file:.github/knowledge-graph/cli/session/test-runner.ps1",
       "type": "defined_in",
       "label": "defined in"
     }

@@ -326,7 +326,7 @@ try {
 #     - Path drift (ADVISORY):       documented paths should resolve to real files
 Write-Header "🧭 Graph-first authoring checks..."
 try {
-    $orphanScript = Join-Path $graphDir 'cli' 'find-orphan-markdown.ps1'
+    $orphanScript = Join-Path $graphDir 'cli' 'audit' 'find-orphan-markdown.ps1'
     $orphanOutput = & pwsh -NoProfile -File $orphanScript -Quiet 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Orphan markdown files found (graph-first violation)"
@@ -347,7 +347,7 @@ try {
 }
 
 try {
-    $missingScript = Join-Path $graphDir 'cli' 'find-missing-files.ps1'
+    $missingScript = Join-Path $graphDir 'cli' 'audit' 'find-missing-files.ps1'
     $missingOutput = & pwsh -NoProfile -File $missingScript -Quiet 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Graph nodes reference missing files on disk (graph integrity violation)"
@@ -368,7 +368,7 @@ try {
 }
 
 try {
-    $loadListScript = Join-Path $graphDir 'cli' 'test-load-list.ps1'
+    $loadListScript = Join-Path $graphDir 'cli' 'validate' 'test-load-list.ps1'
     $loadListOutput = & pwsh -NoProfile -File $loadListScript -Quiet 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Get-AgentLoadList golden tests failed (load-list regression)"
@@ -376,7 +376,7 @@ try {
         & pwsh -NoProfile -File $loadListScript 2>&1 | Write-Host
         Write-Host ""
         Write-Host "Phase 4 rule: pinned (intent, method, track) -> load list mappings must not change silently." -ForegroundColor Yellow
-        Write-Host "If the change is intentional: pwsh .github/knowledge-graph/cli/test-load-list.ps1 -UpdateBaseline" -ForegroundColor Yellow
+        Write-Host "If the change is intentional: pwsh .github/knowledge-graph/cli/validate/test-load-list.ps1 -UpdateBaseline" -ForegroundColor Yellow
         Write-Host ""
         Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
         exit 1
@@ -389,7 +389,7 @@ try {
 }
 
 try {
-    $driftScript = Join-Path $graphDir 'cli' 'find-drift.ps1'
+    $driftScript = Join-Path $graphDir 'cli' 'audit' 'find-drift.ps1'
     $driftOutput = & pwsh -NoProfile -File $driftScript -Quiet 2>&1 | Out-String
     if ($LASTEXITCODE -ne 0) {
         if ($driftOutput -match 'Drift findings:\s*(\d+)') {
@@ -410,6 +410,41 @@ try {
 } catch {
     Write-Error "Drift check encountered an error: $_"
     exit 1
+}
+
+# Step 5d: Purpose-linkage advisory (WARN ONLY — never blocks commit).
+#   decision:2026-06-03-purpose-experiment
+#   Rule of thumb: every rule/behavior/skill should eventually trace to a purpose:* node
+#   via outgoing edges. We don't block commits because the heuristic is fuzzy and
+#   blocking would be hated within a week. But we DO surface the gap on every commit
+#   that touches mentor-graph.json so the picture stays visible.
+$graphJsonStaged = $stagedFiles | Where-Object { $_ -like '*mentor-graph.json' -or $_ -like '*code-graph.json' }
+if ($graphJsonStaged) {
+    Write-Header "🎯 Purpose-linkage advisory (warn-only)..."
+    try {
+        $purposeOutput = & pwsh -NoProfile -Command "Import-Module '$graphDir/lib/query.psm1' -Force; `$r = Get-PurposeLinkageReport; Write-Host (`"PURPOSE_LINKAGE: linked=`$(`$r.linked_count) unlinked=`$(`$r.unlinked_count) checked=`$(`$r.checked_count) purposes=`$(`$r.purpose_count)`")" 2>&1 | Out-String
+        if ($purposeOutput -match 'PURPOSE_LINKAGE: linked=(\d+) unlinked=(\d+) checked=(\d+) purposes=(\d+)') {
+            $linked = [int]$matches[1]
+            $unlinked = [int]$matches[2]
+            $checked = [int]$matches[3]
+            $purposes = [int]$matches[4]
+            if ($purposes -eq 0) {
+                Write-Warning "No purpose:* node in the graph. Add one so rules/behaviors/skills can trace to it."
+            } elseif ($unlinked -gt 0) {
+                $pct = [math]::Round(100.0 * $linked / $checked, 1)
+                Write-Warning "Purpose linkage: $linked / $checked nodes reach purpose:* ($pct%). $unlinked unlinked."
+                Write-Host "  See: pwsh .github/knowledge-graph/cli/audit/audit-quality.ps1 -Category no-purpose" -ForegroundColor DarkGray
+                Write-Host "  Not blocking — heuristic. Fix at your own pace." -ForegroundColor DarkGray
+            } else {
+                Write-Success "Purpose linkage: $linked / $checked nodes reach purpose:* (100%)"
+            }
+        } else {
+            Write-Info "Purpose-linkage report produced no parseable summary (skipping advisory)"
+        }
+    } catch {
+        # NEVER block on advisory errors.
+        Write-Info "Purpose-linkage advisory skipped: $_"
+    }
 }
 
 # Step 6: Stage updated graph files (if any changed)

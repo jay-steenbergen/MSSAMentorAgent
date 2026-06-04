@@ -267,7 +267,7 @@ This run did not execute multi-session interactive method switching to confirm p
 
 ## Automation Opportunities
 
-**Validation script:** `.github/knowledge-graph/cli/validate-events.ps1`
+**Validation script:** `.github/knowledge-graph/cli/validate/validate-events.ps1`
 - Scans all progress files for `events[]` shape per rule:events-are-source-of-truth
 - Checks each event has valid ts (ISO-8601), type (in 10-event enum), session_id, project_id, data (null or object)
 - Verifies append-only ordering (ts ASC)

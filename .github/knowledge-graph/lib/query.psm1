@@ -353,7 +353,7 @@ function Get-GraphQualityReport {
     #>
     [CmdletBinding()]
     param(
-        [ValidateSet('all', 'orphans', 'dead-ends', 'broken-refs', 'no-description', 'unclustered', 'untested')]
+        [ValidateSet('all', 'orphans', 'dead-ends', 'broken-refs', 'no-description', 'unclustered', 'untested', 'no-purpose')]
         [string]$Category = 'all'
     )
     
@@ -461,6 +461,251 @@ function Get-GraphQualityReport {
     }
     
     return $report
+}
+
+function Get-PurposeLinkageReport {
+    <#
+    .SYNOPSIS
+        Purpose-linkage check: which nodes are load-bearing for purpose:* anchors?
+
+    .DESCRIPTION
+        decision:2026-06-03-purpose-experiment (Phase 1 algorithm fix).
+
+        Semantic question: "Does anything that serves the purpose depend on this node?"
+        Implementation: seed BFS at purpose:* and at every node that has a [serves]
+        edge to a purpose. Walk forward along CARRIER edges only. Any node reached is
+        purpose-linked.
+
+        Why this direction:
+          Skills, rules, antipatterns are CONSUMED by behaviors — they are targets of
+          dependency edges, not sources. The previous forward-from-candidate walk
+          could never reach purpose because the edges point the wrong way. Seeding
+          at the purpose-serving root and walking dependencies forward asks the
+          right question: "is this node reachable from something that serves the
+          mission?"
+
+        Edge classification (see Get-EdgeTaxonomy):
+          CARRIER  - composes, embodies, follows, implements, enforces, has_rule,
+                     uses, calls, runs, routes_to, avoids, ...  (purpose flows through)
+          NOISE    - references, related_to, documented_in, instance_of, ...
+                     (annotation; do not walk)
+          INVERSE  - implemented_by, defined_in, triggered_by, tested_by
+                     (walk target->source instead of source->target)
+
+        Output preserves the v1 contract (linked_count, unlinked_count, checked_count,
+        purpose_count, unlinked) so audit-quality.ps1 and the pre-commit advisory
+        keep working.
+    #>
+    [CmdletBinding()]
+    param()
+
+    $graph = Get-KnowledgeGraph
+    $taxonomy = Get-EdgeTaxonomy
+
+    $carriers = [System.Collections.Generic.HashSet[string]]::new([string[]]$taxonomy.carrier, [StringComparer]::OrdinalIgnoreCase)
+    $inverses = [System.Collections.Generic.HashSet[string]]::new([string[]]$taxonomy.inverse, [StringComparer]::OrdinalIgnoreCase)
+
+    # Forward adjacency built from CARRIER edges (source->target) and INVERSE edges (target->source).
+    $adj = @{}
+    foreach ($e in $graph.edges) {
+        $from = $null; $to = $null
+        if ($carriers.Contains($e.type)) { $from = $e.source; $to = $e.target }
+        elseif ($inverses.Contains($e.type)) { $from = $e.target; $to = $e.source }
+        else { continue }   # NOISE or UNCLASSIFIED — do not walk
+        if (-not $adj.ContainsKey($from)) { $adj[$from] = [System.Collections.Generic.List[string]]::new() }
+        [void]$adj[$from].Add($to)
+    }
+
+    # Seeds: every purpose:* node, plus anything that [serves] one.
+    # We treat the [serves] sources as already-linked roots so single-edge connections count.
+    $purposeIds = [System.Collections.Generic.HashSet[string]]::new()
+    foreach ($n in $graph.nodes) {
+        if ($n.id -like 'purpose:*') { [void]$purposeIds.Add($n.id) }
+    }
+
+    $reached = [System.Collections.Generic.HashSet[string]]::new()
+    $queue = [System.Collections.Generic.Queue[string]]::new()
+    foreach ($p in $purposeIds) { [void]$queue.Enqueue($p); [void]$reached.Add($p) }
+    foreach ($e in $graph.edges) {
+        if ($e.type -eq 'serves' -and $purposeIds.Contains($e.target)) {
+            if ($reached.Add($e.source)) { [void]$queue.Enqueue($e.source) }
+        }
+    }
+
+    # BFS forward along carrier-direction edges.
+    while ($queue.Count -gt 0) {
+        $cur = $queue.Dequeue()
+        if ($adj.ContainsKey($cur)) {
+            foreach ($next in $adj[$cur]) {
+                if ($reached.Add($next)) { [void]$queue.Enqueue($next) }
+            }
+        }
+    }
+
+    # Candidate set: any node that *should* be in service of the purpose.
+    # Same as v1: rule/principle/skill/method/track + behavior:* (which is type=rule).
+    $checkTypes = @('rule', 'principle', 'skill', 'method', 'track')
+    $checkNodes = $graph.nodes | Where-Object {
+        $_.type -in $checkTypes -or $_.id -like 'behavior:*'
+    }
+
+    $linked = [System.Collections.Generic.List[object]]::new()
+    $unlinked = [System.Collections.Generic.List[object]]::new()
+
+    foreach ($node in $checkNodes) {
+        if ($reached.Contains($node.id)) {
+            $linked.Add([PSCustomObject]@{ id = $node.id; type = $node.type; label = $node.label })
+        } else {
+            $unlinked.Add([PSCustomObject]@{ id = $node.id; type = $node.type; label = $node.label; file = $node.file })
+        }
+    }
+
+    return [PSCustomObject]@{
+        purpose_count    = $purposeIds.Count
+        checked_count    = $checkNodes.Count
+        linked_count     = $linked.Count
+        unlinked_count   = $unlinked.Count
+        linked_by_type   = $linked | Group-Object type | ForEach-Object { [PSCustomObject]@{ type = $_.Name; count = $_.Count } }
+        unlinked_by_type = $unlinked | Group-Object type | ForEach-Object { [PSCustomObject]@{ type = $_.Name; count = $_.Count } }
+        unlinked         = $unlinked
+        algorithm        = 'seed-from-purpose-walk-carriers-v2'
+    }
+}
+
+function Get-EdgeTaxonomy {
+    <#
+    .SYNOPSIS
+        Classify every edge type in the graph as CARRIER, INVERSE, NOISE, or UNCLASSIFIED.
+
+    .DESCRIPTION
+        Single source of truth for purpose-linkage AND the edge-quality health check.
+
+        CARRIER       Walk source->target. Dependency / composition / realization /
+                      flow-control. Represents "X is load-bearing for Y."
+
+        INVERSE       Walk target->source. Same semantics as a carrier but the edge
+                      type names the dependent rather than the dependency
+                      (e.g., implemented_by, defined_in).
+
+        NOISE         Annotation. Do not walk. Adds explanatory text to the graph
+                      but does not propagate purpose. Watch percentage — runaway
+                      growth here is a smell.
+
+        UNCLASSIFIED  Edge type appeared in the graph but is not in any list below.
+                      Surfaced by health.ps1 so we triage rather than silently
+                      ignoring new edges that might be semantically meaningful.
+
+        Returns a hashtable: @{ carrier=[]; inverse=[]; noise=[] }.
+    #>
+    [CmdletBinding()]
+    param()
+
+    return @{
+        carrier = @(
+            # composition / structure
+            'composes', 'embodies', 'follows', 'includes', 'offers',
+            'has_rule', 'has_style', 'has_field', 'has_phase', 'has_decision',
+            'has_experiment', 'has_fallback', 'has_escape_hatch',
+            'defines', 'enumerates', 'contains',
+            # realization / enforcement
+            'serves', 'implements', 'enforces', 'validates', 'tests', 'teaches',
+            'template_for', 'generates', 'creates', 'configures', 'operationalizes',
+            'realizes',
+            # dependency / data flow
+            'uses', 'calls', 'imports', 'invokes', 'runs', 'reads', 'reads_from',
+            'writes', 'writes_to', 'updates', 'loads', 'optionally_uses', 'feeds',
+            'depends_on',
+            # flow control
+            'next', 'routes_to', 'handles', 'escalates_to', 'delegates_to',
+            'triggers', 'progresses_to', 'starts_with', 'ends_with',
+            'fallback_to', 'concluded_with', 'appends_to',
+            # constraints (inverse-meaning carriers — the avoided thing is load-bearing
+            # precisely because the agent refuses it)
+            'forbids', 'avoids', 'prefers', 'constrained_by',
+            # adaptation
+            'adapts_via', 'extends', 'generalizes', 'complemented_by', 'governs',
+            # indicator
+            'indicates', 'uses_indicator', 'uses_signal',
+            # bridging / misc
+            'applies_to', 'targets', 'measures_by'
+        )
+        inverse = @(
+            'implemented_by',
+            'defined_in',
+            'triggered_by',
+            'tested_by',
+            'duplicated_in'
+        )
+        noise = @(
+            'references',
+            'related_to',
+            'documented_in',
+            'documents',
+            'instance_of',
+            'example_of',
+            'informs',
+            'duplicates',
+            'inverse_of',
+            'describes'
+        )
+    }
+}
+
+function Get-EdgeQualityReport {
+    <#
+    .SYNOPSIS
+        Audit edge types against the taxonomy. Surfaces unclassified types + noise ratio.
+
+    .DESCRIPTION
+        Counts every edge by classification. Returns counts and the unclassified
+        list so we never silently absorb a new edge type the codebase invents.
+
+        Health interpretation:
+          UNCLASSIFIED > 0       => triage required (extend Get-EdgeTaxonomy)
+          noise_ratio > 0.15     => annotation creep; review whether 'references'
+                                    is masking missing real edges
+          carrier_ratio < 0.50   => graph is mostly metadata; structural concern
+    #>
+    [CmdletBinding()]
+    param()
+
+    $graph = Get-KnowledgeGraph
+    $taxonomy = Get-EdgeTaxonomy
+
+    $carriers = [System.Collections.Generic.HashSet[string]]::new([string[]]$taxonomy.carrier, [StringComparer]::OrdinalIgnoreCase)
+    $inverses = [System.Collections.Generic.HashSet[string]]::new([string[]]$taxonomy.inverse, [StringComparer]::OrdinalIgnoreCase)
+    $noises   = [System.Collections.Generic.HashSet[string]]::new([string[]]$taxonomy.noise,   [StringComparer]::OrdinalIgnoreCase)
+
+    $byClass = @{ carrier = 0; inverse = 0; noise = 0; unclassified = 0 }
+    $unclassifiedTypes = @{}
+
+    foreach ($e in $graph.edges) {
+        if ($carriers.Contains($e.type))      { $byClass.carrier++ }
+        elseif ($inverses.Contains($e.type))  { $byClass.inverse++ }
+        elseif ($noises.Contains($e.type))    { $byClass.noise++ }
+        else {
+            $byClass.unclassified++
+            if (-not $unclassifiedTypes.ContainsKey($e.type)) { $unclassifiedTypes[$e.type] = 0 }
+            $unclassifiedTypes[$e.type]++
+        }
+    }
+
+    $total = [math]::Max(1, $graph.edges.Count)
+
+    return [PSCustomObject]@{
+        total_edges        = $graph.edges.Count
+        carrier_count      = $byClass.carrier
+        inverse_count      = $byClass.inverse
+        noise_count        = $byClass.noise
+        unclassified_count = $byClass.unclassified
+        carrier_ratio      = [math]::Round($byClass.carrier / $total, 4)
+        inverse_ratio      = [math]::Round($byClass.inverse / $total, 4)
+        noise_ratio        = [math]::Round($byClass.noise   / $total, 4)
+        unclassified_ratio = [math]::Round($byClass.unclassified / $total, 4)
+        unclassified_types = $unclassifiedTypes.GetEnumerator() | Sort-Object Value -Descending | ForEach-Object {
+            [PSCustomObject]@{ type = $_.Key; count = $_.Value }
+        }
+    }
 }
 
 function Get-SkillImpact {
@@ -1001,6 +1246,9 @@ Export-ModuleMember -Function @(
     'Format-SkillList'
     'Get-AgentLoadList'
     'Get-GraphQualityReport'
+    'Get-PurposeLinkageReport'
+    'Get-EdgeTaxonomy'
+    'Get-EdgeQualityReport'
     'Find-SimilarSkills'
     'Get-SkillImpact'
     'Get-SkillRecommendations'

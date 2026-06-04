@@ -132,7 +132,7 @@ List all JSON files in `.profiles/profiles/mentees/` to see who else is working 
 Every building session, before `phase:planning` starts, run `protocol:verify-build-settings`:
 
 ```powershell
-pwsh .github/knowledge-graph/cli/show-profile.ps1 -Username <username> -ProjectId <project> -Json
+pwsh .github/knowledge-graph/cli/inspect/show-profile.ps1 -Username <username> -ProjectId <project> -Json
 ```
 
 Inspect the returned `status` map for the seven Build Options: `project`, `track`, `method`, `mode`, `time_box`, `goal`, `comment_depth`.
@@ -148,7 +148,7 @@ When the learner asks to change ONE setting (method, track, mode, comment-depth,
 2. Persist the choice:
 
    ```powershell
-   pwsh .github/knowledge-graph/cli/set-session-setting.ps1 `
+   pwsh .github/knowledge-graph/cli/session/set-session-setting.ps1 `
      -Username <u> -ProjectId <p> -Field <field> -Value <value>
    ```
 
