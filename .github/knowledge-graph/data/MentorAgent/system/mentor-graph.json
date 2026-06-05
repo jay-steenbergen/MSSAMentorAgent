@@ -5403,6 +5403,22 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/session/test-runner.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:blast-radius",
+      "type": "cli-tool",
+      "label": "blast-radius.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/inspect/blast-radius.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:validate-paths",
+      "type": "cli-tool",
+      "label": "validate-paths.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/validate/validate-paths.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -10903,6 +10919,24 @@
       "label": "uses tool"
     },
     {
+      "source": "agent:mentor",
+      "target": "cli-tool:validate-paths",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:blast-radius",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "behavior:34-verify-ux-fix-in-fresh-chat",
+      "target": "cli-tool:blast-radius",
+      "type": "uses",
+      "label": "blast-radius surfaces all entry points before claiming fix works"
+    },
+    {
       "source": "cli-tool:kg",
       "target": "code-file:.github/knowledge-graph/cli/kg.ps1",
       "type": "defined_in",
@@ -11383,6 +11417,18 @@
     {
       "source": "cli-tool:test-runner",
       "target": "code-file:.github/knowledge-graph/cli/session/test-runner.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:blast-radius",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/blast-radius.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:validate-paths",
+      "target": "code-file:.github/knowledge-graph/cli/validate/validate-paths.ps1",
       "type": "defined_in",
       "label": "defined in"
     }

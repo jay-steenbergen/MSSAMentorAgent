@@ -43,6 +43,77 @@ if (-not $stagedFiles) {
     exit 0
 }
 
+# Step 0a: Source-MD path validation. Runs FIRST so bad paths in agent / skill /
+# instruction markdown never reach the extractor. Catches the class of bug
+# introduced 2026-06-04 (Mentor.agent.md path edit went the wrong direction;
+# stub nodes followed, auto-fix loop failed, revert + retry).
+$validatePathsScript = Join-Path $repoRoot '.github' 'knowledge-graph' 'cli' 'validate' 'validate-paths.ps1'
+if (Test-Path $validatePathsScript) {
+    Write-Header "🛣  Validating source-markdown path references..."
+    try {
+        $validateOutput = & pwsh -NoProfile -File $validatePathsScript 2>&1 | Out-String
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Source markdown contains broken path references"
+            Write-Host ""
+            Write-Host $validateOutput
+            Write-Host "Fix the bad paths in the listed file(s) before committing." -ForegroundColor Yellow
+            Write-Host ""
+            Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+            exit 1
+        }
+        # Suppress noisy success line — validator already printed one.
+    } catch {
+        Write-Error "Path validation encountered an error: $_"
+        exit 1
+    }
+}
+
+# Step 0b: UX-change verification gate. Any change to user-facing surfaces
+# (agent rules, behaviors, skills, extension chat openers / commands) requires
+# the commit message to carry a [Verification: ...] tag. Compiles passing or
+# unit tests passing does NOT mean the user-visible behavior was checked.
+# Filed after 2026-06-04: edited extension seed prompts, declared victory on
+# tsc passing, never tested bare `@Mentor hey`. Bug shipped.
+$uxPathPatterns = @(
+    '^extensions/mssa-mentor/src/commands/',
+    '^extensions/mssa-mentor/src/chatOpener\.ts$',
+    '^\.github/agents/.*\.agent\.md$',
+    '^\.github/skills/.*/SKILL\.md$'
+)
+$uxFilesTouched = @($stagedFiles | Where-Object {
+    $f = $_
+    $matched = @($uxPathPatterns | Where-Object { $f -match $_ })
+    $matched.Count -gt 0
+})
+if ($uxFilesTouched.Count -gt 0) {
+    Write-Header "🧪 UX-change verification gate..."
+    # Pull the prepared commit message. Git places it at .git/COMMIT_EDITMSG
+    # by the time pre-commit fires when -m is used. We read it directly to
+    # check for the verification tag.
+    $commitMsgPath = Join-Path $repoRoot '.git' 'COMMIT_EDITMSG'
+    $commitMsg = if (Test-Path $commitMsgPath) { Get-Content $commitMsgPath -Raw } else { '' }
+    $hasVerification = ($commitMsg -match '\[Verification:\s*fresh-chat\b') -or
+                       ($commitMsg -match '\[Verification:\s*n/a\b')
+    if (-not $hasVerification) {
+        Write-Error "UX-affecting files staged; commit message lacks a [Verification:] tag"
+        Write-Host ""
+        Write-Host "Touched UX surfaces:" -ForegroundColor Yellow
+        foreach ($f in $uxFilesTouched) { Write-Host "  - $f" -ForegroundColor White }
+        Write-Host ""
+        Write-Host "Required: add ONE of these to the commit message:" -ForegroundColor Yellow
+        Write-Host "  [Verification: fresh-chat] <one line of what you saw in chat>" -ForegroundColor White
+        Write-Host "  [Verification: n/a — reason: <why no fresh-chat run was needed>]" -ForegroundColor White
+        Write-Host ""
+        Write-Host "Why this gate exists: ``tsc`` passing != UX verified. The 2026-06-04" -ForegroundColor DarkGray
+        Write-Host "greeting bug shipped because the fix compiled clean and was never run" -ForegroundColor DarkGray
+        Write-Host "in a fresh chat. See behavior:34-verify-ux-fix-in-fresh-chat." -ForegroundColor DarkGray
+        Write-Host ""
+        Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+        exit 1
+    }
+    Write-Success "Commit message carries [Verification:] tag"
+}
+
 # Detect what needs updating
 $needsAutoDiscover = $false
 $needsExtract = $false
