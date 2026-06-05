@@ -132,7 +132,10 @@ $pathRegex = [regex]'(?<![A-Za-z0-9_/])((?:\.github|\.profiles|\.claude|\.copilo
 $findings = [System.Collections.Generic.List[object]]::new()
 
 foreach ($f in $mdFiles) {
-    $abs = Join-Path $repoRoot $f
+    # Support both repo-relative paths (from git diff) and absolute paths
+    # (from ad-hoc -Files invocations). On Windows, Join-Path on an absolute
+    # second arg produces garbage like "C:\repo\C:\Users\foo" — must guard.
+    $abs = if ([System.IO.Path]::IsPathRooted($f)) { $f } else { Join-Path $repoRoot $f }
     if (-not (Test-Path $abs)) {
         # File staged for delete or already gone — nothing to validate.
         continue

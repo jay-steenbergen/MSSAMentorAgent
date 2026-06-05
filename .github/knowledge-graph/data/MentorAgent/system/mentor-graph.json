@@ -5419,6 +5419,14 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/validate/validate-paths.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:validate-pwsh",
+      "type": "cli-tool",
+      "label": "validate-pwsh.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/validate/validate-pwsh.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -10931,10 +10939,34 @@
       "label": "uses tool"
     },
     {
+      "source": "agent:mentor",
+      "target": "cli-tool:validate-pwsh",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
       "source": "behavior:34-verify-ux-fix-in-fresh-chat",
       "target": "cli-tool:blast-radius",
       "type": "uses",
       "label": "blast-radius surfaces all entry points before claiming fix works"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1",
+      "target": "cli-tool:validate-paths",
+      "type": "tests",
+      "label": "smoke test for validate-paths gate"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1",
+      "target": "cli-tool:validate-pwsh",
+      "type": "tests",
+      "label": "smoke test for validate-pwsh gate"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1",
+      "target": "code-file:.github/hooks/pre-commit.ps1",
+      "type": "tests",
+      "label": "smoke test for the UX-tag matcher in pre-commit hook"
     },
     {
       "source": "cli-tool:kg",
@@ -11429,6 +11461,18 @@
     {
       "source": "cli-tool:validate-paths",
       "target": "code-file:.github/knowledge-graph/cli/validate/validate-paths.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:validate-pwsh",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:validate-pwsh",
+      "target": "code-file:.github/knowledge-graph/cli/validate/validate-pwsh.ps1",
       "type": "defined_in",
       "label": "defined in"
     }

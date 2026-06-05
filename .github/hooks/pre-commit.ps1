@@ -68,6 +68,65 @@ if (Test-Path $validatePathsScript) {
     }
 }
 
+# Step 0a2: PowerShell static analysis. Runs PSScriptAnalyzer + custom regex
+# checks against staged .ps1 / .psm1 files. Catches strict-mode traps the
+# language hides at lint time but lights up at runtime — including the
+# 2026-06-04 .Count bug pattern. Findings at Error severity block the commit.
+$validatePwshScript = Join-Path $repoRoot '.github' 'knowledge-graph' 'cli' 'validate' 'validate-pwsh.ps1'
+if (Test-Path $validatePwshScript) {
+    # Only run when staged files include .ps1 / .psm1 — otherwise skip.
+    $hasPs = @($stagedFiles | Where-Object { $_ -match '\.(ps1|psm1)$' }).Count -gt 0
+    if ($hasPs) {
+        Write-Header "🔬 Validating PowerShell..."
+        try {
+            $psaOutput = & pwsh -NoProfile -File $validatePwshScript 2>&1 | Out-String
+            if ($LASTEXITCODE -ne 0) {
+                Write-Error "PowerShell validation failed"
+                Write-Host ""
+                Write-Host $psaOutput
+                Write-Host "Fix the errors above before committing." -ForegroundColor Yellow
+                Write-Host ""
+                Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+                exit 1
+            }
+        } catch {
+            # Missing PSScriptAnalyzer should warn, not block (graceful degradation).
+            Write-Warning "PowerShell validation skipped: $_"
+        }
+    }
+}
+
+# Step 0a3: Smoke test for pre-commit gates. ONLY runs when the hook itself or
+# the validators are staged — otherwise it's overhead. Catches regressions
+# in the gate logic that would otherwise only surface on the next real commit.
+$smokeTestScript = Join-Path $repoRoot '.github' 'knowledge-graph' 'cli' 'tests' 'test-pre-commit-hook.ps1'
+$hookFilesTouched = @($stagedFiles | Where-Object {
+    $_ -eq '.github/hooks/pre-commit.ps1' -or
+    $_ -eq '.github/knowledge-graph/cli/validate/validate-paths.ps1' -or
+    $_ -eq '.github/knowledge-graph/cli/validate/validate-pwsh.ps1' -or
+    $_ -eq '.github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1'
+})
+if ($hookFilesTouched.Count -gt 0 -and (Test-Path $smokeTestScript)) {
+    Write-Header "🧯 Running pre-commit gate smoke test..."
+    try {
+        $smokeOutput = & pwsh -NoProfile -File $smokeTestScript -Quiet 2>&1 | Out-String
+        if ($LASTEXITCODE -ne 0) {
+            Write-Error "Pre-commit gate smoke test failed"
+            Write-Host ""
+            Write-Host $smokeOutput
+            Write-Host "A gate isn't behaving as designed. Investigate:" -ForegroundColor Yellow
+            Write-Host "  pwsh .github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1" -ForegroundColor White
+            Write-Host ""
+            Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+            exit 1
+        }
+        Write-Success ($smokeOutput.Trim() -split "`n" | Select-Object -Last 1)
+    } catch {
+        Write-Error "Smoke test encountered an error: $_"
+        exit 1
+    }
+}
+
 # Step 0b: UX-change verification gate. Any change to user-facing surfaces
 # (agent rules, behaviors, skills, extension chat openers / commands) requires
 # the commit message to carry a [Verification: ...] tag. Compiles passing or
