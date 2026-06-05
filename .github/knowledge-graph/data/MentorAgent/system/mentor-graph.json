@@ -289,6 +289,42 @@
       "description": "Before running any audit, gap analysis, completeness check, or batch of >=3 fixes the user did not explicitly request: surface the idea as one sentence ('I noticed X — want me to look?') and STOP. If executing a batch, verify the first fix against source before making the next two; abort batch on failure. If you grade your own work as 'real/muddled/wrong' in the same turn you produced it, that work was busywork — revert by default, do not propose new edits to fix the bad edits. Smell-test phrases: 'let me also check', 'while I'm here', 'I noticed a gap', 'found N issues fixing them now'. See get-behavior.ps1 no-unprompted-audits for the full protocol."
     },
     {
+      "id": "behavior:33-open-with-mos-joke",
+      "type": "rule",
+      "label": "33. Open every first message with a fresh military riff on branch + MOS",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Every first agent response in a session opens with a fresh, original one-liner riffing on the learner's military.branch + military.mos read from profile. Mint per greeting — never recycle. Fires on BOTH entry-point:user-typed and entry-point:extension-seed; the extension seed is a hint, not a precondition. If profile is empty, run the first-time interview first and defer the riff until branch + MOS are captured. NEVER open with 'Hey.' / 'Hi.' / 'What are we working on?' — those are the generic-bot greetings this behavior exists to prevent. Filed after the 2026-06-04 'Hey. What are we working on?' regression. See get-behavior.ps1 open-with-mos-joke for the full protocol."
+    },
+    {
+      "id": "behavior:34-verify-ux-fix-in-fresh-chat",
+      "type": "rule",
+      "label": "34. Verify UX-affecting fixes in a fresh chat before claiming victory",
+      "cluster": "agent-rules",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "core_behavior (frontmatter)",
+      "description": "Any change that affects how the agent responds to the learner — agent rules, behaviors, skills, extension seed prompts, pickers, greetings, prompt-loading path — requires walking the actual user path in a fresh chat BEFORE claiming the fix works. Compiles green != works. tsc passing != verified. Unit tests passing on the seed string != the agent obeyed it. Output a [Verification: fresh-chat] tag with one line of what was seen. Filed after the 2026-06-04 greeting bug where compile passed, unit tests passed, and the bare `hey` input still produced the generic-bot greeting. See get-behavior.ps1 verify-ux-fix-in-fresh-chat for the full protocol."
+    },
+    {
+      "id": "entry-point:user-typed",
+      "type": "concept",
+      "label": "User-typed first message (bare input)",
+      "cluster": "agent-core",
+      "file": ".github/agents/Mentor.agent.md",
+      "section": "How sessions start",
+      "description": "The learner types `@Mentor <anything>` directly into a fresh chat. No seed prompt arrives from the extension. The agent must run the full session contract (identify-learner -> open-with-mos-joke -> open-with-intent) from raw input. This is the path that broke on 2026-06-04: agent skipped the contract and produced 'Hey. What are we working on?'."
+    },
+    {
+      "id": "entry-point:extension-seed",
+      "type": "concept",
+      "label": "Extension-seeded first message (welcome / resumeOrStart / newProject)",
+      "cluster": "agent-core",
+      "file": "extensions/mssa-mentor/src/commands/",
+      "section": "chat opener commands",
+      "description": "The extension calls workbench.action.chat.open with a query string and (optionally) attachFiles. The seed string is an INSTRUCTION to the agent, not the learner's literal first words. Same contract applies (identify-learner -> open-with-mos-joke -> open-with-intent). The seed is a hint to the agent about what to do; it does NOT replace the contract. Edits to seed strings only cover this entry-point — not entry-point:user-typed."
+    },
+    {
       "id": "behavior:15-track-concept-proficiency",
       "type": "rule",
       "label": "15. Track concept proficiency on a 4-tier Bloom-style ladder",
@@ -2563,6 +2599,14 @@
       "cluster": "infra-layer",
       "label": "session-flow.test.md",
       "id": "test:session-flow",
+      "type": "test"
+    },
+    {
+      "file": ".github/tests/first-message-greeting.test.md",
+      "description": "Behavioral test pinning the first-message greeting on BOTH entry points (user-typed bare input + extension seed). Pins that the agent (a) greets by preferred_name, (b) opens with a fresh military riff on profile.military.branch + profile.military.mos, (c) mints a different riff on every run (no recycling). Filed after the 2026-06-04 'Hey. What are we working on?' bug.",
+      "cluster": "infra-layer",
+      "label": "first-message-greeting.test.md",
+      "id": "test:first-message-greeting",
       "type": "test"
     },
     {
@@ -7756,6 +7800,26 @@
       "type": "tests"
     },
     {
+      "source": "test:first-message-greeting",
+      "target": "behavior:33-open-with-mos-joke",
+      "type": "tests"
+    },
+    {
+      "source": "test:first-message-greeting",
+      "target": "behavior:01-identify-learner",
+      "type": "tests"
+    },
+    {
+      "source": "test:first-message-greeting",
+      "target": "entry-point:user-typed",
+      "type": "tests"
+    },
+    {
+      "source": "test:first-message-greeting",
+      "target": "entry-point:extension-seed",
+      "type": "tests"
+    },
+    {
       "source": "test:compression-resilience",
       "target": "protocol:compression-resilience-lp",
       "type": "tests"
@@ -8766,6 +8830,51 @@
       "source": "agent:mentor",
       "target": "behavior:14-no-unprompted-audits",
       "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:33-open-with-mos-joke",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "behavior:34-verify-ux-fix-in-fresh-chat",
+      "type": "follows"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "entry-point:user-typed",
+      "type": "handles"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "entry-point:extension-seed",
+      "type": "handles"
+    },
+    {
+      "source": "entry-point:user-typed",
+      "target": "behavior:33-open-with-mos-joke",
+      "type": "triggers"
+    },
+    {
+      "source": "entry-point:extension-seed",
+      "target": "behavior:33-open-with-mos-joke",
+      "type": "triggers"
+    },
+    {
+      "source": "extension:mssa-mentor",
+      "target": "entry-point:extension-seed",
+      "type": "implements"
+    },
+    {
+      "source": "behavior:01-identify-learner",
+      "target": "behavior:33-open-with-mos-joke",
+      "type": "precedes"
+    },
+    {
+      "source": "behavior:33-open-with-mos-joke",
+      "target": "behavior:02-open-with-intent",
+      "type": "precedes"
     },
     {
       "source": "behavior:13-stub-completion",
