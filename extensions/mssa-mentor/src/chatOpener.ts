@@ -18,6 +18,17 @@ export interface OpenMentorChatOptions {
    * flow may submit so the conversation starts immediately.
    */
   isPartialQuery?: boolean;
+
+  /**
+   * File URIs to attach as first-class chat context (the same surface
+   * the user sees when they drag a file onto the chat input). Wired
+   * through to `workbench.action.chat.open`'s `attachFiles` option.
+   *
+   * Use this to put the learner's profile.json + active progress file
+   * into the agent's context on the very first turn so it can greet
+   * by name and resume without a tool round-trip.
+   */
+  attachFiles?: vscode.Uri[];
 }
 
 /**
@@ -35,6 +46,7 @@ export async function openMentorChat(
 
   await vscode.commands.executeCommand('workbench.action.chat.open', {
     query,
-    isPartialQuery: opts.isPartialQuery !== false
+    isPartialQuery: opts.isPartialQuery !== false,
+    attachFiles: opts.attachFiles
   });
 }

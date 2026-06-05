@@ -7,6 +7,7 @@ import type { LearnerContext } from '../../profileReader';
 
 const baseCtx = (overrides: Partial<LearnerContext> = {}): LearnerContext => ({
   username: 'alex',
+  preferredName: 'Alex',
   lastUsedMethod: 'ride-along',
   activeProjectCount: 0,
   profilePath: '/fake/profile.json',

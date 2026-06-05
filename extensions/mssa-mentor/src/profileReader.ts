@@ -30,10 +30,27 @@ export interface ProgressFile {
 
 export interface LearnerContext {
   username: string;
+  /**
+   * Display name to address the learner with ("Jay", "Alex"). Falls back
+   * to `name` then `username` if `preferred_name` is missing from the
+   * profile.json. Always populated — the agent uses this to greet by name
+   * on session resume.
+   */
+  preferredName: string;
   lastUsedMethod: string;
   activeTrack?: string;
+  /** Project id of the most recently active project, if any. */
+  activeProjectId?: string;
+  /** Human-readable name of the most recently active project, if any. */
+  activeProjectDisplayName?: string;
   activeProjectCount: number;
   profilePath: string;
+  /**
+   * Absolute path to the progress file for the most recently active
+   * project, if it exists on disk. Used as a chat attachment so the
+   * agent reads current step + status without a tool call.
+   */
+  activeProgressPath?: string;
 }
 
 /**
@@ -149,6 +166,9 @@ export async function findLearnerProfile(
     // Find the most recently active project and its method.
     let lastUsedMethod = 'ride-along';
     let activeTrack: string | undefined;
+    let activeProjectId: string | undefined;
+    let activeProjectDisplayName: string | undefined;
+    let activeProgressPath: string | undefined;
     let mostRecentDate = '';
     let activeProjectCount = 0;
 
@@ -160,25 +180,35 @@ export async function findLearnerProfile(
 
       mostRecentDate = projectDate;
       activeTrack = project.track;
+      activeProjectId = projectId;
+      activeProjectDisplayName = project.display_name;
 
       const progressPath = path.join(
         path.dirname(profilePath),
         `${projectId}.progress.json`
       );
       if (fs.existsSync(progressPath)) {
+        activeProgressPath = progressPath;
         const progressData = JSON.parse(
           fs.readFileSync(progressPath, 'utf8')
         ) as ProgressFile;
         lastUsedMethod = progressData.last_used_method || 'ride-along';
+      } else {
+        activeProgressPath = undefined;
       }
     }
 
     return {
       username: profileData.github_username || username,
+      preferredName:
+        profileData.preferred_name || profileData.name || profileData.github_username || username,
       lastUsedMethod,
       activeTrack,
+      activeProjectId,
+      activeProjectDisplayName,
       activeProjectCount,
-      profilePath
+      profilePath,
+      activeProgressPath
     };
   } catch (error) {
     console.error('[MentorContext] Error reading profile:', error);

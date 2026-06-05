@@ -27,7 +27,11 @@ export function registerWelcomeCommands(context: vscode.ExtensionContext): void 
   context.subscriptions.push(
     vscode.commands.registerCommand(WELCOME_COMMAND, async () => {
       await openMentorChat({
-        query: "I'm new here — show me around and help me pick a track to start.",
+        query:
+          "I'm new here. Run the first-time interview to learn my background. " +
+          "Once you know my service branch and MOS, open with a fresh, original " +
+          "military joke about them — mint a new line every time, no scripted " +
+          "or recycled material — then help me pick a track to start.",
         isPartialQuery: false
       });
       void refreshStatusBar();

@@ -65,8 +65,29 @@ suite('profileReader.ts', () => {
     const ctx = await findLearnerProfile('alex');
     assert.ok(ctx);
     assert.strictEqual(ctx!.username, 'alex-smith');
+    assert.strictEqual(ctx!.preferredName, 'Alex');
     assert.strictEqual(ctx!.activeProjectCount, 0);
     assert.strictEqual(ctx!.lastUsedMethod, 'ride-along');
+    assert.strictEqual(ctx!.activeProjectId, undefined);
+    assert.strictEqual(ctx!.activeProjectDisplayName, undefined);
+    assert.strictEqual(ctx!.activeProgressPath, undefined);
+  });
+
+  test('preferredName falls back to name then github_username', async () => {
+    seedProfile(tmp, 'noprefer', {
+      name: 'Pat Q',
+      github_username: 'patq',
+      projects: {}
+    });
+    const noPrefer = await findLearnerProfile('noprefer');
+    assert.strictEqual(noPrefer!.preferredName, 'Pat Q');
+
+    seedProfile(tmp, 'noname', {
+      github_username: 'just-handle',
+      projects: {}
+    });
+    const noName = await findLearnerProfile('noname');
+    assert.strictEqual(noName!.preferredName, 'just-handle');
   });
 
   test('returns null rather than adopting the only profile on the machine', async () => {
@@ -140,6 +161,13 @@ suite('profileReader.ts', () => {
     assert.strictEqual(ctx!.activeTrack, 'cloud-app-dev');
     // most recently active is weather-api → its TDD method wins
     assert.strictEqual(ctx!.lastUsedMethod, 'TDD');
+    assert.strictEqual(ctx!.activeProjectId, 'weather-api');
+    assert.strictEqual(ctx!.activeProjectDisplayName, 'Weather API');
+    assert.ok(ctx!.activeProgressPath, 'progress path should resolve when file exists');
+    assert.ok(
+      ctx!.activeProgressPath!.endsWith('weather-api.progress.json'),
+      `progress path should point at the active project; got ${ctx!.activeProgressPath}`
+    );
   });
 
   test('returns null on corrupt profile.json (no throw)', async () => {

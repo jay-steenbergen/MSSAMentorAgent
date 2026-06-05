@@ -29,6 +29,7 @@ function seedCurriculum(home: string, methods: string[], tracks: string[]) {
 
 const ctx = (overrides: Partial<LearnerContext> = {}): LearnerContext => ({
   username: 'alex',
+  preferredName: 'Alex',
   lastUsedMethod: 'ride-along',
   activeProjectCount: 0,
   profilePath: '/fake/profile.json',
