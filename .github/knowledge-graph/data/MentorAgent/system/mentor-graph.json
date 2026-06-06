@@ -3666,14 +3666,6 @@
       "description": "CLI script from knowledge-graph tooling."
     },
     {
-      "id": "cli-tool:_triage-drift",
-      "type": "cli-tool",
-      "label": "_triage-drift.ps1",
-      "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/archive/_triage-drift.ps1",
-      "description": "CLI script from knowledge-graph tooling."
-    },
-    {
       "id": "cli-tool:mentor",
       "type": "cli-tool",
       "label": "mentor.ps1",
@@ -4060,14 +4052,6 @@
       "file": ".github/knowledge-graph/log/decisions/2026-06-01-orphan-md-edge-rule.md",
       "section": "frontmatter",
       "description": "A markdown file in a scanned KG directory (agents, skills, tests, knowledge-graph) is needed iff its node has at least one edge (in OR out); README.md and CONTRIBUTING.md are implicit entrypoints exempt by basename. Enforced by find-orphan-markdown.ps1 with NO-NODE / NO-EDGES reasons; mirrored in health.ps1 code-coverage check."
-    },
-    {
-      "id": "cli-tool:_mentor-gaps2",
-      "type": "cli-tool",
-      "label": "_mentor-gaps2.ps1",
-      "cluster": "profile-system",
-      "file": ".github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
-      "description": "CLI script from knowledge-graph tooling."
     },
     {
       "id": "extension:mssa-mentor",
@@ -8493,12 +8477,6 @@
     },
     {
       "source": "agent:mentor",
-      "target": "cli-tool:_triage-drift",
-      "type": "uses",
-      "label": "uses tool"
-    },
-    {
-      "source": "agent:mentor",
       "target": "cli-tool:mentor",
       "type": "uses",
       "label": "uses tool"
@@ -9025,12 +9003,6 @@
       "source": "agent:mentor",
       "target": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
       "type": "uses"
-    },
-    {
-      "source": "agent:mentor",
-      "target": "cli-tool:_mentor-gaps2",
-      "type": "uses",
-      "label": "uses tool"
     },
     {
       "source": "extension:mssa-mentor",
@@ -11011,18 +10983,6 @@
     {
       "source": "cli-tool:kg",
       "target": "code-file:.github/knowledge-graph/cli/kg.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:_mentor-gaps2",
-      "target": "code-file:.github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
-      "type": "defined_in",
-      "label": "defined in"
-    },
-    {
-      "source": "cli-tool:_triage-drift",
-      "target": "code-file:.github/knowledge-graph/cli/archive/_triage-drift.ps1",
       "type": "defined_in",
       "label": "defined in"
     },

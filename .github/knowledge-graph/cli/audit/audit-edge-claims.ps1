@@ -158,6 +158,41 @@ function Get-NodeNeedles {
 
 $findings = [System.Collections.Generic.List[object]]::new()
 $auditedCount = 0
+$skippedTautologies = 0
+
+# Tautology filter: a claim where the source was EXTRACTED FROM the target
+# (or vice versa) is structural, not an independent assertion the source
+# should textually reference. Examples:
+#   - code-test:X.test.md -> code-import:X.test.md::tests::Y    (same file)
+#   - core-behavior:X -> code-file:Mentor.agent.md  WHERE source.file == target.file
+#   - cli-tool:X -> code-file:X.ps1                  (cli-tool node IS that file)
+#
+# IMPORTANT — only applies to edges where same-file means "extraction artifact":
+#   * implemented_by: a [implemented_by] b where source extracted from target IS tautological.
+#   * tests:          test extracts an import-node from itself — pure artifact.
+#
+# Does NOT apply to follows / uses. For [follows] AGENT -> BEHAVIOR where both files
+# match: the agent SHOULD textually reference the behavior — same-file is expected
+# AND meaningful (it's the proper place to look for the reference). This was the
+# failure mode of the 2026-06-04 greeting bug — agent claimed to follow a behavior
+# whose id never appeared in the agent file.
+function Test-IsTautology {
+    param($Source, $Target, [string]$EdgeType)
+    # Only filter extraction-artifact edge types.
+    if ($EdgeType -ne 'implemented_by' -and $EdgeType -ne 'tests') {
+        return $false
+    }
+    $sf = if ($Source.PSObject.Properties.Name -contains 'file') { $Source.file } else { $null }
+    $tf = if ($Target.PSObject.Properties.Name -contains 'file') { $Target.file } else { $null }
+    if ($sf -and $tf -and $sf -eq $tf) { return $true }
+    # Code-* target whose id embeds the source's file path (extracted children).
+    if ($Target.id -match '^code-(import|section|yaml-field|test|func):([^:]+)::') {
+        $embeddedFile = $matches[2]
+        if ($sf -and $embeddedFile -eq $sf) { return $true }
+        if ($tf -and $embeddedFile -eq $tf) { return $true }
+    }
+    return $false
+}
 
 foreach ($edge in $graph.edges) {
     if ($EdgeTypes -notcontains $edge.type) { continue }
@@ -165,6 +200,11 @@ foreach ($edge in $graph.edges) {
     $source = $nodesById[$edge.source]
     $target = $nodesById[$edge.target]
     if (-not $source -or -not $target) { continue }  # Dangling edge — separate concern.
+
+    if (Test-IsTautology -Source $source -Target $target -EdgeType $edge.type) {
+        $skippedTautologies++
+        continue
+    }
 
     $auditedCount++
 
@@ -231,6 +271,7 @@ if ($Json) {
         audited_count   = $auditedCount
         verified_count  = $auditedCount - $findings.Count
         unverified_count = $findings.Count
+        skipped_tautologies = $skippedTautologies
         verification_rate = if ($auditedCount -gt 0) { [math]::Round(100.0 * ($auditedCount - $findings.Count) / $auditedCount, 1) } else { 0 }
         edge_types      = $EdgeTypes
         unverified      = $findings | ForEach-Object {
@@ -252,7 +293,7 @@ $verifiedCount = $auditedCount - $findings.Count
 $rate = if ($auditedCount -gt 0) { [math]::Round(100.0 * $verifiedCount / $auditedCount, 1) } else { 0 }
 
 if ($Quiet) {
-    Write-Host "Edge-claim audit: $verifiedCount / $auditedCount verified ($rate%), $($findings.Count) unverified"
+    Write-Host "Edge-claim audit: $verifiedCount / $auditedCount verified ($rate%), $($findings.Count) unverified, $skippedTautologies tautologies skipped"
     exit 0
 }
 
@@ -260,6 +301,7 @@ Write-Host ""
 Write-Host "=== Edge-Claim Audit ===" -ForegroundColor Cyan
 Write-Host "Edge types audited: $($EdgeTypes -join ', ')"
 Write-Host "Total edges audited: $auditedCount"
+Write-Host "Tautologies skipped: $skippedTautologies (extractor artifacts; source.file == target.file or target embeds source.file)"
 Write-Host "Verified (evidence found): $verifiedCount ($rate%)"
 Write-Host "Unverified (no evidence in source): $($findings.Count)"
 Write-Host ""

@@ -51,6 +51,101 @@ core_behavior: |
   Everything else (concept proficiency, spaced recall, mistake memory, quizzes, goals, audits, session-shape, stuck-ladder, success-modes) is in named behavior files. Load them on demand via `cli-tool:get-behavior {name}` — don't try to run every subsystem every turn.
 skills:
   - "../skills/learner-profile/SKILL.md"
+
+# Graph contract manifest.
+# Mirrors the agent:mentor [follows] and [uses] edges in the knowledge graph
+# so the audit (audit-edge-claims.ps1) can verify the claims have textual
+# evidence in the source file. Keep in sync with the graph: edges added/
+# removed in mentor-graph.json must be reflected here, and vice versa.
+# Treat this list as the agent's authoritative contract — if a behavior or
+# tool is not listed, the agent is not committing to it.
+follows:
+  - behavior:01-identify-learner
+  - behavior:02-open-with-intent
+  - behavior:03-honor-intent
+  - behavior:04-altitude-one-move
+  - behavior:05-name-concept
+  - behavior:06-keep-at-keyboard
+  - behavior:07-connect-mental-models
+  - behavior:08-aar-at-milestones
+  - behavior:09-track-and-adapt
+  - behavior:10-full-pedagogy
+  - behavior:11-ask-as-clickable
+  - behavior:12-discovery-trace
+  - behavior:13-stub-completion
+  - behavior:14-no-unprompted-audits
+  - behavior:15-track-concept-proficiency
+  - behavior:16-recall-check-at-open
+  - behavior:17-callback-prior-concept
+  - behavior:18-log-mistake
+  - behavior:19-mint-analogy-on-demand
+  - behavior:20-mistake-intervention
+  - behavior:21-elicit-goal
+  - behavior:22-goal-aware-session-pick
+  - behavior:23-goal-progress-at-aar
+  - behavior:24-pre-teach-quiz
+  - behavior:25-reappearance-quiz
+  - behavior:26-cadence-quiz
+  - behavior:27-csharp-default-mentee
+  - behavior:28-teaching-loop
+  - behavior:29-build-session-setup
+  - behavior:30-handheld-beginner
+  - behavior:33-open-with-mos-joke
+  - behavior:34-verify-ux-fix-in-fresh-chat
+  - mid-session:switch
+  - picker:continuation
+  - protocol:followup-interview
+  - protocol:interview
+  - protocol:verify-build-settings
+  - rule:dynamic-skill-loading
+  - rule:events-are-source-of-truth
+  - session-end:agent
+  - session-shape:default
+  - session-start:protocol
+  - stuck:ladder
+  - success:call-out-wins
+  - success:match-pace
+  - success:read-typing
+uses:
+  - cli-tool:analyze-agent-size
+  - cli-tool:append-session-plan
+  - cli-tool:audit-edge-claims
+  - cli-tool:audit-quality
+  - cli-tool:blast-radius
+  - cli-tool:check-skill-exists
+  - cli-tool:enforce-method
+  - cli-tool:enforce-track
+  - cli-tool:find-drift
+  - cli-tool:find-missing-files
+  - cli-tool:find-orphan-markdown
+  - cli-tool:get-behavior
+  - cli-tool:kg
+  - cli-tool:mentor
+  - cli-tool:preflight
+  - cli-tool:propose-analogy
+  - cli-tool:propose-concept
+  - cli-tool:propose-mistake
+  - cli-tool:query-node
+  - cli-tool:recommend-next-skills
+  - cli-tool:session-protocol
+  - cli-tool:set-session-setting
+  - cli-tool:show-confidence
+  - cli-tool:show-profile
+  - cli-tool:show-progress
+  - cli-tool:show-skill-impact
+  - cli-tool:test-load-list
+  - cli-tool:test-runner
+  - cli-tool:validate-events
+  - cli-tool:validate-goal
+  - cli-tool:validate-paths
+  - cli-tool:validate-pwsh
+  - code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1
+  - code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1
+  - code-file:.github/knowledge-graph/queries/Get-Dependents.ps1
+  - code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1
+  - code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1
+  - code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1
+  - code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1
 ---
 
 You are the **MSSA Mentor**. You teach software engineering to veterans by **building real code alongside them**.

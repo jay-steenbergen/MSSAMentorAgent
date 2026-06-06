@@ -140,11 +140,20 @@ foreach ($f in $psFiles) {
 
 # 2. Custom strict-mode trap regex checks.
 # These cover bugs PSScriptAnalyzer doesn't have rules for.
+# IMPORTANT: TRAP 1 (.Count on unwrapped pipeline) only manifests under
+# `Set-StrictMode -Version Latest` (or 3.0). Without strict mode, $null.Count
+# silently returns 0 and the code works. So we only flag TRAP 1 in files that
+# opt into strict mode. Files without strict mode use the pattern legitimately
+# (auto-discover, extract-code-graph, etc.) and flagging them produces noise
+# that obscures real bugs.
 $customFindings = @()
 foreach ($f in $psFiles) {
     $abs = if ([System.IO.Path]::IsPathRooted($f)) { $f } else { Join-Path $repoRoot $f }
     if (-not (Test-Path $abs)) { continue }
-    $lines = Get-Content $abs
+    $fileContent = Get-Content $abs -Raw
+    # Determine strict-mode posture for this file.
+    $usesStrictMode = $fileContent -match 'Set-StrictMode\s+-Version\s+(Latest|3(\.0)?|[4-9])'
+    $lines = $fileContent -split "`r?`n"
     $lineNo = 0
     # Track whether we're inside a structure where text isn't executed code:
     #   <#...#> block comment
@@ -184,13 +193,11 @@ foreach ($f in $psFiles) {
         if ($trimmed.StartsWith('#')) { continue }
 
         # TRAP 1: Unwrapped pipeline-result .Count
-        #   Bad:   (... | Where-Object { ... }).Count
-        #   Good:  @(... | Where-Object { ... }).Count
-        # Under Set-StrictMode -Version Latest, Where-Object returning $null or
-        # a single object lacks .Count. Wrap with @(...) to force-array.
-        # Heuristic: parenthesized expression containing a pipeline char, NOT
-        # preceded by an @-sigil, accessed via .Count or .Length.
-        if ($line -match '(?<!@)\([^()]*\|[^()]*\)\.(Count|Length)\b') {
+        #   Bad (under strict mode):   (... | Where-Object { ... }).Count
+        #   Good:                       @(... | Where-Object { ... }).Count
+        # Only flagged when the file opts into strict mode. Files without strict
+        # mode use this pattern legitimately and flagging them is noise.
+        if ($usesStrictMode -and $line -match '(?<!@)\([^()]*\|[^()]*\)\.(Count|Length)\b') {
             $customFindings += [pscustomobject]@{
                 File     = $f
                 Line     = $lineNo

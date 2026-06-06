@@ -140,9 +140,13 @@ $includePatterns = @(
 # Exclude build outputs and internal graph data, but allow lib/ cli/ build/
 # Note: .vscode-test/, coverage/, .nyc_output/, tmp/ are test-harness scratch dirs that
 # pull in bundled VS Code extensions; scanning them creates hundreds of disconnected islands.
+# knowledge-graph/cli/archive/ holds historical scripts the agent no longer uses; including
+# them creates dangling code-file nodes with no upstream cli-tool wrapper (auto-discover
+# also skips archive/ — keep both in sync).
 $excludeMatch = @(
     '\\bin\\', '\\obj\\', '\\node_modules\\', '\\.git\\',
     '\\knowledge-graph\\data\\', '\\knowledge-graph\\tests\\',
+    '\\knowledge-graph\\cli\\archive\\',
     '\\.vscode-test\\', '\\coverage\\', '\\.nyc_output\\', '\\tmp\\', '\\out\\', '\\dist\\', '\\.vsix-temp\\'
 )
 

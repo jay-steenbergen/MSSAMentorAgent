@@ -45,13 +45,15 @@ $plan = @()
 # 1. CLI tools
 $cliEdges = @()
 if (Test-Path $cliDir) {
-    # Recurse into cli/<bucket>/ subfolders (inspect, authoring, audit, validate, session, archive).
-    # Skip lib/, tests/, and any auto-* / add-* scaffolding scripts.
+    # Recurse into cli/<bucket>/ subfolders (inspect, authoring, audit, validate, session).
+    # Skip lib/, tests/, archive/, and any auto-* / add-* scaffolding scripts.
+    # archive/ is excluded because its contents are not part of the agent's active
+    # toolset; including them creates dangling cli-tool nodes with no use-edge.
     $cliScripts = Get-ChildItem $cliDir -Filter *.ps1 -Recurse |
         Where-Object {
             $_.Name -notlike 'add-*.ps1' -and
             $_.Name -notlike 'auto-*.ps1' -and
-            $_.FullName -notmatch '[\\/](lib|tests)[\\/]'
+            $_.FullName -notmatch '[\\/](lib|tests|archive)[\\/]'
         }
     foreach ($script in $cliScripts) {
         $basename = $script.BaseName

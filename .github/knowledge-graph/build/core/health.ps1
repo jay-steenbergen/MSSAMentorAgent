@@ -476,6 +476,10 @@ if ($gitAvailable) {
             '[/\\](bin|obj|node_modules)[/\\]',
             'knowledge-graph[/\\](build|data|tests|output|demos)[/\\]',
             'knowledge-graph[/\\](build|data|tests|output|demos)$',
+            # cli/archive/ holds historical scripts the agent no longer uses.
+            # Excluded from auto-discover (no cli-tool node) and extract-code-graph
+            # (no code-file node). Coverage check must mirror or it false-fails.
+            'knowledge-graph[/\\]cli[/\\]archive[/\\]',
             # Implicit entrypoint landing-page docs — same exemption as find-orphan-markdown.ps1.
             # These don't need graph nodes (they're navigation, not artifacts).
             '(^|[/\\])README\.md$',
