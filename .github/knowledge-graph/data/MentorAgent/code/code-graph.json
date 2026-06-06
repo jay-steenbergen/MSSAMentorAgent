@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MSSA Mentor — Code Graph (Source Map)",
     "version": 1,
-    "generated": "2026-06-06T12:40:35-07:00",
+    "generated": "2026-06-06T20:10:07+00:00",
     "generator": "code/extract.ps1",
     "description": "Auto-generated source-level map of every tracked file and what's inside it. Sibling to ../system/mentor-graph.json. Merged via ../merge.ps1.",
     "id_prefixes": [
@@ -19,7 +19,7 @@
       "code-yaml-field"
     ],
     "stats": {
-      "files": 294,
+      "files": 297,
       "stub_files": 0,
       "functions": 222,
       "sections": 991,
@@ -30,11 +30,11 @@
       "scenarios": 389,
       "classes": 7,
       "imports": 122,
-      "total_nodes": 2331,
+      "total_nodes": 2334,
       "total_edges": 2411,
       "bridges": 505,
       "dangling_edges": 0,
-      "orphan_nodes": 22
+      "orphan_nodes": 25
     }
   },
   "clusters": [
@@ -78,7 +78,7 @@
       "file": ".github/agents/Mentor.agent.md",
       "description": "File: .github/agents/Mentor.agent.md",
       "extension": ".md",
-      "size_bytes": 13385
+      "size_bytes": 13120
     },
     {
       "id": "code-yaml-field:.github/agents/Mentor.agent.md::name",
@@ -157,7 +157,7 @@
       "file": ".github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
       "description": "File: .github/copilot-fundamentals/01-instructions-vs-agent-personas.md",
       "extension": ".md",
-      "size_bytes": 2552
+      "size_bytes": 2515
     },
     {
       "id": "code-section:.github/copilot-fundamentals/01-instructions-vs-agent-personas.md::What_I_was_trying_to_do",
@@ -199,7 +199,7 @@
       "file": ".github/copilot-fundamentals/02-using-csharp-for-validation.md",
       "description": "File: .github/copilot-fundamentals/02-using-csharp-for-validation.md",
       "extension": ".md",
-      "size_bytes": 7091
+      "size_bytes": 6861
     },
     {
       "id": "code-section:.github/copilot-fundamentals/02-using-csharp-for-validation.md::The_Problem",
@@ -281,7 +281,7 @@
       "file": ".github/copilot-fundamentals/README.md",
       "description": "File: .github/copilot-fundamentals/README.md",
       "extension": ".md",
-      "size_bytes": 1287
+      "size_bytes": 1258
     },
     {
       "id": "code-section:.github/copilot-fundamentals/README.md::When_to_add_an_entry",
@@ -315,7 +315,7 @@
       "file": ".github/copilot-instructions.md",
       "description": "File: .github/copilot-instructions.md",
       "extension": ".md",
-      "size_bytes": 10982
+      "size_bytes": 10729
     },
     {
       "id": "code-section:.github/copilot-instructions.md::For_Learners",
@@ -357,7 +357,7 @@
       "file": ".github/hooks/install.ps1",
       "description": "File: .github/hooks/install.ps1",
       "extension": ".ps1",
-      "size_bytes": 3724
+      "size_bytes": 3613
     },
     {
       "id": "code-param:.github/hooks/install.ps1::script::Uninstall",
@@ -375,7 +375,7 @@
       "file": ".github/hooks/pre-commit",
       "description": "File: .github/hooks/pre-commit",
       "extension": "",
-      "size_bytes": 372
+      "size_bytes": 361
     },
     {
       "id": "code-file:.github/hooks/pre-commit.ps1",
@@ -385,7 +385,7 @@
       "file": ".github/hooks/pre-commit.ps1",
       "description": "File: .github/hooks/pre-commit.ps1",
       "extension": ".ps1",
-      "size_bytes": 28583
+      "size_bytes": 27952
     },
     {
       "id": "code-func:.github/hooks/pre-commit.ps1::Write-Header",
@@ -435,7 +435,7 @@
       "file": ".github/hooks/README.md",
       "description": "File: .github/hooks/README.md",
       "extension": ".md",
-      "size_bytes": 5036
+      "size_bytes": 4875
     },
     {
       "id": "code-section:.github/hooks/README.md::What_s_Here",
@@ -517,7 +517,7 @@
       "file": ".github/knowledge-graph/AUTHORING.md",
       "description": "File: .github/knowledge-graph/AUTHORING.md",
       "extension": ".md",
-      "size_bytes": 4021
+      "size_bytes": 3962
     },
     {
       "id": "code-section:.github/knowledge-graph/AUTHORING.md::Node_type_conventions",
@@ -575,7 +575,7 @@
       "file": ".github/knowledge-graph/build/advanced/add-tracks-and-skills.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/add-tracks-and-skills.ps1",
       "extension": ".ps1",
-      "size_bytes": 4523
+      "size_bytes": 4412
     },
     {
       "id": "code-param:.github/knowledge-graph/build/advanced/add-tracks-and-skills.ps1::script::DryRun",
@@ -593,7 +593,7 @@
       "file": ".github/knowledge-graph/build/advanced/audit-system-graph.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/audit-system-graph.ps1",
       "extension": ".ps1",
-      "size_bytes": 13801
+      "size_bytes": 13460
     },
     {
       "id": "code-func:.github/knowledge-graph/build/advanced/audit-system-graph.ps1::Report-Pass",
@@ -627,7 +627,7 @@
       "file": ".github/knowledge-graph/build/advanced/auto-discover-features.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/auto-discover-features.ps1",
       "extension": ".ps1",
-      "size_bytes": 12625
+      "size_bytes": 12304
     },
     {
       "id": "code-param:.github/knowledge-graph/build/advanced/auto-discover-features.ps1::script::DryRun",
@@ -645,7 +645,7 @@
       "file": ".github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/extract-infrastructure.ps1",
       "extension": ".ps1",
-      "size_bytes": 15412
+      "size_bytes": 15006
     },
     {
       "id": "code-param:.github/knowledge-graph/build/advanced/extract-infrastructure.ps1::script::SystemGraph",
@@ -679,7 +679,7 @@
       "file": ".github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/gap-analysis.ps1",
       "extension": ".ps1",
-      "size_bytes": 17528
+      "size_bytes": 17128
     },
     {
       "id": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Find-Root",
@@ -737,7 +737,7 @@
       "file": ".github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1",
       "extension": ".ps1",
-      "size_bytes": 5232
+      "size_bytes": 5078
     },
     {
       "id": "code-param:.github/knowledge-graph/build/advanced/generate-call-flow-nodes.ps1::script::GraphPath",
@@ -787,7 +787,7 @@
       "file": ".github/knowledge-graph/build/advanced/scaffold-node-type.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/scaffold-node-type.ps1",
       "extension": ".ps1",
-      "size_bytes": 7687
+      "size_bytes": 7466
     },
     {
       "id": "code-file:.github/knowledge-graph/build/advanced/split-code-graph.ps1",
@@ -797,7 +797,7 @@
       "file": ".github/knowledge-graph/build/advanced/split-code-graph.ps1",
       "description": "File: .github/knowledge-graph/build/advanced/split-code-graph.ps1",
       "extension": ".ps1",
-      "size_bytes": 6435
+      "size_bytes": 6259
     },
     {
       "id": "code-param:.github/knowledge-graph/build/advanced/split-code-graph.ps1::script::InputFile",
@@ -815,7 +815,7 @@
       "file": ".github/knowledge-graph/build/core/extract-code-graph.ps1",
       "description": "File: .github/knowledge-graph/build/core/extract-code-graph.ps1",
       "extension": ".ps1",
-      "size_bytes": 41995
+      "size_bytes": 41117
     },
     {
       "id": "code-param:.github/knowledge-graph/build/core/extract-code-graph.ps1::script::Output",
@@ -929,7 +929,7 @@
       "file": ".github/knowledge-graph/build/core/health.ps1",
       "description": "File: .github/knowledge-graph/build/core/health.ps1",
       "extension": ".ps1",
-      "size_bytes": 39497
+      "size_bytes": 38653
     },
     {
       "id": "code-func:.github/knowledge-graph/build/core/health.ps1::Find-Root",
@@ -955,7 +955,7 @@
       "file": ".github/knowledge-graph/build/core/merge.ps1",
       "description": "File: .github/knowledge-graph/build/core/merge.ps1",
       "extension": ".ps1",
-      "size_bytes": 9246
+      "size_bytes": 9004
     },
     {
       "id": "code-param:.github/knowledge-graph/build/core/merge.ps1::script::Output",
@@ -973,7 +973,7 @@
       "file": ".github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "description": "File: .github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "extension": ".ps1",
-      "size_bytes": 10443
+      "size_bytes": 10180
     },
     {
       "id": "code-param:.github/knowledge-graph/build/core/rebuild-if-stale.ps1::script::Force",
@@ -1023,7 +1023,7 @@
       "file": ".github/knowledge-graph/build/health.ps1",
       "description": "File: .github/knowledge-graph/build/health.ps1",
       "extension": ".ps1",
-      "size_bytes": 1140
+      "size_bytes": 1106
     },
     {
       "id": "code-param:.github/knowledge-graph/build/health.ps1::script::true",
@@ -1041,7 +1041,7 @@
       "file": ".github/knowledge-graph/build/README.md",
       "description": "File: .github/knowledge-graph/build/README.md",
       "extension": ".md",
-      "size_bytes": 4074
+      "size_bytes": 3937
     },
     {
       "id": "code-section:.github/knowledge-graph/build/README.md::Quick_Start",
@@ -1115,7 +1115,7 @@
       "file": ".github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
       "description": "File: .github/knowledge-graph/build/repair/fix-dangling-edges.ps1",
       "extension": ".ps1",
-      "size_bytes": 8738
+      "size_bytes": 8498
     },
     {
       "id": "code-param:.github/knowledge-graph/build/repair/fix-dangling-edges.ps1::script::DryRun",
@@ -1133,7 +1133,7 @@
       "file": ".github/knowledge-graph/build/repair/fix-remaining-gaps.ps1",
       "description": "File: .github/knowledge-graph/build/repair/fix-remaining-gaps.ps1",
       "extension": ".ps1",
-      "size_bytes": 7033
+      "size_bytes": 6883
     },
     {
       "id": "code-param:.github/knowledge-graph/build/repair/fix-remaining-gaps.ps1::script::DryRun",
@@ -1144,6 +1144,26 @@
       "description": "Script parameter -DryRun"
     },
     {
+      "id": "code-file:.github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
+      "type": "code-file",
+      "label": "_mentor-gaps2.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
+      "description": "File: .github/knowledge-graph/cli/archive/_mentor-gaps2.ps1",
+      "extension": ".ps1",
+      "size_bytes": 1660
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/cli/archive/_triage-drift.ps1",
+      "type": "code-file",
+      "label": "_triage-drift.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/cli/archive/_triage-drift.ps1",
+      "description": "File: .github/knowledge-graph/cli/archive/_triage-drift.ps1",
+      "extension": ".ps1",
+      "size_bytes": 1385
+    },
+    {
       "id": "code-file:.github/knowledge-graph/cli/audit/audit-edge-claims.ps1",
       "type": "code-file",
       "label": "audit-edge-claims.ps1",
@@ -1151,7 +1171,7 @@
       "file": ".github/knowledge-graph/cli/audit/audit-edge-claims.ps1",
       "description": "File: .github/knowledge-graph/cli/audit/audit-edge-claims.ps1",
       "extension": ".ps1",
-      "size_bytes": 14407
+      "size_bytes": 14055
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/audit/audit-edge-claims.ps1::Get-CachedContent",
@@ -1193,7 +1213,7 @@
       "file": ".github/knowledge-graph/cli/audit/audit-quality.ps1",
       "description": "File: .github/knowledge-graph/cli/audit/audit-quality.ps1",
       "extension": ".ps1",
-      "size_bytes": 5900
+      "size_bytes": 5744
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/audit/find-drift.ps1",
@@ -1203,7 +1223,7 @@
       "file": ".github/knowledge-graph/cli/audit/find-drift.ps1",
       "description": "File: .github/knowledge-graph/cli/audit/find-drift.ps1",
       "extension": ".ps1",
-      "size_bytes": 8304
+      "size_bytes": 8106
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/audit/find-drift.ps1::Get-StringFields",
@@ -1221,7 +1241,7 @@
       "file": ".github/knowledge-graph/cli/audit/find-missing-files.ps1",
       "description": "File: .github/knowledge-graph/cli/audit/find-missing-files.ps1",
       "extension": ".ps1",
-      "size_bytes": 3551
+      "size_bytes": 3448
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/audit/find-orphan-markdown.ps1",
@@ -1231,7 +1251,7 @@
       "file": ".github/knowledge-graph/cli/audit/find-orphan-markdown.ps1",
       "description": "File: .github/knowledge-graph/cli/audit/find-orphan-markdown.ps1",
       "extension": ".ps1",
-      "size_bytes": 6871
+      "size_bytes": 6705
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/audit/validate-audit.ps1",
@@ -1241,7 +1261,7 @@
       "file": ".github/knowledge-graph/cli/audit/validate-audit.ps1",
       "description": "File: .github/knowledge-graph/cli/audit/validate-audit.ps1",
       "extension": ".ps1",
-      "size_bytes": 2143
+      "size_bytes": 2100
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/authoring/check-skill-exists.ps1",
@@ -1251,7 +1271,7 @@
       "file": ".github/knowledge-graph/cli/authoring/check-skill-exists.ps1",
       "description": "File: .github/knowledge-graph/cli/authoring/check-skill-exists.ps1",
       "extension": ".ps1",
-      "size_bytes": 4501
+      "size_bytes": 4372
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/authoring/mentor.ps1",
@@ -1261,7 +1281,7 @@
       "file": ".github/knowledge-graph/cli/authoring/mentor.ps1",
       "description": "File: .github/knowledge-graph/cli/authoring/mentor.ps1",
       "extension": ".ps1",
-      "size_bytes": 14373
+      "size_bytes": 14002
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/authoring/mentor.ps1::Show-Usage",
@@ -1359,7 +1379,7 @@
       "file": ".github/knowledge-graph/cli/authoring/propose-analogy.ps1",
       "description": "File: .github/knowledge-graph/cli/authoring/propose-analogy.ps1",
       "extension": ".ps1",
-      "size_bytes": 1739
+      "size_bytes": 1699
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/authoring/propose-analogy.ps1::script::MinMentions",
@@ -1377,7 +1397,7 @@
       "file": ".github/knowledge-graph/cli/authoring/propose-concept.ps1",
       "description": "File: .github/knowledge-graph/cli/authoring/propose-concept.ps1",
       "extension": ".ps1",
-      "size_bytes": 1536
+      "size_bytes": 1497
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/authoring/propose-concept.ps1::script::MinMentions",
@@ -1395,7 +1415,7 @@
       "file": ".github/knowledge-graph/cli/authoring/propose-mistake.ps1",
       "description": "File: .github/knowledge-graph/cli/authoring/propose-mistake.ps1",
       "extension": ".ps1",
-      "size_bytes": 1942
+      "size_bytes": 1897
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/authoring/propose-mistake.ps1::script::MinMentions",
@@ -1413,7 +1433,7 @@
       "file": ".github/knowledge-graph/cli/inspect/analyze-agent-size.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/analyze-agent-size.ps1",
       "extension": ".ps1",
-      "size_bytes": 6043
+      "size_bytes": 5895
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/inspect/analyze-agent-size.ps1::script::true",
@@ -1431,7 +1451,7 @@
       "file": ".github/knowledge-graph/cli/inspect/blast-radius.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/blast-radius.ps1",
       "extension": ".ps1",
-      "size_bytes": 11732
+      "size_bytes": 11466
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/inspect/check-edges.ps1",
@@ -1441,7 +1461,7 @@
       "file": ".github/knowledge-graph/cli/inspect/check-edges.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/check-edges.ps1",
       "extension": ".ps1",
-      "size_bytes": 1468
+      "size_bytes": 1436
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/inspect/check-types.ps1",
@@ -1451,7 +1471,7 @@
       "file": ".github/knowledge-graph/cli/inspect/check-types.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/check-types.ps1",
       "extension": ".ps1",
-      "size_bytes": 769
+      "size_bytes": 746
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/inspect/get-behavior.ps1",
@@ -1461,7 +1481,7 @@
       "file": ".github/knowledge-graph/cli/inspect/get-behavior.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/get-behavior.ps1",
       "extension": ".ps1",
-      "size_bytes": 73971
+      "size_bytes": 73000
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/inspect/get-behavior.ps1::script::true",
@@ -1479,7 +1499,7 @@
       "file": ".github/knowledge-graph/cli/inspect/query-node.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/query-node.ps1",
       "extension": ".ps1",
-      "size_bytes": 2744
+      "size_bytes": 2649
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/inspect/query-node.ps1::script::true",
@@ -1497,7 +1517,7 @@
       "file": ".github/knowledge-graph/cli/inspect/recommend-next-skills.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/recommend-next-skills.ps1",
       "extension": ".ps1",
-      "size_bytes": 4121
+      "size_bytes": 3993
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/inspect/show-confidence.ps1",
@@ -1507,7 +1527,7 @@
       "file": ".github/knowledge-graph/cli/inspect/show-confidence.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/show-confidence.ps1",
       "extension": ".ps1",
-      "size_bytes": 12077
+      "size_bytes": 11750
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/inspect/show-confidence.ps1::Get-Provenance",
@@ -1533,7 +1553,7 @@
       "file": ".github/knowledge-graph/cli/inspect/show-profile.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/show-profile.ps1",
       "extension": ".ps1",
-      "size_bytes": 8146
+      "size_bytes": 7932
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/inspect/show-profile.ps1::Resolve-MenteesDir",
@@ -1575,7 +1595,7 @@
       "file": ".github/knowledge-graph/cli/inspect/show-progress.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/show-progress.ps1",
       "extension": ".ps1",
-      "size_bytes": 6068
+      "size_bytes": 5900
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/inspect/show-skill-impact.ps1",
@@ -1585,7 +1605,7 @@
       "file": ".github/knowledge-graph/cli/inspect/show-skill-impact.ps1",
       "description": "File: .github/knowledge-graph/cli/inspect/show-skill-impact.ps1",
       "extension": ".ps1",
-      "size_bytes": 4200
+      "size_bytes": 4081
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/kg.ps1",
@@ -1595,7 +1615,7 @@
       "file": ".github/knowledge-graph/cli/kg.ps1",
       "description": "File: .github/knowledge-graph/cli/kg.ps1",
       "extension": ".ps1",
-      "size_bytes": 7962
+      "size_bytes": 7761
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/kg.ps1::Show-Usage",
@@ -1621,7 +1641,7 @@
       "file": ".github/knowledge-graph/cli/lib/agent-sync.psm1",
       "description": "File: .github/knowledge-graph/cli/lib/agent-sync.psm1",
       "extension": ".psm1",
-      "size_bytes": 4333
+      "size_bytes": 4226
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/lib/agent-sync.psm1::_Get-AgentFilePath",
@@ -1671,7 +1691,7 @@
       "file": ".github/knowledge-graph/cli/lib/graph-writer.psm1",
       "description": "File: .github/knowledge-graph/cli/lib/graph-writer.psm1",
       "extension": ".psm1",
-      "size_bytes": 5292
+      "size_bytes": 5147
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/lib/graph-writer.psm1::script::Graph",
@@ -1753,7 +1773,7 @@
       "file": ".github/knowledge-graph/cli/lib/scaffold.psm1",
       "description": "File: .github/knowledge-graph/cli/lib/scaffold.psm1",
       "extension": ".psm1",
-      "size_bytes": 5534
+      "size_bytes": 5243
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/lib/scaffold.psm1::script::Id",
@@ -1803,7 +1823,7 @@
       "file": ".github/knowledge-graph/cli/session/append-event.ps1",
       "description": "File: .github/knowledge-graph/cli/session/append-event.ps1",
       "extension": ".ps1",
-      "size_bytes": 7776
+      "size_bytes": 7528
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/session/append-event.ps1::Resolve-ProgressPath",
@@ -1845,7 +1865,7 @@
       "file": ".github/knowledge-graph/cli/session/append-session-plan.ps1",
       "description": "File: .github/knowledge-graph/cli/session/append-session-plan.ps1",
       "extension": ".ps1",
-      "size_bytes": 10057
+      "size_bytes": 9767
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/session/append-session-plan.ps1::Resolve-ProgressPath",
@@ -1895,7 +1915,7 @@
       "file": ".github/knowledge-graph/cli/session/close-session.ps1",
       "description": "File: .github/knowledge-graph/cli/session/close-session.ps1",
       "extension": ".ps1",
-      "size_bytes": 5015
+      "size_bytes": 4869
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/session/close-session.ps1::Resolve-ProgressPath",
@@ -1913,7 +1933,7 @@
       "file": ".github/knowledge-graph/cli/session/derive-views.ps1",
       "description": "File: .github/knowledge-graph/cli/session/derive-views.ps1",
       "extension": ".ps1",
-      "size_bytes": 9912
+      "size_bytes": 9642
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/session/derive-views.ps1::Resolve-ProgressPath",
@@ -1971,7 +1991,7 @@
       "file": ".github/knowledge-graph/cli/session/migrate-profile-to-events.ps1",
       "description": "File: .github/knowledge-graph/cli/session/migrate-profile-to-events.ps1",
       "extension": ".ps1",
-      "size_bytes": 11442
+      "size_bytes": 11137
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/session/session-protocol.ps1",
@@ -1981,7 +2001,7 @@
       "file": ".github/knowledge-graph/cli/session/session-protocol.ps1",
       "description": "File: .github/knowledge-graph/cli/session/session-protocol.ps1",
       "extension": ".ps1",
-      "size_bytes": 6159
+      "size_bytes": 5994
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/session/session-protocol.ps1::script::true",
@@ -1999,7 +2019,7 @@
       "file": ".github/knowledge-graph/cli/session/set-session-setting.ps1",
       "description": "File: .github/knowledge-graph/cli/session/set-session-setting.ps1",
       "extension": ".ps1",
-      "size_bytes": 6864
+      "size_bytes": 6668
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/session/set-session-setting.ps1::Resolve-MenteesDir",
@@ -2033,7 +2053,7 @@
       "file": ".github/knowledge-graph/cli/session/test-runner.ps1",
       "description": "File: .github/knowledge-graph/cli/session/test-runner.ps1",
       "extension": ".ps1",
-      "size_bytes": 12437
+      "size_bytes": 12127
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/session/test-runner.ps1::Show-Usage",
@@ -2123,7 +2143,7 @@
       "file": ".github/knowledge-graph/cli/tests/smoke-whiteboard.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/smoke-whiteboard.ps1",
       "extension": ".ps1",
-      "size_bytes": 3724
+      "size_bytes": 3660
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/tests/smoke-whiteboard.ps1::Check",
@@ -2141,7 +2161,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-agent-sync.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-agent-sync.ps1",
       "extension": ".ps1",
-      "size_bytes": 3996
+      "size_bytes": 3907
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/tests/test-agent-sync.ps1::script::AgentName",
@@ -2175,7 +2195,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-e2e.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-e2e.ps1",
       "extension": ".ps1",
-      "size_bytes": 4573
+      "size_bytes": 4469
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/tests/test-extractor-stability.ps1",
@@ -2185,7 +2205,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-extractor-stability.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-extractor-stability.ps1",
       "extension": ".ps1",
-      "size_bytes": 11583
+      "size_bytes": 11320
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/tests/test-extractor-stability.ps1::Test-NodeExists",
@@ -2227,7 +2247,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-graph-writer.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-graph-writer.ps1",
       "extension": ".ps1",
-      "size_bytes": 1964
+      "size_bytes": 1920
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/tests/test-graph.ps1",
@@ -2237,7 +2257,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-graph.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-graph.ps1",
       "extension": ".ps1",
-      "size_bytes": 10200
+      "size_bytes": 9925
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/tests/test-graph.ps1::Test-Assert",
@@ -2263,7 +2283,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1",
       "extension": ".ps1",
-      "size_bytes": 8653
+      "size_bytes": 8419
     },
     {
       "id": "code-func:.github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1::Assert-Case",
@@ -2281,7 +2301,7 @@
       "file": ".github/knowledge-graph/cli/tests/test-scaffold.ps1",
       "description": "File: .github/knowledge-graph/cli/tests/test-scaffold.ps1",
       "extension": ".ps1",
-      "size_bytes": 3151
+      "size_bytes": 3093
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/validate/enforce-method.ps1",
@@ -2291,7 +2311,7 @@
       "file": ".github/knowledge-graph/cli/validate/enforce-method.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/enforce-method.ps1",
       "extension": ".ps1",
-      "size_bytes": 5338
+      "size_bytes": 5191
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/validate/enforce-method.ps1::script::true",
@@ -2309,7 +2329,7 @@
       "file": ".github/knowledge-graph/cli/validate/enforce-track.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/enforce-track.ps1",
       "extension": ".ps1",
-      "size_bytes": 5218
+      "size_bytes": 5080
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/validate/enforce-track.ps1::script::true",
@@ -2327,7 +2347,7 @@
       "file": ".github/knowledge-graph/cli/validate/preflight.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/preflight.ps1",
       "extension": ".ps1",
-      "size_bytes": 6481
+      "size_bytes": 6309
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/validate/preflight.ps1::script::SkipExtract",
@@ -2361,7 +2381,7 @@
       "file": ".github/knowledge-graph/cli/validate/test-load-list.goldens.json",
       "description": "File: .github/knowledge-graph/cli/validate/test-load-list.goldens.json",
       "extension": ".json",
-      "size_bytes": 3246
+      "size_bytes": 3167
     },
     {
       "id": "code-schema:.github/knowledge-graph/cli/validate/test-load-list.goldens.json",
@@ -2416,7 +2436,7 @@
       "file": ".github/knowledge-graph/cli/validate/test-load-list.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/test-load-list.ps1",
       "extension": ".ps1",
-      "size_bytes": 5937
+      "size_bytes": 5776
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/validate/validate-events.ps1",
@@ -2426,7 +2446,7 @@
       "file": ".github/knowledge-graph/cli/validate/validate-events.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/validate-events.ps1",
       "extension": ".ps1",
-      "size_bytes": 8261
+      "size_bytes": 8028
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/validate/validate-events.ps1::script::Username",
@@ -2460,7 +2480,7 @@
       "file": ".github/knowledge-graph/cli/validate/validate-goal.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/validate-goal.ps1",
       "extension": ".ps1",
-      "size_bytes": 1740
+      "size_bytes": 1698
     },
     {
       "id": "code-param:.github/knowledge-graph/cli/validate/validate-goal.ps1::script::false",
@@ -2478,7 +2498,7 @@
       "file": ".github/knowledge-graph/cli/validate/validate-paths.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/validate-paths.ps1",
       "extension": ".ps1",
-      "size_bytes": 9890
+      "size_bytes": 9647
     },
     {
       "id": "code-file:.github/knowledge-graph/cli/validate/validate-pwsh.ps1",
@@ -2488,7 +2508,7 @@
       "file": ".github/knowledge-graph/cli/validate/validate-pwsh.ps1",
       "description": "File: .github/knowledge-graph/cli/validate/validate-pwsh.ps1",
       "extension": ".ps1",
-      "size_bytes": 10870
+      "size_bytes": 10600
     },
     {
       "id": "code-file:.github/knowledge-graph/lib/query.psm1",
@@ -2498,7 +2518,7 @@
       "file": ".github/knowledge-graph/lib/query.psm1",
       "description": "File: .github/knowledge-graph/lib/query.psm1",
       "extension": ".psm1",
-      "size_bytes": 45385
+      "size_bytes": 44129
     },
     {
       "id": "code-param:.github/knowledge-graph/lib/query.psm1::script::Refresh",
@@ -2644,7 +2664,7 @@
       "file": ".github/knowledge-graph/queries/_Format-GraphOutput.ps1",
       "description": "File: .github/knowledge-graph/queries/_Format-GraphOutput.ps1",
       "extension": ".ps1",
-      "size_bytes": 2734
+      "size_bytes": 2649
     },
     {
       "id": "code-param:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::script::Title",
@@ -2710,7 +2730,7 @@
       "file": ".github/knowledge-graph/queries/Get-CallFlow.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-CallFlow.ps1",
       "extension": ".ps1",
-      "size_bytes": 6652
+      "size_bytes": 6454
     },
     {
       "id": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
@@ -2720,7 +2740,7 @@
       "file": ".github/knowledge-graph/queries/Get-Dependencies.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-Dependencies.ps1",
       "extension": ".ps1",
-      "size_bytes": 2091
+      "size_bytes": 2013
     },
     {
       "id": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
@@ -2730,7 +2750,7 @@
       "file": ".github/knowledge-graph/queries/Get-Dependents.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-Dependents.ps1",
       "extension": ".ps1",
-      "size_bytes": 2063
+      "size_bytes": 1985
     },
     {
       "id": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
@@ -2740,7 +2760,7 @@
       "file": ".github/knowledge-graph/queries/Get-IntegrationContext.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-IntegrationContext.ps1",
       "extension": ".ps1",
-      "size_bytes": 17102
+      "size_bytes": 16653
     },
     {
       "id": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Estimate-Tokens",
@@ -2798,7 +2818,7 @@
       "file": ".github/knowledge-graph/queries/Get-SkillPath.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-SkillPath.ps1",
       "extension": ".ps1",
-      "size_bytes": 3722
+      "size_bytes": 3592
     },
     {
       "id": "code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
@@ -2808,7 +2828,7 @@
       "file": ".github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-SkillRecommendations.ps1",
       "extension": ".ps1",
-      "size_bytes": 3003
+      "size_bytes": 2898
     },
     {
       "id": "code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1",
@@ -2818,7 +2838,7 @@
       "file": ".github/knowledge-graph/queries/Get-Subgraph.ps1",
       "description": "File: .github/knowledge-graph/queries/Get-Subgraph.ps1",
       "extension": ".ps1",
-      "size_bytes": 6597
+      "size_bytes": 6396
     },
     {
       "id": "code-param:.github/knowledge-graph/queries/Get-Subgraph.ps1::script::RootNode",
@@ -2860,7 +2880,7 @@
       "file": ".github/knowledge-graph/queries/README.md",
       "description": "File: .github/knowledge-graph/queries/README.md",
       "extension": ".md",
-      "size_bytes": 4327
+      "size_bytes": 4214
     },
     {
       "id": "code-section:.github/knowledge-graph/queries/README.md::Available_Scripts",
@@ -2926,7 +2946,7 @@
       "file": ".github/knowledge-graph/tests/_harness.psm1",
       "description": "File: .github/knowledge-graph/tests/_harness.psm1",
       "extension": ".psm1",
-      "size_bytes": 9110
+      "size_bytes": 8846
     },
     {
       "id": "code-func:.github/knowledge-graph/tests/_harness.psm1::Get-RepoRoot",
@@ -3080,7 +3100,7 @@
       "file": ".github/knowledge-graph/tests/e2e/add-skill-roundtrip.test.ps1",
       "description": "File: .github/knowledge-graph/tests/e2e/add-skill-roundtrip.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 831
+      "size_bytes": 806
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/gate/pre-commit-gates.test.ps1",
@@ -3090,7 +3110,7 @@
       "file": ".github/knowledge-graph/tests/gate/pre-commit-gates.test.ps1",
       "description": "File: .github/knowledge-graph/tests/gate/pre-commit-gates.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 760
+      "size_bytes": 736
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/agent-sync.test.ps1",
@@ -3100,7 +3120,7 @@
       "file": ".github/knowledge-graph/tests/integration/agent-sync.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/agent-sync.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 1160
+      "size_bytes": 1130
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/audit-trust-floor.test.ps1",
@@ -3110,7 +3130,7 @@
       "file": ".github/knowledge-graph/tests/integration/audit-trust-floor.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/audit-trust-floor.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 944
+      "size_bytes": 918
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/extractor-stability.test.ps1",
@@ -3120,7 +3140,7 @@
       "file": ".github/knowledge-graph/tests/integration/extractor-stability.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/extractor-stability.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 856
+      "size_bytes": 831
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/graph-queries.test.ps1",
@@ -3130,7 +3150,7 @@
       "file": ".github/knowledge-graph/tests/integration/graph-queries.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/graph-queries.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 619
+      "size_bytes": 597
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/graph-writer.test.ps1",
@@ -3140,7 +3160,7 @@
       "file": ".github/knowledge-graph/tests/integration/graph-writer.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/graph-writer.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 623
+      "size_bytes": 601
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/scaffold.test.ps1",
@@ -3150,7 +3170,7 @@
       "file": ".github/knowledge-graph/tests/integration/scaffold.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/scaffold.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 682
+      "size_bytes": 659
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/integration/skill-whiteboard.test.ps1",
@@ -3160,7 +3180,7 @@
       "file": ".github/knowledge-graph/tests/integration/skill-whiteboard.test.ps1",
       "description": "File: .github/knowledge-graph/tests/integration/skill-whiteboard.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 617
+      "size_bytes": 595
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/README.md",
@@ -3170,7 +3190,7 @@
       "file": ".github/knowledge-graph/tests/README.md",
       "description": "File: .github/knowledge-graph/tests/README.md",
       "extension": ".md",
-      "size_bytes": 4203
+      "size_bytes": 4099
     },
     {
       "id": "code-section:.github/knowledge-graph/tests/README.md::Layout",
@@ -3236,7 +3256,17 @@
       "file": ".github/knowledge-graph/tests/run-tests.ps1",
       "description": "File: .github/knowledge-graph/tests/run-tests.ps1",
       "extension": ".ps1",
-      "size_bytes": 8495
+      "size_bytes": 8261
+    },
+    {
+      "id": "code-file:.github/knowledge-graph/tests/unit/_template.test.ps1",
+      "type": "code-file",
+      "label": "_template.test.ps1",
+      "cluster": "scripts-source",
+      "file": ".github/knowledge-graph/tests/unit/_template.test.ps1",
+      "description": "File: .github/knowledge-graph/tests/unit/_template.test.ps1",
+      "extension": ".ps1",
+      "size_bytes": 681
     },
     {
       "id": "code-file:.github/knowledge-graph/tests/unit/graph-invariants.test.ps1",
@@ -3246,7 +3276,7 @@
       "file": ".github/knowledge-graph/tests/unit/graph-invariants.test.ps1",
       "description": "File: .github/knowledge-graph/tests/unit/graph-invariants.test.ps1",
       "extension": ".ps1",
-      "size_bytes": 2025
+      "size_bytes": 1968
     },
     {
       "id": "code-file:.github/skills/knowledge-graph-management/SKILL.md",
@@ -3256,7 +3286,7 @@
       "file": ".github/skills/knowledge-graph-management/SKILL.md",
       "description": "File: .github/skills/knowledge-graph-management/SKILL.md",
       "extension": ".md",
-      "size_bytes": 9074
+      "size_bytes": 8780
     },
     {
       "id": "code-yaml-field:.github/skills/knowledge-graph-management/SKILL.md::name",
@@ -3356,7 +3386,7 @@
       "file": ".github/skills/knowledge-graph-management/tests/knowledge-graph-management.test.md",
       "description": "File: .github/skills/knowledge-graph-management/tests/knowledge-graph-management.test.md",
       "extension": ".md",
-      "size_bytes": 1498
+      "size_bytes": 1442
     },
     {
       "id": "code-section:.github/skills/knowledge-graph-management/tests/knowledge-graph-management.test.md::Setup",
@@ -3462,7 +3492,7 @@
       "file": ".github/skills/learner-profile/SKILL.md",
       "description": "File: .github/skills/learner-profile/SKILL.md",
       "extension": ".md",
-      "size_bytes": 28626
+      "size_bytes": 28020
     },
     {
       "id": "code-yaml-field:.github/skills/learner-profile/SKILL.md::name",
@@ -3578,7 +3608,7 @@
       "file": ".github/skills/learner-profile/tests/method-proficiency-tracking.test.md",
       "description": "File: .github/skills/learner-profile/tests/method-proficiency-tracking.test.md",
       "extension": ".md",
-      "size_bytes": 10226
+      "size_bytes": 9940
     },
     {
       "id": "code-section:.github/skills/learner-profile/tests/method-proficiency-tracking.test.md::Scenario_1__First-time_TDD_session__no_prior_proficiency_",
@@ -3700,7 +3730,7 @@
       "file": ".github/skills/learner-profile/tests/profile-load.test.md",
       "description": "File: .github/skills/learner-profile/tests/profile-load.test.md",
       "extension": ".md",
-      "size_bytes": 1557
+      "size_bytes": 1493
     },
     {
       "id": "code-section:.github/skills/learner-profile/tests/profile-load.test.md::Setup",
@@ -3806,7 +3836,7 @@
       "file": ".github/skills/methods/BDD/SKILL.md",
       "description": "File: .github/skills/methods/BDD/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15122
+      "size_bytes": 14798
     },
     {
       "id": "code-yaml-field:.github/skills/methods/BDD/SKILL.md::description",
@@ -3913,7 +3943,7 @@
       "file": ".github/skills/methods/BDD/tests/bdd.test.md",
       "description": "File: .github/skills/methods/BDD/tests/bdd.test.md",
       "extension": ".md",
-      "size_bytes": 1353
+      "size_bytes": 1297
     },
     {
       "id": "code-section:.github/skills/methods/BDD/tests/bdd.test.md::Setup",
@@ -4019,7 +4049,7 @@
       "file": ".github/skills/methods/ride-along/SKILL.md",
       "description": "File: .github/skills/methods/ride-along/SKILL.md",
       "extension": ".md",
-      "size_bytes": 7609
+      "size_bytes": 7480
     },
     {
       "id": "code-yaml-field:.github/skills/methods/ride-along/SKILL.md::name",
@@ -4103,7 +4133,7 @@
       "file": ".github/skills/methods/ride-along/tests/ride-along.test.md",
       "description": "File: .github/skills/methods/ride-along/tests/ride-along.test.md",
       "extension": ".md",
-      "size_bytes": 1422
+      "size_bytes": 1366
     },
     {
       "id": "code-section:.github/skills/methods/ride-along/tests/ride-along.test.md::Setup",
@@ -4209,7 +4239,7 @@
       "file": ".github/skills/methods/spike-then-refactor/SKILL.md",
       "description": "File: .github/skills/methods/spike-then-refactor/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15715
+      "size_bytes": 15390
     },
     {
       "id": "code-yaml-field:.github/skills/methods/spike-then-refactor/SKILL.md::description",
@@ -4316,7 +4346,7 @@
       "file": ".github/skills/methods/spike-then-refactor/tests/spike.test.md",
       "description": "File: .github/skills/methods/spike-then-refactor/tests/spike.test.md",
       "extension": ".md",
-      "size_bytes": 1423
+      "size_bytes": 1367
     },
     {
       "id": "code-section:.github/skills/methods/spike-then-refactor/tests/spike.test.md::Setup",
@@ -4422,7 +4452,7 @@
       "file": ".github/skills/methods/TDD/SKILL.md",
       "description": "File: .github/skills/methods/TDD/SKILL.md",
       "extension": ".md",
-      "size_bytes": 13258
+      "size_bytes": 12976
     },
     {
       "id": "code-yaml-field:.github/skills/methods/TDD/SKILL.md::description",
@@ -4529,7 +4559,7 @@
       "file": ".github/skills/methods/TDD/tests/red-phase.test.md",
       "description": "File: .github/skills/methods/TDD/tests/red-phase.test.md",
       "extension": ".md",
-      "size_bytes": 1910
+      "size_bytes": 1839
     },
     {
       "id": "code-section:.github/skills/methods/TDD/tests/red-phase.test.md::Setup",
@@ -4635,7 +4665,7 @@
       "file": ".github/skills/methods/TDD/tests/tdd.test.md",
       "description": "File: .github/skills/methods/TDD/tests/tdd.test.md",
       "extension": ".md",
-      "size_bytes": 1353
+      "size_bytes": 1297
     },
     {
       "id": "code-section:.github/skills/methods/TDD/tests/tdd.test.md::Setup",
@@ -4741,7 +4771,7 @@
       "file": ".github/skills/methods/whiteboard/SKILL.md",
       "description": "File: .github/skills/methods/whiteboard/SKILL.md",
       "extension": ".md",
-      "size_bytes": 12117
+      "size_bytes": 11963
     },
     {
       "id": "code-yaml-field:.github/skills/methods/whiteboard/SKILL.md::name",
@@ -4825,7 +4855,7 @@
       "file": ".github/skills/methods/whiteboard/tests/whiteboard.test.md",
       "description": "File: .github/skills/methods/whiteboard/tests/whiteboard.test.md",
       "extension": ".md",
-      "size_bytes": 1376
+      "size_bytes": 1320
     },
     {
       "id": "code-section:.github/skills/methods/whiteboard/tests/whiteboard.test.md::Setup",
@@ -4931,7 +4961,7 @@
       "file": ".github/skills/references/method-proficiency-levels.json",
       "description": "File: .github/skills/references/method-proficiency-levels.json",
       "extension": ".json",
-      "size_bytes": 8914
+      "size_bytes": 8708
     },
     {
       "id": "code-schema:.github/skills/references/method-proficiency-levels.json",
@@ -4986,7 +5016,7 @@
       "file": ".github/skills/references/military-mos-mappings.md",
       "description": "File: .github/skills/references/military-mos-mappings.md",
       "extension": ".md",
-      "size_bytes": 8937
+      "size_bytes": 8738
     },
     {
       "id": "code-section:.github/skills/references/military-mos-mappings.md::IT___Communications",
@@ -5060,7 +5090,7 @@
       "file": ".github/skills/references/README.md",
       "description": "File: .github/skills/references/README.md",
       "extension": ".md",
-      "size_bytes": 1071
+      "size_bytes": 1050
     },
     {
       "id": "code-section:.github/skills/references/README.md::What_s_here",
@@ -5094,7 +5124,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-blob-uploader/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-blob-uploader/SKILL.md",
       "extension": ".md",
-      "size_bytes": 22494
+      "size_bytes": 22236
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-blob-uploader/SKILL.md::name",
@@ -5170,7 +5200,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-blob-uploader/tests/cad-blob-uploader.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-blob-uploader/tests/cad-blob-uploader.test.md",
       "extension": ".md",
-      "size_bytes": 1451
+      "size_bytes": 1395
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-blob-uploader/tests/cad-blob-uploader.test.md::Setup",
@@ -5276,7 +5306,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/SKILL.md",
       "extension": ".md",
-      "size_bytes": 35599
+      "size_bytes": 35046
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/SKILL.md::name",
@@ -5351,7 +5381,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/tests/cad-cicd-pipeline.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/tests/cad-cicd-pipeline.test.md",
       "extension": ".md",
-      "size_bytes": 1451
+      "size_bytes": 1395
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-cicd-pipeline/tests/cad-cicd-pipeline.test.md::Setup",
@@ -5457,7 +5487,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-deploy-app-service/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-deploy-app-service/SKILL.md",
       "extension": ".md",
-      "size_bytes": 31387
+      "size_bytes": 31004
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-deploy-app-service/SKILL.md::name",
@@ -5533,7 +5563,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-deploy-app-service/tests/cad-deploy-app-service.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-deploy-app-service/tests/cad-deploy-app-service.test.md",
       "extension": ".md",
-      "size_bytes": 1486
+      "size_bytes": 1430
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-deploy-app-service/tests/cad-deploy-app-service.test.md::Setup",
@@ -5639,7 +5669,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/SKILL.md",
       "extension": ".md",
-      "size_bytes": 39045
+      "size_bytes": 38530
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/SKILL.md::name",
@@ -5715,7 +5745,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/tests/cad-function-queue-trigger.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/tests/cad-function-queue-trigger.test.md",
       "extension": ".md",
-      "size_bytes": 1514
+      "size_bytes": 1458
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-function-queue-trigger/tests/cad-function-queue-trigger.test.md::Setup",
@@ -5821,7 +5851,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-hello-console/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-hello-console/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15697
+      "size_bytes": 15464
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-hello-console/SKILL.md::name",
@@ -5896,7 +5926,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-hello-console/tests/cad-hello-console.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-hello-console/tests/cad-hello-console.test.md",
       "extension": ".md",
-      "size_bytes": 1451
+      "size_bytes": 1395
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-hello-console/tests/cad-hello-console.test.md::Setup",
@@ -6002,7 +6032,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-auth/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-api-auth/SKILL.md",
       "extension": ".md",
-      "size_bytes": 18738
+      "size_bytes": 18528
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-todo-api-auth/SKILL.md::name",
@@ -6078,7 +6108,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-auth/tests/cad-todo-api-auth.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-api-auth/tests/cad-todo-api-auth.test.md",
       "extension": ".md",
-      "size_bytes": 1451
+      "size_bytes": 1395
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-todo-api-auth/tests/cad-todo-api-auth.test.md::Setup",
@@ -6184,7 +6214,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-ef/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-api-ef/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16259
+      "size_bytes": 16088
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-todo-api-ef/SKILL.md::name",
@@ -6260,7 +6290,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api-ef/tests/cad-todo-api-ef.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-api-ef/tests/cad-todo-api-ef.test.md",
       "extension": ".md",
-      "size_bytes": 1437
+      "size_bytes": 1381
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-todo-api-ef/tests/cad-todo-api-ef.test.md::Setup",
@@ -6366,7 +6396,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-api/SKILL.md",
       "extension": ".md",
-      "size_bytes": 10945
+      "size_bytes": 10801
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-todo-api/SKILL.md::name",
@@ -6442,7 +6472,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-api/tests/cad-todo-api.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-api/tests/cad-todo-api.test.md",
       "extension": ".md",
-      "size_bytes": 1416
+      "size_bytes": 1360
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-todo-api/tests/cad-todo-api.test.md::Setup",
@@ -6548,7 +6578,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-cli/SKILL.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-cli/SKILL.md",
       "extension": ".md",
-      "size_bytes": 30096
+      "size_bytes": 29485
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cloud-app-dev/cad-todo-cli/SKILL.md::name",
@@ -6623,7 +6653,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/cad-todo-cli/tests/cad-todo-cli.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/cad-todo-cli/tests/cad-todo-cli.test.md",
       "extension": ".md",
-      "size_bytes": 1416
+      "size_bytes": 1360
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/cad-todo-cli/tests/cad-todo-cli.test.md::Setup",
@@ -6729,7 +6759,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/README.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/README.md",
       "extension": ".md",
-      "size_bytes": 3384
+      "size_bytes": 3342
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/README.md::Projects",
@@ -6771,7 +6801,7 @@
       "file": ".github/skills/tracks/cloud-app-dev/tests/cloud-app-dev.test.md",
       "description": "File: .github/skills/tracks/cloud-app-dev/tests/cloud-app-dev.test.md",
       "extension": ".md",
-      "size_bytes": 1397
+      "size_bytes": 1341
     },
     {
       "id": "code-section:.github/skills/tracks/cloud-app-dev/tests/cloud-app-dev.test.md::Setup",
@@ -6877,7 +6907,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16180
+      "size_bytes": 15948
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/SKILL.md::name",
@@ -6952,7 +6982,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/tests/cso-defender-endpoint-onboard.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/tests/cso-defender-endpoint-onboard.test.md",
       "extension": ".md",
-      "size_bytes": 1543
+      "size_bytes": 1487
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-defender-endpoint-onboard/tests/cso-defender-endpoint-onboard.test.md::Setup",
@@ -7058,7 +7088,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-detection-rule/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-detection-rule/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16704
+      "size_bytes": 16442
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-detection-rule/SKILL.md::name",
@@ -7133,7 +7163,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-detection-rule/tests/cso-detection-rule.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-detection-rule/tests/cso-detection-rule.test.md",
       "extension": ".md",
-      "size_bytes": 1466
+      "size_bytes": 1410
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-detection-rule/tests/cso-detection-rule.test.md::Setup",
@@ -7239,7 +7269,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/SKILL.md",
       "extension": ".md",
-      "size_bytes": 14444
+      "size_bytes": 14226
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/SKILL.md::name",
@@ -7314,7 +7344,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/tests/cso-entra-identity-hardening.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/tests/cso-entra-identity-hardening.test.md",
       "extension": ".md",
-      "size_bytes": 1536
+      "size_bytes": 1480
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-entra-identity-hardening/tests/cso-entra-identity-hardening.test.md::Setup",
@@ -7420,7 +7450,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-hunting-query/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-hunting-query/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15187
+      "size_bytes": 14943
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-hunting-query/SKILL.md::name",
@@ -7495,7 +7525,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-hunting-query/tests/cso-hunting-query.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-hunting-query/tests/cso-hunting-query.test.md",
       "extension": ".md",
-      "size_bytes": 1459
+      "size_bytes": 1403
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-hunting-query/tests/cso-hunting-query.test.md::Setup",
@@ -7601,7 +7631,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-incident-investigation/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-incident-investigation/SKILL.md",
       "extension": ".md",
-      "size_bytes": 13376
+      "size_bytes": 13153
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-incident-investigation/SKILL.md::name",
@@ -7732,7 +7762,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-incident-investigation/tests/cso-incident-investigation.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-incident-investigation/tests/cso-incident-investigation.test.md",
       "extension": ".md",
-      "size_bytes": 1522
+      "size_bytes": 1466
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-incident-investigation/tests/cso-incident-investigation.test.md::Setup",
@@ -7838,7 +7868,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-kql-foundations/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-kql-foundations/SKILL.md",
       "extension": ".md",
-      "size_bytes": 12437
+      "size_bytes": 12200
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-kql-foundations/SKILL.md::name",
@@ -7913,7 +7943,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-kql-foundations/tests/cso-kql-foundations.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-kql-foundations/tests/cso-kql-foundations.test.md",
       "extension": ".md",
-      "size_bytes": 1473
+      "size_bytes": 1417
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-kql-foundations/tests/cso-kql-foundations.test.md::Setup",
@@ -8019,7 +8049,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/SKILL.md",
       "extension": ".md",
-      "size_bytes": 13654
+      "size_bytes": 13425
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/SKILL.md::name",
@@ -8094,7 +8124,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/tests/cso-sentinel-workspace.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/tests/cso-sentinel-workspace.test.md",
       "extension": ".md",
-      "size_bytes": 1494
+      "size_bytes": 1438
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-sentinel-workspace/tests/cso-sentinel-workspace.test.md::Setup",
@@ -8200,7 +8230,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-soar-playbook/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-soar-playbook/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15679
+      "size_bytes": 15412
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-soar-playbook/SKILL.md::name",
@@ -8275,7 +8305,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-soar-playbook/tests/cso-soar-playbook.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-soar-playbook/tests/cso-soar-playbook.test.md",
       "extension": ".md",
-      "size_bytes": 1459
+      "size_bytes": 1403
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-soar-playbook/tests/cso-soar-playbook.test.md::Setup",
@@ -8381,7 +8411,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/SKILL.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16042
+      "size_bytes": 15760
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/SKILL.md::name",
@@ -8456,7 +8486,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/tests/cso-threat-intel-integration.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/tests/cso-threat-intel-integration.test.md",
       "extension": ".md",
-      "size_bytes": 1536
+      "size_bytes": 1480
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/cso-threat-intel-integration/tests/cso-threat-intel-integration.test.md::Setup",
@@ -8562,7 +8592,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/README.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/README.md",
       "extension": ".md",
-      "size_bytes": 6312
+      "size_bytes": 6240
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/cybersecurity-ops/README.md::name",
@@ -8629,7 +8659,7 @@
       "file": ".github/skills/tracks/cybersecurity-ops/tests/cybersecurity-ops.test.md",
       "description": "File: .github/skills/tracks/cybersecurity-ops/tests/cybersecurity-ops.test.md",
       "extension": ".md",
-      "size_bytes": 1425
+      "size_bytes": 1369
     },
     {
       "id": "code-section:.github/skills/tracks/cybersecurity-ops/tests/cybersecurity-ops.test.md::Setup",
@@ -8735,7 +8765,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-chat-driven-debugging/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-chat-driven-debugging/SKILL.md",
       "extension": ".md",
-      "size_bytes": 13786
+      "size_bytes": 13518
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-chat-driven-debugging/SKILL.md::name",
@@ -8810,7 +8840,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-chat-driven-debugging/tests/ghc-chat-driven-debugging.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-chat-driven-debugging/tests/ghc-chat-driven-debugging.test.md",
       "extension": ".md",
-      "size_bytes": 1509
+      "size_bytes": 1453
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-chat-driven-debugging/tests/ghc-chat-driven-debugging.test.md::Setup",
@@ -8916,7 +8946,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-code-review-with-copilot/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-code-review-with-copilot/SKILL.md",
       "extension": ".md",
-      "size_bytes": 14341
+      "size_bytes": 14047
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-code-review-with-copilot/SKILL.md::name",
@@ -8999,7 +9029,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-code-review-with-copilot/tests/ghc-code-review-with-copilot.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-code-review-with-copilot/tests/ghc-code-review-with-copilot.test.md",
       "extension": ".md",
-      "size_bytes": 1530
+      "size_bytes": 1474
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-code-review-with-copilot/tests/ghc-code-review-with-copilot.test.md::Setup",
@@ -9105,7 +9135,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-copilot-foundations/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-copilot-foundations/SKILL.md",
       "extension": ".md",
-      "size_bytes": 12646
+      "size_bytes": 12448
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-copilot-foundations/SKILL.md::name",
@@ -9180,7 +9210,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-copilot-foundations/tests/ghc-copilot-foundations.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-copilot-foundations/tests/ghc-copilot-foundations.test.md",
       "extension": ".md",
-      "size_bytes": 1495
+      "size_bytes": 1439
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-copilot-foundations/tests/ghc-copilot-foundations.test.md::Setup",
@@ -9286,7 +9316,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-custom-agents/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-custom-agents/SKILL.md",
       "extension": ".md",
-      "size_bytes": 18983
+      "size_bytes": 18685
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-custom-agents/SKILL.md::name",
@@ -9425,7 +9455,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-custom-agents/tests/ghc-custom-agents.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-custom-agents/tests/ghc-custom-agents.test.md",
       "extension": ".md",
-      "size_bytes": 1453
+      "size_bytes": 1397
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-custom-agents/tests/ghc-custom-agents.test.md::Setup",
@@ -9531,7 +9561,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-custom-instructions/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-custom-instructions/SKILL.md",
       "extension": ".md",
-      "size_bytes": 14784
+      "size_bytes": 14505
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-custom-instructions/SKILL.md::name",
@@ -9638,7 +9668,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-custom-instructions/tests/ghc-custom-instructions.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-custom-instructions/tests/ghc-custom-instructions.test.md",
       "extension": ".md",
-      "size_bytes": 1495
+      "size_bytes": 1439
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-custom-instructions/tests/ghc-custom-instructions.test.md::Setup",
@@ -9744,7 +9774,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-mcp-tools-integration/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-mcp-tools-integration/SKILL.md",
       "extension": ".md",
-      "size_bytes": 19499
+      "size_bytes": 19159
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-mcp-tools-integration/SKILL.md::name",
@@ -9851,7 +9881,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-mcp-tools-integration/tests/ghc-mcp-tools-integration.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-mcp-tools-integration/tests/ghc-mcp-tools-integration.test.md",
       "extension": ".md",
-      "size_bytes": 1509
+      "size_bytes": 1453
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-mcp-tools-integration/tests/ghc-mcp-tools-integration.test.md::Setup",
@@ -9957,7 +9987,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-prompt-files/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-prompt-files/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16352
+      "size_bytes": 16034
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-prompt-files/SKILL.md::name",
@@ -10048,7 +10078,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-prompt-files/tests/ghc-prompt-files.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-prompt-files/tests/ghc-prompt-files.test.md",
       "extension": ".md",
-      "size_bytes": 1446
+      "size_bytes": 1390
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-prompt-files/tests/ghc-prompt-files.test.md::Setup",
@@ -10154,7 +10184,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-prompting-for-completions/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-prompting-for-completions/SKILL.md",
       "extension": ".md",
-      "size_bytes": 12906
+      "size_bytes": 12672
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-prompting-for-completions/SKILL.md::name",
@@ -10229,7 +10259,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-prompting-for-completions/tests/ghc-prompting-for-completions.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-prompting-for-completions/tests/ghc-prompting-for-completions.test.md",
       "extension": ".md",
-      "size_bytes": 1537
+      "size_bytes": 1481
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-prompting-for-completions/tests/ghc-prompting-for-completions.test.md::Setup",
@@ -10335,7 +10365,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-test-generation/SKILL.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-test-generation/SKILL.md",
       "extension": ".md",
-      "size_bytes": 13324
+      "size_bytes": 13085
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/ghc-test-generation/SKILL.md::name",
@@ -10410,7 +10440,7 @@
       "file": ".github/skills/tracks/github-copilot/ghc-test-generation/tests/ghc-test-generation.test.md",
       "description": "File: .github/skills/tracks/github-copilot/ghc-test-generation/tests/ghc-test-generation.test.md",
       "extension": ".md",
-      "size_bytes": 1467
+      "size_bytes": 1411
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/ghc-test-generation/tests/ghc-test-generation.test.md::Setup",
@@ -10516,7 +10546,7 @@
       "file": ".github/skills/tracks/github-copilot/README.md",
       "description": "File: .github/skills/tracks/github-copilot/README.md",
       "extension": ".md",
-      "size_bytes": 6009
+      "size_bytes": 5930
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/github-copilot/README.md::name",
@@ -10583,7 +10613,7 @@
       "file": ".github/skills/tracks/github-copilot/tests/github-copilot.test.md",
       "description": "File: .github/skills/tracks/github-copilot/tests/github-copilot.test.md",
       "extension": ".md",
-      "size_bytes": 1404
+      "size_bytes": 1348
     },
     {
       "id": "code-section:.github/skills/tracks/github-copilot/tests/github-copilot.test.md::Setup",
@@ -10689,7 +10719,7 @@
       "file": ".github/skills/tracks/README.md",
       "description": "File: .github/skills/tracks/README.md",
       "extension": ".md",
-      "size_bytes": 2022
+      "size_bytes": 1993
     },
     {
       "id": "code-section:.github/skills/tracks/README.md::MSSA_tracks__official__3_total_",
@@ -10723,7 +10753,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/README.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/README.md",
       "extension": ".md",
-      "size_bytes": 5183
+      "size_bytes": 5125
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/README.md::Projects",
@@ -10773,7 +10803,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/SKILL.md",
       "extension": ".md",
-      "size_bytes": 20808
+      "size_bytes": 20477
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/SKILL.md::name",
@@ -10848,7 +10878,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/tests/sca-ad-and-gpo.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/tests/sca-ad-and-gpo.test.md",
       "extension": ".md",
-      "size_bytes": 1440
+      "size_bytes": 1384
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-ad-and-gpo/tests/sca-ad-and-gpo.test.md::Setup",
@@ -10954,7 +10984,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/SKILL.md",
       "extension": ".md",
-      "size_bytes": 21175
+      "size_bytes": 20684
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/SKILL.md::name",
@@ -11029,7 +11059,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/tests/sca-arm-bicep-iac.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/tests/sca-arm-bicep-iac.test.md",
       "extension": ".md",
-      "size_bytes": 1461
+      "size_bytes": 1405
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-arm-bicep-iac/tests/sca-arm-bicep-iac.test.md::Setup",
@@ -11135,7 +11165,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/SKILL.md",
       "extension": ".md",
-      "size_bytes": 17015
+      "size_bytes": 16715
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/SKILL.md::name",
@@ -11210,7 +11240,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/tests/sca-azure-vnet-vm.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/tests/sca-azure-vnet-vm.test.md",
       "extension": ".md",
-      "size_bytes": 1461
+      "size_bytes": 1405
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-azure-vnet-vm/tests/sca-azure-vnet-vm.test.md::Setup",
@@ -11316,7 +11346,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/SKILL.md",
       "extension": ".md",
-      "size_bytes": 18437
+      "size_bytes": 18146
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/SKILL.md::name",
@@ -11391,7 +11421,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/tests/sca-entra-hybrid-identity.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/tests/sca-entra-hybrid-identity.test.md",
       "extension": ".md",
-      "size_bytes": 1517
+      "size_bytes": 1461
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-entra-hybrid-identity/tests/sca-entra-hybrid-identity.test.md::Setup",
@@ -11497,7 +11527,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-local-system-admin/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-local-system-admin/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16366
+      "size_bytes": 16069
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-local-system-admin/SKILL.md::name",
@@ -11572,7 +11602,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-local-system-admin/tests/sca-local-system-admin.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-local-system-admin/tests/sca-local-system-admin.test.md",
       "extension": ".md",
-      "size_bytes": 1496
+      "size_bytes": 1440
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-local-system-admin/tests/sca-local-system-admin.test.md::Setup",
@@ -11678,7 +11708,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-monitoring/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-monitoring/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16487
+      "size_bytes": 16172
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-monitoring/SKILL.md::name",
@@ -11753,7 +11783,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-monitoring/tests/sca-monitoring.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-monitoring/tests/sca-monitoring.test.md",
       "extension": ".md",
-      "size_bytes": 1440
+      "size_bytes": 1384
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-monitoring/tests/sca-monitoring.test.md::Setup",
@@ -11859,7 +11889,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-powershell-foundations/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-powershell-foundations/SKILL.md",
       "extension": ".md",
-      "size_bytes": 12683
+      "size_bytes": 12460
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-powershell-foundations/SKILL.md::name",
@@ -11934,7 +11964,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-powershell-foundations/tests/sca-powershell-foundations.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-powershell-foundations/tests/sca-powershell-foundations.test.md",
       "extension": ".md",
-      "size_bytes": 1524
+      "size_bytes": 1468
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-powershell-foundations/tests/sca-powershell-foundations.test.md::Setup",
@@ -12040,7 +12070,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-server-vm-setup/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-server-vm-setup/SKILL.md",
       "extension": ".md",
-      "size_bytes": 18125
+      "size_bytes": 17818
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-server-vm-setup/SKILL.md::name",
@@ -12115,7 +12145,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-server-vm-setup/tests/sca-server-vm-setup.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-server-vm-setup/tests/sca-server-vm-setup.test.md",
       "extension": ".md",
-      "size_bytes": 1475
+      "size_bytes": 1419
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-server-vm-setup/tests/sca-server-vm-setup.test.md::Setup",
@@ -12221,7 +12251,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-storage-and-backup/SKILL.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-storage-and-backup/SKILL.md",
       "extension": ".md",
-      "size_bytes": 17233
+      "size_bytes": 16936
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/server-cloud-admin/sca-storage-and-backup/SKILL.md::name",
@@ -12296,7 +12326,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/sca-storage-and-backup/tests/sca-storage-and-backup.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/sca-storage-and-backup/tests/sca-storage-and-backup.test.md",
       "extension": ".md",
-      "size_bytes": 1496
+      "size_bytes": 1440
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/sca-storage-and-backup/tests/sca-storage-and-backup.test.md::Setup",
@@ -12402,7 +12432,7 @@
       "file": ".github/skills/tracks/server-cloud-admin/tests/server-cloud-admin.test.md",
       "description": "File: .github/skills/tracks/server-cloud-admin/tests/server-cloud-admin.test.md",
       "extension": ".md",
-      "size_bytes": 1432
+      "size_bytes": 1376
     },
     {
       "id": "code-section:.github/skills/tracks/server-cloud-admin/tests/server-cloud-admin.test.md::Setup",
@@ -12508,7 +12538,7 @@
       "file": ".github/skills/tracks/whiteboarding/README.md",
       "description": "File: .github/skills/tracks/whiteboarding/README.md",
       "extension": ".md",
-      "size_bytes": 4764
+      "size_bytes": 4698
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/README.md::Why_this_is_here",
@@ -12574,7 +12604,7 @@
       "file": ".github/skills/tracks/whiteboarding/tests/whiteboarding.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/tests/whiteboarding.test.md",
       "extension": ".md",
-      "size_bytes": 1397
+      "size_bytes": 1341
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/tests/whiteboarding.test.md::Setup",
@@ -12680,7 +12710,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15899
+      "size_bytes": 15594
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/SKILL.md::name",
@@ -12755,7 +12785,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/tests/wbd-box-and-arrow-diagrams.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/tests/wbd-box-and-arrow-diagrams.test.md",
       "extension": ".md",
-      "size_bytes": 1514
+      "size_bytes": 1458
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-box-and-arrow-diagrams/tests/wbd-box-and-arrow-diagrams.test.md::Setup",
@@ -12861,7 +12891,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15831
+      "size_bytes": 15590
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/SKILL.md::name",
@@ -12936,7 +12966,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/tests/wbd-capstone-present-a-system.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/tests/wbd-capstone-present-a-system.test.md",
       "extension": ".md",
-      "size_bytes": 1535
+      "size_bytes": 1479
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-capstone-present-a-system/tests/wbd-capstone-present-a-system.test.md::Setup",
@@ -13042,7 +13072,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16013
+      "size_bytes": 15743
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/SKILL.md::name",
@@ -13117,7 +13147,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/tests/wbd-drawio-for-polished-diagrams.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/tests/wbd-drawio-for-polished-diagrams.test.md",
       "extension": ".md",
-      "size_bytes": 1556
+      "size_bytes": 1500
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-drawio-for-polished-diagrams/tests/wbd-drawio-for-polished-diagrams.test.md::Setup",
@@ -13223,7 +13253,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/SKILL.md",
       "extension": ".md",
-      "size_bytes": 17434
+      "size_bytes": 17173
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/SKILL.md::name",
@@ -13298,7 +13328,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/tests/wbd-entity-relationship-diagrams.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/tests/wbd-entity-relationship-diagrams.test.md",
       "extension": ".md",
-      "size_bytes": 1556
+      "size_bytes": 1500
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-entity-relationship-diagrams/tests/wbd-entity-relationship-diagrams.test.md::Setup",
@@ -13404,7 +13434,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-mermaid-as-code/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-mermaid-as-code/SKILL.md",
       "extension": ".md",
-      "size_bytes": 15785
+      "size_bytes": 15392
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-mermaid-as-code/SKILL.md::name",
@@ -13479,7 +13509,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-mermaid-as-code/tests/wbd-mermaid-as-code.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-mermaid-as-code/tests/wbd-mermaid-as-code.test.md",
       "extension": ".md",
-      "size_bytes": 1465
+      "size_bytes": 1409
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-mermaid-as-code/tests/wbd-mermaid-as-code.test.md::Setup",
@@ -13585,7 +13615,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-sequence-diagrams/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-sequence-diagrams/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16776
+      "size_bytes": 16487
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-sequence-diagrams/SKILL.md::name",
@@ -13660,7 +13690,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-sequence-diagrams/tests/wbd-sequence-diagrams.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-sequence-diagrams/tests/wbd-sequence-diagrams.test.md",
       "extension": ".md",
-      "size_bytes": 1479
+      "size_bytes": 1423
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-sequence-diagrams/tests/wbd-sequence-diagrams.test.md::Setup",
@@ -13766,7 +13796,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/SKILL.md",
       "extension": ".md",
-      "size_bytes": 16142
+      "size_bytes": 15868
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/SKILL.md::name",
@@ -13841,7 +13871,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/tests/wbd-state-machines-and-flowcharts.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/tests/wbd-state-machines-and-flowcharts.test.md",
       "extension": ".md",
-      "size_bytes": 1563
+      "size_bytes": 1507
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-state-machines-and-flowcharts/tests/wbd-state-machines-and-flowcharts.test.md::Setup",
@@ -13947,7 +13977,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-system-design-interview/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-system-design-interview/SKILL.md",
       "extension": ".md",
-      "size_bytes": 18687
+      "size_bytes": 18342
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-system-design-interview/SKILL.md::name",
@@ -14022,7 +14052,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-system-design-interview/tests/wbd-system-design-interview.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-system-design-interview/tests/wbd-system-design-interview.test.md",
       "extension": ".md",
-      "size_bytes": 1521
+      "size_bytes": 1465
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-system-design-interview/tests/wbd-system-design-interview.test.md::Setup",
@@ -14128,7 +14158,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/SKILL.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/SKILL.md",
       "extension": ".md",
-      "size_bytes": 12834
+      "size_bytes": 12605
     },
     {
       "id": "code-yaml-field:.github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/SKILL.md::name",
@@ -14203,7 +14233,7 @@
       "file": ".github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/tests/wbd-whiteboard-foundations.test.md",
       "description": "File: .github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/tests/wbd-whiteboard-foundations.test.md",
       "extension": ".md",
-      "size_bytes": 1514
+      "size_bytes": 1458
     },
     {
       "id": "code-section:.github/skills/tracks/whiteboarding/wbd-whiteboard-foundations/tests/wbd-whiteboard-foundations.test.md::Setup",
@@ -14309,7 +14339,7 @@
       "file": ".github/tests/compression-resilience.test.md",
       "description": "File: .github/tests/compression-resilience.test.md",
       "extension": ".md",
-      "size_bytes": 2128
+      "size_bytes": 2059
     },
     {
       "id": "code-section:.github/tests/compression-resilience.test.md::Setup",
@@ -14415,7 +14445,7 @@
       "file": ".github/tests/edit-setting-on-request.test.md",
       "description": "File: .github/tests/edit-setting-on-request.test.md",
       "extension": ".md",
-      "size_bytes": 3673
+      "size_bytes": 3586
     },
     {
       "id": "code-section:.github/tests/edit-setting-on-request.test.md::Setup",
@@ -14505,7 +14535,7 @@
       "file": ".github/tests/first-message-greeting.test.md",
       "description": "File: .github/tests/first-message-greeting.test.md",
       "extension": ".md",
-      "size_bytes": 2880
+      "size_bytes": 2801
     },
     {
       "id": "code-section:.github/tests/first-message-greeting.test.md::Setup",
@@ -14579,7 +14609,7 @@
       "file": ".github/tests/handheld-beginner.test.md",
       "description": "File: .github/tests/handheld-beginner.test.md",
       "extension": ".md",
-      "size_bytes": 2960
+      "size_bytes": 2888
     },
     {
       "id": "code-section:.github/tests/handheld-beginner.test.md::Setup",
@@ -14685,7 +14715,7 @@
       "file": ".github/tests/interview-first-time.test.md",
       "description": "File: .github/tests/interview-first-time.test.md",
       "extension": ".md",
-      "size_bytes": 2716
+      "size_bytes": 2642
     },
     {
       "id": "code-section:.github/tests/interview-first-time.test.md::Setup",
@@ -14791,7 +14821,7 @@
       "file": ".github/tests/mentor-cad-first-project.md",
       "description": "File: .github/tests/mentor-cad-first-project.md",
       "extension": ".md",
-      "size_bytes": 4802
+      "size_bytes": 4711
     },
     {
       "id": "code-section:.github/tests/mentor-cad-first-project.md::Setup",
@@ -14849,7 +14879,7 @@
       "file": ".github/tests/method-switching.test.md",
       "description": "File: .github/tests/method-switching.test.md",
       "extension": ".md",
-      "size_bytes": 1726
+      "size_bytes": 1659
     },
     {
       "id": "code-section:.github/tests/method-switching.test.md::Setup",
@@ -14955,7 +14985,7 @@
       "file": ".github/tests/picker-continuation.test.md",
       "description": "File: .github/tests/picker-continuation.test.md",
       "extension": ".md",
-      "size_bytes": 2394
+      "size_bytes": 2327
     },
     {
       "id": "code-section:.github/tests/picker-continuation.test.md::Setup",
@@ -15061,7 +15091,7 @@
       "file": ".github/tests/picker-method.test.md",
       "description": "File: .github/tests/picker-method.test.md",
       "extension": ".md",
-      "size_bytes": 2339
+      "size_bytes": 2272
     },
     {
       "id": "code-section:.github/tests/picker-method.test.md::Setup",
@@ -15167,7 +15197,7 @@
       "file": ".github/tests/picker-project.test.md",
       "description": "File: .github/tests/picker-project.test.md",
       "extension": ".md",
-      "size_bytes": 2471
+      "size_bytes": 2398
     },
     {
       "id": "code-section:.github/tests/picker-project.test.md::Setup",
@@ -15273,7 +15303,7 @@
       "file": ".github/tests/picker-track.test.md",
       "description": "File: .github/tests/picker-track.test.md",
       "extension": ".md",
-      "size_bytes": 2287
+      "size_bytes": 2220
     },
     {
       "id": "code-section:.github/tests/picker-track.test.md::Setup",
@@ -15379,7 +15409,7 @@
       "file": ".github/tests/quiz-cadence.test.md",
       "description": "File: .github/tests/quiz-cadence.test.md",
       "extension": ".md",
-      "size_bytes": 2443
+      "size_bytes": 2375
     },
     {
       "id": "code-section:.github/tests/quiz-cadence.test.md::Setup",
@@ -15485,7 +15515,7 @@
       "file": ".github/tests/quiz-pre-teach.test.md",
       "description": "File: .github/tests/quiz-pre-teach.test.md",
       "extension": ".md",
-      "size_bytes": 2729
+      "size_bytes": 2661
     },
     {
       "id": "code-section:.github/tests/quiz-pre-teach.test.md::Setup",
@@ -15591,7 +15621,7 @@
       "file": ".github/tests/quiz-reappearance.test.md",
       "description": "File: .github/tests/quiz-reappearance.test.md",
       "extension": ".md",
-      "size_bytes": 2581
+      "size_bytes": 2515
     },
     {
       "id": "code-section:.github/tests/quiz-reappearance.test.md::Setup",
@@ -15697,7 +15727,7 @@
       "file": ".github/tests/session-flow.test.md",
       "description": "File: .github/tests/session-flow.test.md",
       "extension": ".md",
-      "size_bytes": 2375
+      "size_bytes": 2303
     },
     {
       "id": "code-section:.github/tests/session-flow.test.md::Setup",
@@ -15803,7 +15833,7 @@
       "file": ".github/tests/TEST_TEMPLATE.md",
       "description": "File: .github/tests/TEST_TEMPLATE.md",
       "extension": ".md",
-      "size_bytes": 1102
+      "size_bytes": 1040
     },
     {
       "id": "code-section:.github/tests/TEST_TEMPLATE.md::Setup",
@@ -15853,7 +15883,7 @@
       "file": ".profiles/edit-profile.ps1",
       "description": "File: .profiles/edit-profile.ps1",
       "extension": ".ps1",
-      "size_bytes": 8501
+      "size_bytes": 8283
     },
     {
       "id": "code-param:.profiles/edit-profile.ps1::script::Username",
@@ -15895,7 +15925,7 @@
       "file": ".profiles/profiles/mentees/test_incomplete.json",
       "description": "File: .profiles/profiles/mentees/test_incomplete.json",
       "extension": ".json",
-      "size_bytes": 1355
+      "size_bytes": 1307
     },
     {
       "id": "code-schema:.profiles/profiles/mentees/test_incomplete.json",
@@ -16004,7 +16034,7 @@
       "file": ".profiles/profiles/mentees/test_user/cad-02-rest-api.progress.json",
       "description": "File: .profiles/profiles/mentees/test_user/cad-02-rest-api.progress.json",
       "extension": ".json",
-      "size_bytes": 5989
+      "size_bytes": 5803
     },
     {
       "id": "code-schema:.profiles/profiles/mentees/test_user/cad-02-rest-api.progress.json",
@@ -16158,7 +16188,7 @@
       "file": ".profiles/profiles/mentees/test_user/profile.json",
       "description": "File: .profiles/profiles/mentees/test_user/profile.json",
       "extension": ".json",
-      "size_bytes": 1547
+      "size_bytes": 1487
     },
     {
       "id": "code-schema:.profiles/profiles/mentees/test_user/profile.json",
@@ -16258,7 +16288,7 @@
       "file": ".profiles/profiles/mentors/jasteenb.json",
       "description": "File: .profiles/profiles/mentors/jasteenb.json",
       "extension": ".json",
-      "size_bytes": 3101
+      "size_bytes": 3035
     },
     {
       "id": "code-schema:.profiles/profiles/mentors/jasteenb.json",
@@ -16376,7 +16406,7 @@
       "file": ".profiles/profiles/mentors/jasteenb/mssa-mentor-agent.progress.json",
       "description": "File: .profiles/profiles/mentors/jasteenb/mssa-mentor-agent.progress.json",
       "extension": ".json",
-      "size_bytes": 2707
+      "size_bytes": 2631
     },
     {
       "id": "code-schema:.profiles/profiles/mentors/jasteenb/mssa-mentor-agent.progress.json",
@@ -16512,7 +16542,7 @@
       "file": ".profiles/profiles/mentors/jasteenb/profile.json",
       "description": "File: .profiles/profiles/mentors/jasteenb/profile.json",
       "extension": ".json",
-      "size_bytes": 2712
+      "size_bytes": 2659
     },
     {
       "id": "code-schema:.profiles/profiles/mentors/jasteenb/profile.json",
@@ -16612,7 +16642,7 @@
       "file": ".profiles/ProfileTests/LearnerProfileCompletenessTests.cs",
       "description": "File: .profiles/ProfileTests/LearnerProfileCompletenessTests.cs",
       "extension": ".cs",
-      "size_bytes": 14295
+      "size_bytes": 13956
     },
     {
       "id": "code-import:.profiles/ProfileTests/LearnerProfileCompletenessTests.cs::using::System",
@@ -16798,7 +16828,7 @@
       "file": ".profiles/ProfileTests/ProfileTests.csproj",
       "description": "File: .profiles/ProfileTests/ProfileTests.csproj",
       "extension": ".csproj",
-      "size_bytes": 729
+      "size_bytes": 709
     },
     {
       "id": "code-file:.profiles/ProfileTests/README.md",
@@ -16808,7 +16838,7 @@
       "file": ".profiles/ProfileTests/README.md",
       "description": "File: .profiles/ProfileTests/README.md",
       "extension": ".md",
-      "size_bytes": 1139
+      "size_bytes": 1102
     },
     {
       "id": "code-section:.profiles/ProfileTests/README.md::Run_Tests",
@@ -16850,7 +16880,7 @@
       "file": ".profiles/project.json",
       "description": "File: .profiles/project.json",
       "extension": ".json",
-      "size_bytes": 324
+      "size_bytes": 313
     },
     {
       "id": "code-schema:.profiles/project.json",
@@ -16932,7 +16962,7 @@
       "file": ".profiles/README.md",
       "description": "File: .profiles/README.md",
       "extension": ".md",
-      "size_bytes": 5156
+      "size_bytes": 4997
     },
     {
       "id": "code-section:.profiles/README.md::Structure",
@@ -16998,7 +17028,7 @@
       "file": ".profiles/validate-profile.ps1",
       "description": "File: .profiles/validate-profile.ps1",
       "extension": ".ps1",
-      "size_bytes": 2688
+      "size_bytes": 2595
     },
     {
       "id": "code-param:.profiles/validate-profile.ps1::script::Username",
@@ -17016,7 +17046,7 @@
       "file": "docs/design/event-log-design.md",
       "description": "File: docs/design/event-log-design.md",
       "extension": ".md",
-      "size_bytes": 10435
+      "size_bytes": 10246
     },
     {
       "id": "code-section:docs/design/event-log-design.md::The_Problem",
@@ -17098,7 +17128,7 @@
       "file": "docs/design/feedback-loops.md",
       "description": "File: docs/design/feedback-loops.md",
       "extension": ".md",
-      "size_bytes": 9477
+      "size_bytes": 9412
     },
     {
       "id": "code-section:docs/design/feedback-loops.md::The_Matrix",
@@ -17140,7 +17170,7 @@
       "file": "docs/design/v1-build-plan.md",
       "description": "File: docs/design/v1-build-plan.md",
       "extension": ".md",
-      "size_bytes": 24019
+      "size_bytes": 23543
     },
     {
       "id": "code-section:docs/design/v1-build-plan.md::What_changed_from_draft_v1__read_this_first_",
@@ -17230,7 +17260,7 @@
       "file": "docs/design/v1-distribution-and-scaffolding.md",
       "description": "File: docs/design/v1-distribution-and-scaffolding.md",
       "extension": ".md",
-      "size_bytes": 7552
+      "size_bytes": 7419
     },
     {
       "id": "code-section:docs/design/v1-distribution-and-scaffolding.md::Spike_result__2026-06-01_",
@@ -17304,7 +17334,7 @@
       "file": "docs/MENTEE_QUESTIONS.md",
       "description": "File: docs/MENTEE_QUESTIONS.md",
       "extension": ".md",
-      "size_bytes": 21421
+      "size_bytes": 21151
     },
     {
       "id": "code-section:docs/MENTEE_QUESTIONS.md::How_to_use_this_doc",
@@ -17330,7 +17360,7 @@
       "file": "docs/MENTOR_DIRECTORY.md",
       "description": "File: docs/MENTOR_DIRECTORY.md",
       "extension": ".md",
-      "size_bytes": 4035
+      "size_bytes": 3938
     },
     {
       "id": "code-section:docs/MENTOR_DIRECTORY.md::Directory_Structure",
@@ -17420,7 +17450,7 @@
       "file": "extensions/mssa-mentor/.vscode/launch.json",
       "description": "File: extensions/mssa-mentor/.vscode/launch.json",
       "extension": ".json",
-      "size_bytes": 359
+      "size_bytes": 342
     },
     {
       "id": "code-schema:extensions/mssa-mentor/.vscode/launch.json",
@@ -17457,7 +17487,7 @@
       "file": "extensions/mssa-mentor/.vscode/tasks.json",
       "description": "File: extensions/mssa-mentor/.vscode/tasks.json",
       "extension": ".json",
-      "size_bytes": 601
+      "size_bytes": 571
     },
     {
       "id": "code-schema:extensions/mssa-mentor/.vscode/tasks.json",
@@ -17494,7 +17524,7 @@
       "file": "extensions/mssa-mentor/CHANGELOG.md",
       "description": "File: extensions/mssa-mentor/CHANGELOG.md",
       "extension": ".md",
-      "size_bytes": 1161
+      "size_bytes": 1142
     },
     {
       "id": "code-section:extensions/mssa-mentor/CHANGELOG.md::_0.1.0____Initial_release",
@@ -17512,7 +17542,7 @@
       "file": "extensions/mssa-mentor/package-lock.json",
       "description": "File: extensions/mssa-mentor/package-lock.json",
       "extension": ".json",
-      "size_bytes": 216708
+      "size_bytes": 210354
     },
     {
       "id": "code-file:extensions/mssa-mentor/package.json",
@@ -17522,7 +17552,7 @@
       "file": "extensions/mssa-mentor/package.json",
       "description": "File: extensions/mssa-mentor/package.json",
       "extension": ".json",
-      "size_bytes": 4882
+      "size_bytes": 4731
     },
     {
       "id": "code-schema:extensions/mssa-mentor/package.json",
@@ -17703,7 +17733,7 @@
       "file": "extensions/mssa-mentor/README.md",
       "description": "File: extensions/mssa-mentor/README.md",
       "extension": ".md",
-      "size_bytes": 5651
+      "size_bytes": 5536
     },
     {
       "id": "code-section:extensions/mssa-mentor/README.md::What_you_get",
@@ -17777,7 +17807,7 @@
       "file": "extensions/mssa-mentor/SETUP.md",
       "description": "File: extensions/mssa-mentor/SETUP.md",
       "extension": ".md",
-      "size_bytes": 7941
+      "size_bytes": 7674
     },
     {
       "id": "code-section:extensions/mssa-mentor/SETUP.md::Overview",
@@ -17859,7 +17889,7 @@
       "file": "extensions/mssa-mentor/src/chatOpener.ts",
       "description": "File: extensions/mssa-mentor/src/chatOpener.ts",
       "extension": ".ts",
-      "size_bytes": 1707
+      "size_bytes": 1655
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/chatOpener.ts::openMentorChat",
@@ -17877,7 +17907,7 @@
       "file": "extensions/mssa-mentor/src/commands/newProject.ts",
       "description": "File: extensions/mssa-mentor/src/commands/newProject.ts",
       "extension": ".ts",
-      "size_bytes": 2392
+      "size_bytes": 2342
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/commands/newProject.ts::registerNewProjectCommand",
@@ -17919,7 +17949,7 @@
       "file": "extensions/mssa-mentor/src/commands/resumeOrStart.ts",
       "description": "File: extensions/mssa-mentor/src/commands/resumeOrStart.ts",
       "extension": ".ts",
-      "size_bytes": 4133
+      "size_bytes": 4031
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/commands/resumeOrStart.ts::pickResumePrompt",
@@ -17985,7 +18015,7 @@
       "file": "extensions/mssa-mentor/src/commands/welcome.ts",
       "description": "File: extensions/mssa-mentor/src/commands/welcome.ts",
       "extension": ".ts",
-      "size_bytes": 1572
+      "size_bytes": 1532
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/commands/welcome.ts::registerWelcomeCommands",
@@ -18019,7 +18049,7 @@
       "file": "extensions/mssa-mentor/src/curriculumFetch.ts",
       "description": "File: extensions/mssa-mentor/src/curriculumFetch.ts",
       "extension": ".ts",
-      "size_bytes": 6478
+      "size_bytes": 6272
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/curriculumFetch.ts::isStale",
@@ -18093,7 +18123,7 @@
       "file": "extensions/mssa-mentor/src/envSetup.ts",
       "description": "File: extensions/mssa-mentor/src/envSetup.ts",
       "extension": ".ts",
-      "size_bytes": 780
+      "size_bytes": 759
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/envSetup.ts::setMentorHomeEnv",
@@ -18119,7 +18149,7 @@
       "file": "extensions/mssa-mentor/src/extension.ts",
       "description": "File: extensions/mssa-mentor/src/extension.ts",
       "extension": ".ts",
-      "size_bytes": 7186
+      "size_bytes": 7022
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/extension.ts::activate",
@@ -18241,7 +18271,7 @@
       "file": "extensions/mssa-mentor/src/paths.ts",
       "description": "File: extensions/mssa-mentor/src/paths.ts",
       "extension": ".ts",
-      "size_bytes": 1919
+      "size_bytes": 1863
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/paths.ts::getMentorHome",
@@ -18291,7 +18321,7 @@
       "file": "extensions/mssa-mentor/src/pendingGreetings.ts",
       "description": "File: extensions/mssa-mentor/src/pendingGreetings.ts",
       "extension": ".ts",
-      "size_bytes": 2972
+      "size_bytes": 2887
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/pendingGreetings.ts::writePendingGreeting",
@@ -18325,7 +18355,7 @@
       "file": "extensions/mssa-mentor/src/powershellCheck.ts",
       "description": "File: extensions/mssa-mentor/src/powershellCheck.ts",
       "extension": ".ts",
-      "size_bytes": 2478
+      "size_bytes": 2398
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/powershellCheck.ts::probePowerShell",
@@ -18351,7 +18381,7 @@
       "file": "extensions/mssa-mentor/src/profileReader.ts",
       "description": "File: extensions/mssa-mentor/src/profileReader.ts",
       "extension": ".ts",
-      "size_bytes": 7233
+      "size_bytes": 7007
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/profileReader.ts::getCurrentUsername",
@@ -18401,7 +18431,7 @@
       "file": "extensions/mssa-mentor/src/skillLoader.ts",
       "description": "File: extensions/mssa-mentor/src/skillLoader.ts",
       "extension": ".ts",
-      "size_bytes": 3358
+      "size_bytes": 3248
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/skillLoader.ts::getSkillsToPreload",
@@ -18451,7 +18481,7 @@
       "file": "extensions/mssa-mentor/src/statusBar.ts",
       "description": "File: extensions/mssa-mentor/src/statusBar.ts",
       "extension": ".ts",
-      "size_bytes": 2388
+      "size_bytes": 2306
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/statusBar.ts::createStatusBar",
@@ -18485,7 +18515,7 @@
       "file": "extensions/mssa-mentor/src/statusBarState.ts",
       "description": "File: extensions/mssa-mentor/src/statusBarState.ts",
       "extension": ".ts",
-      "size_bytes": 2411
+      "size_bytes": 2345
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/statusBarState.ts::computeStatusBarState",
@@ -18543,7 +18573,7 @@
       "file": "extensions/mssa-mentor/src/test/runTest.ts",
       "description": "File: extensions/mssa-mentor/src/test/runTest.ts",
       "extension": ".ts",
-      "size_bytes": 1047
+      "size_bytes": 1015
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/test/runTest.ts::main",
@@ -18561,7 +18591,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/activation.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/activation.test.ts",
       "extension": ".ts",
-      "size_bytes": 1649
+      "size_bytes": 1600
     },
     {
       "id": "code-file:extensions/mssa-mentor/src/test/suite/envSetup.test.ts",
@@ -18571,7 +18601,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/envSetup.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/envSetup.test.ts",
       "extension": ".ts",
-      "size_bytes": 1442
+      "size_bytes": 1395
     },
     {
       "id": "code-import:extensions/mssa-mentor/src/test/suite/envSetup.test.ts::../../envSetup",
@@ -18589,7 +18619,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/index.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/index.ts",
       "extension": ".ts",
-      "size_bytes": 875
+      "size_bytes": 838
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/test/suite/index.ts::run",
@@ -18607,7 +18637,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/paths.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/paths.test.ts",
       "extension": ".ts",
-      "size_bytes": 2324
+      "size_bytes": 2251
     },
     {
       "id": "code-file:extensions/mssa-mentor/src/test/suite/pendingGreetings.test.ts",
@@ -18617,7 +18647,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/pendingGreetings.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/pendingGreetings.test.ts",
       "extension": ".ts",
-      "size_bytes": 2336
+      "size_bytes": 2266
     },
     {
       "id": "code-import:extensions/mssa-mentor/src/test/suite/pendingGreetings.test.ts::../../pendingGreetings",
@@ -18635,7 +18665,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/profileReader.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/profileReader.test.ts",
       "extension": ".ts",
-      "size_bytes": 6214
+      "size_bytes": 6034
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/test/suite/profileReader.test.ts::seedProfile",
@@ -18661,7 +18691,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/skillLoader.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/skillLoader.test.ts",
       "extension": ".ts",
-      "size_bytes": 4221
+      "size_bytes": 4103
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/test/suite/skillLoader.test.ts::seedCurriculum",
@@ -18695,7 +18725,7 @@
       "file": "extensions/mssa-mentor/src/test/suite/statusBarState.test.ts",
       "description": "File: extensions/mssa-mentor/src/test/suite/statusBarState.test.ts",
       "extension": ".ts",
-      "size_bytes": 1966
+      "size_bytes": 1911
     },
     {
       "id": "code-import:extensions/mssa-mentor/src/test/suite/statusBarState.test.ts::../../profileReader",
@@ -18713,7 +18743,7 @@
       "file": "extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
       "description": "File: extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts",
       "extension": ".ts",
-      "size_bytes": 6990
+      "size_bytes": 6775
     },
     {
       "id": "code-func:extensions/mssa-mentor/src/tools/scaffoldAndOpen.ts::performScaffold",
@@ -18787,7 +18817,7 @@
       "file": "extensions/mssa-mentor/tests/curriculum-auto-fetch.test.md",
       "description": "File: extensions/mssa-mentor/tests/curriculum-auto-fetch.test.md",
       "extension": ".md",
-      "size_bytes": 2679
+      "size_bytes": 2600
     },
     {
       "id": "code-section:extensions/mssa-mentor/tests/curriculum-auto-fetch.test.md::Setup",
@@ -18893,7 +18923,7 @@
       "file": "extensions/mssa-mentor/tests/extension-activation.test.md",
       "description": "File: extensions/mssa-mentor/tests/extension-activation.test.md",
       "extension": ".md",
-      "size_bytes": 2813
+      "size_bytes": 2736
     },
     {
       "id": "code-section:extensions/mssa-mentor/tests/extension-activation.test.md::Setup",
@@ -18999,7 +19029,7 @@
       "file": "extensions/mssa-mentor/tests/powershell-precheck.test.md",
       "description": "File: extensions/mssa-mentor/tests/powershell-precheck.test.md",
       "extension": ".md",
-      "size_bytes": 2445
+      "size_bytes": 2367
     },
     {
       "id": "code-section:extensions/mssa-mentor/tests/powershell-precheck.test.md::Setup",
@@ -19105,7 +19135,7 @@
       "file": "extensions/mssa-mentor/tests/scaffold-tool-end-to-end.test.md",
       "description": "File: extensions/mssa-mentor/tests/scaffold-tool-end-to-end.test.md",
       "extension": ".md",
-      "size_bytes": 2816
+      "size_bytes": 2746
     },
     {
       "id": "code-section:extensions/mssa-mentor/tests/scaffold-tool-end-to-end.test.md::Setup",
@@ -19211,7 +19241,7 @@
       "file": "extensions/mssa-mentor/tests/status-bar-flow.test.md",
       "description": "File: extensions/mssa-mentor/tests/status-bar-flow.test.md",
       "extension": ".md",
-      "size_bytes": 2448
+      "size_bytes": 2369
     },
     {
       "id": "code-section:extensions/mssa-mentor/tests/status-bar-flow.test.md::Setup",
@@ -19309,7 +19339,7 @@
       "file": "extensions/mssa-mentor/tests/welcome-on-first-run.test.md",
       "description": "File: extensions/mssa-mentor/tests/welcome-on-first-run.test.md",
       "extension": ".md",
-      "size_bytes": 2381
+      "size_bytes": 2315
     },
     {
       "id": "code-section:extensions/mssa-mentor/tests/welcome-on-first-run.test.md::Setup",
@@ -19415,7 +19445,7 @@
       "file": "extensions/mssa-mentor/tsconfig.json",
       "description": "File: extensions/mssa-mentor/tsconfig.json",
       "extension": ".json",
-      "size_bytes": 384
+      "size_bytes": 368
     },
     {
       "id": "code-schema:extensions/mssa-mentor/tsconfig.json",
@@ -19452,7 +19482,7 @@
       "file": "README.md",
       "description": "File: README.md",
       "extension": ".md",
-      "size_bytes": 4557
+      "size_bytes": 4440
     },
     {
       "id": "code-section:README.md::For_Learners",
@@ -31473,12 +31503,6 @@
       "label": "calls Check"
     },
     {
-      "source": "code-file:.github/knowledge-graph/build/core/health.ps1",
-      "target": "code-func:.github/knowledge-graph/build/advanced/gap-analysis.ps1::Find-Root",
-      "type": "calls",
-      "label": "calls Find-Root"
-    },
-    {
       "source": "code-file:.github/knowledge-graph/build/core/rebuild-if-stale.ps1",
       "target": "code-func:.github/knowledge-graph/cli/tests/smoke-whiteboard.ps1::Check",
       "type": "calls",
@@ -31501,12 +31525,6 @@
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/audit/find-drift.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/audit/find-drift.ps1::Get-StringFields",
-      "type": "calls",
-      "label": "calls Get-StringFields"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/audit/find-missing-files.ps1",
@@ -31575,12 +31593,6 @@
       "label": "calls Write-Warning"
     },
     {
-      "source": "code-file:.github/knowledge-graph/cli/inspect/show-profile.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/inspect/show-profile.ps1::Resolve-MenteesDir",
-      "type": "calls",
-      "label": "calls Resolve-MenteesDir"
-    },
-    {
       "source": "code-file:.github/knowledge-graph/cli/inspect/show-progress.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
@@ -31609,24 +31621,6 @@
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
       "label": "calls Write-Error"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/session/derive-views.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/session/derive-views.ps1::Get-SessionHistory",
-      "type": "calls",
-      "label": "calls Get-SessionHistory"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/session/derive-views.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/session/derive-views.ps1::Read-Events",
-      "type": "calls",
-      "label": "calls Read-Events"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/cli/session/derive-views.ps1",
-      "target": "code-func:.github/knowledge-graph/cli/session/append-event.ps1::Resolve-ProgressPath",
-      "type": "calls",
-      "label": "calls Resolve-ProgressPath"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/session/migrate-profile-to-events.ps1",
@@ -31668,7 +31662,7 @@
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
-      "label": "calls Test-Event"
+      "label": "calls Write-GraphHeader"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
@@ -31678,6 +31672,24 @@
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
+      "type": "calls",
+      "label": "calls Write-GraphSuggestions"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
+      "type": "calls",
+      "label": "calls Write-GraphHeader"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
+      "type": "calls",
+      "label": "calls Write-GraphSection"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
@@ -31689,25 +31701,7 @@
       "label": "calls Get-Dependencies"
     },
     {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
-      "type": "calls",
-      "label": "calls Write-GraphHeader"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSection",
-      "type": "calls",
-      "label": "calls Write-GraphSection"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
-      "type": "calls",
-      "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1",
+      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
       "type": "calls",
       "label": "calls Write-GraphHeader"
@@ -31723,36 +31717,12 @@
       "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphSuggestions",
       "type": "calls",
       "label": "calls Write-GraphSuggestions"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-Dependents.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/_Format-GraphOutput.ps1::Write-GraphHeader",
-      "type": "calls",
-      "label": "calls Write-GraphHeader"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Estimate-Tokens",
-      "type": "calls",
-      "label": "calls Estimate-Tokens"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-FileIndex",
-      "type": "calls",
-      "label": "calls Get-FileIndex"
-    },
-    {
-      "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
-      "target": "code-func:.github/knowledge-graph/queries/Get-IntegrationContext.ps1::Get-BfsNeighborhood",
-      "type": "calls",
-      "label": "calls Get-BfsNeighborhood"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-IntegrationContext.ps1",
       "target": "code-func:.github/hooks/pre-commit.ps1::Write-Error",
       "type": "calls",
-      "label": "calls Write-GraphPath"
+      "label": "calls Write-Error"
     },
     {
       "source": "code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1",
