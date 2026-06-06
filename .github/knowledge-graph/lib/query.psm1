@@ -618,7 +618,7 @@ function Get-EdgeTaxonomy {
             # flow control
             'next', 'routes_to', 'handles', 'escalates_to', 'delegates_to',
             'triggers', 'progresses_to', 'starts_with', 'ends_with',
-            'fallback_to', 'concluded_with', 'appends_to',
+            'fallback_to', 'concluded_with', 'appends_to', 'precedes',
             # constraints (inverse-meaning carriers — the avoided thing is load-bearing
             # precisely because the agent refuses it)
             'forbids', 'avoids', 'prefers', 'constrained_by',

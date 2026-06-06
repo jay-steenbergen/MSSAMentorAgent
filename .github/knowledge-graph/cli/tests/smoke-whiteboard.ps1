@@ -1,8 +1,8 @@
 # Smoke test: whiteboard method integration
-# Usage: pwsh -NoProfile -File .github/knowledge-graph/tests/smoke-whiteboard.ps1
+# Usage: pwsh -NoProfile -File .github/knowledge-graph/cli/tests/smoke-whiteboard.ps1
 
 $ErrorActionPreference = 'Stop'
-Set-Location (Join-Path $PSScriptRoot '..' '..' '..')
+Set-Location (Join-Path $PSScriptRoot '..' '..' '..' '..')
 
 $fail = 0
 function Check($name, $ok) {
@@ -38,11 +38,15 @@ if ($exists) {
 }
 
 # 3. Mentor.agent.md wiring
+# Updated 2026-06-06: agent uses dynamic-skill-loading now, so the literal
+# `whiteboard/SKILL.md` reference is no longer in the static skills: array.
+# The contract surface is: (a) whiteboard appears in the method enum, and
+# (b) the agent follows behavior:13-stub-completion (the canonical id).
 Write-Host "`nMENTOR AGENT" -ForegroundColor Cyan
 $agent = Get-Content .github/agents/Mentor.agent.md -Raw
-Check "skills: array references whiteboard"   ($agent -match 'whiteboard/SKILL\.md')
+Check "method enum lists whiteboard"          ($agent -match 'method:.*whiteboard')
 Check "Methods list includes ``whiteboard``"    ($agent -match '`whiteboard`')
-Check "## Stub-completion mode section"       ($agent -match '## Stub-completion mode')
+Check "follows: lists behavior:13-stub-completion" ($agent -match 'behavior:13-stub-completion')
 Check "core_behavior names vscode_askQuestions" ($agent -match 'vscode_askQuestions')
 
 # 4. ask-as-clickable behavior wired

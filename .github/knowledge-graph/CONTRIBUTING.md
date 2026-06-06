@@ -57,7 +57,7 @@ All five must exit 0 before pushing:
 
 ```powershell
 $tests = @(
-  '.github/knowledge-graph/tests/test-graph.ps1',
+  '.github/knowledge-graph/cli/tests/test-graph.ps1',
   '.github/knowledge-graph/cli/tests/test-e2e.ps1',
   '.github/knowledge-graph/cli/tests/test-scaffold.ps1',
   '.github/knowledge-graph/cli/tests/test-graph-writer.ps1',

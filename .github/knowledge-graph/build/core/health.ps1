@@ -113,8 +113,10 @@ $findings['duplicate-node-ids'] = @{ severity = 'FAIL'; count = $dupeIds.Count; 
 $excludedPatterns = @(
     '\.github[/\\]knowledge-graph[/\\]build[/\\]',      # Graph build scripts
     '\.github[/\\]knowledge-graph[/\\]data[/\\]',       # Graph source data
-    '\.github[/\\]knowledge-graph[/\\]tests[/\\]',      # Graph tests
     '\.github[/\\]knowledge-graph[/\\]output[/\\]'      # Graph artifacts
+    # NOTE: knowledge-graph/tests/ is intentionally NOT excluded — the new
+    # test infrastructure lives there and every .test.ps1 file gets a code-file
+    # node so the audit can verify [tests] edges.
 )
 $stubs = @($nodes | Where-Object { 
     $_.PSObject.Properties.Name -contains 'missing' -and $_.missing -eq $true 
@@ -466,20 +468,31 @@ try {
 if ($gitAvailable) {
     Push-Location $repoRoot
     try {
-        # Get all tracked source files
+        # Get all tracked source files. Subtract files marked for deletion in the
+        # working tree (git ls-files --deleted) — they're still indexed but the
+        # file no longer exists, so they'd false-fail the coverage check.
+        $deletedFiles = @(git ls-files --deleted | ForEach-Object { $_ -replace '\\', '/' })
+        $deletedSet = [System.Collections.Generic.HashSet[string]]::new()
+        foreach ($d in $deletedFiles) { [void]$deletedSet.Add($d) }
         $trackedFiles = @(git ls-files | Where-Object {
             $_ -match '\.(ps1|psm1|ts|tsx|cs|csproj|md|json|yaml|yml|agent\.md)$'
-        } | ForEach-Object { $_ -replace '\\', '/' })
+        } | ForEach-Object { $_ -replace '\\', '/' } | Where-Object {
+            -not $deletedSet.Contains($_)
+        })
 
         # Paths the extractor intentionally excludes (self-referential or build artifacts)
+        # NOTE: knowledge-graph/tests/ removed from this list — see comment above.
         $intentionalExcludes = @(
             '[/\\](bin|obj|node_modules)[/\\]',
-            'knowledge-graph[/\\](build|data|tests|output|demos)[/\\]',
-            'knowledge-graph[/\\](build|data|tests|output|demos)$',
+            'knowledge-graph[/\\](build|data|output|demos)[/\\]',
+            'knowledge-graph[/\\](build|data|output|demos)$',
             # cli/archive/ holds historical scripts the agent no longer uses.
             # Excluded from auto-discover (no cli-tool node) and extract-code-graph
             # (no code-file node). Coverage check must mirror or it false-fails.
             'knowledge-graph[/\\]cli[/\\]archive[/\\]',
+            # Template test files (start with `_`) are scaffolding, not invoked
+            # by run-tests.ps1. Mirrored in extract-code-graph.ps1 $excludeMatch.
+            'knowledge-graph[/\\]tests[/\\].*[/\\]_[^/\\]+\.test\.ps1$',
             # Implicit entrypoint landing-page docs — same exemption as find-orphan-markdown.ps1.
             # These don't need graph nodes (they're navigation, not artifacts).
             '(^|[/\\])README\.md$',
@@ -589,8 +602,8 @@ while ($changed) {
 # Step 3: Files that are NOT reachable from any system node are deletion candidates
 # Exclude files in directories that are inherently infrastructure (knowledge-graph build/data/tests)
 $infraExcludes = @(
-    'knowledge-graph[/\\](build|data|tests|output|demos|queries|cli|lib)[/\\]',
-    'knowledge-graph[/\\](build|data|tests|output|demos|queries|cli|lib)$'
+    'knowledge-graph[/\\](build|data|output|demos|queries|cli|lib)[/\\]',
+    'knowledge-graph[/\\](build|data|output|demos|queries|cli|lib)$'
 )
 
 foreach ($cf in $allCodeFiles) {

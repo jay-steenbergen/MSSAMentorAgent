@@ -127,6 +127,38 @@ if ($hookFilesTouched.Count -gt 0 -and (Test-Path $smokeTestScript)) {
     }
 }
 
+# Step 0a4: Run the FAST subset of the graph test suite (unit only) whenever
+# anything in .github/knowledge-graph/ or .github/hooks/ is staged. Unit
+# tests are sub-second because they read the cached graph in-memory.
+# Integration / gate / e2e wrappers spawn extra pwsh children — they run
+# on-demand via `run-tests.ps1` or in CI, not in pre-commit.
+$testRunner = Join-Path $repoRoot '.github' 'knowledge-graph' 'tests' 'run-tests.ps1'
+$infraStaged = @($stagedFiles | Where-Object {
+    $_ -match '^\.github/knowledge-graph/' -or
+    $_ -match '^\.github/hooks/' -or
+    $_ -match '^\.github/agents/.*\.agent\.md$'
+})
+if ($infraStaged.Count -gt 0 -and (Test-Path $testRunner)) {
+    Write-Header "🧪 Running graph unit tests..."
+    try {
+        $runnerOutput = & pwsh -NoProfile -File $testRunner -Filter unit -Quiet 2>&1 | Out-String
+        $runnerExit = $LASTEXITCODE
+        Write-Host ("  " + $runnerOutput.Trim()) -ForegroundColor $(if ($runnerExit -eq 0) { 'Green' } else { 'Red' })
+        if ($runnerExit -ne 0) {
+            Write-Error "Graph unit tests have failing cases"
+            Write-Host ""
+            Write-Host "See per-test failures with:" -ForegroundColor Yellow
+            Write-Host "  pwsh .github/knowledge-graph/tests/run-tests.ps1 -Filter unit" -ForegroundColor White
+            Write-Host ""
+            Write-Host "Bypass (not recommended): git commit --no-verify" -ForegroundColor DarkGray
+            exit 1
+        }
+    } catch {
+        Write-Error "Graph test suite encountered an error: $_"
+        exit 1
+    }
+}
+
 # Step 0b: UX-change verification gate. Any change to user-facing surfaces
 # (agent rules, behaviors, skills, extension chat openers / commands) requires
 # the commit message to carry a [Verification: ...] tag. Compiles passing or

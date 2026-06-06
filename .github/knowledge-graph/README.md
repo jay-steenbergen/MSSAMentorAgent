@@ -121,7 +121,7 @@ pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1
 pwsh .github/knowledge-graph/build/core/rebuild-if-stale.ps1 -Force
 
 # Test the graph (12 functional tests)
-pwsh .github/knowledge-graph/tests/test-graph.ps1
+pwsh .github/knowledge-graph/cli/tests/test-graph.ps1
 
 # Health check (topology validation)
 pwsh .github/knowledge-graph/build/core/health.ps1 -Layer merged
@@ -184,7 +184,7 @@ All 12 passing = graph is production-ready.
 |---|---|---|
 | `build/core/health.ps1` | Topology validation (13 checks) | After every rebuild; CI gate |
 | `build/advanced/gap-analysis.ps1` | Triage health findings into REAL GAP / EXPECTED / NEEDS REVIEW | When health.ps1 shows warnings/failures |
-| `tests/test-graph.ps1` | Functional validation (12 tests) | Before deploying graph-dependent features |
+| `cli/tests/test-graph.ps1` | Functional validation (12 tests) | Before deploying graph-dependent features |
 | `build/core/rebuild-if-stale.ps1` | Self-healing rebuild | Before any graph query; in pre-commit hooks |
 
 **DONE definition:** `health.ps1` reports `FAIL 0`, `gap-analysis.ps1` reports `REAL GAP 0`, `test-graph.ps1` reports `12/12 passed`.

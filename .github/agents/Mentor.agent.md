@@ -112,7 +112,9 @@ uses:
   - cli-tool:audit-edge-claims
   - cli-tool:audit-quality
   - cli-tool:blast-radius
+  - cli-tool:check-edges
   - cli-tool:check-skill-exists
+  - cli-tool:check-types
   - cli-tool:enforce-method
   - cli-tool:enforce-track
   - cli-tool:find-drift
@@ -135,10 +137,12 @@ uses:
   - cli-tool:show-skill-impact
   - cli-tool:test-load-list
   - cli-tool:test-runner
+  - cli-tool:validate-audit
   - cli-tool:validate-events
   - cli-tool:validate-goal
   - cli-tool:validate-paths
   - cli-tool:validate-pwsh
+  - infra:test-suite
   - code-file:.github/knowledge-graph/queries/Get-CallFlow.ps1
   - code-file:.github/knowledge-graph/queries/Get-Dependencies.ps1
   - code-file:.github/knowledge-graph/queries/Get-Dependents.ps1

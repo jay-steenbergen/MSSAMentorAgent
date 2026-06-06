@@ -2762,6 +2762,14 @@
       "description": "GitHub Actions workflow that rebuilds the knowledge graph on push to main. Runs extract-code-graph.ps1 + merge.ps1, commits the result via mssa-mentor-bot."
     },
     {
+      "id": "infra:test-suite",
+      "type": "infra",
+      "label": "knowledge-graph test suite",
+      "cluster": "infra-layer",
+      "file": ".github/knowledge-graph/tests/",
+      "description": "Test infrastructure for the knowledge graph and tooling. Lives under the tests directory with buckets unit, integration, gate, and e2e. Auto-discovered by run-tests.ps1 (any *.test.ps1 file). Harness in _harness.psm1 provides assertions plus cached graph load. See the tests README for how to write and run tests."
+    },
+    {
       "id": "test:activation",
       "type": "test",
       "label": "activation.test.ts",
@@ -4023,7 +4031,7 @@
       "type": "test",
       "label": "test-graph.ps1",
       "cluster": "validation-layer",
-      "file": ".github/knowledge-graph/tests/test-graph.ps1",
+      "file": ".github/knowledge-graph/cli/tests/test-graph.ps1",
       "description": "10+ test suite validating graph query operations, relationships, path finding, and real-world use cases against query.psm1"
     },
     {
@@ -5426,6 +5434,30 @@
       "label": "show-confidence.ps1",
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/inspect/show-confidence.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:validate-audit",
+      "type": "cli-tool",
+      "label": "validate-audit.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/audit/validate-audit.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:check-edges",
+      "type": "cli-tool",
+      "label": "check-edges.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/inspect/check-edges.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:check-types",
+      "type": "cli-tool",
+      "label": "check-types.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/inspect/check-types.ps1",
       "description": "CLI script from knowledge-graph tooling."
     }
   ],
@@ -9269,6 +9301,90 @@
       "label": "CI re-merges layers on push to main"
     },
     {
+      "source": "agent:mentor",
+      "target": "infra:test-suite",
+      "type": "uses",
+      "label": "agent invokes the test suite to validate changes"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/run-tests.ps1",
+      "type": "runs",
+      "label": "test-suite runner entry point"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/_harness.psm1",
+      "type": "uses",
+      "label": "shared assertions + cached graph"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/README.md",
+      "type": "documented_in",
+      "label": "how to write + run tests"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/unit/graph-invariants.test.ps1",
+      "type": "contains",
+      "label": "unit: graph structural invariants"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/audit-trust-floor.test.ps1",
+      "type": "contains",
+      "label": "integration: audit trust floor (100%)"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/extractor-stability.test.ps1",
+      "type": "contains",
+      "label": "integration: extractor stability pins"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/graph-queries.test.ps1",
+      "type": "contains",
+      "label": "integration: graph query operations"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/agent-sync.test.ps1",
+      "type": "contains",
+      "label": "integration: agent-sync module (known-failing wrapper)"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/graph-writer.test.ps1",
+      "type": "contains",
+      "label": "integration: graph-writer module"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/scaffold.test.ps1",
+      "type": "contains",
+      "label": "integration: scaffold module"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/integration/skill-whiteboard.test.ps1",
+      "type": "contains",
+      "label": "integration: whiteboard skill smoke"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/gate/pre-commit-gates.test.ps1",
+      "type": "contains",
+      "label": "gate: pre-commit gate smoke (8 cases)"
+    },
+    {
+      "source": "infra:test-suite",
+      "target": "code-file:.github/knowledge-graph/tests/e2e/add-skill-roundtrip.test.ps1",
+      "type": "contains",
+      "label": "e2e: add/remove skill round-trip"
+    },
+    {
       "source": "test-suite:extension",
       "target": "test:activation",
       "type": "runs",
@@ -11465,12 +11581,6 @@
       "label": "defined in"
     },
     {
-      "source": "agent:mentor",
-      "target": "cli-tool:validate-pwsh",
-      "type": "uses",
-      "label": "uses tool"
-    },
-    {
       "source": "cli-tool:validate-pwsh",
       "target": "code-file:.github/knowledge-graph/cli/validate/validate-pwsh.ps1",
       "type": "defined_in",
@@ -11485,6 +11595,42 @@
     {
       "source": "cli-tool:show-confidence",
       "target": "code-file:.github/knowledge-graph/cli/inspect/show-confidence.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:validate-audit",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:check-edges",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:check-types",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "cli-tool:validate-audit",
+      "target": "code-file:.github/knowledge-graph/cli/audit/validate-audit.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:check-edges",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/check-edges.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:check-types",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/check-types.ps1",
       "type": "defined_in",
       "label": "defined in"
     }

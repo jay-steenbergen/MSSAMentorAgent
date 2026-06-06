@@ -130,6 +130,7 @@ $includePatterns = @(
     '.github/knowledge-graph/cli',      # CLI scripts
     '.github/knowledge-graph/queries',  # Query scripts
     '.github/knowledge-graph/build',    # Build pipeline scripts (core/advanced/repair)
+    '.github/knowledge-graph/tests',    # NEW test infrastructure (unit/integration/gate/e2e)
     '.github/knowledge-graph/AUTHORING.md',  # Authoring conventions doc
     '.profiles',
     'extensions',                       # VS Code extensions
@@ -143,10 +144,17 @@ $includePatterns = @(
 # knowledge-graph/cli/archive/ holds historical scripts the agent no longer uses; including
 # them creates dangling code-file nodes with no upstream cli-tool wrapper (auto-discover
 # also skips archive/ — keep both in sync).
+# knowledge-graph/tests/ IS scanned (intentional): the new test infrastructure lives there
+# (unit/, integration/, gate/, e2e/, _harness.psm1, run-tests.ps1) and we want code-file
+# nodes for every test so the audit can verify [tests] edges.
 $excludeMatch = @(
     '\\bin\\', '\\obj\\', '\\node_modules\\', '\\.git\\',
-    '\\knowledge-graph\\data\\', '\\knowledge-graph\\tests\\',
+    '\\knowledge-graph\\data\\',
     '\\knowledge-graph\\cli\\archive\\',
+    # Template / scaffolding files in tests/ — these start with `_` and are
+    # never invoked by run-tests.ps1; they exist for copy-paste only.
+    # Without this exclude they become orphan code-file nodes.
+    '\\knowledge-graph\\tests\\.*\\_[^\\]+\.test\.ps1$',
     '\\.vscode-test\\', '\\coverage\\', '\\.nyc_output\\', '\\tmp\\', '\\out\\', '\\dist\\', '\\.vsix-temp\\'
 )
 
@@ -643,9 +651,14 @@ foreach ($f in ($files | Where-Object { $_.Extension -eq '.ps1' })) {
         # must appear at least once beyond its own definition (PS funcs are usually called somewhere besides "function X")
         $defPattern = '(?m)^\s*function\s+' + [regex]::Escape($name) + '\s*[\({]'
         $isDefinedHere = [regex]::IsMatch($content, $defPattern)
-        # if defined here, require >1 occurrence to count it as a call
-        $threshold = if ($isDefinedHere) { 1 } else { 0 }
-        if ($matchHits.Count -gt $threshold) {
+        # SKIP self-calls: if the file already defines the function, the
+        # [contains] edge carries the canonical relationship. Emitting [calls]
+        # on the same source->target pair creates "multi-carrier" duplicate
+        # edges that show up as edge-quality warnings in health.ps1.
+        # External callers (file A calls function defined in file B) still get
+        # the [calls] edge — that's the case the relationship was designed for.
+        if ($isDefinedHere) { continue }
+        if ($matchHits.Count -gt 0) {
             $key = $fileId + '|' + $funcIndex[$name]
             if (-not $seenCalls.ContainsKey($key)) {
                 Add-Edge $fileId $funcIndex[$name] 'calls' "calls $name"
