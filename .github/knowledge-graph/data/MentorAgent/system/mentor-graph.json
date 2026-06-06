@@ -5427,6 +5427,22 @@
       "cluster": "profile-system",
       "file": ".github/knowledge-graph/cli/validate/validate-pwsh.ps1",
       "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:audit-edge-claims",
+      "type": "cli-tool",
+      "label": "audit-edge-claims.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/audit/audit-edge-claims.ps1",
+      "description": "CLI script from knowledge-graph tooling."
+    },
+    {
+      "id": "cli-tool:show-confidence",
+      "type": "cli-tool",
+      "label": "show-confidence.ps1",
+      "cluster": "profile-system",
+      "file": ".github/knowledge-graph/cli/inspect/show-confidence.ps1",
+      "description": "CLI script from knowledge-graph tooling."
     }
   ],
   "metadata": {
@@ -10945,10 +10961,34 @@
       "label": "uses tool"
     },
     {
+      "source": "agent:mentor",
+      "target": "cli-tool:audit-edge-claims",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
+      "source": "agent:mentor",
+      "target": "cli-tool:show-confidence",
+      "type": "uses",
+      "label": "uses tool"
+    },
+    {
       "source": "behavior:34-verify-ux-fix-in-fresh-chat",
       "target": "cli-tool:blast-radius",
       "type": "uses",
       "label": "blast-radius surfaces all entry points before claiming fix works"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/tests/test-extractor-stability.ps1",
+      "target": "code-file:.github/knowledge-graph/build/core/extract-code-graph.ps1",
+      "type": "tests",
+      "label": "pins must-exist nodes/edges produced by the extractor"
+    },
+    {
+      "source": "code-file:.github/knowledge-graph/cli/tests/test-extractor-stability.ps1",
+      "target": "code-file:.github/knowledge-graph/build/advanced/auto-discover-features.ps1",
+      "type": "tests",
+      "label": "pins must-exist nodes produced by auto-discover"
     },
     {
       "source": "code-file:.github/knowledge-graph/cli/tests/test-pre-commit-hook.ps1",
@@ -11473,6 +11513,18 @@
     {
       "source": "cli-tool:validate-pwsh",
       "target": "code-file:.github/knowledge-graph/cli/validate/validate-pwsh.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:audit-edge-claims",
+      "target": "code-file:.github/knowledge-graph/cli/audit/audit-edge-claims.ps1",
+      "type": "defined_in",
+      "label": "defined in"
+    },
+    {
+      "source": "cli-tool:show-confidence",
+      "target": "code-file:.github/knowledge-graph/cli/inspect/show-confidence.ps1",
       "type": "defined_in",
       "label": "defined in"
     }
