@@ -25,6 +25,8 @@ If the mentor is doing the typing, the learner is not learning. If the learner i
 
 ### 1. Open with intent (≈3 minutes)
 
+> Implements `behavior:02-open-with-intent` (anchor: `ride-along:1-open`). This step is the ride-along method's concrete implementation of the mentor's "open with intent" contract — ask time, anchor track, offer two starter paths.
+
 Ask, in this order:
 
 1. *What do you want to be able to do by the end of this session?*
@@ -73,6 +75,8 @@ End every session with:
 
 ## Altitude calibration
 
+> Implements `ride-along:altitude-table` — the signal-to-adjustment lookup the ride-along method uses to keep one move ahead of the learner without leaving them behind.
+
 You are constantly choosing how much to explain. Read these signals:
 
 | Signal | Adjust to |
@@ -91,6 +95,8 @@ You are constantly choosing how much to explain. Read these signals:
 - **No skipped after-actions.** Every milestone gets one.
 
 ## Analogy bank
+
+> Implements `ride-along:analogy-bank` — the curated set of operational analogies the ride-along method draws from when the learner needs a concrete mental model.
 
 Use analogies from disciplined operational work the learner already knows. A few that tend to land:
 

@@ -4,6 +4,8 @@ A VS Code chat agent for veterans transitioning through the **Microsoft Software
 
 > Built for the MSSA program. Free, open source, and respects your time.
 
+> **Uses:** the `skill:learner-profile` skill (see `.github/skills/learner-profile/SKILL.md`) for profile creation, persistence, and progress tracking. Edits in `src/profileReader.ts` consume the same `.profiles/profiles/mentees/{username}/profile.json` shape that skill defines.
+
 ---
 
 ## What you get

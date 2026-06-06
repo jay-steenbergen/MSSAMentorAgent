@@ -1,7 +1,7 @@
 # Test: First-Message Greeting — Bare User Input Path
 
 **Type:** Integration — entry-point regression
-**Tests:** `agent:mentor` + `behavior:open-with-mos-joke` + `behavior:01-identify-learner`
+**Tests:** `agent:mentor` + `behavior:33-open-with-mos-joke` + `behavior:01-identify-learner` + `entry-point:user-typed` + `entry-point:extension-seed`
 **Created:** 2026-06-04
 **Why this test exists:** On 2026-06-04 Jay typed `hey` to `@Mentor` and got `Hey. What are we working on?` — a generic greeting with no name, no military riff, no profile load. The agent's session contract said to identify the learner and greet by name, but the agent skipped step 1 entirely. This test pins both paths: name + branch/MOS joke on first message, every time.
 

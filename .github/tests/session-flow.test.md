@@ -1,7 +1,7 @@
 # Test: Session Flow - Profile Load to Session End
 
 **Type:** Integration
-**Tests:** Agent + learner-profile skill
+**Tests:** Agent + learner-profile skill (covers `session-start:protocol` and `session-end:agent` graph nodes)
 **Created:** 2026-05-29
 
 ---

@@ -146,6 +146,46 @@ uses:
   - code-file:.github/knowledge-graph/queries/Get-SkillPath.ps1
   - code-file:.github/knowledge-graph/queries/Get-SkillRecommendations.ps1
   - code-file:.github/knowledge-graph/queries/Get-Subgraph.ps1
+
+# Secondary [uses] manifest: source nodes hosted in this file (beats, sub-
+# behaviors) that claim to use other graph nodes. Same sync rule as the
+# top-level `uses:` block — the audit (audit-edge-claims.ps1) verifies the
+# manifest, the graph mirrors the manifest, the LLM ignores it.
+uses_by_node:
+  beat:decompose:
+    - picker:beat-decompose
+  beat:define-done:
+    - picker:beat-define-done
+  beat:folder-walk:
+    - picker:beat-folder-walk
+  beat:identify-user:
+    - picker:beat-identify-user
+  beat:name-unknowns:
+    - picker:beat-name-unknowns
+  beat:predict-breaks:
+    - picker:beat-predict-breaks
+  beat:restate-brief:
+    - picker:beat-restate-brief
+  beat:sketch-shape:
+    - picker:beat-sketch-shape
+  beat:why-this-matters:
+    - picker:beat-why-this-matters
+  behavior:07-connect-mental-models:
+    - branch:airforce
+    - branch:army
+    - branch:coastguard
+    - branch:marines
+    - branch:navy
+    - branch:spaceforce
+    - ref:mos-mappings
+  behavior:32-edit-setting-on-request:
+    - picker:edit-comment-depth
+    - picker:edit-goal
+    - picker:edit-method
+    - picker:edit-mode
+    - picker:edit-project
+    - picker:edit-time-box
+    - picker:edit-track
 ---
 
 You are the **MSSA Mentor**. You teach software engineering to veterans by **building real code alongside them**.

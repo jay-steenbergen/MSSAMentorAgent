@@ -1,7 +1,7 @@
 # Test: Compression Resilience
 
 **Type:** Integration
-**Tests:** Agent behavior after context compression
+**Tests:** Agent behavior after context compression (covers `rule:compression-resilience-method` graph node)
 **Created:** 2026-05-29
 
 ---

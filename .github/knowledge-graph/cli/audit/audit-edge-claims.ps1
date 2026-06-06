@@ -101,6 +101,10 @@ $nodesById = @{}
 foreach ($n in $graph.nodes) { $nodesById[$n.id] = $n }
 
 # Cache file content reads so we don't re-read the same file dozens of times.
+# When the path points to a directory (e.g. extension:mssa-mentor.file is
+# `extensions/mssa-mentor/`), concatenate all top-level .md + package.json so
+# the audit can find evidence in conventional manifest files without
+# recursively reading the entire tree.
 $fileContentCache = @{}
 function Get-CachedContent {
     param([string]$Path)
@@ -114,7 +118,18 @@ function Get-CachedContent {
         return $null
     }
     try {
-        $content = Get-Content $abs -Raw -ErrorAction Stop
+        if (Test-Path $abs -PathType Container) {
+            # Directory source: aggregate top-level .md + package.json.
+            $parts = @()
+            foreach ($pattern in @('*.md', 'package.json')) {
+                Get-ChildItem $abs -Filter $pattern -File -ErrorAction SilentlyContinue | ForEach-Object {
+                    try { $parts += (Get-Content $_.FullName -Raw -ErrorAction Stop) } catch {}
+                }
+            }
+            $content = $parts -join "`n"
+        } else {
+            $content = Get-Content $abs -Raw -ErrorAction Stop
+        }
         $fileContentCache[$Path] = $content
         return $content
     } catch {

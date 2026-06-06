@@ -404,6 +404,8 @@ Mentor: (commits)
 
 ### After each milestone
 
+> Implements `protocol:progress-after-milestone` — the protocol the agent follows when a learner finishes a milestone. The protocol `[follows] rule:auto-commit-default` — see "Auto-commit vs staged" below.
+
 When the learner completes a milestone (e.g., first function works, tests pass, deployment succeeds):
 
 1. Update their profile:

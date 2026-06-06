@@ -1,7 +1,7 @@
 # Test: Mid-Session Method Switching
 
 **Type:** Integration
-**Tests:** Agent method switching + skill loading
+**Tests:** Agent method switching + skill loading (covers `agent:mentor` invocation flow)
 **Created:** 2026-05-29
 
 ---
